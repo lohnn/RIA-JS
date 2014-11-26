@@ -27719,7 +27719,26 @@ module.exports = require('./lib/React');
 
 var React = require('react');
 
-var App = React.reateClas("h1", null, "Hello, World!");
+var App = React.createClass({
+    displayName: "simple",
+
+    getInitialState: function () {
+        return {count: 0};
+    },
+
+    handleMouseDown: function () {
+        //alert('I was told: ' + this.props.message);
+        this.setState({count: this.state.count + 1});
+    },
+
+    render: function () {
+        return React.DOM.div(null,
+            React.DOM.div({className: "clicker", onMouseDown: this.handleMouseDown},
+                " Give me the message! "),
+            React.DOM.div({className: "message"}, "Message conveyed ", React.DOM.span({className: "count"}, this.state.count), " time(s)")
+        );
+    }
+});
 
 module.exports = App;
 },{"react":149}],151:[function(require,module,exports){
@@ -27734,8 +27753,8 @@ var React = require('react');
 var $ = require("jquery");
 var Firebase = require("firebase");
 
-React.render(
-    App,
+React.renderComponent(
+    App({message: "Hola"}),
     document.getElementById("main")
 );
 var myDataRef = new Firebase('https://lohnn-riajs.firebaseio.com/');

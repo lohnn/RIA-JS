@@ -9,8 +9,8 @@ var React = require('react');
 var $ = require("jquery");
 var Firebase = require("firebase");
 
-React.render(
-    App,
+React.renderComponent(
+    App({message: "Hola"}),
     document.getElementById("main")
 );
 var myDataRef = new Firebase('https://lohnn-riajs.firebaseio.com/');
