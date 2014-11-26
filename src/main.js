@@ -4,10 +4,10 @@
 
 /** @jsx React.dom */
 
-var App = require('./components/app'),
-    Reqct = require('react');
+var App = require('./components/app');
+var React = require('react');
 
-Reqct.renderComponent(
-    App,
+React.render(
+    App({message: "Hola"}),
     document.getElementById("main")
 );
