@@ -6,4 +6,5 @@ before_install:
 script: "gulp"
 branches:
   only:
+    - master
     - gh-pages
