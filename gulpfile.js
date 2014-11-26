@@ -25,15 +25,22 @@ gulp.task('lint', function () {
     gulp.src(['src/*/*.js', 'src/*.js'])
         .pipe(react())
         .pipe(jshint())
-        .pipe(jshint.reporter(stylish))
-        .pipe(jshint.reporter('fail'));
+        .pipe(jshint.reporter(stylish));
+        //.pipe(jshint.reporter('fail'));
 });
 
 // Compile Our Sass
-gulp.task('sass', function() {
-    return gulp.src('scss/*.scss')
+gulp.task('sass', function () {
+    return gulp.src('sass/*.scss')
         .pipe(sass())
         .pipe(gulp.dest('css'));
 });
 
-gulp.task('default', ['lint', 'sass', 'browserify', 'copyindex']);
+gulp.task('watch', function () {
+    gulp.watch('sass/*.scss', ['styles']);
+    gulp.watch('src/main.js', ['browserify']);
+    gulp.watch('src/index.html', ['copyindex']);
+    gulp.watch(['src/*/*.js', 'src/*.js'], ['lint']);
+});
+
+gulp.task('default', ['lint', 'sass', 'browserify', 'copyindex', 'watch']);
