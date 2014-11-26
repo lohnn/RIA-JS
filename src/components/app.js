@@ -2,11 +2,10 @@
  * Created by lohnn on 2014-11-23.
  */
 
-var React = require('react');
-var Firebase = require('firebase');
+/** @jsx React.dom */
 
-var myRootRef = new Firebase('https://myprojectname.firebaseIO-demo.com/');
-myRootRef.set("hello world!");
-var App = React.createElement("h1", null, "Hello, World!");
+var React = require('react');
+
+var App = React.reateClas("h1", null, "Hello, World!");
 
 module.exports = App;
