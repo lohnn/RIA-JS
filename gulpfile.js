@@ -43,4 +43,5 @@ gulp.task('watch', function () {
     gulp.watch(['src/*/*.js', 'src/*.js'], ['lint']);
 });
 
-gulp.task('default', ['lint', 'sass', 'browserify', 'copyindex', 'watch']);
+gulp.task('default', ['lint', 'sass', 'browserify', 'copyindex']);
+gulp.task('watch_task', ['default', 'watch']);
