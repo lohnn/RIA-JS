@@ -18545,7 +18545,6 @@ var App = React.createClass({
         this.messages = [];
         return {
             count: 0,
-            nameInput: "",
             messages: []
         };
     },
@@ -18557,7 +18556,6 @@ var App = React.createClass({
             this.setState({messages: this.messages});
         }.bind(this));
     },
-
     componentWillUnmount: function () {
         this.firebaseRef.off();
     },
@@ -18566,20 +18564,12 @@ var App = React.createClass({
         this.setState({count: this.state.count + 1});
     },
 
-    handleNameChange: function (e) {
-        this.setState({nameInput: e.target.value});
-    },
-
-    handleMessageChange: function (e) {
-        this.setState({messageInput: e.target.value});
-    },
-
     sendMessage: function (e) {
         if (e.which === 13) {
-            var name = this.state.nameInput;
-            var text = this.state.messageInput;
+            var name = this.refs.name.getDOMNode().value;
+            var text = this.refs.message.getDOMNode().value;
             myDataRef.push({name: name, text: text});
-            this.setState({messageInput: ""});
+            this.refs.message.getDOMNode().value = "";
         }
     },
 
@@ -18587,12 +18577,12 @@ var App = React.createClass({
         return React.DOM.div(null,
             React.DOM.div({id: "messagesDiv"}, Message({items: this.state.messages})),
             React.DOM.input({
-                id: "nameInput", type: "text", placeholder: "Name",
-                onChange: this.handleNameChange, value: this.state.nameInput
+                id: "nameInput", ref: "name", type: "text", placeholder: "Name",
+                onChange: this.handleNameChange
             }),
             React.DOM.input({
-                id: "messageInput", type: "text", placeholder: "Message",
-                onKeyPress: this.sendMessage, value: this.state.messageInput, onChange: this.handleMessageChange
+                id: "messageInput", ref: "message", type: "text", placeholder: "Message",
+                onKeyPress: this.sendMessage, onChange: this.handleMessageChange
             }),
             React.DOM.div({className: "clicker", onMouseDown: this.handleMouseDown},
                 " Give me the message! "),
