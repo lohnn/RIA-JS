@@ -7,20 +7,41 @@
 var React = require('react');
 var Firebase = require("firebase");
 var myDataRef = new Firebase('https://lohnn-riajs.firebaseio.com/');
-//var $ = require("jquery");
 
+var Message = React.createClass({
+    render: function () {
+        return React.DOM.div(null, this.props.items.map(function (item) {
+            return React.DOM.div(null,
+                React.DOM.em(null, item.name + ": "),
+                item.text);
+        }));
+    }
+});
 var App = React.createClass({
     displayName: "simple",
 
     getInitialState: function () {
+        this.messages = [];
         return {
             count: 0,
-            nameInput: ""
+            nameInput: "",
+            messages: []
         };
     },
 
+    componentWillMount: function () {
+        this.firebaseRef = new Firebase("https://lohnn-riajs.firebaseio.com/");
+        this.firebaseRef.on("child_added", function (dataSnapshot) {
+            this.messages.push(dataSnapshot.val());
+            this.setState({messages: this.messages});
+        }.bind(this));
+    },
+
+    componentWillUnmount: function () {
+        this.firebaseRef.off();
+    },
+
     handleMouseDown: function () {
-        //alert('I was told: ' + this.props.message);
         this.setState({count: this.state.count + 1});
     },
 
@@ -43,7 +64,7 @@ var App = React.createClass({
 
     render: function () {
         return React.DOM.div(null,
-            React.DOM.div({id: "messagesDiv"}),
+            React.DOM.div({id: "messagesDiv"}, Message({items: this.state.messages})),
             React.DOM.input({
                 id: "nameInput", type: "text", placeholder: "Name",
                 onChange: this.handleNameChange, value: this.state.nameInput
