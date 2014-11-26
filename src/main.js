@@ -9,19 +9,14 @@ var React = require('react');
 var $ = require("jquery");
 var Firebase = require("firebase");
 
-React.renderComponent(
+React.render(
     App({message: "Hola"}),
     document.getElementById("main")
 );
+
+
+
 var myDataRef = new Firebase('https://lohnn-riajs.firebaseio.com/');
-$('#messageInput').keypress(function (e) {
-    if (e.keyCode === 13) {
-        var name = $('#nameInput').val();
-        var text = $('#messageInput').val();
-        myDataRef.push({name: name, text: text});
-        $('#messageInput').val('');
-    }
-});
 
 function displayChatMessage(name, text) {
     $('<div/>').text(text).prepend($('<em/>').text(name + ': ')).appendTo($('#messagesDiv'));
@@ -32,4 +27,3 @@ myDataRef.on('child_added', function (snapshot) {
     var message = snapshot.val();
     displayChatMessage(message.name, message.text);
 });
-

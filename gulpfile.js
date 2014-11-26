@@ -6,11 +6,13 @@ var react = require('gulp-react'),
     concat = require('gulp-concat'),
     browserify = require('gulp-browserify'),
     stylish = require('jshint-stylish'),
-    sass = require('gulp-sass');
+    sass = require('gulp-sass'),
+    plumber = require("gulp-plumber");
 
 
 gulp.task('browserify', function () {
     gulp.src('src/main.js')
+        .pipe(plumber())
         .pipe(browserify({transform: "reactify"}))
         .pipe(concat('main.js'))
         .pipe(gulp.dest('dist/js'));
@@ -23,6 +25,7 @@ gulp.task('copyindex', function () {
 
 gulp.task('lint', function () {
     gulp.src(['src/*/*.js', 'src/*.js'])
+        .pipe(plumber())
         .pipe(react())
         .pipe(jshint())
         .pipe(jshint.reporter(stylish));
@@ -38,9 +41,8 @@ gulp.task('sass', function () {
 
 gulp.task('watch', function () {
     gulp.watch('sass/*.scss', ['styles']);
-    gulp.watch('src/main.js', ['browserify']);
     gulp.watch('src/index.html', ['copyindex']);
-    gulp.watch(['src/*/*.js', 'src/*.js'], ['lint']);
+    gulp.watch(['src/*/*.js', 'src/*.js'], ['lint', 'browserify']);
 });
 
 gulp.task('default', ['lint', 'sass', 'browserify', 'copyindex']);
