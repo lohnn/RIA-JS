@@ -9,6 +9,20 @@ var react = require('gulp-react'),
     sass = require('gulp-sass'),
     plumber = require("gulp-plumber");
 
+var jest = require('gulp-jest');
+
+gulp.task('test', function () {
+    return gulp.src('__tests__').pipe(jest({
+        testDirectoryName: "spec",
+        scriptPreprocessor: './support/preprocessor.js',
+        unmockedModulePathPatterns: ['node_modules/react'],
+        testPathIgnorePatterns: [
+            "node_modules",
+            "./support"
+        ]
+    }));
+});
+
 
 gulp.task('browserify', function () {
     gulp.src('src/main.js')
@@ -29,7 +43,7 @@ gulp.task('lint', function () {
         .pipe(react())
         .pipe(jshint())
         .pipe(jshint.reporter(stylish));
-        //.pipe(jshint.reporter('fail'));
+    //.pipe(jshint.reporter('fail'));
 });
 
 // Compile Our Sass
