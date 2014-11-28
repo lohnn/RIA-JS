@@ -10,6 +10,8 @@ var react = require('gulp-react'),
     plumber = require("gulp-plumber");
 
 var jest = require('gulp-jest');
+var docco = require('gulp-docco'),
+    folderToc = require("folder-toc");
 
 gulp.task('test', function () {
     return gulp.src('__tests__').pipe(jest({
@@ -21,6 +23,21 @@ gulp.task('test', function () {
             "./support"
         ]
     }));
+});
+
+gulp.task('builddocs', function () {
+    gulp.src(['src/*/*.js', 'src/*.js'])
+        .pipe(docco())
+        .pipe(gulp.dest('./docs'));
+});
+
+gulp.task('docsindex', function () {
+    folderToc('docs', {
+        name: 'index.html',
+        layout: 'classic',
+        filter: '*.html',
+        title: 'Files'
+    });
 });
 
 
@@ -61,3 +78,4 @@ gulp.task('watch', function () {
 
 gulp.task('default', ['lint', 'sass', 'browserify', 'copyindex']);
 gulp.task('watch_task', ['default', 'watch']);
+gulp.task('docs', ['builddocs', 'docsindex']);
