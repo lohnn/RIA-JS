@@ -6,7 +6,7 @@ var react = require('gulp-react'),
     concat = require('gulp-concat'),
     browserify = require('gulp-browserify'),
     stylish = require('jshint-stylish'),
-    sass = require('gulp-sass'),
+    less = require('gulp-less'),
     plumber = require("gulp-plumber");
 
 var jest = require('gulp-jest');
@@ -63,19 +63,25 @@ gulp.task('lint', function () {
     //.pipe(jshint.reporter('fail'));
 });
 
-// Compile Our Sass
+/*// Compile Our less
 gulp.task('sass', function () {
     return gulp.src('sass/*.scss')
         .pipe(sass())
         .pipe(gulp.dest('css'));
+});*/
+
+gulp.task('less', function () {
+    gulp.src('src/less/*.less')
+        .pipe(less())
+        .pipe(gulp.dest('dist/css'));
 });
 
 gulp.task('watch', function () {
-    gulp.watch('sass/*.scss', ['styles']);
+    gulp.watch('src/less/*.less', ['less']);
     gulp.watch('src/index.html', ['copyindex']);
     gulp.watch(['src/*/*.js', 'src/*.js'], ['lint', 'browserify']);
 });
 
-gulp.task('default', ['lint', 'sass', 'browserify', 'copyindex']);
+gulp.task('default', ['lint', 'less', 'browserify', 'copyindex']);
 gulp.task('watch_task', ['default', 'watch']);
 gulp.task('docs', ['builddocs', 'docsindex']);

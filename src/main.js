@@ -8,6 +8,6 @@ var App = require('./components/app');
 var React = require('react');
 
 React.render(
-    App({message: "Hola"}),
+    App(),
     document.getElementById("main")
 );
