@@ -18604,7 +18604,7 @@ var App = require('./components/app');
 var React = require('react');
 
 React.render(
-    App({message: "Hola"}),
+    App(),
     document.getElementById("main")
 );
 },{"./components/app":149,"react":148}]},{},[150])
