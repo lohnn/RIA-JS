@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>app.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="../docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>app.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-comment">/**
+ * Created by lohnn on 2014-11-23.
+ */</span>
+
+<span class="hljs-comment">/** @jsx React.dom */</span>
+
+<span class="hljs-keyword">var</span> React = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react'</span>);
+<span class="hljs-keyword">var</span> Firebase = <span class="hljs-built_in">require</span>(<span class="hljs-string">"firebase"</span>);
+<span class="hljs-keyword">var</span> myDataRef = <span class="hljs-keyword">new</span> Firebase(<span class="hljs-string">'https://lohnn-riajs.firebaseio.com/'</span>);
+
+<span class="hljs-keyword">var</span> Message = React.createClass({
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> React.DOM.div(<span class="hljs-literal">null</span>, <span class="hljs-keyword">this</span>.props.items.map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(item)</span> </span>{
+            <span class="hljs-keyword">return</span> React.DOM.div(<span class="hljs-literal">null</span>,
+                React.DOM.em(<span class="hljs-literal">null</span>, item.name + <span class="hljs-string">": "</span>),
+                item.text);
+        }));
+    }
+});
+<span class="hljs-keyword">var</span> App = React.createClass({
+    displayName: <span class="hljs-string">"simple"</span>,
+
+    getInitialState: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">this</span>.messages = [];
+        <span class="hljs-keyword">return</span> {
+            count: <span class="hljs-number">0</span>,
+            messages: []
+        };
+    },
+
+    componentWillMount: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">this</span>.firebaseRef = <span class="hljs-keyword">new</span> Firebase(<span class="hljs-string">"https://lohnn-riajs.firebaseio.com/"</span>);
+        <span class="hljs-keyword">this</span>.firebaseRef.on(<span class="hljs-string">"child_added"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(dataSnapshot)</span> </span>{
+            <span class="hljs-keyword">this</span>.messages.push(dataSnapshot.val());
+            <span class="hljs-keyword">this</span>.setState({messages: <span class="hljs-keyword">this</span>.messages});
+        }.bind(<span class="hljs-keyword">this</span>));
+    },
+    componentWillUnmount: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">this</span>.firebaseRef.off();
+    },
+
+    handleMouseDown: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">this</span>.setState({count: <span class="hljs-keyword">this</span>.state.count + <span class="hljs-number">1</span>});
+    },
+
+    sendMessage: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(e)</span> </span>{
+        <span class="hljs-keyword">if</span> (e.which === <span class="hljs-number">13</span>) {
+            <span class="hljs-keyword">var</span> name = <span class="hljs-keyword">this</span>.refs.name.getDOMNode().value;
+            <span class="hljs-keyword">var</span> text = <span class="hljs-keyword">this</span>.refs.message.getDOMNode().value;
+            myDataRef.push({name: name, text: text});
+            <span class="hljs-keyword">this</span>.refs.message.getDOMNode().value = <span class="hljs-string">""</span>;
+        }
+    },
+
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> React.DOM.div(<span class="hljs-literal">null</span>,
+            React.DOM.div({id: <span class="hljs-string">"messagesDiv"</span>}, Message({items: <span class="hljs-keyword">this</span>.state.messages})),
+            React.DOM.input({
+                id: <span class="hljs-string">"nameInput"</span>, ref: <span class="hljs-string">"name"</span>, type: <span class="hljs-string">"text"</span>, placeholder: <span class="hljs-string">"Name"</span>,
+                onChange: <span class="hljs-keyword">this</span>.handleNameChange
+            }),
+            React.DOM.input({
+                id: <span class="hljs-string">"messageInput"</span>, ref: <span class="hljs-string">"message"</span>, type: <span class="hljs-string">"text"</span>, placeholder: <span class="hljs-string">"Message"</span>,
+                onKeyPress: <span class="hljs-keyword">this</span>.sendMessage, onChange: <span class="hljs-keyword">this</span>.handleMessageChange
+            }),
+            React.DOM.div({className: <span class="hljs-string">"clicker"</span>, onMouseDown: <span class="hljs-keyword">this</span>.handleMouseDown},
+                <span class="hljs-string">" Give me the message! "</span>),
+            React.DOM.div({className: <span class="hljs-string">"message"</span>}, <span class="hljs-string">"Message conveyed "</span>,
+                React.DOM.span({className: <span class="hljs-string">"count"</span>}, <span class="hljs-keyword">this</span>.state.count), <span class="hljs-string">" time(s)"</span>)
+        );
+    }
+});
+
+<span class="hljs-built_in">module</span>.exports = App;</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
