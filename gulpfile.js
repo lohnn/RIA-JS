@@ -72,6 +72,7 @@ gulp.task('sass', function () {
 
 gulp.task('less', function () {
     gulp.src('src/less/*.less')
+        .pipe(plumber())
         .pipe(less())
         .pipe(gulp.dest('dist/css'));
 });
