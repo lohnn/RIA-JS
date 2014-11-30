@@ -7,9 +7,35 @@ body {
   margin: 0;
 }
 
+@dark_color: #38382a;
+@light_color: #f9fddd;
+
+.background_dark {
+  background-color: @dark_color;
+}
+
+.background_light {
+  background-color: @light_color;
+}
+
+.box-shadow(@style, @c) when (iscolor(@c)) {
+  -webkit-box-shadow: @style @c;
+  box-shadow: @style @c;
+}
+
+.box-shadow(@style: 0 0 15px, @alpha: 100%) when (isnumber(@alpha)) {
+  .box-shadow(@style, rgba(0, 0, 0, @alpha));
+}
+
+.border-radius-top-left(@radius: 15px) {
+  -webkit-border-top-left-radius: @radius;
+  -moz-border-radius-topleft: @radius;
+  border-top-left-radius: @radius;
+}
+
 .container {
   position: absolute;
-  background-color: green;
+  .background_dark;
   height: 100%;
   width: 100%;
 }
@@ -32,7 +58,6 @@ body {
   position: relative;
   width: 50%;
   height: 100%;
-  background-color: orange;
   float: left;
 }
 
@@ -45,7 +70,8 @@ body {
   left: @margin;
   right: @margin;
   bottom: @distance_from_bottom;
-  background-color: blue;
+  .background_light;
+  .border-radius-top-left;
 }
 
 @recipe_line_height: 50px;
@@ -53,7 +79,6 @@ body {
 .receipt_product {
   width: 100%;
   height: @recipe_line_height;
-  background-color: green;
   border-bottom: solid 1px black;
 }
 
@@ -82,7 +107,8 @@ body {
   left: @margin;
   right: @margin;
   height: @margin;
-  background-color: green;
+  .background_dark;
+  color: @light_color;
 }
 
 .sum_amount {
@@ -100,13 +126,20 @@ body {
   bottom: @margin;
   left: @margin;
   right: @margin;
-  background-color: magenta;
 }
 
+@purchase_button_width: 150px;
+@purchase_button_height: 65px;
+@purchase_button_font_size: 25px;
+
 .purchase_buttons_discount, .purchase_buttons_finished, .purchase_buttons_cancel {
-  height: 65px;
-  width: 150px;
-  background-color: blue;
+  width: @purchase_button_width;
+  height: @purchase_button_height;
+  line-height: @purchase_button_height;
+  font-size: @purchase_button_font_size;
+  text-align: center;
+  .background_light;
+  .box-shadow;
 }
 
 .purchase_buttons_discount {
@@ -125,19 +158,18 @@ body {
 .product_part {
   width: 50%;
   height: 100%;
-  background-color: red;
   float: left;
 }
 
-@product_button_size: 50px;
-@product_button_text_height: 10px;
+@product_button_size: 75px;
+@product_button_text_height: 12px;
 
 .product_part_product {
-  /*height: @product_button_size + @product_button_text_height;*/
   width: @product_button_size;
-  background-color: green;
+  .background_light;
   .float_left;
   margin: @margin;
+  .box-shadow;
 }
 
 .product_part_product img {
