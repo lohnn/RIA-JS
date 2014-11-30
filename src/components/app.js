@@ -8,31 +8,55 @@ var React = require('react');
 var Firebase = require("firebase");
 var myDataRef = new Firebase('https://lohnn-riajs.firebaseio.com/');
 
-var Message = React.createClass({
+/*var Message = React.createClass({
+ render: function () {
+ return React.DOM.div(null, this.props.items.map(function (item) {
+ return React.DOM.div(null,
+ React.DOM.em(null, item.name + ": "),
+ item.text);
+ }));
+ }
+ });*/
+
+var Receipt = React.createClass({
     render: function () {
-        return React.DOM.div(null, this.props.items.map(function (item) {
-            return React.DOM.div(null,
-                React.DOM.em(null, item.name + ": "),
-                item.text);
+        return React.DOM.div(null, this.props.items.map(function (productLine) {
+            return React.DOM.div({className: "receipt_product"},
+                React.DOM.div({className: "product_amount"}, productLine.amount),
+                React.DOM.div({className: "product_name"}, productLine.getName()),
+                React.DOM.div({className: "product_price"}, productLine.getTotalPrice())
+            );
         }));
     }
 });
 
 var Product = function (name, price) {
+    if (!(this instanceof Product))
+        return new Product(name, price);
     this.name = name;
     this.price = price;
 };
 
 var Product_line = function (product) {
+    if (!(this instanceof Product_line))
+        return new Product_line(product);
+
     this.product = product;
     this.amount = 1;
+
+    this.getName = function () {
+        return this.product.name;
+    };
 
     this.getTotalPrice = function () {
         return this.product.price * this.amount;
     };
 };
 
-var product_line_temp = [Product_line(Product("Pizza", 75))];
+var product_line_temp = [
+    Product_line(Product("Pizza", 75)),
+    Product_line(Product("Pizzasallad", 10))
+];
 
 var App = React.createClass({
     displayName: "simple",
@@ -73,16 +97,7 @@ var App = React.createClass({
         return React.DOM.div({id: "main", className: "container"},
             React.DOM.div({className: "purchase_part"},
                 React.DOM.div({className: "receipt"},
-                    React.DOM.div({className: "receipt_product"},
-                        React.DOM.div({className: "product_amount"}, "1st"),
-                        React.DOM.div({className: "product_name"}, "Pizza"),
-                        React.DOM.div({className: "product_price"}, "75kr")
-                    ),
-                    React.DOM.div({className: "receipt_product"},
-                        React.DOM.div({className: "product_amount"}, "1st"),
-                        React.DOM.div({className: "product_name"}, "Pizzasallad"),
-                        React.DOM.div({className: "product_price"}, "10kr")
-                    )
+                    Receipt({items: product_line_temp})
                 ),
                 React.DOM.div({className: "summary"},
                     React.DOM.div({className: "sum_amount"}, "2st"),

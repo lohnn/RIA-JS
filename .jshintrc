@@ -6,7 +6,7 @@
   "node": true,
   "browser": true,
   "boss": false,
-  "curly": true,
+  "curly": false,
   "debug": false,
   "devel": false,
   "eqeqeq": true,
