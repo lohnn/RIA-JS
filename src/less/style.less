@@ -1,0 +1,152 @@
+* {
+  font-family: sans-serif;
+  font-size: 12px;
+}
+
+body {
+  margin: 0;
+}
+
+.container {
+  position: absolute;
+  background-color: green;
+  height: 100%;
+  width: 100%;
+}
+
+/*Specials*/
+.float_left {
+  float: left;
+}
+
+.float_right {
+  float: right;
+}
+
+.fill_width {
+  width: 100%;
+}
+
+/*Purchase part*/
+.purchase_part {
+  position: relative;
+  width: 50%;
+  height: 100%;
+  background-color: orange;
+  float: left;
+}
+
+@distance_from_bottom: 200px;
+@margin: 15px;
+
+.receipt {
+  position: absolute;
+  top: @margin;
+  left: @margin;
+  right: @margin;
+  bottom: @distance_from_bottom;
+  background-color: blue;
+}
+
+@recipe_line_height: 50px;
+
+.receipt_product {
+  width: 100%;
+  height: @recipe_line_height;
+  background-color: green;
+  border-bottom: solid 1px black;
+}
+
+.product_amount, .product_name, .product_price {
+  height: 100%;
+  line-height: @recipe_line_height;
+}
+
+.product_amount, .product_name, {
+  .float_left;
+}
+
+.product_amount {
+  margin: 0 @margin;
+}
+
+.product_price {
+  margin-right: @margin;
+  .float_right;
+}
+
+.summary {
+  position: absolute;
+  top: auto;
+  bottom: @distance_from_bottom - @margin;
+  left: @margin;
+  right: @margin;
+  height: @margin;
+  background-color: green;
+}
+
+.sum_amount {
+  float: left;
+}
+
+.sum_price {
+  float: right;
+}
+
+.purchase_buttons {
+  position: absolute;
+  top: auto;
+  height: @distance_from_bottom - (@margin * 3);
+  bottom: @margin;
+  left: @margin;
+  right: @margin;
+  background-color: magenta;
+}
+
+.purchase_buttons_discount, .purchase_buttons_finished, .purchase_buttons_cancel {
+  height: 65px;
+  width: 150px;
+  background-color: blue;
+}
+
+.purchase_buttons_discount {
+  .float_left;
+}
+
+.purchase_buttons_finished {
+  .float_right;
+}
+
+.purchase_buttons_cancel {
+  margin-top: 25px;
+}
+
+/*Product part*/
+.product_part {
+  width: 50%;
+  height: 100%;
+  background-color: red;
+  float: left;
+}
+
+@product_button_size: 50px;
+@product_button_text_height: 10px;
+
+.product_part_product {
+  /*height: @product_button_size + @product_button_text_height;*/
+  width: @product_button_size;
+  background-color: green;
+  .float_left;
+  margin: @margin;
+}
+
+.product_part_product img {
+  width: @product_button_size;
+  height: @product_button_size;
+  .float_left;
+}
+
+.product_part_product span {
+  .float_left;
+  font-size: @product_button_text_height;
+}
