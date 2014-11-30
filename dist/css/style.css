@@ -44,6 +44,8 @@ body {
   -webkit-border-top-left-radius: 15px;
   -moz-border-radius-topleft: 15px;
   border-top-left-radius: 15px;
+  -webkit-box-shadow: 0 0 15px #000000;
+  box-shadow: 0 0 15px #000000;
 }
 .receipt_product {
   width: 100%;
@@ -74,7 +76,6 @@ body {
   left: 15px;
   right: 15px;
   height: 15px;
-  background-color: #38382a;
   color: #f9fddd;
 }
 .sum_amount {
