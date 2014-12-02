@@ -28,6 +28,5 @@
   "unused": true,
   "nonew": true,
   "bitwise": true,
-  "latedef": true,
   "nonbsp": true
 }
