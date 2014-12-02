@@ -4,7 +4,7 @@ node_js:
 before_install:
   - "npm i -g gulp"
 script: "gulp"
-branches:
-  only:
-    - master
-    - gh-pages
+#branches:
+#  only:
+#    - master
+#    - gh-pages

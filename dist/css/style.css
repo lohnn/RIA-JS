@@ -1,3 +1,138 @@
 * {
-  font-family: 'Trebuchet', 'Trebuchet', 'Trebuchet';
+  font-family: sans-serif;
+  font-size: 12px;
+}
+body {
+  margin: 0;
+}
+.background_dark {
+  background-color: #38382a;
+}
+.background_light {
+  background-color: #f9fddd;
+}
+.container {
+  position: absolute;
+  background-color: #38382a;
+  height: 100%;
+  width: 100%;
+}
+/*Specials*/
+.float_left {
+  float: left;
+}
+.float_right {
+  float: right;
+}
+.fill_width {
+  width: 100%;
+}
+/*Purchase part*/
+.purchase_part {
+  position: relative;
+  width: 50%;
+  height: 100%;
+  float: left;
+}
+.receipt {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 200px;
+  background-color: #f9fddd;
+  -webkit-border-top-left-radius: 15px;
+  -moz-border-radius-topleft: 15px;
+  border-top-left-radius: 15px;
+  -webkit-box-shadow: 0 0 15px #000000;
+  box-shadow: 0 0 15px #000000;
+}
+.receipt_product {
+  width: 100%;
+  height: 50px;
+  border-bottom: solid 1px black;
+}
+.product_amount,
+.product_name,
+.product_price {
+  height: 100%;
+  line-height: 50px;
+}
+.product_amount,
+.product_name {
+  float: left;
+}
+.product_amount {
+  margin: 0 15px;
+}
+.product_price {
+  margin-right: 15px;
+  float: right;
+}
+.summary {
+  position: absolute;
+  top: auto;
+  bottom: 185px;
+  left: 15px;
+  right: 15px;
+  height: 15px;
+  color: #f9fddd;
+}
+.sum_amount {
+  float: left;
+}
+.sum_price {
+  float: right;
+}
+.purchase_buttons {
+  position: absolute;
+  top: auto;
+  height: 155px;
+  bottom: 15px;
+  left: 15px;
+  right: 15px;
+}
+.purchase_buttons_discount,
+.purchase_buttons_finished,
+.purchase_buttons_cancel {
+  width: 150px;
+  height: 65px;
+  line-height: 65px;
+  font-size: 25px;
+  text-align: center;
+  background-color: #f9fddd;
+  -webkit-box-shadow: 0 0 15px #000000;
+  box-shadow: 0 0 15px #000000;
+}
+.purchase_buttons_discount {
+  float: left;
+}
+.purchase_buttons_finished {
+  float: right;
+}
+.purchase_buttons_cancel {
+  margin-top: 25px;
+}
+/*Product part*/
+.product_part {
+  width: 50%;
+  height: 100%;
+  float: left;
+}
+.product_part_product {
+  width: 75px;
+  background-color: #f9fddd;
+  float: left;
+  margin: 15px;
+  -webkit-box-shadow: 0 0 15px #000000;
+  box-shadow: 0 0 15px #000000;
+}
+.product_part_product img {
+  width: 75px;
+  height: 75px;
+  float: left;
+}
+.product_part_product span {
+  float: left;
+  font-size: 12px;
 }
