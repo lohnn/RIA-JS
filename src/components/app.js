@@ -10,12 +10,21 @@ var myDataRef = new Firebase('https://lohnn-riajs.firebaseio.com/');
 
 var RenderReceipt = React.createClass({
     render: function () {
-        console.log(this.props.items);
         return React.DOM.div(null, this.props.items.map(function (productLine) {
             return React.DOM.div({className: "receipt_product"},
                 React.DOM.div({className: "product_amount"}, productLine.amount),
                 React.DOM.div({className: "product_name"}, productLine.getName()),
                 React.DOM.div({className: "product_price"}, productLine.getTotalPrice())
+            );
+        }));
+    }
+});
+var RenderProducts = React.createClass({
+    render: function () {
+        return React.DOM.div(null, this.props.items.map(function (product) {
+            return React.DOM.div({className: "product_part_product"},
+                React.DOM.img({alt: product.name}),
+                product.name
             );
         }));
     }
@@ -49,7 +58,8 @@ var Receipt = function () {
         return new Receipt();
 
     this.productLines = [];
-    this.addProduct = function (product) {
+    this.addProduct = function (product, amount) {
+        amount = typeof amount !== 'undefined' ? amount : 1;
         this.productLines.push(Product_line(product));
     };
 
@@ -71,8 +81,9 @@ var Receipt = function () {
 };
 
 var receipt = Receipt();
-receipt.addProduct(Product("Pizza", 75));
-receipt.addProduct(Product("Pizzasallad", 11));
+var productsInList = [Product("Pizza", 80), Product("Pizzasallad", 10)];
+receipt.addProduct(productsInList[0]);
+receipt.addProduct(productsInList[1]);
 
 
 var App = React.createClass({
@@ -80,6 +91,7 @@ var App = React.createClass({
 
     getInitialState: function () {
         this.receipt = receipt;
+        this.products = productsInList;
         return {
             messages: []
         };
@@ -127,9 +139,7 @@ var App = React.createClass({
                     React.DOM.div({className: "purchase_buttons_cancel float_left"}, "Avbryt")
                 )
             ), React.DOM.div({className: "product_part"},
-                React.DOM.div({className: "product_part_product"}, React.DOM.img({alt: "Mat"}), "Mat"),
-                React.DOM.div({className: "product_part_product"}, React.DOM.img({alt: "Tillbehör"}), "Tillbehör"),
-                React.DOM.div({className: "product_part_product"}, React.DOM.img({alt: "Mat"}), "Mat")
+                RenderProducts({items: this.products})
             )
         );
     }
