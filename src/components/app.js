@@ -6,6 +6,8 @@
 
 var React = require('react');
 var Firebase = require("firebase");
+var _ = require('lodash');
+//var myDataRef = new Firebase('https://lohnn-riajs.firebaseio.com/');
 
 var Product = function (productParams) {
     if (!(this instanceof Product))
@@ -98,7 +100,7 @@ var RenderProducts = React.createClass({
     },
     render: function () {
         return React.DOM.div(null,
-            this.props.items.map(this.addProduct, this)
+            _.map(this.props.items,this.addProduct, this)
         );
     }
 });
@@ -108,17 +110,15 @@ var App = React.createClass({
 
     getInitialState: function () {
         this.receipt = receipt;
-        this.products = [];
         return {
             receiptProducts: [],
-            products: []
+            products: {}
         };
     },
     componentWillMount: function () {
         this.firebaseProductsRef = new Firebase("https://lohnn-riajs.firebaseio.com/products");
-        this.firebaseProductsRef.on("child_added", function (dataSnapshot) {
-            this.products.push(new Product(dataSnapshot.val()));
-            this.setState({products: this.products});
+        this.firebaseProductsRef.on("value", function (dataSnapshot) {
+            this.setState({products: dataSnapshot.val()});
         }.bind(this));
     },
     componentWillUnmount: function () {
@@ -152,7 +152,7 @@ var App = React.createClass({
                     React.DOM.div({className: "purchase_buttons_cancel float_left"}, "Avbryt")
                 )
             ), React.DOM.div({className: "product_part"},
-                RenderProducts({items: this.products, functionToRun: this.addToReceipt})
+                RenderProducts({items: this.state.products, functionToRun: this.addToReceipt})
             )
         );
     }
