@@ -5,7 +5,7 @@
 /** @jsx React.dom */
 
 var React = require('react');
-//var Firebase = require("firebase");
+var Firebase = require("firebase");
 //var myDataRef = new Firebase('https://lohnn-riajs.firebaseio.com/');
 
 var Product = function (name, price, image) {
@@ -13,7 +13,7 @@ var Product = function (name, price, image) {
         return new Product(name, price);
     this.name = name;
     this.price = price;
-    this.image = image;
+    this.image = typeof image !== 'undefined' ? image : "";
 };
 
 var Product_line = function (product) {
@@ -40,13 +40,14 @@ var Receipt = function () {
     this.addProduct = function (product, amount) {
         var doesExist = false;
         amount = typeof amount !== 'undefined' ? amount : 1;
+
         this.productLines.every(function (element) {
-            console.log(element.product.name + " : " + product.name);
             if (element.product === product) {
                 element.amount += amount;
                 doesExist = true;
-                return;
+                return false;
             }
+            return true;
         });
         if (doesExist === false) {
             var productLineToAdd = Product_line(product);
@@ -72,7 +73,6 @@ var Receipt = function () {
 };
 
 var receipt = Receipt();
-var productsInList = [Product("Pizza", 80), Product("Pizzasallad", 10)];
 //==============================================================================
 
 var RenderReceipt = React.createClass({
@@ -109,11 +109,21 @@ var App = React.createClass({
 
     getInitialState: function () {
         this.receipt = receipt;
-        this.products = productsInList;
+        this.products = [];
         return {
             receiptProducts: [],
-            messages: []
+            products: []
         };
+    },
+    componentWillMount: function () {
+        this.firebaseProductsRef = new Firebase("https://lohnn-riajs.firebaseio.com/products");
+        this.firebaseProductsRef.on("child_added", function (dataSnapshot) {
+            this.products.push(dataSnapshot.val());
+            this.setState({products: this.products});
+        }.bind(this));
+    },
+    componentWillUnmount: function () {
+        this.firebaseProductsRef.off();
     },
 
     addToReceipt: function (product) {
@@ -161,14 +171,14 @@ var App = React.createClass({
  },
 
  componentWillMount: function () {
- this.firebaseRef = new Firebase("https://lohnn-riajs.firebaseio.com/");
- this.firebaseRef.on("child_added", function (dataSnapshot) {
+ this.firebaseProductsRef = new Firebase("https://lohnn-riajs.firebaseio.com/");
+ this.firebaseProductsRef.on("child_added", function (dataSnapshot) {
  this.messages.push(dataSnapshot.val());
  this.setState({messages: this.messages});
  }.bind(this));
  },
  componentWillUnmount: function () {
- this.firebaseRef.off();
+ this.firebaseProductsRef.off();
  },
 
  handleMouseDown: function () {
