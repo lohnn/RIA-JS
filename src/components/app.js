@@ -6,14 +6,13 @@
 
 var React = require('react');
 var Firebase = require("firebase");
-//var myDataRef = new Firebase('https://lohnn-riajs.firebaseio.com/');
 
-var Product = function (name, price, image) {
+var Product = function (productParams) {
     if (!(this instanceof Product))
-        return new Product(name, price);
-    this.name = name;
-    this.price = price;
-    this.image = typeof image !== 'undefined' ? image : "";
+        return new Product(productParams);
+    this.name = productParams.name;
+    this.price = productParams.price;
+    this.image = typeof productParams.image !== 'undefined' ? productParams.image : "";
 };
 
 var Product_line = function (product) {
@@ -118,7 +117,7 @@ var App = React.createClass({
     componentWillMount: function () {
         this.firebaseProductsRef = new Firebase("https://lohnn-riajs.firebaseio.com/products");
         this.firebaseProductsRef.on("child_added", function (dataSnapshot) {
-            this.products.push(dataSnapshot.val());
+            this.products.push(new Product(dataSnapshot.val()));
             this.setState({products: this.products});
         }.bind(this));
     },
