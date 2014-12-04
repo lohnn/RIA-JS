@@ -40,6 +40,7 @@ body {
   left: 15px;
   right: 15px;
   bottom: 200px;
+  overflow-y: auto;
   background-color: #f9fddd;
   -webkit-border-top-left-radius: 15px;
   -moz-border-radius-topleft: 15px;

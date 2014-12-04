@@ -6,35 +6,14 @@
 
 var React = require('react');
 var Firebase = require("firebase");
-var myDataRef = new Firebase('https://lohnn-riajs.firebaseio.com/');
+//var myDataRef = new Firebase('https://lohnn-riajs.firebaseio.com/');
 
-var RenderReceipt = React.createClass({
-    render: function () {
-        return React.DOM.div(null, this.props.items.map(function (productLine) {
-            return React.DOM.div({className: "receipt_product"},
-                React.DOM.div({className: "product_amount"}, productLine.amount),
-                React.DOM.div({className: "product_name"}, productLine.getName()),
-                React.DOM.div({className: "product_price"}, productLine.getTotalPrice())
-            );
-        }));
-    }
-});
-var RenderProducts = React.createClass({
-    render: function () {
-        return React.DOM.div(null, this.props.items.map(function (product) {
-            return React.DOM.div({className: "product_part_product"},
-                React.DOM.img({alt: product.name}),
-                product.name
-            );
-        }));
-    }
-});
-
-var Product = function (name, price) {
+var Product = function (name, price, image) {
     if (!(this instanceof Product))
         return new Product(name, price);
     this.name = name;
     this.price = price;
+    this.image = typeof image !== 'undefined' ? image : "";
 };
 
 var Product_line = function (product) {
@@ -59,8 +38,21 @@ var Receipt = function () {
 
     this.productLines = [];
     this.addProduct = function (product, amount) {
+        var doesExist = false;
         amount = typeof amount !== 'undefined' ? amount : 1;
-        this.productLines.push(Product_line(product));
+
+        this.productLines.every(function (element) {
+            if (element.product === product) {
+                element.amount += amount;
+                doesExist = true;
+                return false;
+            }
+            return true;
+        });
+        if (doesExist === false) {
+            var productLineToAdd = Product_line(product);
+            this.productLines.push(productLineToAdd);
+        }
     };
 
     this.getTotalProducts = function () {
@@ -81,51 +73,69 @@ var Receipt = function () {
 };
 
 var receipt = Receipt();
-var productsInList = [Product("Pizza", 80), Product("Pizzasallad", 10)];
-receipt.addProduct(productsInList[0]);
-receipt.addProduct(productsInList[1]);
+//==============================================================================
 
+var RenderReceipt = React.createClass({
+    render: function () {
+        return React.DOM.div(null, this.props.items.map(function (productLine) {
+            return React.DOM.div({className: "receipt_product"},
+                React.DOM.div({className: "product_amount"}, productLine.amount),
+                React.DOM.div({className: "product_name"}, productLine.getName()),
+                React.DOM.div({className: "product_price"}, productLine.getTotalPrice())
+            );
+        }));
+    }
+});
+var RenderProducts = React.createClass({
+    addProduct: function (product) {
+        var functionToRun = this.props.functionToRun;
+        return React.DOM.div({className: "product_part_product"},
+            React.DOM.img({
+                alt: product.name, img: product.image, onClick: function () {
+                    functionToRun(product);
+                }
+            }), product.name
+        );
+    },
+    render: function () {
+        return React.DOM.div(null,
+            this.props.items.map(this.addProduct, this)
+        );
+    }
+});
 
 var App = React.createClass({
     displayName: "simple",
 
     getInitialState: function () {
         this.receipt = receipt;
-        this.products = productsInList;
+        this.products = [];
         return {
-            messages: []
+            receiptProducts: [],
+            products: []
         };
     },
-
-    /*componentWillMount: function () {
-     this.firebaseRef = new Firebase("https://lohnn-riajs.firebaseio.com/");
-     this.firebaseRef.on("child_added", function (dataSnapshot) {
-     this.messages.push(dataSnapshot.val());
-     this.setState({messages: this.messages});
-     }.bind(this));
-     },
-     componentWillUnmount: function () {
-     this.firebaseRef.off();
-     },*/
-
-    handleMouseDown: function () {
-        this.setState({count: this.state.count + 1});
+    componentWillMount: function () {
+        this.firebaseProductsRef = new Firebase("https://lohnn-riajs.firebaseio.com/products");
+        this.firebaseProductsRef.on("child_added", function (dataSnapshot) {
+            this.products.push(dataSnapshot.val());
+            this.setState({products: this.products});
+        }.bind(this));
+    },
+    componentWillUnmount: function () {
+        this.firebaseProductsRef.off();
     },
 
-    sendMessage: function (e) {
-        if (e.which === 13) {
-            var name = this.refs.name.getDOMNode().value;
-            var text = this.refs.message.getDOMNode().value;
-            myDataRef.push({name: name, text: text});
-            this.refs.message.getDOMNode().value = "";
-        }
+    addToReceipt: function (product) {
+        this.receipt.addProduct(product);
+        this.setState({receiptProducts: this.receipt.productLines});
     },
 
     render: function () {
         return React.DOM.div({id: "main", className: "container"},
             React.DOM.div({className: "purchase_part"},
                 React.DOM.div({className: "receipt"},
-                    RenderReceipt({items: this.receipt.productLines})
+                    RenderReceipt({items: this.state.receiptProducts})
                 ),
                 React.DOM.div({className: "summary"},
                     React.DOM.div({className: "sum_amount"}, this.receipt.getTotalProducts() + "st"),
@@ -134,12 +144,16 @@ var App = React.createClass({
                 React.DOM.div({className: "purchase_buttons"},
                     React.DOM.div({className: "fill_width float_left"},
                         React.DOM.div({className: "purchase_buttons_discount"}, "Rabatt"),
-                        React.DOM.div({className: "purchase_buttons_finished"}, "Klar")
+                        React.DOM.div(
+                            {
+                                className: "purchase_buttons_finished",
+                                onClick: this.handleMouseDown
+                            }, "Klar")
                     ),
                     React.DOM.div({className: "purchase_buttons_cancel float_left"}, "Avbryt")
                 )
             ), React.DOM.div({className: "product_part"},
-                RenderProducts({items: this.products})
+                RenderProducts({items: this.products, functionToRun: this.addToReceipt})
             )
         );
     }
@@ -157,14 +171,14 @@ var App = React.createClass({
  },
 
  componentWillMount: function () {
- this.firebaseRef = new Firebase("https://lohnn-riajs.firebaseio.com/");
- this.firebaseRef.on("child_added", function (dataSnapshot) {
+ this.firebaseProductsRef = new Firebase("https://lohnn-riajs.firebaseio.com/");
+ this.firebaseProductsRef.on("child_added", function (dataSnapshot) {
  this.messages.push(dataSnapshot.val());
  this.setState({messages: this.messages});
  }.bind(this));
  },
  componentWillUnmount: function () {
- this.firebaseRef.off();
+ this.firebaseProductsRef.off();
  },
 
  handleMouseDown: function () {
