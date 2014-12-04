@@ -77,31 +77,31 @@ var receipt = Receipt();
 //==============================================================================
 
 var RenderReceipt = React.createClass({
+    addProduct: function (productLine, pid) {
+        return <div key={pid} className="receipt_product">
+            <div className="product_amount">{productLine.amount}</div>
+            <div className="product_name">{productLine.getName()}</div>
+            <div className="product_price">{productLine.getTotalPrice()}</div>
+        </div>;
+    },
     render: function () {
-        return React.DOM.div(null, this.props.items.map(function (productLine) {
-            return React.DOM.div({className: "receipt_product"},
-                React.DOM.div({className: "product_amount"}, productLine.amount),
-                React.DOM.div({className: "product_name"}, productLine.getName()),
-                React.DOM.div({className: "product_price"}, productLine.getTotalPrice())
-            );
-        }));
+        return <div>
+        {_.map(this.props.items, this.addProduct)}
+        </div>;
     }
 });
 var RenderProducts = React.createClass({
-    addProduct: function (product) {
+    addProduct: function (product, pid) {
         var functionToRun = this.props.functionToRun;
-        return React.DOM.div({className: "product_part_product"},
-            React.DOM.img({
-                alt: product.name, img: product.image, onClick: function () {
-                    functionToRun(product);
-                }
-            }), product.name
-        );
+        return <div key={pid} className="product_part_product">
+            <img alt={product.name} img={product.image} onClick={function () {
+                functionToRun(product);
+            }} />
+        {product.name}
+        </div>;
     },
     render: function () {
-        return React.DOM.div(null,
-            _.map(this.props.items,this.addProduct, this)
-        );
+        return <div>{_.map(this.props.items, this.addProduct, this)}</div>;
     }
 });
 
@@ -130,31 +130,32 @@ var App = React.createClass({
         this.setState({receiptProducts: this.receipt.productLines});
     },
 
+    cancelAction: function () {
+        console.log("Avbryt köp!");
+    },
+
     render: function () {
-        return React.DOM.div({id: "main", className: "container"},
-            React.DOM.div({className: "purchase_part"},
-                React.DOM.div({className: "receipt"},
-                    RenderReceipt({items: this.state.receiptProducts})
-                ),
-                React.DOM.div({className: "summary"},
-                    React.DOM.div({className: "sum_amount"}, this.receipt.getTotalProducts() + "st"),
-                    React.DOM.div({className: "sum_price"}, this.receipt.getTotalPrice() + "kr")
-                ),
-                React.DOM.div({className: "purchase_buttons"},
-                    React.DOM.div({className: "fill_width float_left"},
-                        React.DOM.div({className: "purchase_buttons_discount"}, "Rabatt"),
-                        React.DOM.div(
-                            {
-                                className: "purchase_buttons_finished",
-                                onClick: this.handleMouseDown
-                            }, "Klar")
-                    ),
-                    React.DOM.div({className: "purchase_buttons_cancel float_left"}, "Avbryt")
-                )
-            ), React.DOM.div({className: "product_part"},
-                RenderProducts({items: this.state.products, functionToRun: this.addToReceipt})
-            )
-        );
+        return <div id="main" className="container">
+            <div className="purchase_part">
+                <div className="receipt">
+            {RenderReceipt({items: this.state.receiptProducts})}
+                </div>
+                <div className="summary">
+                    <div className="sum_amount">{this.receipt.getTotalProducts() + "st"}</div>
+                    <div className="sum_price">{this.receipt.getTotalPrice() + "kr"}</div>
+                </div>
+                <div className="purchase_buttons">
+                    <div className="fill_width float_left">
+                        <div className="purchase_buttons_discount">Rabatt</div>
+                        <div className="purchase_buttons_finished" onClick={this.cancelAction}>Klar</div>
+                    </div>
+                    <div className="purchase_buttons_cancel float_left">Avbryt</div>
+                </div>
+            </div>
+            <div className="product_part">
+            {RenderProducts({items: this.state.products, functionToRun: this.addToReceipt})}
+            </div>
+        </div>;
     }
 });
 
