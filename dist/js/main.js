@@ -25317,71 +25317,8 @@ module.exports = require('./lib/React');
 var React = require('react');
 var Firebase = require("firebase");
 var _ = require('lodash');
+var Receipt = require('./productRelated');
 //var myDataRef = new Firebase('https://lohnn-riajs.firebaseio.com/');
-
-var Product = function (productParams) {
-    if (!(this instanceof Product))
-        return new Product(productParams);
-    this.name = productParams.name;
-    this.price = productParams.price;
-    this.image = typeof productParams.image !== 'undefined' ? productParams.image : "";
-};
-
-var Product_line = function (product) {
-    if (!(this instanceof Product_line))
-        return new Product_line(product);
-
-    this.product = product;
-    this.amount = 1;
-
-    this.getName = function () {
-        return this.product.name;
-    };
-
-    this.getTotalPrice = function () {
-        return this.product.price * this.amount;
-    };
-};
-
-var Receipt = function () {
-    if (!(this instanceof Receipt))
-        return new Receipt();
-
-    this.productLines = [];
-    this.addProduct = function (product, amount) {
-        var doesExist = false;
-        amount = typeof amount !== 'undefined' ? amount : 1;
-
-        this.productLines.every(function (element) {
-            if (element.product === product) {
-                element.amount += amount;
-                doesExist = true;
-                return false;
-            }
-            return true;
-        });
-        if (doesExist === false) {
-            var productLineToAdd = Product_line(product);
-            this.productLines.push(productLineToAdd);
-        }
-    };
-
-    this.getTotalProducts = function () {
-        var temp = 0;
-        this.productLines.forEach(function (element) {
-            temp += element.amount;
-        });
-        return temp;
-    };
-
-    this.getTotalPrice = function () {
-        var temp = 0;
-        this.productLines.forEach(function (element) {
-            temp += element.getTotalPrice();
-        });
-        return temp;
-    };
-};
 
 var receipt = Receipt();
 //==============================================================================
@@ -25469,62 +25406,78 @@ var App = React.createClass({
     }
 });
 
-/*var App = React.createClass({
- displayName: "simple",
-
- getInitialState: function () {
- this.messages = [];
- return {
- count: 0,
- messages: []
- };
- },
-
- componentWillMount: function () {
- this.firebaseProductsRef = new Firebase("https://lohnn-riajs.firebaseio.com/");
- this.firebaseProductsRef.on("child_added", function (dataSnapshot) {
- this.messages.push(dataSnapshot.val());
- this.setState({messages: this.messages});
- }.bind(this));
- },
- componentWillUnmount: function () {
- this.firebaseProductsRef.off();
- },
-
- handleMouseDown: function () {
- this.setState({count: this.state.count + 1});
- },
-
- sendMessage: function (e) {
- if (e.which === 13) {
- var name = this.refs.name.getDOMNode().value;
- var text = this.refs.message.getDOMNode().value;
- myDataRef.push({name: name, text: text});
- this.refs.message.getDOMNode().value = "";
- }
- },
-
- render: function () {
- return React.DOM.div(null,
- React.DOM.div({id: "messagesDiv"}, Message({items: this.state.messages})),
- React.DOM.input({
- id: "nameInput", ref: "name", type: "text", placeholder: "Name",
- onChange: this.handleNameChange
- }),
- React.DOM.input({
- id: "messageInput", ref: "message", type: "text", placeholder: "Message",
- onKeyPress: this.sendMessage, onChange: this.handleMessageChange
- }),
- React.DOM.div({className: "clicker", onMouseDown: this.handleMouseDown},
- " Give me the message! "),
- React.DOM.div({className: "message"}, "Message conveyed ",
- React.DOM.span({className: "count"}, this.state.count), " time(s)")
- );
- }
- });*/
-
 module.exports = App;
-},{"firebase":1,"lodash":3,"react":149}],151:[function(require,module,exports){
+},{"./productRelated":151,"firebase":1,"lodash":3,"react":149}],151:[function(require,module,exports){
+/**
+ * Created by jl222xa on 2014-12-04.
+ */
+
+var Product = function (productParams) {
+    if (!(this instanceof Product))
+        return new Product(productParams);
+    this.name = productParams.name;
+    this.price = productParams.price;
+    this.image = typeof productParams.image !== 'undefined' ? productParams.image : "";
+};
+
+var Product_line = function (product) {
+    if (!(this instanceof Product_line))
+        return new Product_line(product);
+
+    this.product = product;
+    this.amount = 1;
+
+    this.getName = function () {
+        return this.product.name;
+    };
+
+    this.getTotalPrice = function () {
+        return this.product.price * this.amount;
+    };
+};
+
+var Receipt = function () {
+    if (!(this instanceof Receipt))
+        return new Receipt();
+
+    this.productLines = [];
+    this.addProduct = function (product, amount) {
+        var doesExist = false;
+        amount = typeof amount !== 'undefined' ? amount : 1;
+
+        this.productLines.every(function (element) {
+            if (element.product === product) {
+                element.amount += amount;
+                doesExist = true;
+                return false;
+            }
+            return true;
+        });
+        if (doesExist === false) {
+            var productLineToAdd = Product_line(product);
+            this.productLines.push(productLineToAdd);
+        }
+    };
+
+    this.getTotalProducts = function () {
+        var temp = 0;
+        this.productLines.forEach(function (element) {
+            temp += element.amount;
+        });
+        return temp;
+    };
+
+    this.getTotalPrice = function () {
+        var temp = 0;
+        this.productLines.forEach(function (element) {
+            temp += element.getTotalPrice();
+        });
+        return temp;
+    };
+};
+
+module.exports = Receipt;
+},{}],152:[function(require,module,exports){
 /**
  * Created by lohnn on 2014-11-24.
  */
@@ -25538,4 +25491,4 @@ React.render(
     App(),
     document.body
 );
-},{"./components/app":150,"react":149}]},{},[151])
+},{"./components/app":150,"react":149}]},{},[152])
