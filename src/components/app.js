@@ -58,8 +58,7 @@ var App = React.createClass({
         }.bind(this));
         //TODO: If I had a receipt when I closed the app, that receipt should be reopened.
         this.firebaseReceiptRef = new Firebase("https://lohnn-riajs.firebaseio.com/receipts/1234567890");
-        this.firebaseProductsRef.on("value", function (dataSnapshot) {
-            //console.log(dataSnapshot.val());
+        this.firebaseReceiptRef.on("value", function (dataSnapshot) {
             this.setReceipt(dataSnapshot.val());
         }.bind(this));
     },

@@ -49,7 +49,7 @@ gulp.task('browserify', function () {
         .pipe(plumber())
         .pipe(browserify({transform: "reactify"}))
         .pipe(concat('main.js'))
-        .pipe(uglify())
+        //.pipe(uglify())
         .pipe(gulp.dest('dist/js'));
 });
 

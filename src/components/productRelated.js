@@ -36,8 +36,7 @@ var Receipt = function () {
 
     this.setProducts = function (products) {
         _.map(products, function (product) {
-            //console.log(product.key());
-            this.addProduct(product);
+            this.addProduct(product.product, product.amount);
         }, this);
     };
 
