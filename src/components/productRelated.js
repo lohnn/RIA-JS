@@ -64,6 +64,10 @@ var Receipt = function () {
         });
         return temp;
     };
+
+    this.clearProducts = function () {
+      this.productLines = [];
+    };
 };
 
 module.exports = Receipt;
