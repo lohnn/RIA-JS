@@ -137,3 +137,7 @@ body {
   float: left;
   font-size: 12px;
 }
+.purchase_buttons a {
+  color: black;
+  text-decoration: none;
+}
