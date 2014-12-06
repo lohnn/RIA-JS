@@ -47,7 +47,7 @@ var App = React.createClass({
     getInitialState: function () {
         this.receipt = receipt;
         return {
-            receiptProducts: [],
+            receiptProducts: {},
             products: {}
         };
     },
@@ -59,6 +59,7 @@ var App = React.createClass({
         //TODO: If I had a receipt when I closed the app, that receipt should be reopened.
         this.firebaseReceiptRef = new Firebase("https://lohnn-riajs.firebaseio.com/receipts/1234567890");
         this.firebaseProductsRef.on("value", function (dataSnapshot) {
+            //console.log(dataSnapshot.val());
             this.setReceipt(dataSnapshot.val());
         }.bind(this));
     },
@@ -75,13 +76,13 @@ var App = React.createClass({
     addToReceipt: function (product) {
         this.receipt.addProduct(product);
         this.setState({receiptProducts: this.receipt.productLines});
-        console.log(JSON.parse(JSON.stringify(this.receipt.productLines)));
         this.firebaseReceiptRef.set(JSON.parse(JSON.stringify(this.receipt.productLines)));
     },
 
-    cancelAction: function () {
+    cancelAction: function (e) {
         this.receipt.clearProducts();
         this.setState({receiptProducts: []});
+        e.preventDefault();
     },
 
     render: function () {

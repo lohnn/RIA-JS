@@ -32,35 +32,28 @@ var Receipt = function () {
     if (!(this instanceof Receipt))
         return new Receipt();
 
-    this.productLines = [];
+    this.productLines = {};
 
     this.setProducts = function (products) {
         _.map(products, function (product) {
+            //console.log(product.key());
             this.addProduct(product);
         }, this);
     };
 
     this.addProduct = function (product, amount) {
-        var doesExist = false;
         amount = typeof amount !== 'undefined' ? amount : 1;
 
-        this.productLines.every(function (element) {
-            if (element.product === product) {
-                element.amount += amount;
-                doesExist = true;
-                return false;
-            }
-            return true;
-        });
-        if (doesExist === false) {
-            var productLineToAdd = Product_line(product);
-            this.productLines.push(productLineToAdd);
+        if (product.name in this.productLines) {
+            this.productLines[product.name].amount += amount;
+        } else {
+            this.productLines[product.name] = new Product_line(product);
         }
     };
 
     this.getTotalProducts = function () {
         var temp = 0;
-        this.productLines.forEach(function (element) {
+        _.map(this.productLines, function (element) {
             temp += element.amount;
         });
         return temp;
@@ -68,14 +61,14 @@ var Receipt = function () {
 
     this.getTotalPrice = function () {
         var temp = 0;
-        this.productLines.forEach(function (element) {
+        _.map(this.productLines, function (element) {
             temp += element.getTotalPrice();
         });
         return temp;
     };
 
     this.clearProducts = function () {
-      this.productLines = [];
+        this.productLines = [];
     };
 };
 
