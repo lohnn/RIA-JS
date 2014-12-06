@@ -8,6 +8,7 @@ var react = require('gulp-react'),
     stylish = require('jshint-stylish'),
     less = require('gulp-less'),
     plumber = require("gulp-plumber");
+var uglify = require('gulp-uglify');
 
 var jest = require('gulp-jest');
 var docco = require('gulp-docco'),
@@ -62,13 +63,6 @@ gulp.task('lint', function () {
         .pipe(jshint.reporter(stylish));
     //.pipe(jshint.reporter('fail'));
 });
-
-/*// Compile Our less
-gulp.task('sass', function () {
-    return gulp.src('sass/*.scss')
-        .pipe(sass())
-        .pipe(gulp.dest('css'));
-});*/
 
 gulp.task('less', function () {
     gulp.src('src/less/*.less')

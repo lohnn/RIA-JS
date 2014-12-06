@@ -25318,9 +25318,8 @@ var React = require('react');
 var Firebase = require("firebase");
 var _ = require('lodash');
 var Receipt = require('./productRelated');
-//var myDataRef = new Firebase('https://lohnn-riajs.firebaseio.com/');
+var receipt = new Receipt();
 
-var receipt = Receipt();
 //==============================================================================
 
 var RenderReceipt = React.createClass({displayName: 'RenderReceipt',
@@ -25367,14 +25366,27 @@ var App = React.createClass({
         this.firebaseProductsRef.on("value", function (dataSnapshot) {
             this.setState({products: dataSnapshot.val()});
         }.bind(this));
+        //TODO: If I had a receipt when I closed the app, that receipt should be reopened.
+        this.firebaseReceiptRef = new Firebase("https://lohnn-riajs.firebaseio.com/receipts/1234567890");
+        this.firebaseProductsRef.on("value", function (dataSnapshot) {
+            this.setReceipt(dataSnapshot.val());
+        }.bind(this));
     },
     componentWillUnmount: function () {
         this.firebaseProductsRef.off();
+        this.firebaseReceiptRef.off();
+    },
+
+    setReceipt: function (products) {
+        this.receipt.setProducts(products);
+        this.setState({receiptProducts: this.receipt.productLines});
     },
 
     addToReceipt: function (product) {
         this.receipt.addProduct(product);
         this.setState({receiptProducts: this.receipt.productLines});
+        console.log(JSON.parse(JSON.stringify(this.receipt.productLines)));
+        this.firebaseReceiptRef.set(JSON.parse(JSON.stringify(this.receipt.productLines)));
     },
 
     cancelAction: function () {
@@ -25412,6 +25424,8 @@ module.exports = App;
  * Created by jl222xa on 2014-12-04.
  */
 
+var _ = require('lodash');
+
 var Product = function (productParams) {
     if (!(this instanceof Product))
         return new Product(productParams);
@@ -25441,6 +25455,13 @@ var Receipt = function () {
         return new Receipt();
 
     this.productLines = [];
+
+    this.setProducts = function (products) {
+        _.map(products, function (product) {
+            this.addProduct(product);
+        }, this);
+    };
+
     this.addProduct = function (product, amount) {
         var doesExist = false;
         amount = typeof amount !== 'undefined' ? amount : 1;
@@ -25477,7 +25498,7 @@ var Receipt = function () {
 };
 
 module.exports = Receipt;
-},{}],152:[function(require,module,exports){
+},{"lodash":3}],152:[function(require,module,exports){
 /**
  * Created by lohnn on 2014-11-24.
  */

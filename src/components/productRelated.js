@@ -2,6 +2,8 @@
  * Created by jl222xa on 2014-12-04.
  */
 
+var _ = require('lodash');
+
 var Product = function (productParams) {
     if (!(this instanceof Product))
         return new Product(productParams);
@@ -31,6 +33,13 @@ var Receipt = function () {
         return new Receipt();
 
     this.productLines = [];
+
+    this.setProducts = function (products) {
+        _.map(products, function (product) {
+            this.addProduct(product);
+        }, this);
+    };
+
     this.addProduct = function (product, amount) {
         var doesExist = false;
         amount = typeof amount !== 'undefined' ? amount : 1;

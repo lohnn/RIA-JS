@@ -8,9 +8,8 @@ var React = require('react');
 var Firebase = require("firebase");
 var _ = require('lodash');
 var Receipt = require('./productRelated');
-//var myDataRef = new Firebase('https://lohnn-riajs.firebaseio.com/');
+var receipt = new Receipt();
 
-var receipt = Receipt();
 //==============================================================================
 
 var RenderReceipt = React.createClass({
@@ -57,14 +56,27 @@ var App = React.createClass({
         this.firebaseProductsRef.on("value", function (dataSnapshot) {
             this.setState({products: dataSnapshot.val()});
         }.bind(this));
+        //TODO: If I had a receipt when I closed the app, that receipt should be reopened.
+        this.firebaseReceiptRef = new Firebase("https://lohnn-riajs.firebaseio.com/receipts/1234567890");
+        this.firebaseProductsRef.on("value", function (dataSnapshot) {
+            this.setReceipt(dataSnapshot.val());
+        }.bind(this));
     },
     componentWillUnmount: function () {
         this.firebaseProductsRef.off();
+        this.firebaseReceiptRef.off();
+    },
+
+    setReceipt: function (products) {
+        this.receipt.setProducts(products);
+        this.setState({receiptProducts: this.receipt.productLines});
     },
 
     addToReceipt: function (product) {
         this.receipt.addProduct(product);
         this.setState({receiptProducts: this.receipt.productLines});
+        console.log(JSON.parse(JSON.stringify(this.receipt.productLines)));
+        this.firebaseReceiptRef.set(JSON.parse(JSON.stringify(this.receipt.productLines)));
     },
 
     cancelAction: function () {
