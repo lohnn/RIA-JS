@@ -80,7 +80,8 @@ var App = React.createClass({
     },
 
     cancelAction: function () {
-        console.log("Avbryt köp!");
+        this.receipt.clearProducts();
+        this.setState({receiptProducts: []});
     },
 
     render: function () {
@@ -96,9 +97,9 @@ var App = React.createClass({
                 <div className="purchase_buttons">
                     <div className="fill_width float_left">
                         <div className="purchase_buttons_discount">Rabatt</div>
-                        <div className="purchase_buttons_finished" onClick={this.cancelAction}>Klar</div>
+                        <div className="purchase_buttons_finished">Klar</div>
                     </div>
-                    <div className="purchase_buttons_cancel float_left">Avbryt</div>
+                    <a href="#" className="purchase_buttons_cancel float_left" onClick={this.cancelAction}>Avbryt</a>
                 </div>
             </div>
             <div className="product_part">
