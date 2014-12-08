@@ -2,8 +2,6 @@
  * Created by lohnn on 2014-11-23.
  */
 
-/** @jsx React.dom */
-
 var React = require('react');
 var Firebase = require("firebase");
 var _ = require('lodash');
@@ -15,9 +13,12 @@ var receipt = new Receipt();
 var RenderReceipt = React.createClass({
     addProduct: function (productLine, pid) {
         return <div key={pid} className="receipt_product">
-            <div className="product_amount">{productLine.amount}</div>
+            <div className="product_amount">{productLine.amount + "st"}</div>
             <div className="product_name">{productLine.getName()}</div>
-            <div className="product_price">{productLine.getTotalPrice()}</div>
+            <div className="product_remove" onClick={function () {
+                this.props.functionToRun(productLine.product);
+            }.bind(this)}>X</div>
+            <div className="product_price">{productLine.getTotalPrice() + "kr"}</div>
         </div>;
     },
     render: function () {
@@ -28,11 +29,10 @@ var RenderReceipt = React.createClass({
 });
 var RenderProducts = React.createClass({
     addProduct: function (product, pid) {
-        var functionToRun = this.props.functionToRun;
         return <div key={pid} className="product_part_product">
             <img alt={product.name} img={product.image} onClick={function () {
-                functionToRun(product);
-            }} />
+                this.props.functionToRun(product);
+            }.bind(this)} />
         {product.name}
         </div>;
     },
@@ -78,6 +78,12 @@ var App = React.createClass({
         this.firebaseReceiptRef.set(JSON.parse(JSON.stringify(this.receipt.productLines)));
     },
 
+    removeLineFromReceipt: function (product) {
+        this.receipt.removeProduct(product);
+        this.setState({receiptProducts: this.receipt.productLines});
+        this.firebaseReceiptRef.set(JSON.parse(JSON.stringify(this.receipt.productLines)));
+    },
+
     cancelAction: function (e) {
         this.receipt.clearProducts();
         this.setState({receiptProducts: []});
@@ -88,7 +94,7 @@ var App = React.createClass({
         return <div id="main" className="container">
             <div className="purchase_part">
                 <div className="receipt">
-            {RenderReceipt({items: this.state.receiptProducts})}
+            {RenderReceipt({items: this.state.receiptProducts, functionToRun: this.removeLineFromReceipt})}
                 </div>
                 <div className="summary">
                     <div className="sum_amount">{this.receipt.getTotalProducts() + "st"}</div>

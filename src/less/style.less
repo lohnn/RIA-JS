@@ -71,6 +71,7 @@ body {
   right: @margin;
   bottom: @distance_from_bottom;
   overflow-y: auto;
+  overflow-x: hidden;
   .background_light;
   .border-radius-top-left;
   .box-shadow;
@@ -84,7 +85,7 @@ body {
   border-bottom: solid 1px black;
 }
 
-.product_amount, .product_name, .product_price {
+.product_amount, .product_name, .product_price, .product_remove {
   height: 100%;
   line-height: @recipe_line_height;
 }
@@ -100,6 +101,23 @@ body {
 .product_price {
   margin-right: @margin;
   .float_right;
+}
+
+@remove_button_width: 20px;
+.product_remove {
+  float: right;
+  width: @remove_button_width;
+  font-size: 15px;
+  margin-right: -@remove_button_width;
+  cursor: pointer;
+}
+
+.receipt_product:hover .product_remove{
+  margin-right: 0;
+}
+
+.product_remove:hover {
+  color: #f00;
 }
 
 .summary {

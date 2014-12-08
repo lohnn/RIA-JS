@@ -10,13 +10,13 @@ var react = require('gulp-react'),
     plumber = require("gulp-plumber");
 var uglify = require('gulp-uglify');
 
-var jest = require('gulp-jest');
+//var jest = require('gulp-jest');
 var docco = require('gulp-docco'),
     folderToc = require("folder-toc");
 
 var browserSync = require("browser-sync");
 
-gulp.task('test', function () {
+/*gulp.task('test', function () {
     return gulp.src('__tests__').pipe(jest({
         testDirectoryName: "spec",
         scriptPreprocessor: './support/preprocessor.js',
@@ -26,7 +26,7 @@ gulp.task('test', function () {
             "./support"
         ]
     }));
-});
+});*/
 
 gulp.task('builddocs', function () {
     gulp.src(['src/*/*.js', 'src/*.js'])

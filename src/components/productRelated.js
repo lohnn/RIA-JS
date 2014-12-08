@@ -12,12 +12,12 @@ var Product = function (productParams) {
     this.image = typeof productParams.image !== 'undefined' ? productParams.image : "";
 };
 
-var Product_line = function (product) {
+var Product_line = function (product, amount) {
     if (!(this instanceof Product_line))
         return new Product_line(product);
 
     this.product = product;
-    this.amount = 1;
+    this.amount = typeof amount !== 'undefined' ? amount : 1;
 
     this.getName = function () {
         return this.product.name;
@@ -36,18 +36,26 @@ var Receipt = function () {
 
     this.setProducts = function (products) {
         _.map(products, function (product) {
-            this.addProduct(product.product, product.amount);
+            if (product.name in this.productLines) {
+                this.productLines[product.product.name].amount = product.amount;
+            } else {
+                this.productLines[product.product.name] = new Product_line(product.product, product.amount);
+            }
         }, this);
     };
 
     this.addProduct = function (product, amount) {
         amount = typeof amount !== 'undefined' ? amount : 1;
-
+        console.log(amount);
         if (product.name in this.productLines) {
             this.productLines[product.name].amount += amount;
         } else {
-            this.productLines[product.name] = new Product_line(product);
+            this.productLines[product.name] = new Product_line(product, amount);
         }
+    };
+
+    this.removeProduct = function (product) {
+        delete this.productLines[product.name];
     };
 
     this.getTotalProducts = function () {

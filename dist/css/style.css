@@ -41,6 +41,7 @@ body {
   right: 15px;
   bottom: 200px;
   overflow-y: auto;
+  overflow-x: hidden;
   background-color: #f9fddd;
   -webkit-border-top-left-radius: 15px;
   -moz-border-radius-topleft: 15px;
@@ -55,7 +56,8 @@ body {
 }
 .product_amount,
 .product_name,
-.product_price {
+.product_price,
+.product_remove {
   height: 100%;
   line-height: 50px;
 }
@@ -69,6 +71,19 @@ body {
 .product_price {
   margin-right: 15px;
   float: right;
+}
+.product_remove {
+  float: right;
+  width: 20px;
+  font-size: 15px;
+  margin-right: -20px;
+  cursor: pointer;
+}
+.receipt_product:hover .product_remove {
+  margin-right: 0;
+}
+.product_remove:hover {
+  color: #f00;
 }
 .summary {
   position: absolute;
