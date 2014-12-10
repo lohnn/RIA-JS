@@ -25355,6 +25355,7 @@ var App = React.createClass({
 
     getInitialState: function () {
         this.receipt = receipt;
+
         return {
             receiptProducts: {},
             products: {}
@@ -25366,9 +25367,21 @@ var App = React.createClass({
             this.setState({products: dataSnapshot.val()});
         }.bind(this));
         //TODO: If I had a receipt when I closed the app, that receipt should be reopened.
-        this.firebaseReceiptRef = new Firebase("https://lohnn-riajs.firebaseio.com/receipts/1234567890");
+
+        this.receiptID = window.location.hash.substring(1);
+        this.firebaseReceiptRef = new Firebase("https://lohnn-riajs.firebaseio.com/receipts/" + this.receiptID);
+
+        if (this.receiptID)
+            console.log("try to load receipt");
+        else { //Create new receipt
+            this.receiptID = this.firebaseReceiptRef.push().key();
+            this.firebaseReceiptRef.off();
+            this.firebaseReceiptRef = new Firebase("https://lohnn-riajs.firebaseio.com/receipts/" + this.receiptID);
+        }
+
         this.firebaseReceiptRef.on("value", function (dataSnapshot) {
-            this.setReceipt(dataSnapshot.val());
+            if (dataSnapshot.val() !== null)
+                this.setReceipt(dataSnapshot.val());
         }.bind(this));
     },
     componentWillUnmount: function () {
@@ -25385,6 +25398,11 @@ var App = React.createClass({
         this.receipt.addProduct(product);
         this.setState({receiptProducts: this.receipt.productLines});
         this.firebaseReceiptRef.set(JSON.parse(JSON.stringify(this.receipt.productLines)));
+
+        if (!window.location.hash.substring(1)) {
+            console.log(this.receiptID);
+            history.pushState(null, null, '#' + this.receiptID);
+        }
     },
 
     removeLineFromReceipt: function (product) {
@@ -25475,7 +25493,6 @@ var Receipt = function () {
 
     this.addProduct = function (product, amount) {
         amount = typeof amount !== 'undefined' ? amount : 1;
-        console.log(amount);
         if (product.name in this.productLines) {
             this.productLines[product.name].amount += amount;
         } else {

@@ -46,7 +46,6 @@ var Receipt = function () {
 
     this.addProduct = function (product, amount) {
         amount = typeof amount !== 'undefined' ? amount : 1;
-        console.log(amount);
         if (product.name in this.productLines) {
             this.productLines[product.name].amount += amount;
         } else {
