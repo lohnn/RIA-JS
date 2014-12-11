@@ -6,9 +6,25 @@ var React = require('react');
 var Firebase = require("firebase");
 var _ = require('lodash');
 var Receipt = require('./productRelated');
-var receipt = new Receipt();
+//var RenderReceipt = new require("./renderReceipt");
+//var RenderProducts = new require("./renderProducts");
 
 //==============================================================================
+
+
+var RenderProducts = React.createClass({
+    addProduct: function (product, pid) {
+        return <div key={pid} className="product_part_product">
+            <img alt={product.name} img={product.image} onClick={function () {
+                this.props.functionToRun(product);
+            }.bind(this)} />
+        {product.name}
+        </div>;
+    },
+    render: function () {
+        return <div>{_.map(this.props.items, this.addProduct, this)}</div>;
+    }
+});
 
 var RenderReceipt = React.createClass({
     addProduct: function (productLine, pid) {
@@ -27,26 +43,13 @@ var RenderReceipt = React.createClass({
         </div>;
     }
 });
-var RenderProducts = React.createClass({
-    addProduct: function (product, pid) {
-        return <div key={pid} className="product_part_product">
-            <img alt={product.name} img={product.image} onClick={function () {
-                this.props.functionToRun(product);
-            }.bind(this)} />
-        {product.name}
-        </div>;
-    },
-    render: function () {
-        return <div>{_.map(this.props.items, this.addProduct, this)}</div>;
-    }
-});
 
 var App = React.createClass({
     displayName: "simple",
 
-    getInitialState: function () {
-        this.receipt = receipt;
+    mixin: [Receipt],
 
+    getInitialState: function () {
         return {
             receiptProducts: {},
             products: {}
@@ -81,30 +84,27 @@ var App = React.createClass({
     },
 
     setReceipt: function (products) {
-        this.receipt.setProducts(products);
-        this.setState({receiptProducts: this.receipt.productLines});
+        Receipt.setProducts(products);
+        this.setState({receiptProducts: this.state.receiptProducts});
     },
 
     addToReceipt: function (product) {
-        this.receipt.addProduct(product);
-        this.setState({receiptProducts: this.receipt.productLines});
-        this.firebaseReceiptRef.set(JSON.parse(JSON.stringify(this.receipt.productLines)));
+        Receipt.addProduct(product);
+        this.firebaseReceiptRef.set(this.state.receiptProducts);
 
         if (!window.location.hash.substring(1)) {
-            console.log(this.receiptID);
             history.pushState(null, null, '#' + this.receiptID);
         }
     },
 
     removeLineFromReceipt: function (product) {
-        this.receipt.removeProduct(product);
-        this.setState({receiptProducts: this.receipt.productLines});
-        this.firebaseReceiptRef.set(JSON.parse(JSON.stringify(this.receipt.productLines)));
+        Receipt.removeProduct(product);
+        this.firebaseReceiptRef.set(this.state.receiptProducts);
     },
 
     cancelAction: function (e) {
-        this.receipt.clearProducts();
-        this.setState({receiptProducts: []});
+        Receipt.clearProducts();
+        this.firebaseReceiptRef.set(this.state.receiptProducts);
         e.preventDefault();
     },
 
@@ -115,8 +115,8 @@ var App = React.createClass({
             {RenderReceipt({items: this.state.receiptProducts, functionToRun: this.removeLineFromReceipt})}
                 </div>
                 <div className="summary">
-                    <div className="sum_amount">{this.receipt.getTotalProducts() + "st"}</div>
-                    <div className="sum_price">{this.receipt.getTotalPrice() + "kr"}</div>
+                    <div className="sum_amount">{Receipt.getTotalProducts()+"st"}</div>
+                    <div className="sum_price">{"kr"}</div>
                 </div>
                 <div className="purchase_buttons">
                     <div className="fill_width float_left">

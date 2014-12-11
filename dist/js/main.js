@@ -25315,9 +25315,25 @@ var React = require('react');
 var Firebase = require("firebase");
 var _ = require('lodash');
 var Receipt = require('./productRelated');
-var receipt = new Receipt();
+//var RenderReceipt = new require("./renderReceipt");
+//var RenderProducts = new require("./renderProducts");
 
 //==============================================================================
+
+
+var RenderProducts = React.createClass({displayName: 'RenderProducts',
+    addProduct: function (product, pid) {
+        return React.createElement("div", {key: pid, className: "product_part_product"}, 
+            React.createElement("img", {alt: product.name, img: product.image, onClick: function () {
+                this.props.functionToRun(product);
+            }.bind(this)}), 
+        product.name
+        );
+    },
+    render: function () {
+        return React.createElement("div", null, _.map(this.props.items, this.addProduct, this));
+    }
+});
 
 var RenderReceipt = React.createClass({displayName: 'RenderReceipt',
     addProduct: function (productLine, pid) {
@@ -25336,26 +25352,13 @@ var RenderReceipt = React.createClass({displayName: 'RenderReceipt',
         );
     }
 });
-var RenderProducts = React.createClass({displayName: 'RenderProducts',
-    addProduct: function (product, pid) {
-        return React.createElement("div", {key: pid, className: "product_part_product"}, 
-            React.createElement("img", {alt: product.name, img: product.image, onClick: function () {
-                this.props.functionToRun(product);
-            }.bind(this)}), 
-        product.name
-        );
-    },
-    render: function () {
-        return React.createElement("div", null, _.map(this.props.items, this.addProduct, this));
-    }
-});
 
 var App = React.createClass({
     displayName: "simple",
 
-    getInitialState: function () {
-        this.receipt = receipt;
+    mixin: [Receipt],
 
+    getInitialState: function () {
         return {
             receiptProducts: {},
             products: {}
@@ -25390,30 +25393,27 @@ var App = React.createClass({
     },
 
     setReceipt: function (products) {
-        this.receipt.setProducts(products);
-        this.setState({receiptProducts: this.receipt.productLines});
+        Receipt.setProducts(products);
+        this.setState({receiptProducts: this.state.receiptProducts});
     },
 
     addToReceipt: function (product) {
-        this.receipt.addProduct(product);
-        this.setState({receiptProducts: this.receipt.productLines});
-        this.firebaseReceiptRef.set(JSON.parse(JSON.stringify(this.receipt.productLines)));
+        Receipt.addProduct(product);
+        this.firebaseReceiptRef.set(this.state.receiptProducts);
 
         if (!window.location.hash.substring(1)) {
-            console.log(this.receiptID);
             history.pushState(null, null, '#' + this.receiptID);
         }
     },
 
     removeLineFromReceipt: function (product) {
-        this.receipt.removeProduct(product);
-        this.setState({receiptProducts: this.receipt.productLines});
-        this.firebaseReceiptRef.set(JSON.parse(JSON.stringify(this.receipt.productLines)));
+        Receipt.removeProduct(product);
+        this.firebaseReceiptRef.set(this.state.receiptProducts);
     },
 
     cancelAction: function (e) {
-        this.receipt.clearProducts();
-        this.setState({receiptProducts: []});
+        Receipt.clearProducts();
+        this.firebaseReceiptRef.set(this.state.receiptProducts);
         e.preventDefault();
     },
 
@@ -25424,8 +25424,8 @@ var App = React.createClass({
             RenderReceipt({items: this.state.receiptProducts, functionToRun: this.removeLineFromReceipt})
                 ), 
                 React.createElement("div", {className: "summary"}, 
-                    React.createElement("div", {className: "sum_amount"}, this.receipt.getTotalProducts() + "st"), 
-                    React.createElement("div", {className: "sum_price"}, this.receipt.getTotalPrice() + "kr")
+                    React.createElement("div", {className: "sum_amount"}, Receipt.getTotalProducts()+"st"), 
+                    React.createElement("div", {className: "sum_price"}, "kr")
                 ), 
                 React.createElement("div", {className: "purchase_buttons"}, 
                     React.createElement("div", {className: "fill_width float_left"}, 
@@ -25451,14 +25451,6 @@ module.exports = App;
 
 var _ = require('lodash');
 
-var Product = function (productParams) {
-    if (!(this instanceof Product))
-        return new Product(productParams);
-    this.name = productParams.name;
-    this.price = productParams.price;
-    this.image = typeof productParams.image !== 'undefined' ? productParams.image : "";
-};
-
 var Product_line = function (product, amount) {
     if (!(this instanceof Product_line))
         return new Product_line(product);
@@ -25475,54 +25467,49 @@ var Product_line = function (product, amount) {
     };
 };
 
-var Receipt = function () {
-    if (!(this instanceof Receipt))
-        return new Receipt();
-
-    this.productLines = {};
-
-    this.setProducts = function (products) {
+var Receipt = {
+    setProducts: function (products) {
         _.map(products, function (product) {
-            if (product.name in this.productLines) {
-                this.productLines[product.product.name].amount = product.amount;
+            if (product.name in this.state.receiptProducts) {
+                this.state.receiptProducts[product.product.name].amount = product.amount;
             } else {
-                this.productLines[product.product.name] = new Product_line(product.product, product.amount);
+                this.state.receiptProducts[product.product.name] = new Product_line(product.product, product.amount);
             }
         }, this);
-    };
+    },
 
-    this.addProduct = function (product, amount) {
+    addProduct: function (product, amount) {
         amount = typeof amount !== 'undefined' ? amount : 1;
-        if (product.name in this.productLines) {
-            this.productLines[product.name].amount += amount;
+        if (product.name in this.state.receiptProducts) {
+            this.state.receiptProducts[product.name].amount += amount;
         } else {
-            this.productLines[product.name] = new Product_line(product, amount);
+            this.state.receiptProducts[product.name] = new Product_line(product, amount);
         }
-    };
+    },
 
-    this.removeProduct = function (product) {
-        delete this.productLines[product.name];
-    };
+    removeProduct: function (product) {
+        delete this.state.receiptProducts[product.name];
+    },
 
-    this.getTotalProducts = function () {
+    getTotalProducts: function () {
         var temp = 0;
-        _.map(this.productLines, function (element) {
+        _.map(this.state.receiptProducts, function (element) {
             temp += element.amount;
         });
         return temp;
-    };
+    },
 
-    this.getTotalPrice = function () {
+    getTotalPrice: function () {
         var temp = 0;
-        _.map(this.productLines, function (element) {
+        _.map(this.state.receiptProducts, function (element) {
             temp += element.getTotalPrice();
         });
         return temp;
-    };
+    },
 
-    this.clearProducts = function () {
-        this.productLines = [];
-    };
+    clearProducts: function () {
+        this.state.receiptProducts = [];
+    }
 };
 
 module.exports = Receipt;
