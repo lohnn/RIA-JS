@@ -61,7 +61,7 @@ var Receipt = {
     },
 
     clearProducts: function () {
-        this.state.receiptProducts = [];
+        this.state.receiptProducts = {};
     }
 };
 

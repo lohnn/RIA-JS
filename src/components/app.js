@@ -4,50 +4,16 @@
 
 var React = require('react');
 var Firebase = require("firebase");
-var _ = require('lodash');
 var Receipt = require('./productRelated');
-//var RenderReceipt = new require("./renderReceipt");
-//var RenderProducts = new require("./renderProducts");
+var RenderReceipt = require("./renderReceipt");
+var RenderProducts = require("./renderProducts");
 
 //==============================================================================
 
-
-var RenderProducts = React.createClass({
-    addProduct: function (product, pid) {
-        return <div key={pid} className="product_part_product">
-            <img alt={product.name} img={product.image} onClick={function () {
-                this.props.functionToRun(product);
-            }.bind(this)} />
-        {product.name}
-        </div>;
-    },
-    render: function () {
-        return <div>{_.map(this.props.items, this.addProduct, this)}</div>;
-    }
-});
-
-var RenderReceipt = React.createClass({
-    addProduct: function (productLine, pid) {
-        return <div key={pid} className="receipt_product">
-            <div className="product_amount">{productLine.amount + "st"}</div>
-            <div className="product_name">{productLine.getName()}</div>
-            <div className="product_remove" onClick={function () {
-                this.props.functionToRun(productLine.product);
-            }.bind(this)}>X</div>
-            <div className="product_price">{productLine.getTotalPrice() + "kr"}</div>
-        </div>;
-    },
-    render: function () {
-        return <div>
-        {_.map(this.props.items, this.addProduct)}
-        </div>;
-    }
-});
-
 var App = React.createClass({
-    displayName: "simple",
+    mixins: [Receipt],
 
-    mixin: [Receipt],
+    displayName: "simple",
 
     getInitialState: function () {
         return {
@@ -74,8 +40,7 @@ var App = React.createClass({
         }
 
         this.firebaseReceiptRef.on("value", function (dataSnapshot) {
-            if (dataSnapshot.val() !== null)
-                this.setReceipt(dataSnapshot.val());
+            this.setReceipt(dataSnapshot.val());
         }.bind(this));
     },
     componentWillUnmount: function () {
@@ -84,28 +49,31 @@ var App = React.createClass({
     },
 
     setReceipt: function (products) {
-        Receipt.setProducts(products);
+        this.setProducts(products);
         this.setState({receiptProducts: this.state.receiptProducts});
     },
 
     addToReceipt: function (product) {
-        Receipt.addProduct(product);
-        this.firebaseReceiptRef.set(this.state.receiptProducts);
-
+        this.addProduct(product);
+        this.updateFirebase();
+        
         if (!window.location.hash.substring(1)) {
             history.pushState(null, null, '#' + this.receiptID);
         }
     },
 
-    removeLineFromReceipt: function (product) {
-        Receipt.removeProduct(product);
-        this.firebaseReceiptRef.set(this.state.receiptProducts);
+    updateFirebase: function () {
+        this.firebaseReceiptRef.set(JSON.parse(JSON.stringify(this.state.receiptProducts)));
     },
 
-    cancelAction: function (e) {
-        Receipt.clearProducts();
-        this.firebaseReceiptRef.set(this.state.receiptProducts);
-        e.preventDefault();
+    removeLineFromReceipt: function (product) {
+        this.removeProduct(product);
+        this.updateFirebase();
+    },
+
+    cancelAction: function () {
+        this.clearProducts();
+        this.updateFirebase();
     },
 
     render: function () {
@@ -115,8 +83,8 @@ var App = React.createClass({
             {RenderReceipt({items: this.state.receiptProducts, functionToRun: this.removeLineFromReceipt})}
                 </div>
                 <div className="summary">
-                    <div className="sum_amount">{Receipt.getTotalProducts()+"st"}</div>
-                    <div className="sum_price">{"kr"}</div>
+                    <div className="sum_amount">{this.getTotalProducts() + "st"}</div>
+                    <div className="sum_price">{this.getTotalProducts() + "kr"}</div>
                 </div>
                 <div className="purchase_buttons">
                     <div className="fill_width float_left">

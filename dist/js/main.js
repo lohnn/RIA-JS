@@ -25313,50 +25313,16 @@ module.exports = require('./lib/React');
 
 var React = require('react');
 var Firebase = require("firebase");
-var _ = require('lodash');
 var Receipt = require('./productRelated');
-//var RenderReceipt = new require("./renderReceipt");
-//var RenderProducts = new require("./renderProducts");
+var RenderReceipt = require("./renderReceipt");
+var RenderProducts = require("./renderProducts");
 
 //==============================================================================
 
-
-var RenderProducts = React.createClass({displayName: 'RenderProducts',
-    addProduct: function (product, pid) {
-        return React.createElement("div", {key: pid, className: "product_part_product"}, 
-            React.createElement("img", {alt: product.name, img: product.image, onClick: function () {
-                this.props.functionToRun(product);
-            }.bind(this)}), 
-        product.name
-        );
-    },
-    render: function () {
-        return React.createElement("div", null, _.map(this.props.items, this.addProduct, this));
-    }
-});
-
-var RenderReceipt = React.createClass({displayName: 'RenderReceipt',
-    addProduct: function (productLine, pid) {
-        return React.createElement("div", {key: pid, className: "receipt_product"}, 
-            React.createElement("div", {className: "product_amount"}, productLine.amount + "st"), 
-            React.createElement("div", {className: "product_name"}, productLine.getName()), 
-            React.createElement("div", {className: "product_remove", onClick: function () {
-                this.props.functionToRun(productLine.product);
-            }.bind(this)}, "X"), 
-            React.createElement("div", {className: "product_price"}, productLine.getTotalPrice() + "kr")
-        );
-    },
-    render: function () {
-        return React.createElement("div", null, 
-        _.map(this.props.items, this.addProduct)
-        );
-    }
-});
-
 var App = React.createClass({
-    displayName: "simple",
+    mixins: [Receipt],
 
-    mixin: [Receipt],
+    displayName: "simple",
 
     getInitialState: function () {
         return {
@@ -25383,8 +25349,7 @@ var App = React.createClass({
         }
 
         this.firebaseReceiptRef.on("value", function (dataSnapshot) {
-            if (dataSnapshot.val() !== null)
-                this.setReceipt(dataSnapshot.val());
+            this.setReceipt(dataSnapshot.val());
         }.bind(this));
     },
     componentWillUnmount: function () {
@@ -25393,28 +25358,31 @@ var App = React.createClass({
     },
 
     setReceipt: function (products) {
-        Receipt.setProducts(products);
+        this.setProducts(products);
         this.setState({receiptProducts: this.state.receiptProducts});
     },
 
     addToReceipt: function (product) {
-        Receipt.addProduct(product);
-        this.firebaseReceiptRef.set(this.state.receiptProducts);
-
+        this.addProduct(product);
+        this.updateFirebase();
+        
         if (!window.location.hash.substring(1)) {
             history.pushState(null, null, '#' + this.receiptID);
         }
     },
 
-    removeLineFromReceipt: function (product) {
-        Receipt.removeProduct(product);
-        this.firebaseReceiptRef.set(this.state.receiptProducts);
+    updateFirebase: function () {
+        this.firebaseReceiptRef.set(JSON.parse(JSON.stringify(this.state.receiptProducts)));
     },
 
-    cancelAction: function (e) {
-        Receipt.clearProducts();
-        this.firebaseReceiptRef.set(this.state.receiptProducts);
-        e.preventDefault();
+    removeLineFromReceipt: function (product) {
+        this.removeProduct(product);
+        this.updateFirebase();
+    },
+
+    cancelAction: function () {
+        this.clearProducts();
+        this.updateFirebase();
     },
 
     render: function () {
@@ -25424,8 +25392,8 @@ var App = React.createClass({
             RenderReceipt({items: this.state.receiptProducts, functionToRun: this.removeLineFromReceipt})
                 ), 
                 React.createElement("div", {className: "summary"}, 
-                    React.createElement("div", {className: "sum_amount"}, Receipt.getTotalProducts()+"st"), 
-                    React.createElement("div", {className: "sum_price"}, "kr")
+                    React.createElement("div", {className: "sum_amount"}, this.getTotalProducts() + "st"), 
+                    React.createElement("div", {className: "sum_price"}, this.getTotalProducts() + "kr")
                 ), 
                 React.createElement("div", {className: "purchase_buttons"}, 
                     React.createElement("div", {className: "fill_width float_left"}, 
@@ -25444,7 +25412,7 @@ var App = React.createClass({
 
 module.exports = App;
 
-},{"./productRelated":151,"firebase":1,"lodash":3,"react":149}],151:[function(require,module,exports){
+},{"./productRelated":151,"./renderProducts":152,"./renderReceipt":153,"firebase":1,"react":149}],151:[function(require,module,exports){
 /**
  * Created by jl222xa on 2014-12-04.
  */
@@ -25508,12 +25476,63 @@ var Receipt = {
     },
 
     clearProducts: function () {
-        this.state.receiptProducts = [];
+        this.state.receiptProducts = {};
     }
 };
 
 module.exports = Receipt;
 },{"lodash":3}],152:[function(require,module,exports){
+/**
+ * Created by jl222xa on 2014-12-11.
+ */
+
+var React = require('react');
+var _ = require('lodash');
+
+var RenderProducts = React.createClass({displayName: 'RenderProducts',
+    addProduct: function (product, pid) {
+        return React.createElement("div", {key: pid, className: "product_part_product"}, 
+            React.createElement("img", {alt: product.name, img: product.image, onClick: function () {
+                this.props.functionToRun(product);
+            }.bind(this)}), 
+        product.name
+        );
+    },
+    render: function () {
+        return React.createElement("div", null, _.map(this.props.items, this.addProduct, this));
+    }
+});
+
+module.exports = RenderProducts;
+},{"lodash":3,"react":149}],153:[function(require,module,exports){
+/**
+ * Created by jl222xa on 2014-12-11.
+ */
+
+var React = require('react');
+var _ = require('lodash');
+
+var RenderReceipt = React.createClass({displayName: 'RenderReceipt',
+    addProduct: function (productLine, pid) {
+        return React.createElement("div", {key: pid, className: "receipt_product"}, 
+            React.createElement("div", {className: "product_amount"}, productLine.amount + "st"), 
+            React.createElement("div", {className: "product_name"}, productLine.getName()), 
+            React.createElement("div", {className: "product_remove", onClick: function () {
+                this.props.functionToRun(productLine.product);
+            }.bind(this)}, "X"), 
+            React.createElement("div", {className: "product_price"}, productLine.getTotalPrice() + "kr")
+        );
+    },
+    render: function () {
+        return React.createElement("div", null, 
+        _.map(this.props.items, this.addProduct)
+        );
+    }
+});
+
+module.exports = RenderReceipt;
+
+},{"lodash":3,"react":149}],154:[function(require,module,exports){
 /**
  * Created by lohnn on 2014-11-24.
  */
@@ -25525,4 +25544,4 @@ React.render(
     App(),
     document.body
 );
-},{"./components/app":150,"react":149}]},{},[152])
+},{"./components/app":150,"react":149}]},{},[154])
