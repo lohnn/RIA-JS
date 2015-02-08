@@ -26,20 +26,17 @@ var App = React.createClass({
         this.firebaseProductsRef.on("value", function (dataSnapshot) {
             this.setState({products: dataSnapshot.val()});
         }.bind(this));
-        //TODO: If I had a receipt when I closed the app, that receipt should be reopened.
+
+        //TODO: If I had a receipt when I closed the app, that receipt should be reopened. (save for next time)
+
+        this.firebaseReceiptRef = new Firebase("https://lohnn-riajs.firebaseio.com/receipts/");
 
         this.receiptID = window.location.hash.substring(1);
-        this.firebaseReceiptRef = new Firebase("https://lohnn-riajs.firebaseio.com/receipts/" + this.receiptID);
-
-        if (this.receiptID)
-            console.log("try to load receipt");
-        else { //Create new receipt
+        if (!this.receiptID) { //Create new receipt
             this.receiptID = this.firebaseReceiptRef.push().key();
-            this.firebaseReceiptRef.off();
-            this.firebaseReceiptRef = new Firebase("https://lohnn-riajs.firebaseio.com/receipts/" + this.receiptID);
         }
 
-        this.firebaseReceiptRef.on("value", function (dataSnapshot) {
+        this.firebaseReceiptRef.child(this.receiptID).on("value", function (dataSnapshot) {
             this.setReceipt(dataSnapshot.val());
         }.bind(this));
     },
@@ -56,14 +53,14 @@ var App = React.createClass({
     addToReceipt: function (product) {
         this.addProduct(product);
         this.updateFirebase();
-        
+
         if (!window.location.hash.substring(1)) {
             history.pushState(null, null, '#' + this.receiptID);
         }
     },
 
     updateFirebase: function () {
-        this.firebaseReceiptRef.set(JSON.parse(JSON.stringify(this.state.receiptProducts)));
+        this.firebaseReceiptRef.child(this.receiptID).set(JSON.parse(JSON.stringify(this.state.receiptProducts)));
     },
 
     removeLineFromReceipt: function (product) {
@@ -74,6 +71,21 @@ var App = React.createClass({
     cancelAction: function () {
         this.clearProducts();
         this.updateFirebase();
+    },
+
+    finishedAction: function () {
+        var finishedFirebaseReceiptRef = new Firebase("https://lohnn-riajs.firebaseio.com/finished-receipts/");
+        finishedFirebaseReceiptRef.child(this.receiptID).set(JSON.parse(JSON.stringify(this.state.receiptProducts)));
+        finishedFirebaseReceiptRef.off();
+
+        this.firebaseReceiptRef.child(this.receiptID).remove();
+        this.firebaseReceiptRef.off();
+        history.pushState(null, null, '#');
+        this.receiptID = this.firebaseReceiptRef.push().key();
+        this.firebaseReceiptRef.child(this.receiptID).on("value", function (dataSnapshot) {
+            this.setReceipt(dataSnapshot.val());
+        }.bind(this));
+        this.cancelAction();
     },
 
     render: function () {
@@ -89,7 +101,7 @@ var App = React.createClass({
                 <div className="purchase_buttons">
                     <div className="fill_width float_left">
                         <div className="purchase_buttons_discount">Rabatt</div>
-                        <div className="purchase_buttons_finished">Klar</div>
+                        <div className="purchase_buttons_finished" onClick={this.finishedAction}>Klar</div>
                     </div>
                     <a href="#" className="purchase_buttons_cancel float_left" onClick={this.cancelAction}>Avbryt</a>
                 </div>
