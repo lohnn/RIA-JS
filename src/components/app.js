@@ -75,12 +75,44 @@ var App = React.createClass({
         this.updateFirebase();
     },
 
-    finishedAction: function () {
-        var dialogDiv = document.getElementById("dialog-div");
-        var removeDialog = function () {
-            React.unmountComponentAtNode(dialogDiv);
-        };
+    dialogDiv: function () {
+        return document.getElementById("dialog-div");
+    },
 
+    removeDialog: function () {
+        React.unmountComponentAtNode(this.dialogDiv());
+    },
+
+    cancelDialog: function () {
+        var cancelReceipt = function(){
+            this.cancelAction();
+            this.removeDialog();
+        }.bind(this);
+
+        var putOnShelf = function () {
+            this.firebaseReceiptRef.off();
+            history.pushState(null, null, '#');
+            this.receiptID = this.firebaseReceiptRef.push().key();
+            this.firebaseReceiptRef.child(this.receiptID).on("value", function (dataSnapshot) {
+                this.setReceipt(dataSnapshot.val());
+            }.bind(this));
+            this.cancelAction();
+            this.removeDialog();
+        }.bind(this);
+
+        React.render(
+            (<Dialog onClose={this.removeDialog} style={{width: 320, height: 200}}>
+                <p>Vill du avbryta eller lägga kvittot på hyllan för framtida ändringar?</p>
+                <div className="dialog-footer">
+                    <button className="dialog-button-cancel" onClick={cancelReceipt}>Avbryt kvitto</button>
+                    <button onClick={putOnShelf}>Lägg på hyllan</button>
+                </div>
+            </Dialog>),
+            this.dialogDiv()
+        );
+    },
+
+    finishedAction: function () {
         var receiptDone = function () {
             var finishedFirebaseReceiptRef = new Firebase("https://lohnn-riajs.firebaseio.com/finished-receipts/");
             finishedFirebaseReceiptRef.child(this.receiptID).set(JSON.parse(JSON.stringify(this.state.receiptProducts)));
@@ -95,18 +127,18 @@ var App = React.createClass({
             }.bind(this));
             this.cancelAction();
 
-            removeDialog();
+            this.removeDialog();
         }.bind(this);
 
         React.render(
-            (<Dialog onClose={removeDialog} style={{width: 300, height: 200}}>
+            (<Dialog onClose={this.removeDialog} style={{width: 300, height: 200}}>
                 <p>Är du säker på att du är klar med beställningen?</p>
                 <div className="dialog-footer">
-                    <button className="dialog-button-cancel" onClick={removeDialog}>Fortsätt beställning</button>
+                    <button className="dialog-button-cancel" onClick={this.removeDialog}>Fortsätt beställning</button>
                     <button className="dialog-button-confirm" onClick={receiptDone}>Klar</button>
                 </div>
             </Dialog>),
-            dialogDiv
+            this.dialogDiv()
         );
     },
 
@@ -126,7 +158,7 @@ var App = React.createClass({
                         <div className="purchase_buttons_discount">Rabatt</div>
                         <div className="purchase_buttons_finished" onClick={this.finishedAction}>Klar</div>
                     </div>
-                    <a href="#" className="purchase_buttons_cancel float_left" onClick={this.cancelAction}>Avbryt</a>
+                    <a href="#" className="purchase_buttons_cancel float_left" onClick={this.cancelDialog}>Avbryt</a>
                 </div>
             </div>
             <div className="product_part">

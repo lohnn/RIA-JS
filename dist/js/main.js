@@ -29446,12 +29446,44 @@ var App = React.createClass({
         this.updateFirebase();
     },
 
-    finishedAction: function () {
-        var dialogDiv = document.getElementById("dialog-div");
-        var removeDialog = function () {
-            React.unmountComponentAtNode(dialogDiv);
-        };
+    dialogDiv: function () {
+        return document.getElementById("dialog-div");
+    },
 
+    removeDialog: function () {
+        React.unmountComponentAtNode(this.dialogDiv());
+    },
+
+    cancelDialog: function () {
+        var cancelReceipt = function(){
+            this.cancelAction();
+            this.removeDialog();
+        }.bind(this);
+
+        var putOnShelf = function () {
+            this.firebaseReceiptRef.off();
+            history.pushState(null, null, '#');
+            this.receiptID = this.firebaseReceiptRef.push().key();
+            this.firebaseReceiptRef.child(this.receiptID).on("value", function (dataSnapshot) {
+                this.setReceipt(dataSnapshot.val());
+            }.bind(this));
+            this.cancelAction();
+            this.removeDialog();
+        }.bind(this);
+
+        React.render(
+            (React.createElement(Dialog, {onClose: this.removeDialog, style: {width: 320, height: 200}}, 
+                React.createElement("p", null, "Vill du avbryta eller lägga kvittot på hyllan för framtida ändringar?"), 
+                React.createElement("div", {className: "dialog-footer"}, 
+                    React.createElement("button", {className: "dialog-button-cancel", onClick: cancelReceipt}, "Avbryt kvitto"), 
+                    React.createElement("button", {onClick: putOnShelf}, "Lägg på hyllan")
+                )
+            )),
+            this.dialogDiv()
+        );
+    },
+
+    finishedAction: function () {
         var receiptDone = function () {
             var finishedFirebaseReceiptRef = new Firebase("https://lohnn-riajs.firebaseio.com/finished-receipts/");
             finishedFirebaseReceiptRef.child(this.receiptID).set(JSON.parse(JSON.stringify(this.state.receiptProducts)));
@@ -29466,18 +29498,18 @@ var App = React.createClass({
             }.bind(this));
             this.cancelAction();
 
-            removeDialog();
+            this.removeDialog();
         }.bind(this);
 
         React.render(
-            (React.createElement(Dialog, {onClose: removeDialog, style: {width: 300, height: 200}}, 
+            (React.createElement(Dialog, {onClose: this.removeDialog, style: {width: 300, height: 200}}, 
                 React.createElement("p", null, "Är du säker på att du är klar med beställningen?"), 
                 React.createElement("div", {className: "dialog-footer"}, 
-                    React.createElement("button", {className: "dialog-button-cancel", onClick: removeDialog}, "Fortsätt beställning"), 
+                    React.createElement("button", {className: "dialog-button-cancel", onClick: this.removeDialog}, "Fortsätt beställning"), 
                     React.createElement("button", {className: "dialog-button-confirm", onClick: receiptDone}, "Klar")
                 )
             )),
-            dialogDiv
+            this.dialogDiv()
         );
     },
 
@@ -29497,7 +29529,7 @@ var App = React.createClass({
                         React.createElement("div", {className: "purchase_buttons_discount"}, "Rabatt"), 
                         React.createElement("div", {className: "purchase_buttons_finished", onClick: this.finishedAction}, "Klar")
                     ), 
-                    React.createElement("a", {href: "#", className: "purchase_buttons_cancel float_left", onClick: this.cancelAction}, "Avbryt")
+                    React.createElement("a", {href: "#", className: "purchase_buttons_cancel float_left", onClick: this.cancelDialog}, "Avbryt")
                 )
             ), 
             React.createElement("div", {className: "product_part"}, 
