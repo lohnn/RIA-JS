@@ -9,7 +9,6 @@ var RenderReceipt = require("./renderReceipt");
 var RenderProducts = require("./renderProducts");
 var Dialog = require('./dialog');
 
-
 //==============================================================================
 
 var App = React.createClass({
@@ -70,6 +69,35 @@ var App = React.createClass({
         this.updateFirebase();
     },
 
+    updateLineAmount: function (productLine) {
+        var amount = productLine.amount;
+
+        var confirmAction = function () {
+            if (amount <= 0) {
+                this.removeLineFromReceipt(productLine.product);
+            } else {
+                productLine.amount = amount;
+                this.updateFirebase();
+            }
+            this.removeDialog();
+        }.bind(this);
+
+        React.render(
+            (<Dialog onClose={this.removeDialog} style={{width: 300, height: 200}}>
+                <p>Ange hur många produkter det ska vara</p>
+                <input type="number" min="0" onChange={function (event) {
+                    amount = event.target.value;
+                    console.log(amount);
+                }} defaultValue={productLine.amount} />
+                <div className="dialog-footer">
+                    <button onClick={this.removeDialog} className="dialog-button-cancel">Avbryt</button>
+                    <button onClick={confirmAction} className="dialog-button-confirm">Klar</button>
+                </div>
+            </Dialog>),
+            this.dialogDiv()
+        );
+    },
+
     cancelAction: function () {
         this.clearProducts();
         this.updateFirebase();
@@ -84,7 +112,11 @@ var App = React.createClass({
     },
 
     cancelDialog: function () {
-        var cancelReceipt = function(){
+        //If receipt is empty, do nothing
+        if (this.getTotalProducts() <= 0) {
+            return;
+        }
+        var cancelReceipt = function () {
             this.cancelAction();
             this.removeDialog();
         }.bind(this);
@@ -143,11 +175,18 @@ var App = React.createClass({
     },
 
     render: function () {
+        var finishedOrList = (this.getTotalProducts() <= 0) ?
+            <div className="purchase_buttons_finished" onClick={this.finishedAction}>Gamla kvitton</div> :
+            <div className="purchase_buttons_finished" onClick={this.finishedAction}>Klar</div>;
         return <div id="main" className="container">
             <div id="dialog-div" />
             <div className="purchase_part">
                 <div className="receipt">
-                    {RenderReceipt({items: this.state.receiptProducts, functionToRun: this.removeLineFromReceipt})}
+                    {RenderReceipt({
+                        items: this.state.receiptProducts,
+                        functionToRun: this.removeLineFromReceipt,
+                        updateLineAmountFunction: this.updateLineAmount
+                    })}
                 </div>
                 <div className="summary">
                     <div className="sum_amount">{this.getTotalProducts() + "st"}</div>
@@ -156,7 +195,7 @@ var App = React.createClass({
                 <div className="purchase_buttons">
                     <div className="fill_width float_left">
                         <div className="purchase_buttons_discount">Rabatt</div>
-                        <div className="purchase_buttons_finished" onClick={this.finishedAction}>Klar</div>
+                        {finishedOrList}
                     </div>
                     <a href="#" className="purchase_buttons_cancel float_left" onClick={this.cancelDialog}>Avbryt</a>
                 </div>

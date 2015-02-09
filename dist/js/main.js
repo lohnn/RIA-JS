@@ -29380,7 +29380,6 @@ var RenderReceipt = require("./renderReceipt");
 var RenderProducts = require("./renderProducts");
 var Dialog = require('./dialog');
 
-
 //==============================================================================
 
 var App = React.createClass({
@@ -29441,6 +29440,35 @@ var App = React.createClass({
         this.updateFirebase();
     },
 
+    updateLineAmount: function (productLine) {
+        var amount = productLine.amount;
+
+        var confirmAction = function () {
+            if (amount <= 0) {
+                this.removeLineFromReceipt(productLine.product);
+            } else {
+                productLine.amount = amount;
+                this.updateFirebase();
+            }
+            this.removeDialog();
+        }.bind(this);
+
+        React.render(
+            (React.createElement(Dialog, {onClose: this.removeDialog, style: {width: 300, height: 200}}, 
+                React.createElement("p", null, "Ange hur många produkter det ska vara"), 
+                React.createElement("input", {type: "number", min: "0", onChange: function (event) {
+                    amount = event.target.value;
+                    console.log(amount);
+                }, defaultValue: productLine.amount}), 
+                React.createElement("div", {className: "dialog-footer"}, 
+                    React.createElement("button", {onClick: this.removeDialog, className: "dialog-button-cancel"}, "Avbryt"), 
+                    React.createElement("button", {onClick: confirmAction, className: "dialog-button-confirm"}, "Klar")
+                )
+            )),
+            this.dialogDiv()
+        );
+    },
+
     cancelAction: function () {
         this.clearProducts();
         this.updateFirebase();
@@ -29455,7 +29483,11 @@ var App = React.createClass({
     },
 
     cancelDialog: function () {
-        var cancelReceipt = function(){
+        //If receipt is empty, do nothing
+        if (this.getTotalProducts() <= 0) {
+            return;
+        }
+        var cancelReceipt = function () {
             this.cancelAction();
             this.removeDialog();
         }.bind(this);
@@ -29514,11 +29546,18 @@ var App = React.createClass({
     },
 
     render: function () {
+        var finishedOrList = (this.getTotalProducts() <= 0) ?
+            React.createElement("div", {className: "purchase_buttons_finished", onClick: this.finishedAction}, "Gamla kvitton") :
+            React.createElement("div", {className: "purchase_buttons_finished", onClick: this.finishedAction}, "Klar");
         return React.createElement("div", {id: "main", className: "container"}, 
             React.createElement("div", {id: "dialog-div"}), 
             React.createElement("div", {className: "purchase_part"}, 
                 React.createElement("div", {className: "receipt"}, 
-                    RenderReceipt({items: this.state.receiptProducts, functionToRun: this.removeLineFromReceipt})
+                    RenderReceipt({
+                        items: this.state.receiptProducts,
+                        functionToRun: this.removeLineFromReceipt,
+                        updateLineAmountFunction: this.updateLineAmount
+                    })
                 ), 
                 React.createElement("div", {className: "summary"}, 
                     React.createElement("div", {className: "sum_amount"}, this.getTotalProducts() + "st"), 
@@ -29527,7 +29566,7 @@ var App = React.createClass({
                 React.createElement("div", {className: "purchase_buttons"}, 
                     React.createElement("div", {className: "fill_width float_left"}, 
                         React.createElement("div", {className: "purchase_buttons_discount"}, "Rabatt"), 
-                        React.createElement("div", {className: "purchase_buttons_finished", onClick: this.finishedAction}, "Klar")
+                        finishedOrList
                     ), 
                     React.createElement("a", {href: "#", className: "purchase_buttons_cancel float_left", onClick: this.cancelDialog}, "Avbryt")
                 )
@@ -29550,30 +29589,15 @@ module.exports = App;
 var React = require("react");
 
 var Dialog = React.createClass({displayName: "Dialog",
-    getDefaultProps: function () {
-        return {
-            visible: true
-        };
-    },
-
-    handleTrigger: function () {
-        this.setProps({visible: true});
-    },
-
     render: function () {
-        var dialog;
-        if (this.props.visible === true) {
-            dialog = React.createElement("div", {className: "dialog", style: this.props.style}, 
-                React.createElement("a", {className: "dialog-close", onClick: this.props.onClose}, 
-                    "X"
-                ), 
-                this.props.children
-            );
-        }
-
         return (
             React.createElement("div", {className: "dialog-fill-screen"}, 
-                dialog
+                React.createElement("div", {className: "dialog", style: this.props.style}, 
+                    React.createElement("a", {className: "dialog-close", onClick: this.props.onClose}, 
+                        "X"
+                    ), 
+                this.props.children
+                )
             ));
     }
 });
@@ -29699,7 +29723,9 @@ var _ = require('lodash');
 var RenderReceipt = React.createClass({displayName: "RenderReceipt",
     addProduct: function (productLine, pid) {
         return React.createElement("div", {key: pid, className: "receipt_product"}, 
-            React.createElement("div", {className: "product_amount"}, productLine.amount + "st"), 
+            React.createElement("div", {className: "product_amount", onClick: function () {
+                this.props.updateLineAmountFunction(productLine);
+            }.bind(this)}, productLine.amount + "st"), 
             React.createElement("div", {className: "product_name"}, productLine.getName()), 
             React.createElement("div", {className: "product_remove", onClick: function () {
                 this.props.functionToRun(productLine.product);
