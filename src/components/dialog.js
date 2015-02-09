@@ -4,14 +4,14 @@
 
 var React = require("react");
 
-var DialogControl = React.createClass({
+var Dialog = React.createClass({
     getDefaultProps: function () {
         return {
-            visible: false
-            };
+            visible: true
+        };
     },
 
-    handleTrigger: function(){
+    handleTrigger: function () {
         this.setProps({visible: true});
     },
 
@@ -19,19 +19,16 @@ var DialogControl = React.createClass({
         var dialog;
         if (this.props.visible === true) {
             dialog = <div className="dialog" style={this.props.style}>
-                <p>HEJSAN</p>
-                <p>Hej igen</p>
-                <div>
-                    <button onClick={this.handleClose}>close</button>
-                    <button onClick={this.handleSave}>Save changes</button>
-                </div>
+                <a className="dialog-close" onClick={this.props.onClose}>
+                    X
+                </a>
+                {this.props.children}
             </div>;
         }
 
         return (
-            <div>
-                <button className="button" onClick={this.handleTrigger}>show dialog</button>
-            {dialog}
+            <div className="dialog-fill-screen">
+                {dialog}
             </div>);
     }
 });
@@ -50,4 +47,4 @@ var DialogControl = React.createClass({
 //    </div>
 //</Dialog>
 
-module.exports = DialogControl;
+module.exports = Dialog;

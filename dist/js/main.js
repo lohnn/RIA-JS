@@ -29378,7 +29378,8 @@ var Firebase = require("firebase");
 var Receipt = require('./productRelated');
 var RenderReceipt = require("./renderReceipt");
 var RenderProducts = require("./renderProducts");
-//var dialog = require('./components/dialog');
+var Dialog = require('./dialog');
+
 
 //==============================================================================
 
@@ -29446,7 +29447,17 @@ var App = React.createClass({
     },
 
     finishedAction: function () {
-        console.log("hello?");
+        var dialogDiv = document.getElementById("dialog-div");
+        var removeDialog = function(){
+            React.unmountComponentAtNode(dialogDiv);
+        };
+        React.render(
+            (React.createElement(Dialog, {onClose: removeDialog, style: {width: 100, height: 100}}, 
+                React.createElement("p", null, "HEEEEEEJ"), 
+                React.createElement("button", {onClick: removeDialog}, "Remove")
+            )),
+            dialogDiv
+        );
 
         //var finishedFirebaseReceiptRef = new Firebase("https://lohnn-riajs.firebaseio.com/finished-receipts/");
         //finishedFirebaseReceiptRef.child(this.receiptID).set(JSON.parse(JSON.stringify(this.state.receiptProducts)));
@@ -29464,9 +29475,10 @@ var App = React.createClass({
 
     render: function () {
         return React.createElement("div", {id: "main", className: "container"}, 
+            React.createElement("div", {id: "dialog-div"}), 
             React.createElement("div", {className: "purchase_part"}, 
                 React.createElement("div", {className: "receipt"}, 
-            RenderReceipt({items: this.state.receiptProducts, functionToRun: this.removeLineFromReceipt})
+                    RenderReceipt({items: this.state.receiptProducts, functionToRun: this.removeLineFromReceipt})
                 ), 
                 React.createElement("div", {className: "summary"}, 
                     React.createElement("div", {className: "sum_amount"}, this.getTotalProducts() + "st"), 
@@ -29481,7 +29493,7 @@ var App = React.createClass({
                 )
             ), 
             React.createElement("div", {className: "product_part"}, 
-            RenderProducts({items: this.state.products, functionToRun: this.addToReceipt})
+                RenderProducts({items: this.state.products, functionToRun: this.addToReceipt})
             )
         );
     }
@@ -29490,7 +29502,59 @@ var App = React.createClass({
 module.exports = App;
 
 
-},{"./productRelated":151,"./renderProducts":152,"./renderReceipt":153,"firebase":1,"react":149}],151:[function(require,module,exports){
+},{"./dialog":151,"./productRelated":152,"./renderProducts":153,"./renderReceipt":154,"firebase":1,"react":149}],151:[function(require,module,exports){
+/**
+ * Created by lohnn on 2015-02-09.
+ */
+
+var React = require("react");
+
+var Dialog = React.createClass({displayName: "Dialog",
+    getDefaultProps: function () {
+        return {
+            visible: true
+        };
+    },
+
+    handleTrigger: function () {
+        this.setProps({visible: true});
+    },
+
+    render: function () {
+        var dialog;
+        if (this.props.visible === true) {
+            dialog = React.createElement("div", {className: "dialog", style: this.props.style}, 
+                React.createElement("a", {className: "dialog-close", onClick: this.props.onClose}, 
+                    "X"
+                ), 
+                this.props.children
+            );
+        }
+
+        return (
+            React.createElement("div", {className: "dialog-fill-screen"}, 
+                dialog
+            ));
+    }
+});
+
+
+//<Dialog title="HEJSAN" visible={this.state.showDialog}
+//    onClose={this.handleClose}
+//    onShow={this.onShow}
+//    style={{width: 600}}>
+//    <input/>
+//    <p>HEJSAN</p>
+//    <p>Hej igen</p>
+//    <div>
+//        <button onClick={this.handleClose}>close</button>
+//        <button onClick={this.handleSave}>Save changes</button>
+//    </div>
+//</Dialog>
+
+module.exports = Dialog;
+
+},{"react":149}],152:[function(require,module,exports){
 /**
  * Created by jl222xa on 2014-12-04.
  */
@@ -29560,7 +29624,7 @@ var Receipt = {
 
 module.exports = Receipt;
 
-},{"lodash":3}],152:[function(require,module,exports){
+},{"lodash":3}],153:[function(require,module,exports){
 /**
  * Created by jl222xa on 2014-12-11.
  */
@@ -29584,7 +29648,7 @@ var RenderProducts = React.createClass({displayName: "RenderProducts",
 
 module.exports = RenderProducts;
 
-},{"lodash":3,"react":149}],153:[function(require,module,exports){
+},{"lodash":3,"react":149}],154:[function(require,module,exports){
 /**
  * Created by jl222xa on 2014-12-11.
  */
@@ -29613,7 +29677,7 @@ var RenderReceipt = React.createClass({displayName: "RenderReceipt",
 module.exports = RenderReceipt;
 
 
-},{"lodash":3,"react":149}],154:[function(require,module,exports){
+},{"lodash":3,"react":149}],155:[function(require,module,exports){
 /**
  * Created by lohnn on 2014-11-24.
  */
@@ -29628,4 +29692,4 @@ React.render(
 );
 
 
-},{"./components/app":150,"react":149}]},{},[154])
+},{"./components/app":150,"react":149}]},{},[155])

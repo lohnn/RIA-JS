@@ -7,7 +7,8 @@ var Firebase = require("firebase");
 var Receipt = require('./productRelated');
 var RenderReceipt = require("./renderReceipt");
 var RenderProducts = require("./renderProducts");
-//var dialog = require('./components/dialog');
+var Dialog = require('./dialog');
+
 
 //==============================================================================
 
@@ -75,7 +76,17 @@ var App = React.createClass({
     },
 
     finishedAction: function () {
-        console.log("hello?");
+        var dialogDiv = document.getElementById("dialog-div");
+        var removeDialog = function(){
+            React.unmountComponentAtNode(dialogDiv);
+        };
+        React.render(
+            (<Dialog onClose={removeDialog} style={{width: 100, height: 100}}>
+                <p>HEEEEEEJ</p>
+                <button onClick={removeDialog}>Remove</button>
+            </Dialog>),
+            dialogDiv
+        );
 
         //var finishedFirebaseReceiptRef = new Firebase("https://lohnn-riajs.firebaseio.com/finished-receipts/");
         //finishedFirebaseReceiptRef.child(this.receiptID).set(JSON.parse(JSON.stringify(this.state.receiptProducts)));
@@ -93,9 +104,10 @@ var App = React.createClass({
 
     render: function () {
         return <div id="main" className="container">
+            <div id="dialog-div" />
             <div className="purchase_part">
                 <div className="receipt">
-            {RenderReceipt({items: this.state.receiptProducts, functionToRun: this.removeLineFromReceipt})}
+                    {RenderReceipt({items: this.state.receiptProducts, functionToRun: this.removeLineFromReceipt})}
                 </div>
                 <div className="summary">
                     <div className="sum_amount">{this.getTotalProducts() + "st"}</div>
@@ -110,7 +122,7 @@ var App = React.createClass({
                 </div>
             </div>
             <div className="product_part">
-            {RenderProducts({items: this.state.products, functionToRun: this.addToReceipt})}
+                {RenderProducts({items: this.state.products, functionToRun: this.addToReceipt})}
             </div>
         </div>;
     }
