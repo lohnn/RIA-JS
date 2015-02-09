@@ -7,6 +7,7 @@ var Firebase = require("firebase");
 var Receipt = require('./productRelated');
 var RenderReceipt = require("./renderReceipt");
 var RenderProducts = require("./renderProducts");
+//var dialog = require('./components/dialog');
 
 //==============================================================================
 
@@ -74,18 +75,20 @@ var App = React.createClass({
     },
 
     finishedAction: function () {
-        var finishedFirebaseReceiptRef = new Firebase("https://lohnn-riajs.firebaseio.com/finished-receipts/");
-        finishedFirebaseReceiptRef.child(this.receiptID).set(JSON.parse(JSON.stringify(this.state.receiptProducts)));
-        finishedFirebaseReceiptRef.off();
+        console.log("hello?");
 
-        this.firebaseReceiptRef.child(this.receiptID).remove();
-        this.firebaseReceiptRef.off();
-        history.pushState(null, null, '#');
-        this.receiptID = this.firebaseReceiptRef.push().key();
-        this.firebaseReceiptRef.child(this.receiptID).on("value", function (dataSnapshot) {
-            this.setReceipt(dataSnapshot.val());
-        }.bind(this));
-        this.cancelAction();
+        //var finishedFirebaseReceiptRef = new Firebase("https://lohnn-riajs.firebaseio.com/finished-receipts/");
+        //finishedFirebaseReceiptRef.child(this.receiptID).set(JSON.parse(JSON.stringify(this.state.receiptProducts)));
+        //finishedFirebaseReceiptRef.off();
+        //
+        //this.firebaseReceiptRef.child(this.receiptID).remove();
+        //this.firebaseReceiptRef.off();
+        //history.pushState(null, null, '#');
+        //this.receiptID = this.firebaseReceiptRef.push().key();
+        //this.firebaseReceiptRef.child(this.receiptID).on("value", function (dataSnapshot) {
+        //    this.setReceipt(dataSnapshot.val());
+        //}.bind(this));
+        //this.cancelAction();
     },
 
     render: function () {

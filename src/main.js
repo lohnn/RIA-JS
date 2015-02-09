@@ -3,6 +3,7 @@
  */
 
 var App = require('./components/app');
+//var App = require('./components/dialog');
 var React = require('react');
 
 React.render(
