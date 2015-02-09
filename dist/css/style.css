@@ -156,3 +156,9 @@ body {
   color: black;
   text-decoration: none;
 }
+.right {
+  float: right;
+}
+.left {
+  float: left;
+}

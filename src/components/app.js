@@ -77,29 +77,37 @@ var App = React.createClass({
 
     finishedAction: function () {
         var dialogDiv = document.getElementById("dialog-div");
-        var removeDialog = function(){
+        var removeDialog = function () {
             React.unmountComponentAtNode(dialogDiv);
         };
+
+        var receiptDone = function () {
+            var finishedFirebaseReceiptRef = new Firebase("https://lohnn-riajs.firebaseio.com/finished-receipts/");
+            finishedFirebaseReceiptRef.child(this.receiptID).set(JSON.parse(JSON.stringify(this.state.receiptProducts)));
+            finishedFirebaseReceiptRef.off();
+
+            this.firebaseReceiptRef.child(this.receiptID).remove();
+            this.firebaseReceiptRef.off();
+            history.pushState(null, null, '#');
+            this.receiptID = this.firebaseReceiptRef.push().key();
+            this.firebaseReceiptRef.child(this.receiptID).on("value", function (dataSnapshot) {
+                this.setReceipt(dataSnapshot.val());
+            }.bind(this));
+            this.cancelAction();
+
+            removeDialog();
+        }.bind(this);
+
         React.render(
-            (<Dialog onClose={removeDialog} style={{width: 100, height: 100}}>
-                <p>HEEEEEEJ</p>
-                <button onClick={removeDialog}>Remove</button>
+            (<Dialog onClose={removeDialog} style={{width: 300, height: 200}}>
+                <p>Är du säker på att du är klar med beställningen?</p>
+                <div className="dialog-footer">
+                    <button className="dialog-button-cancel" onClick={removeDialog}>Fortsätt beställning</button>
+                    <button className="dialog-button-confirm" onClick={receiptDone}>Klar</button>
+                </div>
             </Dialog>),
             dialogDiv
         );
-
-        //var finishedFirebaseReceiptRef = new Firebase("https://lohnn-riajs.firebaseio.com/finished-receipts/");
-        //finishedFirebaseReceiptRef.child(this.receiptID).set(JSON.parse(JSON.stringify(this.state.receiptProducts)));
-        //finishedFirebaseReceiptRef.off();
-        //
-        //this.firebaseReceiptRef.child(this.receiptID).remove();
-        //this.firebaseReceiptRef.off();
-        //history.pushState(null, null, '#');
-        //this.receiptID = this.firebaseReceiptRef.push().key();
-        //this.firebaseReceiptRef.child(this.receiptID).on("value", function (dataSnapshot) {
-        //    this.setReceipt(dataSnapshot.val());
-        //}.bind(this));
-        //this.cancelAction();
     },
 
     render: function () {
