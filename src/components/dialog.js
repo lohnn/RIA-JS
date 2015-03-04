@@ -18,18 +18,4 @@ var Dialog = React.createClass({
     }
 });
 
-
-//<Dialog title="HEJSAN" visible={this.state.showDialog}
-//    onClose={this.handleClose}
-//    onShow={this.onShow}
-//    style={{width: 600}}>
-//    <input/>
-//    <p>HEJSAN</p>
-//    <p>Hej igen</p>
-//    <div>
-//        <button onClick={this.handleClose}>close</button>
-//        <button onClick={this.handleSave}>Save changes</button>
-//    </div>
-//</Dialog>
-
 module.exports = Dialog;

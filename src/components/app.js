@@ -8,6 +8,7 @@ var Receipt = require('./productRelated');
 var RenderReceipt = require("./renderReceipt");
 var RenderProducts = require("./renderProducts");
 var Dialog = require('./dialog');
+var _ = require("lodash");
 
 //==============================================================================
 
@@ -61,6 +62,7 @@ var App = React.createClass({
     },
 
     updateFirebase: function () {
+        console.log(this.state.receiptProducts);
         this.firebaseReceiptRef.child(this.receiptID).set(JSON.parse(JSON.stringify(this.state.receiptProducts)));
     },
 
@@ -122,6 +124,17 @@ var App = React.createClass({
         }.bind(this);
 
         var putOnShelf = function () {
+            var finishedFirebaseReceiptRef = new Firebase("https://lohnn-riajs.firebaseio.com/shelved-receipts/");
+            finishedFirebaseReceiptRef.child(this.receiptID).set(
+                {
+                    receiptInfo: {
+                        time: Firebase.ServerValue.TIMESTAMP
+                    },
+                    products: JSON.parse(JSON.stringify(this.state.receiptProducts))
+                });
+            finishedFirebaseReceiptRef.off();
+
+            this.firebaseReceiptRef.child(this.receiptID).remove();
             this.firebaseReceiptRef.off();
             history.pushState(null, null, '#');
             this.receiptID = this.firebaseReceiptRef.push().key();
@@ -144,10 +157,45 @@ var App = React.createClass({
         );
     },
 
+    listOldReceipts: function () {
+        var finishedFirebaseReceiptRef = new Firebase("https://lohnn-riajs.firebaseio.com/finished-receipts/");
+        finishedFirebaseReceiptRef.once('value', function (dataSnapshot) {
+            React.render(
+                (<Dialog onClose={this.removeDialog} style={{width: 400, height: 300}}>
+                    <p>Din kvittohylla:</p>
+                    <div className="dialog-receipt-list">
+                    {_.map(dataSnapshot.val(), function (receipt, rid) {
+                        var totalPrice = 0;
+                        var totalAmount = 0;
+                        _.map(receipt, function (productLine) {
+                            totalAmount += productLine.amount;
+                            totalPrice += productLine.amount * productLine.product.price;
+                        });
+                        return <div key={rid} className="receipt_product">
+                            {totalAmount}st | {totalPrice}kr
+                        </div>;
+                    })}
+                    </div>
+
+                    <div className="dialog-footer">
+                        <button className="dialog-button-cancel" onClick={this.removeDialog}>Avbryt</button>
+                    </div>
+                </Dialog>),
+                this.dialogDiv()
+            );
+        }.bind(this));
+    },
+
     finishedAction: function () {
         var receiptDone = function () {
             var finishedFirebaseReceiptRef = new Firebase("https://lohnn-riajs.firebaseio.com/finished-receipts/");
-            finishedFirebaseReceiptRef.child(this.receiptID).set(JSON.parse(JSON.stringify(this.state.receiptProducts)));
+            finishedFirebaseReceiptRef.child(this.receiptID).set(
+                {
+                    receiptInfo: {
+                        time: Firebase.ServerValue.TIMESTAMP
+                    },
+                    products: JSON.parse(JSON.stringify(this.state.receiptProducts))
+                });
             finishedFirebaseReceiptRef.off();
 
             this.firebaseReceiptRef.child(this.receiptID).remove();
@@ -176,7 +224,7 @@ var App = React.createClass({
 
     render: function () {
         var finishedOrList = (this.getTotalProducts() <= 0) ?
-            <div className="purchase_buttons_finished" onClick={this.finishedAction}>Gamla kvitton</div> :
+            <div className="purchase_buttons_finished" onClick={this.listOldReceipts}>Gamla kvitton</div> :
             <div className="purchase_buttons_finished" onClick={this.finishedAction}>Klar</div>;
         return <div id="main" className="container">
             <div id="dialog-div" />
