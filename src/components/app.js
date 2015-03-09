@@ -19,7 +19,7 @@ var App = React.createClass({
 
     getInitialState: function () {
         return {
-            receiptProducts: {},
+            receipt: {products: {}},
             products: {}
         };
     },
@@ -29,7 +29,7 @@ var App = React.createClass({
             this.setState({products: dataSnapshot.val()});
         }.bind(this));
 
-        //TODO: If I had a receipt when I closed the app, that receipt should be reopened. (save for next time)
+        //TODO: If I had a receipt when I closed the app, that receipt should be reopened. (save for next time, cookies?)
 
         this.firebaseReceiptRef = new Firebase("https://lohnn-riajs.firebaseio.com/receipts/");
 
@@ -47,12 +47,23 @@ var App = React.createClass({
         this.firebaseReceiptRef.off();
     },
 
-    setReceipt: function (products) {
-        this.setProducts(products);
-        this.setState({receiptProducts: this.state.receiptProducts});
+    setReceipt: function (receipt) {
+        if (!receipt) {
+            this.setProducts(null);
+        }
+        else {
+            this.setProducts(receipt.products);
+            if (!receipt.receiptInfo) {
+                receipt.receiptInfo = {time: 12341};
+            }
+        }
+        this.setState({receipt: this.state.receipt});
     },
 
     addToReceipt: function (product) {
+        if (this.getTotalProducts() <= 0) {
+            this.setInfo({time: Firebase.ServerValue.TIMESTAMP});
+        }
         this.addProduct(product);
         this.updateFirebase();
 
@@ -62,8 +73,7 @@ var App = React.createClass({
     },
 
     updateFirebase: function () {
-        console.log(this.state.receiptProducts);
-        this.firebaseReceiptRef.child(this.receiptID).set(JSON.parse(JSON.stringify(this.state.receiptProducts)));
+        this.firebaseReceiptRef.child(this.receiptID).set(JSON.parse(JSON.stringify(this.state.receipt)));
     },
 
     removeLineFromReceipt: function (product) {
@@ -125,13 +135,7 @@ var App = React.createClass({
 
         var putOnShelf = function () {
             var finishedFirebaseReceiptRef = new Firebase("https://lohnn-riajs.firebaseio.com/shelved-receipts/");
-            finishedFirebaseReceiptRef.child(this.receiptID).set(
-                {
-                    receiptInfo: {
-                        time: Firebase.ServerValue.TIMESTAMP
-                    },
-                    products: JSON.parse(JSON.stringify(this.state.receiptProducts))
-                });
+            finishedFirebaseReceiptRef.child(this.receiptID).set(JSON.parse(JSON.stringify(this.state.receipt)));
             finishedFirebaseReceiptRef.off();
 
             this.firebaseReceiptRef.child(this.receiptID).remove();
@@ -167,14 +171,31 @@ var App = React.createClass({
                     {_.map(dataSnapshot.val(), function (receipt, rid) {
                         var totalPrice = 0;
                         var totalAmount = 0;
-                        _.map(receipt, function (productLine) {
+                        _.map(receipt.products, function (productLine) {
                             totalAmount += productLine.amount;
                             totalPrice += productLine.amount * productLine.product.price;
                         });
-                        return <div key={rid} className="receipt_product">
-                            {totalAmount}st | {totalPrice}kr
+                        var time = new Date(receipt.receiptInfo.time);
+                        var dd = time.getDate();
+                        var mm = time.getMonth() + 1; //January is 0!
+                        var yyyy = time.getFullYear();
+
+                        if (dd < 10) {
+                            dd = '0' + dd;
+                        }
+                        if (mm < 10) {
+                            mm = '0' + mm;
+                        }
+                        time = yyyy + '-' + mm + '-' + dd;
+
+                        var loadOldReceipt = function () {
+                            this.loadOldReceipt(receipt);
+                            this.removeDialog();
+                        }.bind(this);
+                        return <div key={rid} onClick={loadOldReceipt} className="receipt_product">
+                            {time} {totalAmount}st | {totalPrice}kr
                         </div>;
-                    })}
+                    }, this)}
                     </div>
 
                     <div className="dialog-footer">
@@ -186,16 +207,14 @@ var App = React.createClass({
         }.bind(this));
     },
 
+    loadOldReceipt: function (receipt) {
+        console.log(receipt);
+    },
+
     finishedAction: function () {
         var receiptDone = function () {
             var finishedFirebaseReceiptRef = new Firebase("https://lohnn-riajs.firebaseio.com/finished-receipts/");
-            finishedFirebaseReceiptRef.child(this.receiptID).set(
-                {
-                    receiptInfo: {
-                        time: Firebase.ServerValue.TIMESTAMP
-                    },
-                    products: JSON.parse(JSON.stringify(this.state.receiptProducts))
-                });
+            finishedFirebaseReceiptRef.child(this.receiptID).set(JSON.parse(JSON.stringify(this.state.receipt)));
             finishedFirebaseReceiptRef.off();
 
             this.firebaseReceiptRef.child(this.receiptID).remove();
@@ -224,14 +243,17 @@ var App = React.createClass({
 
     render: function () {
         var finishedOrList = (this.getTotalProducts() <= 0) ?
-            <div className="purchase_buttons_finished" onClick={this.listOldReceipts}>Gamla kvitton</div> :
+            <div className="purchase_buttons_finished" onClick={this.listOldReceipts}>Gamla</div> :
             <div className="purchase_buttons_finished" onClick={this.finishedAction}>Klar</div>;
+        var shelvedButton = (this.getTotalProducts() <= 0) ?
+            <div className="purchase_buttons_finished purchase_buttons_cancel" onClick={this.listOldReceipts}>Kvittohylla</div> :
+        {};
         return <div id="main" className="container">
             <div id="dialog-div" />
             <div className="purchase_part">
                 <div className="receipt">
                     {RenderReceipt({
-                        items: this.state.receiptProducts,
+                        items: this.state.receipt.products,
                         functionToRun: this.removeLineFromReceipt,
                         updateLineAmountFunction: this.updateLineAmount
                     })}
@@ -246,6 +268,7 @@ var App = React.createClass({
                         {finishedOrList}
                     </div>
                     <a href="#" className="purchase_buttons_cancel float_left" onClick={this.cancelDialog}>Avbryt</a>
+                                            {shelvedButton}
                 </div>
             </div>
             <div className="product_part">

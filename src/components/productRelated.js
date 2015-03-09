@@ -21,32 +21,36 @@ var Product_line = function (product, amount) {
 };
 
 var Receipt = {
+    setInfo: function(info){
+        this.state.receiptInfo = info;
+    },
+
     setProducts: function (products) {
         _.map(products, function (product) {
-            if (product.name in this.state.receiptProducts) {
-                this.state.receiptProducts[product.product.name].amount = product.amount;
+            if (product.name in this.state.receipt.products) {
+                this.state.receipt.products[product.product.name].amount = product.amount;
             } else {
-                this.state.receiptProducts[product.product.name] = new Product_line(product.product, product.amount);
+                this.state.receipt.products[product.product.name] = new Product_line(product.product, product.amount);
             }
         }, this);
     },
 
     addProduct: function (product, amount) {
         amount = typeof amount !== 'undefined' ? amount : 1;
-        if (product.name in this.state.receiptProducts) {
-            this.state.receiptProducts[product.name].amount += amount;
+        if (product.name in this.state.receipt.products) {
+            this.state.receipt.products[product.name].amount += amount;
         } else {
-            this.state.receiptProducts[product.name] = new Product_line(product, amount);
+            this.state.receipt.products[product.name] = new Product_line(product, amount);
         }
     },
 
     removeProduct: function (product) {
-        delete this.state.receiptProducts[product.name];
+        delete this.state.receipt.products[product.name];
     },
 
     getTotalProducts: function () {
         var temp = 0;
-        _.map(this.state.receiptProducts, function (element) {
+        _.map(this.state.receipt.products, function (element) {
             temp += element.amount;
         });
         return temp;
@@ -54,14 +58,14 @@ var Receipt = {
 
     getTotalPrice: function () {
         var temp = 0;
-        _.map(this.state.receiptProducts, function (element) {
+        _.map(this.state.receipt.products, function (element) {
             temp += element.getTotalPrice();
         });
         return temp;
     },
 
     clearProducts: function () {
-        this.state.receiptProducts = {};
+        this.state.receipt.products = {};
     }
 };
 
