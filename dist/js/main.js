@@ -29681,7 +29681,7 @@ var App = React.createClass({
      */
     listOldReceipts: function (shelved) {
         var finishedFirebaseReceiptRef = (shelved === true) ?
-            new Firebase("https://lohnn-riajs.firebaseio.com/receipts/"):
+            new Firebase("https://lohnn-riajs.firebaseio.com/receipts/") :
             new Firebase("https://lohnn-riajs.firebaseio.com/finished-receipts/");
         finishedFirebaseReceiptRef.once('value', function (dataSnapshot) {
             React.render(
@@ -29709,7 +29709,10 @@ var App = React.createClass({
                         time = yyyy + '-' + mm + '-' + dd;
 
                         var loadOldReceipt = function () {
-                            this.loadOldReceipt(receipt);
+                            if (shelved === true)
+                                this.openReceiptFromID(rid);
+                            else
+                                this.showOldReceipt(receipt);
                             this.removeDialog();
                         }.bind(this);
                         return React.createElement("div", {key: rid, onClick: loadOldReceipt, className: "receipt_product"}, 
@@ -29727,7 +29730,16 @@ var App = React.createClass({
         }.bind(this));
     },
 
-    loadOldReceipt: function (receipt) {
+    openReceiptFromID: function (id) {
+        this.firebaseReceiptRef.off();
+        history.pushState(null, null, '#' + id);
+        this.receiptID = id;
+        this.firebaseReceiptRef.child(this.receiptID).on("value", function (dataSnapshot) {
+            this.setReceipt(dataSnapshot.val());
+        }.bind(this));
+    },
+
+    showOldReceipt: function (receipt) {
         console.log(receipt);
     },
 
@@ -29766,7 +29778,9 @@ var App = React.createClass({
             React.createElement("div", {className: "purchase_buttons_finished", onClick: this.listOldReceipts}, "Gamla") :
             React.createElement("div", {className: "purchase_buttons_finished", onClick: this.finishedAction}, "Klar");
         var shelvedButton = (this.getTotalProducts() <= 0) ?
-            React.createElement("div", {className: "purchase_buttons_finished purchase_buttons_cancel", onClick: function(){this.listOldReceipts(true);}.bind(this)}, "Kvittohylla") :
+            React.createElement("div", {className: "purchase_buttons_finished purchase_buttons_cancel", onClick: function () {
+                this.listOldReceipts(true);
+            }.bind(this)}, "Kvittohylla") :
         {};
         return React.createElement("div", {id: "main", className: "container"}, 
             React.createElement("div", {id: "dialog-div"}), 
