@@ -111,6 +111,7 @@ var App = React.createClass({
 
     cancelAction: function () {
         this.clearProducts();
+        this.setInfo(null);
         this.updateFirebase();
     },
 
