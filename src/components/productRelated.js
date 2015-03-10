@@ -22,7 +22,7 @@ var Product_line = function (product, amount) {
 
 var Receipt = {
     setInfo: function(info){
-        this.state.receiptInfo = info;
+        this.state.receipt.receiptInfo = info;
     },
 
     setProducts: function (products) {

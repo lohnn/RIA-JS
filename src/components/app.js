@@ -50,11 +50,10 @@ var App = React.createClass({
     setReceipt: function (receipt) {
         if (!receipt) {
             this.setProducts(null);
-        }
-        else {
+        } else {
             this.setProducts(receipt.products);
             if (!receipt.receiptInfo) {
-                receipt.receiptInfo = {time: 12341};
+                this.setInfo({time: Firebase.ServerValue.TIMESTAMP});
             }
         }
         this.setState({receipt: this.state.receipt});
@@ -134,11 +133,6 @@ var App = React.createClass({
         }.bind(this);
 
         var putOnShelf = function () {
-            var finishedFirebaseReceiptRef = new Firebase("https://lohnn-riajs.firebaseio.com/shelved-receipts/");
-            finishedFirebaseReceiptRef.child(this.receiptID).set(JSON.parse(JSON.stringify(this.state.receipt)));
-            finishedFirebaseReceiptRef.off();
-
-            this.firebaseReceiptRef.child(this.receiptID).remove();
             this.firebaseReceiptRef.off();
             history.pushState(null, null, '#');
             this.receiptID = this.firebaseReceiptRef.push().key();
@@ -161,8 +155,14 @@ var App = React.createClass({
         );
     },
 
-    listOldReceipts: function () {
-        var finishedFirebaseReceiptRef = new Firebase("https://lohnn-riajs.firebaseio.com/finished-receipts/");
+    /**
+     *
+     * @param shelved Set to true if you want to see the shelf instead of the old receipts
+     */
+    listOldReceipts: function (shelved) {
+        var finishedFirebaseReceiptRef = (shelved === true) ?
+            new Firebase("https://lohnn-riajs.firebaseio.com/receipts/"):
+            new Firebase("https://lohnn-riajs.firebaseio.com/finished-receipts/");
         finishedFirebaseReceiptRef.once('value', function (dataSnapshot) {
             React.render(
                 (<Dialog onClose={this.removeDialog} style={{width: 400, height: 300}}>
@@ -246,7 +246,7 @@ var App = React.createClass({
             <div className="purchase_buttons_finished" onClick={this.listOldReceipts}>Gamla</div> :
             <div className="purchase_buttons_finished" onClick={this.finishedAction}>Klar</div>;
         var shelvedButton = (this.getTotalProducts() <= 0) ?
-            <div className="purchase_buttons_finished purchase_buttons_cancel" onClick={this.listOldReceipts}>Kvittohylla</div> :
+            <div className="purchase_buttons_finished purchase_buttons_cancel" onClick={function(){this.listOldReceipts(true);}.bind(this)}>Kvittohylla</div> :
         {};
         return <div id="main" className="container">
             <div id="dialog-div" />
