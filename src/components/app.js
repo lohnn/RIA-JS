@@ -12,6 +12,22 @@ var _ = require("lodash");
 
 //==============================================================================
 
+var FormatTime = function (inTime) {
+    var time = new Date(inTime);
+    var dd = time.getDate();
+    var mm = time.getMonth() + 1; //January is 0!
+    var yyyy = time.getFullYear();
+
+    if (dd < 10) {
+        dd = '0' + dd;
+    }
+    if (mm < 10) {
+        mm = '0' + mm;
+    }
+    time = yyyy + '-' + mm + '-' + dd;
+    return time;
+};
+
 var App = React.createClass({
     mixins: [Receipt],
 
@@ -176,28 +192,16 @@ var App = React.createClass({
                             totalAmount += productLine.amount;
                             totalPrice += productLine.amount * productLine.product.price;
                         });
-                        var time = new Date(receipt.receiptInfo.time);
-                        var dd = time.getDate();
-                        var mm = time.getMonth() + 1; //January is 0!
-                        var yyyy = time.getFullYear();
-
-                        if (dd < 10) {
-                            dd = '0' + dd;
-                        }
-                        if (mm < 10) {
-                            mm = '0' + mm;
-                        }
-                        time = yyyy + '-' + mm + '-' + dd;
 
                         var loadOldReceipt = function () {
+                            this.removeDialog();
                             if (shelved === true)
                                 this.openReceiptFromID(rid);
                             else
                                 this.showOldReceipt(receipt);
-                            this.removeDialog();
                         }.bind(this);
                         return <div key={rid} onClick={loadOldReceipt} className="receipt_product">
-                            {time} {totalAmount}st | {totalPrice}kr
+                            {FormatTime(receipt.receiptInfo.time)} {totalAmount}st | {totalPrice}kr
                         </div>;
                     }, this)}
                     </div>
@@ -221,12 +225,31 @@ var App = React.createClass({
     },
 
     showOldReceipt: function (receipt) {
-        console.log(receipt);
+        React.render(
+            (<Dialog onClose={this.removeDialog} style={{width: 400, height: 300}}>
+                {FormatTime(receipt.receiptInfo.time)}
+                <p>Ditt kvitto:</p>
+                <div className="dialog-receipt-list">
+                    {_.map(receipt.products, function (productLine, rid) {
+                        console.log(productLine);
+                        return <div key={rid} className="receipt_product">
+                            {productLine.product.name} {productLine.amount}st | {productLine.product.price * productLine.amount}kr
+                        </div>;
+                    }, this)}
+                </div>
+
+                <div className="dialog-footer">
+                    <button className="dialog-button-cancel" onClick={this.removeDialog}>Avbryt</button>
+                </div>
+            </Dialog>),
+            this.dialogDiv()
+        );
     },
 
     finishedAction: function () {
         var receiptDone = function () {
             var finishedFirebaseReceiptRef = new Firebase("https://lohnn-riajs.firebaseio.com/finished-receipts/");
+            console.log(this.state.receipt);
             finishedFirebaseReceiptRef.child(this.receiptID).set(JSON.parse(JSON.stringify(this.state.receipt)));
             finishedFirebaseReceiptRef.off();
 
