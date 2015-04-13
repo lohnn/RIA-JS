@@ -1,252 +1,267 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-/*! @license Firebase v2.1.2 - License: https://www.firebase.com/terms/terms-of-service.html */ (function() {var h,aa=this;function m(a){return void 0!==a}function ba(){}function ca(a){a.Nb=function(){return a.kf?a.kf:a.kf=new a}}
+/*! @license Firebase v2.2.3
+    License: https://www.firebase.com/terms/terms-of-service.html */
+(function() {var h,aa=this;function n(a){return void 0!==a}function ba(){}function ca(a){a.Wb=function(){return a.qf?a.qf:a.qf=new a}}
 function da(a){var b=typeof a;if("object"==b)if(a){if(a instanceof Array)return"array";if(a instanceof Object)return b;var c=Object.prototype.toString.call(a);if("[object Window]"==c)return"object";if("[object Array]"==c||"number"==typeof a.length&&"undefined"!=typeof a.splice&&"undefined"!=typeof a.propertyIsEnumerable&&!a.propertyIsEnumerable("splice"))return"array";if("[object Function]"==c||"undefined"!=typeof a.call&&"undefined"!=typeof a.propertyIsEnumerable&&!a.propertyIsEnumerable("call"))return"function"}else return"null";
 else if("function"==b&&"undefined"==typeof a.call)return"object";return b}function ea(a){return"array"==da(a)}function fa(a){var b=da(a);return"array"==b||"object"==b&&"number"==typeof a.length}function p(a){return"string"==typeof a}function ga(a){return"number"==typeof a}function ha(a){return"function"==da(a)}function ia(a){var b=typeof a;return"object"==b&&null!=a||"function"==b}function ja(a,b,c){return a.call.apply(a.bind,arguments)}
 function ka(a,b,c){if(!a)throw Error();if(2<arguments.length){var d=Array.prototype.slice.call(arguments,2);return function(){var c=Array.prototype.slice.call(arguments);Array.prototype.unshift.apply(c,d);return a.apply(b,c)}}return function(){return a.apply(b,arguments)}}function q(a,b,c){q=Function.prototype.bind&&-1!=Function.prototype.bind.toString().indexOf("native code")?ja:ka;return q.apply(null,arguments)}var la=Date.now||function(){return+new Date};
-function ma(a,b){function c(){}c.prototype=b.prototype;a.Jg=b.prototype;a.prototype=new c;a.Fg=function(a,c,f){return b.prototype[c].apply(a,Array.prototype.slice.call(arguments,2))}};function na(a){a=String(a);if(/^\s*$/.test(a)?0:/^[\],:{}\s\u2028\u2029]*$/.test(a.replace(/\\["\\\/bfnrtu]/g,"@").replace(/"[^"\\\n\r\u2028\u2029\x00-\x08\x0a-\x1f]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,"]").replace(/(?:^|:|,)(?:[\s\u2028\u2029]*\[)+/g,"")))try{return eval("("+a+")")}catch(b){}throw Error("Invalid JSON string: "+a);}function oa(){this.Hd=void 0}
-function pa(a,b,c){switch(typeof b){case "string":qa(b,c);break;case "number":c.push(isFinite(b)&&!isNaN(b)?b:"null");break;case "boolean":c.push(b);break;case "undefined":c.push("null");break;case "object":if(null==b){c.push("null");break}if(ea(b)){var d=b.length;c.push("[");for(var e="",f=0;f<d;f++)c.push(e),e=b[f],pa(a,a.Hd?a.Hd.call(b,String(f),e):e,c),e=",";c.push("]");break}c.push("{");d="";for(f in b)Object.prototype.hasOwnProperty.call(b,f)&&(e=b[f],"function"!=typeof e&&(c.push(d),qa(f,c),
-c.push(":"),pa(a,a.Hd?a.Hd.call(b,f,e):e,c),d=","));c.push("}");break;case "function":break;default:throw Error("Unknown type: "+typeof b);}}var ra={'"':'\\"',"\\":"\\\\","/":"\\/","\b":"\\b","\f":"\\f","\n":"\\n","\r":"\\r","\t":"\\t","\x0B":"\\u000b"},sa=/\uffff/.test("\uffff")?/[\\\"\x00-\x1f\x7f-\uffff]/g:/[\\\"\x00-\x1f\x7f-\xff]/g;
-function qa(a,b){b.push('"',a.replace(sa,function(a){if(a in ra)return ra[a];var b=a.charCodeAt(0),e="\\u";16>b?e+="000":256>b?e+="00":4096>b&&(e+="0");return ra[a]=e+b.toString(16)}),'"')};function ta(a){return"undefined"!==typeof JSON&&m(JSON.parse)?JSON.parse(a):na(a)}function r(a){if("undefined"!==typeof JSON&&m(JSON.stringify))a=JSON.stringify(a);else{var b=[];pa(new oa,a,b);a=b.join("")}return a};function s(a,b){return Object.prototype.hasOwnProperty.call(a,b)}function t(a,b){if(Object.prototype.hasOwnProperty.call(a,b))return a[b]}function ua(a,b){for(var c in a)Object.prototype.hasOwnProperty.call(a,c)&&b(c,a[c])}function va(a){var b={};ua(a,function(a,d){b[a]=d});return b};function wa(a){this.uc=a;this.Ed="firebase:"}h=wa.prototype;h.set=function(a,b){null==b?this.uc.removeItem(this.Ed+a):this.uc.setItem(this.Ed+a,r(b))};h.get=function(a){a=this.uc.getItem(this.Ed+a);return null==a?null:ta(a)};h.remove=function(a){this.uc.removeItem(this.Ed+a)};h.lf=!1;h.toString=function(){return this.uc.toString()};function xa(){this.oc={}}xa.prototype.set=function(a,b){null==b?delete this.oc[a]:this.oc[a]=b};xa.prototype.get=function(a){return s(this.oc,a)?this.oc[a]:null};xa.prototype.remove=function(a){delete this.oc[a]};xa.prototype.lf=!0;function ya(a){try{if("undefined"!==typeof window&&"undefined"!==typeof window[a]){var b=window[a];b.setItem("firebase:sentinel","cache");b.removeItem("firebase:sentinel");return new wa(b)}}catch(c){}return new xa}var za=ya("localStorage"),v=ya("sessionStorage");function Aa(a,b,c,d,e){this.host=a.toLowerCase();this.domain=this.host.substr(this.host.indexOf(".")+1);this.Ab=b;this.tb=c;this.Dg=d;this.Dd=e||"";this.Ma=za.get("host:"+a)||this.host}function Ba(a,b){b!==a.Ma&&(a.Ma=b,"s-"===a.Ma.substr(0,2)&&za.set("host:"+a.host,a.Ma))}Aa.prototype.toString=function(){var a=(this.Ab?"https://":"http://")+this.host;this.Dd&&(a+="<"+this.Dd+">");return a};function Ca(){this.Sa=-1};function Da(){this.Sa=-1;this.Sa=64;this.R=[];this.be=[];this.Ef=[];this.Ad=[];this.Ad[0]=128;for(var a=1;a<this.Sa;++a)this.Ad[a]=0;this.Td=this.Sb=0;this.reset()}ma(Da,Ca);Da.prototype.reset=function(){this.R[0]=1732584193;this.R[1]=4023233417;this.R[2]=2562383102;this.R[3]=271733878;this.R[4]=3285377520;this.Td=this.Sb=0};
-function Ea(a,b,c){c||(c=0);var d=a.Ef;if(p(b))for(var e=0;16>e;e++)d[e]=b.charCodeAt(c)<<24|b.charCodeAt(c+1)<<16|b.charCodeAt(c+2)<<8|b.charCodeAt(c+3),c+=4;else for(e=0;16>e;e++)d[e]=b[c]<<24|b[c+1]<<16|b[c+2]<<8|b[c+3],c+=4;for(e=16;80>e;e++){var f=d[e-3]^d[e-8]^d[e-14]^d[e-16];d[e]=(f<<1|f>>>31)&4294967295}b=a.R[0];c=a.R[1];for(var g=a.R[2],k=a.R[3],l=a.R[4],n,e=0;80>e;e++)40>e?20>e?(f=k^c&(g^k),n=1518500249):(f=c^g^k,n=1859775393):60>e?(f=c&g|k&(c|g),n=2400959708):(f=c^g^k,n=3395469782),f=(b<<
-5|b>>>27)+f+l+n+d[e]&4294967295,l=k,k=g,g=(c<<30|c>>>2)&4294967295,c=b,b=f;a.R[0]=a.R[0]+b&4294967295;a.R[1]=a.R[1]+c&4294967295;a.R[2]=a.R[2]+g&4294967295;a.R[3]=a.R[3]+k&4294967295;a.R[4]=a.R[4]+l&4294967295}
-Da.prototype.update=function(a,b){m(b)||(b=a.length);for(var c=b-this.Sa,d=0,e=this.be,f=this.Sb;d<b;){if(0==f)for(;d<=c;)Ea(this,a,d),d+=this.Sa;if(p(a))for(;d<b;){if(e[f]=a.charCodeAt(d),++f,++d,f==this.Sa){Ea(this,e);f=0;break}}else for(;d<b;)if(e[f]=a[d],++f,++d,f==this.Sa){Ea(this,e);f=0;break}}this.Sb=f;this.Td+=b};function Fa(){return Math.floor(2147483648*Math.random()).toString(36)+Math.abs(Math.floor(2147483648*Math.random())^la()).toString(36)};var w=Array.prototype,Ga=w.indexOf?function(a,b,c){return w.indexOf.call(a,b,c)}:function(a,b,c){c=null==c?0:0>c?Math.max(0,a.length+c):c;if(p(a))return p(b)&&1==b.length?a.indexOf(b,c):-1;for(;c<a.length;c++)if(c in a&&a[c]===b)return c;return-1},Ha=w.forEach?function(a,b,c){w.forEach.call(a,b,c)}:function(a,b,c){for(var d=a.length,e=p(a)?a.split(""):a,f=0;f<d;f++)f in e&&b.call(c,e[f],f,a)},Ia=w.filter?function(a,b,c){return w.filter.call(a,b,c)}:function(a,b,c){for(var d=a.length,e=[],f=0,g=p(a)?
-a.split(""):a,k=0;k<d;k++)if(k in g){var l=g[k];b.call(c,l,k,a)&&(e[f++]=l)}return e},Ja=w.map?function(a,b,c){return w.map.call(a,b,c)}:function(a,b,c){for(var d=a.length,e=Array(d),f=p(a)?a.split(""):a,g=0;g<d;g++)g in f&&(e[g]=b.call(c,f[g],g,a));return e},Ka=w.reduce?function(a,b,c,d){d&&(b=q(b,d));return w.reduce.call(a,b,c)}:function(a,b,c,d){var e=c;Ha(a,function(c,g){e=b.call(d,e,c,g,a)});return e},La=w.every?function(a,b,c){return w.every.call(a,b,c)}:function(a,b,c){for(var d=a.length,e=
-p(a)?a.split(""):a,f=0;f<d;f++)if(f in e&&!b.call(c,e[f],f,a))return!1;return!0};function Ma(a,b){var c=Na(a,b,void 0);return 0>c?null:p(a)?a.charAt(c):a[c]}function Na(a,b,c){for(var d=a.length,e=p(a)?a.split(""):a,f=0;f<d;f++)if(f in e&&b.call(c,e[f],f,a))return f;return-1}function Oa(a,b){var c=Ga(a,b);0<=c&&w.splice.call(a,c,1)}function Pa(a,b,c){return 2>=arguments.length?w.slice.call(a,b):w.slice.call(a,b,c)}function Qa(a,b){a.sort(b||Ra)}function Ra(a,b){return a>b?1:a<b?-1:0};var Sa;a:{var Ta=aa.navigator;if(Ta){var Ua=Ta.userAgent;if(Ua){Sa=Ua;break a}}Sa=""}function Va(a){return-1!=Sa.indexOf(a)};var Wa=Va("Opera")||Va("OPR"),Xa=Va("Trident")||Va("MSIE"),Ya=Va("Gecko")&&-1==Sa.toLowerCase().indexOf("webkit")&&!(Va("Trident")||Va("MSIE")),Za=-1!=Sa.toLowerCase().indexOf("webkit");(function(){var a="",b;if(Wa&&aa.opera)return a=aa.opera.version,ha(a)?a():a;Ya?b=/rv\:([^\);]+)(\)|;)/:Xa?b=/\b(?:MSIE|rv)[: ]([^\);]+)(\)|;)/:Za&&(b=/WebKit\/(\S+)/);b&&(a=(a=b.exec(Sa))?a[1]:"");return Xa&&(b=(b=aa.document)?b.documentMode:void 0,b>parseFloat(a))?String(b):a})();var $a=null,ab=null,bb=null;function cb(a,b){if(!fa(a))throw Error("encodeByteArray takes an array as a parameter");db();for(var c=b?ab:$a,d=[],e=0;e<a.length;e+=3){var f=a[e],g=e+1<a.length,k=g?a[e+1]:0,l=e+2<a.length,n=l?a[e+2]:0,u=f>>2,f=(f&3)<<4|k>>4,k=(k&15)<<2|n>>6,n=n&63;l||(n=64,g||(k=64));d.push(c[u],c[f],c[k],c[n])}return d.join("")}
-function db(){if(!$a){$a={};ab={};bb={};for(var a=0;65>a;a++)$a[a]="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=".charAt(a),ab[a]="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.".charAt(a),bb[ab[a]]=a}};var eb=function(){var a=1;return function(){return a++}}();function y(a,b){if(!a)throw fb(b);}function fb(a){return Error("Firebase INTERNAL ASSERT FAILED:"+a)}
-function gb(a){try{var b;if("undefined"!==typeof atob)b=atob(a);else{db();for(var c=bb,d=[],e=0;e<a.length;){var f=c[a.charAt(e++)],g=e<a.length?c[a.charAt(e)]:0;++e;var k=e<a.length?c[a.charAt(e)]:64;++e;var l=e<a.length?c[a.charAt(e)]:64;++e;if(null==f||null==g||null==k||null==l)throw Error();d.push(f<<2|g>>4);64!=k&&(d.push(g<<4&240|k>>2),64!=l&&d.push(k<<6&192|l))}if(8192>d.length)b=String.fromCharCode.apply(null,d);else{a="";for(c=0;c<d.length;c+=8192)a+=String.fromCharCode.apply(null,Pa(d,c,
-c+8192));b=a}}return b}catch(n){hb("base64Decode failed: ",n)}return null}function ib(a){var b=jb(a);a=new Da;a.update(b);var b=[],c=8*a.Td;56>a.Sb?a.update(a.Ad,56-a.Sb):a.update(a.Ad,a.Sa-(a.Sb-56));for(var d=a.Sa-1;56<=d;d--)a.be[d]=c&255,c/=256;Ea(a,a.be);for(d=c=0;5>d;d++)for(var e=24;0<=e;e-=8)b[c]=a.R[d]>>e&255,++c;return cb(b)}
-function kb(a){for(var b="",c=0;c<arguments.length;c++)b=fa(arguments[c])?b+kb.apply(null,arguments[c]):"object"===typeof arguments[c]?b+r(arguments[c]):b+arguments[c],b+=" ";return b}var lb=null,mb=!0;function hb(a){!0===mb&&(mb=!1,null===lb&&!0===v.get("logging_enabled")&&nb(!0));if(lb){var b=kb.apply(null,arguments);lb(b)}}function ob(a){return function(){hb(a,arguments)}}
-function pb(a){if("undefined"!==typeof console){var b="FIREBASE INTERNAL ERROR: "+kb.apply(null,arguments);"undefined"!==typeof console.error?console.error(b):console.log(b)}}function qb(a){var b=kb.apply(null,arguments);throw Error("FIREBASE FATAL ERROR: "+b);}function z(a){if("undefined"!==typeof console){var b="FIREBASE WARNING: "+kb.apply(null,arguments);"undefined"!==typeof console.warn?console.warn(b):console.log(b)}}
-function rb(a){var b="",c="",d="",e="",f=!0,g="https",k=443;if(p(a)){var l=a.indexOf("//");0<=l&&(g=a.substring(0,l-1),a=a.substring(l+2));l=a.indexOf("/");-1===l&&(l=a.length);b=a.substring(0,l);e="";a=a.substring(l).split("/");for(l=0;l<a.length;l++)if(0<a[l].length){var n=a[l];try{n=decodeURIComponent(n.replace(/\+/g," "))}catch(u){}e+="/"+n}a=b.split(".");3===a.length?(c=a[1],d=a[0].toLowerCase()):2===a.length&&(c=a[0]);l=b.indexOf(":");0<=l&&(f="https"===g||"wss"===g,k=b.substring(l+1),isFinite(k)&&
-(k=String(k)),k=p(k)?/^\s*-?0x/i.test(k)?parseInt(k,16):parseInt(k,10):NaN)}return{host:b,port:k,domain:c,Ag:d,Ab:f,scheme:g,Pc:e}}function sb(a){return ga(a)&&(a!=a||a==Number.POSITIVE_INFINITY||a==Number.NEGATIVE_INFINITY)}
-function tb(a){if("complete"===document.readyState)a();else{var b=!1,c=function(){document.body?b||(b=!0,a()):setTimeout(c,Math.floor(10))};document.addEventListener?(document.addEventListener("DOMContentLoaded",c,!1),window.addEventListener("load",c,!1)):document.attachEvent&&(document.attachEvent("onreadystatechange",function(){"complete"===document.readyState&&c()}),window.attachEvent("onload",c))}}
-function ub(a,b){if(a===b)return 0;if("[MIN_NAME]"===a||"[MAX_NAME]"===b)return-1;if("[MIN_NAME]"===b||"[MAX_NAME]"===a)return 1;var c=vb(a),d=vb(b);return null!==c?null!==d?0==c-d?a.length-b.length:c-d:-1:null!==d?1:a<b?-1:1}function wb(a,b){if(b&&a in b)return b[a];throw Error("Missing required key ("+a+") in object: "+r(b));}
-function xb(a){if("object"!==typeof a||null===a)return r(a);var b=[],c;for(c in a)b.push(c);b.sort();c="{";for(var d=0;d<b.length;d++)0!==d&&(c+=","),c+=r(b[d]),c+=":",c+=xb(a[b[d]]);return c+"}"}function yb(a,b){if(a.length<=b)return[a];for(var c=[],d=0;d<a.length;d+=b)d+b>a?c.push(a.substring(d,a.length)):c.push(a.substring(d,d+b));return c}function zb(a,b){if(ea(a))for(var c=0;c<a.length;++c)b(c,a[c]);else A(a,b)}
-function Ab(a){y(!sb(a),"Invalid JSON number");var b,c,d,e;0===a?(d=c=0,b=-Infinity===1/a?1:0):(b=0>a,a=Math.abs(a),a>=Math.pow(2,-1022)?(d=Math.min(Math.floor(Math.log(a)/Math.LN2),1023),c=d+1023,d=Math.round(a*Math.pow(2,52-d)-Math.pow(2,52))):(c=0,d=Math.round(a/Math.pow(2,-1074))));e=[];for(a=52;a;a-=1)e.push(d%2?1:0),d=Math.floor(d/2);for(a=11;a;a-=1)e.push(c%2?1:0),c=Math.floor(c/2);e.push(b?1:0);e.reverse();b=e.join("");c="";for(a=0;64>a;a+=8)d=parseInt(b.substr(a,8),2).toString(16),1===d.length&&
-(d="0"+d),c+=d;return c.toLowerCase()}var Bb=/^-?\d{1,10}$/;function vb(a){return Bb.test(a)&&(a=Number(a),-2147483648<=a&&2147483647>=a)?a:null}function Cb(a){try{a()}catch(b){setTimeout(function(){z("Exception was thrown by user callback.",b.stack||"");throw b;},Math.floor(0))}}function B(a,b){if(ha(a)){var c=Array.prototype.slice.call(arguments,1).slice();Cb(function(){a.apply(null,c)})}};function Db(a,b,c,d){this.le=b;this.Nd=c;this.Fd=d;this.jd=a}Db.prototype.Qb=function(){var a=this.Nd.cc();return"value"===this.jd?a.path:a.parent().path};Db.prototype.pe=function(){return this.jd};Db.prototype.Lb=function(){return this.le.Lb(this)};Db.prototype.toString=function(){return this.Qb().toString()+":"+this.jd+":"+r(this.Nd.bf())};function Eb(a,b,c){this.le=a;this.error=b;this.path=c}Eb.prototype.Qb=function(){return this.path};Eb.prototype.pe=function(){return"cancel"};
-Eb.prototype.Lb=function(){return this.le.Lb(this)};Eb.prototype.toString=function(){return this.path.toString()+":cancel"};function C(a,b,c,d){this.type=a;this.Ha=b;this.Ua=c;this.De=d;this.Fd=void 0}function Fb(a){return new C(Gb,a)}var Gb="value";function Hb(a,b,c){this.Hb=a;this.kb=b;this.mb=c||null}h=Hb.prototype;h.wf=function(a){return"value"===a};h.createEvent=function(a,b){var c=b.n.g;return new Db("value",this,new D(a.Ha,b.cc(),c))};h.Lb=function(a){var b=this.mb;if("cancel"===a.pe()){y(this.kb,"Raising a cancel event on a listener with no cancel callback");var c=this.kb;return function(){c.call(b,a.error)}}var d=this.Hb;return function(){d.call(b,a.Nd)}};h.Ye=function(a,b){return this.kb?new Eb(this,a,b):null};
-h.matches=function(a){return a instanceof Hb?a.Hb&&this.Hb?a.Hb===this.Hb&&a.mb===this.mb:!0:!1};h.hf=function(){return null!==this.Hb};function Ib(a,b,c){this.da=a;this.kb=b;this.mb=c}h=Ib.prototype;h.wf=function(a){a="children_added"===a?"child_added":a;return("children_removed"===a?"child_removed":a)in this.da};h.Ye=function(a,b){return this.kb?new Eb(this,a,b):null};
-h.createEvent=function(a,b){y(null!=a.Ua,"Child events should have a childName.");var c=b.cc().o(a.Ua);return new Db(a.type,this,new D(a.Ha,c,b.n.g),a.Fd)};h.Lb=function(a){var b=this.mb;if("cancel"===a.pe()){y(this.kb,"Raising a cancel event on a listener with no cancel callback");var c=this.kb;return function(){c.call(b,a.error)}}var d=this.da[a.jd];return function(){d.call(b,a.Nd,a.Fd)}};
-h.matches=function(a){if(a instanceof Ib){if(!this.da||!a.da)return!0;if(this.mb===a.mb){var b=Jb(a.da);if(b===Jb(this.da)){if(1===b){var b=Kb(a.da),c=Kb(this.da);return c===b&&(!a.da[b]||!this.da[c]||a.da[b]===this.da[c])}return Lb(this.da,function(b,c){return a.da[c]===b})}}}return!1};h.hf=function(){return null!==this.da};function jb(a){for(var b=[],c=0,d=0;d<a.length;d++){var e=a.charCodeAt(d);55296<=e&&56319>=e&&(e-=55296,d++,y(d<a.length,"Surrogate pair missing trail surrogate."),e=65536+(e<<10)+(a.charCodeAt(d)-56320));128>e?b[c++]=e:(2048>e?b[c++]=e>>6|192:(65536>e?b[c++]=e>>12|224:(b[c++]=e>>18|240,b[c++]=e>>12&63|128),b[c++]=e>>6&63|128),b[c++]=e&63|128)}return b};function F(a,b,c,d){var e;d<b?e="at least "+b:d>c&&(e=0===c?"none":"no more than "+c);if(e)throw Error(a+" failed: Was called with "+d+(1===d?" argument.":" arguments.")+" Expects "+e+".");}function G(a,b,c){var d="";switch(b){case 1:d=c?"first":"First";break;case 2:d=c?"second":"Second";break;case 3:d=c?"third":"Third";break;case 4:d=c?"fourth":"Fourth";break;default:throw Error("errorPrefix called with argumentNumber > 4.  Need to update it?");}return a=a+" failed: "+(d+" argument ")}
-function H(a,b,c,d){if((!d||m(c))&&!ha(c))throw Error(G(a,b,d)+"must be a valid function.");}function Mb(a,b,c){if(m(c)&&(!ia(c)||null===c))throw Error(G(a,b,!0)+"must be a valid context object.");};var Nb=/[\[\].#$\/\u0000-\u001F\u007F]/,Ob=/[\[\].#$\u0000-\u001F\u007F]/;function Pb(a){return p(a)&&0!==a.length&&!Nb.test(a)}function Qb(a){return null===a||p(a)||ga(a)&&!sb(a)||ia(a)&&s(a,".sv")}function Rb(a,b,c){c&&!m(b)||Sb(G(a,1,c),b)}
-function Sb(a,b,c,d){c||(c=0);var e=d||[];if(!m(b))throw Error(a+"contains undefined"+Tb(e));if(ha(b))throw Error(a+"contains a function"+Tb(e)+" with contents: "+b.toString());if(sb(b))throw Error(a+"contains "+b.toString()+Tb(e));if(1E3<c)throw new TypeError(a+"contains a cyclic object value ("+e.slice(0,100).join(".")+"...)");if(p(b)&&b.length>10485760/3&&10485760<jb(b).length)throw Error(a+"contains a string greater than 10485760 utf8 bytes"+Tb(e)+" ('"+b.substring(0,50)+"...')");if(ia(b)){var f=
-!1,g=!1;ua(b,function(b,d){if(".value"===b)f=!0;else if(".priority"!==b&&".sv"!==b&&(g=!0,!Pb(b)))throw Error(a+" contains an invalid key ("+b+")"+Tb(e)+'.  Keys must be non-empty strings and can\'t contain ".", "#", "$", "/", "[", or "]"');e.push(b);Sb(a,d,c+1,e);e.pop()});if(f&&g)throw Error(a+' contains ".value" child'+Tb(e)+" in addition to actual children.");}}function Tb(a){return 0==a.length?"":" in property '"+a.join(".")+"'"}
-function Ub(a,b){if(!ia(b)||ea(b))throw Error(G(a,1,!1)+" must be an Object containing the children to replace.");if(s(b,".value"))throw Error(G(a,1,!1)+' must not contain ".value".  To overwrite with a leaf value, just use .set() instead.');Rb(a,b,!1)}
-function Vb(a,b,c){if(sb(c))throw Error(G(a,b,!1)+"is "+c.toString()+", but must be a valid Firebase priority (a string, finite number, server value, or null).");if(!Qb(c))throw Error(G(a,b,!1)+"must be a valid Firebase priority (a string, finite number, server value, or null).");}
-function Wb(a,b,c){if(!c||m(b))switch(b){case "value":case "child_added":case "child_removed":case "child_changed":case "child_moved":break;default:throw Error(G(a,1,c)+'must be a valid event type: "value", "child_added", "child_removed", "child_changed", or "child_moved".');}}function Xb(a,b,c,d){if((!d||m(c))&&!Pb(c))throw Error(G(a,b,d)+'was an invalid key: "'+c+'".  Firebase keys must be non-empty strings and can\'t contain ".", "#", "$", "/", "[", or "]").');}
-function Yb(a,b){if(!p(b)||0===b.length||Ob.test(b))throw Error(G(a,1,!1)+'was an invalid path: "'+b+'". Paths must be non-empty strings and can\'t contain ".", "#", "$", "[", or "]"');}function Zb(a,b){if(".info"===I(b))throw Error(a+" failed: Can't modify data under /.info/");}function $b(a,b){if(!p(b))throw Error(G(a,1,!1)+"must be a valid credential (a string).");}function ac(a,b,c){if(!p(c))throw Error(G(a,b,!1)+"must be a valid string.");}
-function J(a,b,c,d){if(!d||m(c))if(!ia(c)||null===c)throw Error(G(a,b,d)+"must be a valid object.");}function K(a,b,c){if(!ia(b)||null===b||!s(b,c))throw Error(G(a,1,!1)+'must contain the key "'+c+'"');if(!p(t(b,c)))throw Error(G(a,1,!1)+'must contain the key "'+c+'" with type "string"');};function bc(a){this.g=a}h=bc.prototype;h.C=function(a,b,c,d,e){y(a.Bc(this.g),"A node must be indexed if only a child is updated");d=a.K(b);if(d.ea(c))return a;null!=e&&(c.e()?a.Da(b)?cc(e,new C("child_removed",d,b)):y(a.M(),"A child remove without an old child only makes sense on a leaf node"):d.e()?cc(e,new C("child_added",c,b)):cc(e,new C("child_changed",c,b,d)));return a.M()&&c.e()?a:a.P(b,c)};
-h.oa=function(a,b,c){null!=c&&(a.M()||a.U(L,function(a,e){b.Da(a)||cc(c,new C("child_removed",e,a))}),b.M()||b.U(L,function(b,e){if(a.Da(b)){var f=a.K(b);f.ea(e)||cc(c,new C("child_changed",e,b,f))}else cc(c,new C("child_added",e,b))}));return b.Fb(this.g)};h.Z=function(a,b){return a.e()?M:a.Z(b)};h.ya=function(){return!1};h.Mb=function(){return this};function dc(a){this.re=new bc(a.g);this.g=a.g;var b;a.ia?(b=ec(a),b=a.g.Ae(fc(a),b)):b=a.g.Ce();this.Vc=b;a.qa?(b=gc(a),a=a.g.Ae(hc(a),b)):a=a.g.Be();this.wc=a}h=dc.prototype;h.matches=function(a){return 0>=this.g.compare(this.Vc,a)&&0>=this.g.compare(a,this.wc)};h.C=function(a,b,c,d,e){this.matches(new N(b,c))||(c=M);return this.re.C(a,b,c,d,e)};h.oa=function(a,b,c){b.M()&&(b=M);var d=b.Fb(this.g),d=d.Z(M),e=this;b.U(L,function(a,b){e.matches(new N(a,b))||(d=d.P(a,M))});return this.re.oa(a,d,c)};
-h.Z=function(a){return a};h.ya=function(){return!0};h.Mb=function(){return this.re};function ic(a,b){return ub(a.name,b.name)}function jc(a,b){return ub(a,b)};function kc(){}var lc={};function mc(a){return q(a.compare,a)}kc.prototype.jf=function(a,b){return 0!==this.compare(new N("[MIN_NAME]",a),new N("[MIN_NAME]",b))};kc.prototype.Ce=function(){return nc};function oc(a){this.Ub=a}ma(oc,kc);h=oc.prototype;h.ue=function(a){return!a.K(this.Ub).e()};h.compare=function(a,b){var c=a.Y.K(this.Ub),d=b.Y.K(this.Ub),c=c.he(d);return 0===c?ub(a.name,b.name):c};h.Ae=function(a,b){var c=O(a),c=M.P(this.Ub,c);return new N(b,c)};
-h.Be=function(){var a=M.P(this.Ub,pc);return new N("[MAX_NAME]",a)};h.toString=function(){return this.Ub};var L=new oc(".priority");function qc(){}ma(qc,kc);h=qc.prototype;h.compare=function(a,b){return ub(a.name,b.name)};h.ue=function(){throw fb("KeyIndex.isDefinedOn not expected to be called.");};h.jf=function(){return!1};h.Ce=function(){return nc};h.Be=function(){return new N("[MAX_NAME]",M)};h.Ae=function(a){y(p(a),"KeyIndex indexValue must always be a string.");return new N(a,M)};
-h.toString=function(){return".key"};var rc=new qc;function sc(){}sc.prototype.ef=function(){return null};sc.prototype.oe=function(){return null};var tc=new sc;function uc(a,b,c){this.Bf=a;this.Ia=b;this.zd=c}uc.prototype.ef=function(a){var b=this.Ia.F;if(vc(b,a))return b.j().K(a);b=null!=this.zd?new wc(this.zd,!0,!1):this.Ia.u();return this.Bf.Ta(a,b)};uc.prototype.oe=function(a,b,c){var d=null!=this.zd?this.zd:xc(this.Ia);a=this.Bf.ce(d,b,1,c,a);return 0===a.length?null:a[0]};function yc(){this.Za={}}
-function cc(a,b){var c=b.type,d=b.Ua;y("child_added"==c||"child_changed"==c||"child_removed"==c,"Only child changes supported for tracking");y(".priority"!==d,"Only non-priority child changes can be tracked.");var e=t(a.Za,d);if(e){var f=e.type;if("child_added"==c&&"child_removed"==f)a.Za[d]=new C("child_changed",b.Ha,d,e.Ha);else if("child_removed"==c&&"child_added"==f)delete a.Za[d];else if("child_removed"==c&&"child_changed"==f)a.Za[d]=new C("child_removed",e.De,d);else if("child_changed"==c&&
-"child_added"==f)a.Za[d]=new C("child_added",b.Ha,d);else if("child_changed"==c&&"child_changed"==f)a.Za[d]=new C("child_changed",b.Ha,d,e.De);else throw fb("Illegal combination of changes: "+b+" occurred after "+e);}else a.Za[d]=b};function N(a,b){this.name=a;this.Y=b}function zc(a,b){return new N(a,b)};function Ac(a){this.ma=new dc(a);this.g=a.g;y(a.ka,"Only valid if limit has been set");this.sa=a.sa;this.zb=!(""===a.Eb?a.ia:"l"===a.Eb)}h=Ac.prototype;h.C=function(a,b,c,d,e){this.ma.matches(new N(b,c))||(c=M);return a.K(b).ea(c)?a:a.ub()<this.sa?this.ma.Mb().C(a,b,c,d,e):Bc(this,a,b,c,d,e)};
-h.oa=function(a,b,c){var d;if(b.M()||b.e())d=M.Fb(this.g);else if(2*this.sa<b.ub()&&b.Bc(this.g)){d=M.Fb(this.g);b=this.zb?b.Rb(this.ma.wc,this.g):b.Pb(this.ma.Vc,this.g);for(var e=0;0<b.Na.length&&e<this.sa;){var f=P(b),g;if(g=this.zb?0>=this.g.compare(this.ma.Vc,f):0>=this.g.compare(f,this.ma.wc))d=d.P(f.name,f.Y),e++;else break}}else{d=b.Fb(this.g);d=d.Z(M);var k,l,n;if(this.zb){b=d.gf(this.g);k=this.ma.wc;l=this.ma.Vc;var u=mc(this.g);n=function(a,b){return u(b,a)}}else b=d.Ob(this.g),k=this.ma.Vc,
-l=this.ma.wc,n=mc(this.g);for(var e=0,x=!1;0<b.Na.length;)f=P(b),!x&&0>=n(k,f)&&(x=!0),(g=x&&e<this.sa&&0>=n(f,l))?e++:d=d.P(f.name,M)}return this.ma.Mb().oa(a,d,c)};h.Z=function(a){return a};h.ya=function(){return!0};h.Mb=function(){return this.ma.Mb()};
-function Bc(a,b,c,d,e,f){var g;if(a.zb){var k=mc(a.g);g=function(a,b){return k(b,a)}}else g=mc(a.g);y(b.ub()==a.sa,"");var l=new N(c,d),n=a.zb?Cc(b,a.g):Dc(b,a.g),u=a.ma.matches(l);if(b.Da(c)){var x=b.K(c),n=e.oe(a.g,n,a.zb);null!=n&&n.name==c&&(n=e.oe(a.g,n,a.zb));e=null==n?1:g(n,l);if(u&&!d.e()&&0<=e)return null!=f&&cc(f,new C("child_changed",d,c,x)),b.P(c,d);null!=f&&cc(f,new C("child_removed",x,c));b=b.P(c,M);return null!=n&&a.ma.matches(n)?(null!=f&&cc(f,new C("child_added",n.Y,n.name)),b.P(n.name,
-n.Y)):b}return d.e()?b:u&&0<=g(n,l)?(null!=f&&(cc(f,new C("child_removed",n.Y,n.name)),cc(f,new C("child_added",d,c))),b.P(c,d).P(n.name,M)):b};function Ec(){this.vc=this.qa=this.kc=this.ia=this.ka=!1;this.sa=0;this.Eb="";this.Ac=null;this.Wb="";this.zc=null;this.Tb="";this.g=L}var Fc=new Ec;function fc(a){y(a.ia,"Only valid if start has been set");return a.Ac}function ec(a){y(a.ia,"Only valid if start has been set");return a.kc?a.Wb:"[MIN_NAME]"}function hc(a){y(a.qa,"Only valid if end has been set");return a.zc}function gc(a){y(a.qa,"Only valid if end has been set");return a.vc?a.Tb:"[MAX_NAME]"}
-function Gc(a){var b=new Ec;b.ka=a.ka;b.sa=a.sa;b.ia=a.ia;b.Ac=a.Ac;b.kc=a.kc;b.Wb=a.Wb;b.qa=a.qa;b.zc=a.zc;b.vc=a.vc;b.Tb=a.Tb;b.g=a.g;return b}h=Ec.prototype;h.xe=function(a){var b=Gc(this);b.ka=!0;b.sa=a;b.Eb="";return b};h.ye=function(a){var b=Gc(this);b.ka=!0;b.sa=a;b.Eb="l";return b};h.ze=function(a){var b=Gc(this);b.ka=!0;b.sa=a;b.Eb="r";return b};h.Od=function(a,b){var c=Gc(this);c.ia=!0;m(a)||(a=null);c.Ac=a;null!=b?(c.kc=!0,c.Wb=b):(c.kc=!1,c.Wb="");return c};
-h.hd=function(a,b){var c=Gc(this);c.qa=!0;m(a)||(a=null);c.zc=a;m(b)?(c.vc=!0,c.Tb=b):(c.Ig=!1,c.Tb="");return c};function Hc(a,b){var c=Gc(a);c.g=b;return c}function Ic(a){var b={};a.ia&&(b.sp=a.Ac,a.kc&&(b.sn=a.Wb));a.qa&&(b.ep=a.zc,a.vc&&(b.en=a.Tb));if(a.ka){b.l=a.sa;var c=a.Eb;""===c&&(c=a.ia?"l":"r");b.vf=c}a.g!==L&&(b.i=a.g.toString());return b}function Jc(a){return!(a.ia||a.qa||a.ka)}h.toString=function(){return r(Ic(this))};function Q(a,b,c,d){this.k=a;this.path=b;this.n=c;this.ac=d}
-function Kc(a){var b=null,c=null;a.ia&&(b=fc(a));a.qa&&(c=hc(a));if(a.g===rc){if(a.ia){if("[MIN_NAME]"!=ec(a))throw Error("Query: When ordering by key, you may only pass one argument to startAt(), endAt(), or equalTo().");if(null!=b&&"string"!==typeof b)throw Error("Query: When ordering by key, the argument passed to startAt(), endAt(),or equalTo() must be a string.");}if(a.qa){if("[MAX_NAME]"!=gc(a))throw Error("Query: When ordering by key, you may only pass one argument to startAt(), endAt(), or equalTo().");if(null!=
-c&&"string"!==typeof c)throw Error("Query: When ordering by key, the argument passed to startAt(), endAt(),or equalTo() must be a string.");}}else if(a.g===L){if(null!=b&&!Qb(b)||null!=c&&!Qb(c))throw Error("Query: When ordering by priority, the first argument passed to startAt(), endAt(), or equalTo() must be a valid priority value (null, a number, or a string).");}else if(y(a.g instanceof oc,"unknown index type."),null!=b&&"object"===typeof b||null!=c&&"object"===typeof c)throw Error("Query: First argument passed to startAt(), endAt(), or equalTo() cannot be an object.");
-}function Lc(a){if(a.ia&&a.qa&&a.ka&&(!a.ka||""===a.Eb))throw Error("Query: Can't combine startAt(), endAt(), and limit(). Use limitToFirst() or limitToLast() instead.");}function Mc(a,b){if(!0===a.ac)throw Error(b+": You can't combine multiple orderBy calls.");}Q.prototype.cc=function(){F("Query.ref",0,0,arguments.length);return new R(this.k,this.path)};Q.prototype.ref=Q.prototype.cc;
-Q.prototype.vb=function(a,b,c,d){F("Query.on",2,4,arguments.length);Wb("Query.on",a,!1);H("Query.on",2,b,!1);var e=Nc("Query.on",c,d);if("value"===a)Oc(this.k,this,new Hb(b,e.cancel||null,e.Ka||null));else{var f={};f[a]=b;Oc(this.k,this,new Ib(f,e.cancel,e.Ka))}return b};Q.prototype.on=Q.prototype.vb;
-Q.prototype.Zb=function(a,b,c){F("Query.off",0,3,arguments.length);Wb("Query.off",a,!0);H("Query.off",2,b,!0);Mb("Query.off",3,c);var d=null,e=null;"value"===a?d=new Hb(b||null,null,c||null):a&&(b&&(e={},e[a]=b),d=new Ib(e,null,c||null));e=this.k;d=".info"===I(this.path)?e.qd.gb(this,d):e.N.gb(this,d);Pc(e.$,this.path,d)};Q.prototype.off=Q.prototype.Zb;
-Q.prototype.lg=function(a,b){function c(g){f&&(f=!1,e.Zb(a,c),b.call(d.Ka,g))}F("Query.once",2,4,arguments.length);Wb("Query.once",a,!1);H("Query.once",2,b,!1);var d=Nc("Query.once",arguments[2],arguments[3]),e=this,f=!0;this.vb(a,c,function(b){e.Zb(a,c);d.cancel&&d.cancel.call(d.Ka,b)})};Q.prototype.once=Q.prototype.lg;
-Q.prototype.xe=function(a){z("Query.limit() being deprecated. Please use Query.limitToFirst() or Query.limitToLast() instead.");F("Query.limit",1,1,arguments.length);if(!ga(a)||Math.floor(a)!==a||0>=a)throw Error("Query.limit: First argument must be a positive integer.");if(this.n.ka)throw Error("Query.limit: Limit was already set (by another call to limit, limitToFirst, orlimitToLast.");var b=this.n.xe(a);Lc(b);return new Q(this.k,this.path,b,this.ac)};Q.prototype.limit=Q.prototype.xe;
-Q.prototype.ye=function(a){F("Query.limitToFirst",1,1,arguments.length);if(!ga(a)||Math.floor(a)!==a||0>=a)throw Error("Query.limitToFirst: First argument must be a positive integer.");if(this.n.ka)throw Error("Query.limitToFirst: Limit was already set (by another call to limit, limitToFirst, or limitToLast).");return new Q(this.k,this.path,this.n.ye(a),this.ac)};Q.prototype.limitToFirst=Q.prototype.ye;
-Q.prototype.ze=function(a){F("Query.limitToLast",1,1,arguments.length);if(!ga(a)||Math.floor(a)!==a||0>=a)throw Error("Query.limitToLast: First argument must be a positive integer.");if(this.n.ka)throw Error("Query.limitToLast: Limit was already set (by another call to limit, limitToFirst, or limitToLast).");return new Q(this.k,this.path,this.n.ze(a),this.ac)};Q.prototype.limitToLast=Q.prototype.ze;
-Q.prototype.mg=function(a){F("Query.orderByChild",1,1,arguments.length);if("$key"===a)throw Error('Query.orderByChild: "$key" is invalid.  Use Query.orderByKey() instead.');if("$priority"===a)throw Error('Query.orderByChild: "$priority" is invalid.  Use Query.orderByPriority() instead.');Xb("Query.orderByChild",1,a,!1);Mc(this,"Query.orderByChild");var b=Hc(this.n,new oc(a));Kc(b);return new Q(this.k,this.path,b,!0)};Q.prototype.orderByChild=Q.prototype.mg;
-Q.prototype.ng=function(){F("Query.orderByKey",0,0,arguments.length);Mc(this,"Query.orderByKey");var a=Hc(this.n,rc);Kc(a);return new Q(this.k,this.path,a,!0)};Q.prototype.orderByKey=Q.prototype.ng;Q.prototype.og=function(){F("Query.orderByPriority",0,0,arguments.length);Mc(this,"Query.orderByPriority");var a=Hc(this.n,L);Kc(a);return new Q(this.k,this.path,a,!0)};Q.prototype.orderByPriority=Q.prototype.og;
-Q.prototype.Od=function(a,b){F("Query.startAt",0,2,arguments.length);Rb("Query.startAt",a,!0);Xb("Query.startAt",2,b,!0);var c=this.n.Od(a,b);Lc(c);Kc(c);if(this.n.ia)throw Error("Query.startAt: Starting point was already set (by another call to startAt or equalTo).");m(a)||(b=a=null);return new Q(this.k,this.path,c,this.ac)};Q.prototype.startAt=Q.prototype.Od;
-Q.prototype.hd=function(a,b){F("Query.endAt",0,2,arguments.length);Rb("Query.endAt",a,!0);Xb("Query.endAt",2,b,!0);var c=this.n.hd(a,b);Lc(c);Kc(c);if(this.n.qa)throw Error("Query.endAt: Ending point was already set (by another call to endAt or equalTo).");return new Q(this.k,this.path,c,this.ac)};Q.prototype.endAt=Q.prototype.hd;
-Q.prototype.Tf=function(a,b){F("Query.equalTo",1,2,arguments.length);Rb("Query.equalTo",a,!1);Xb("Query.equalTo",2,b,!0);if(this.n.ia)throw Error("Query.equalTo: Starting point was already set (by another call to endAt or equalTo).");if(this.n.qa)throw Error("Query.equalTo: Ending point was already set (by another call to endAt or equalTo).");return this.Od(a,b).hd(a,b)};Q.prototype.equalTo=Q.prototype.Tf;Q.prototype.Fa=function(){var a=xb(Ic(this.n));return"{}"===a?"default":a};
-function Nc(a,b,c){var d={cancel:null,Ka:null};if(b&&c)d.cancel=b,H(a,3,d.cancel,!0),d.Ka=c,Mb(a,4,d.Ka);else if(b)if("object"===typeof b&&null!==b)d.Ka=b;else if("function"===typeof b)d.cancel=b;else throw Error(G(a,3,!0)+" must either be a cancel callback or a context object.");return d};function S(a,b){if(1==arguments.length){this.w=a.split("/");for(var c=0,d=0;d<this.w.length;d++)0<this.w[d].length&&(this.w[c]=this.w[d],c++);this.w.length=c;this.ca=0}else this.w=a,this.ca=b}function I(a){return a.ca>=a.w.length?null:a.w[a.ca]}function Qc(a){return a.w.length-a.ca}function T(a){var b=a.ca;b<a.w.length&&b++;return new S(a.w,b)}function Rc(a){return a.ca<a.w.length?a.w[a.w.length-1]:null}
-S.prototype.toString=function(){for(var a="",b=this.ca;b<this.w.length;b++)""!==this.w[b]&&(a+="/"+this.w[b]);return a||"/"};S.prototype.parent=function(){if(this.ca>=this.w.length)return null;for(var a=[],b=this.ca;b<this.w.length-1;b++)a.push(this.w[b]);return new S(a,0)};
-S.prototype.o=function(a){for(var b=[],c=this.ca;c<this.w.length;c++)b.push(this.w[c]);if(a instanceof S)for(c=a.ca;c<a.w.length;c++)b.push(a.w[c]);else for(a=a.split("/"),c=0;c<a.length;c++)0<a[c].length&&b.push(a[c]);return new S(b,0)};S.prototype.e=function(){return this.ca>=this.w.length};var U=new S("");function V(a,b){var c=I(a);if(null===c)return b;if(c===I(b))return V(T(a),T(b));throw Error("INTERNAL ERROR: innerPath ("+b+") is not within outerPath ("+a+")");}
-S.prototype.ea=function(a){if(Qc(this)!==Qc(a))return!1;for(var b=this.ca,c=a.ca;b<=this.w.length;b++,c++)if(this.w[b]!==a.w[c])return!1;return!0};S.prototype.contains=function(a){var b=this.ca,c=a.ca;if(Qc(this)>Qc(a))return!1;for(;b<this.w.length;){if(this.w[b]!==a.w[c])return!1;++b;++c}return!0};function Sc(){this.children={};this.bd=0;this.value=null}function Tc(a,b,c){this.ud=a?a:"";this.Oc=b?b:null;this.A=c?c:new Sc}function Uc(a,b){for(var c=b instanceof S?b:new S(b),d=a,e;null!==(e=I(c));)d=new Tc(e,d,t(d.A.children,e)||new Sc),c=T(c);return d}h=Tc.prototype;h.za=function(){return this.A.value};function Vc(a,b){y("undefined"!==typeof b,"Cannot set value to undefined");a.A.value=b;Wc(a)}h.clear=function(){this.A.value=null;this.A.children={};this.A.bd=0;Wc(this)};
-h.ld=function(){return 0<this.A.bd};h.e=function(){return null===this.za()&&!this.ld()};h.U=function(a){var b=this;A(this.A.children,function(c,d){a(new Tc(d,b,c))})};function Xc(a,b,c,d){c&&!d&&b(a);a.U(function(a){Xc(a,b,!0,d)});c&&d&&b(a)}function Yc(a,b){for(var c=a.parent();null!==c&&!b(c);)c=c.parent()}h.path=function(){return new S(null===this.Oc?this.ud:this.Oc.path()+"/"+this.ud)};h.name=function(){return this.ud};h.parent=function(){return this.Oc};
-function Wc(a){if(null!==a.Oc){var b=a.Oc,c=a.ud,d=a.e(),e=s(b.A.children,c);d&&e?(delete b.A.children[c],b.A.bd--,Wc(b)):d||e||(b.A.children[c]=a.A,b.A.bd++,Wc(b))}};function Zc(a,b){this.Ja=a;this.ua=b?b:$c}h=Zc.prototype;h.La=function(a,b){return new Zc(this.Ja,this.ua.La(a,b,this.Ja).X(null,null,!1,null,null))};h.remove=function(a){return new Zc(this.Ja,this.ua.remove(a,this.Ja).X(null,null,!1,null,null))};h.get=function(a){for(var b,c=this.ua;!c.e();){b=this.Ja(a,c.key);if(0===b)return c.value;0>b?c=c.left:0<b&&(c=c.right)}return null};
-function ad(a,b){for(var c,d=a.ua,e=null;!d.e();){c=a.Ja(b,d.key);if(0===c){if(d.left.e())return e?e.key:null;for(d=d.left;!d.right.e();)d=d.right;return d.key}0>c?d=d.left:0<c&&(e=d,d=d.right)}throw Error("Attempted to find predecessor key for a nonexistent key.  What gives?");}h.e=function(){return this.ua.e()};h.count=function(){return this.ua.count()};h.Ic=function(){return this.ua.Ic()};h.Xb=function(){return this.ua.Xb()};h.fa=function(a){return this.ua.fa(a)};
-h.Ob=function(a){return new bd(this.ua,null,this.Ja,!1,a)};h.Pb=function(a,b){return new bd(this.ua,a,this.Ja,!1,b)};h.Rb=function(a,b){return new bd(this.ua,a,this.Ja,!0,b)};h.gf=function(a){return new bd(this.ua,null,this.Ja,!0,a)};function bd(a,b,c,d,e){this.Id=e||null;this.ve=d;this.Na=[];for(e=1;!a.e();)if(e=b?c(a.key,b):1,d&&(e*=-1),0>e)a=this.ve?a.left:a.right;else if(0===e){this.Na.push(a);break}else this.Na.push(a),a=this.ve?a.right:a.left}
-function P(a){if(0===a.Na.length)return null;var b=a.Na.pop(),c;c=a.Id?a.Id(b.key,b.value):{key:b.key,value:b.value};if(a.ve)for(b=b.left;!b.e();)a.Na.push(b),b=b.right;else for(b=b.right;!b.e();)a.Na.push(b),b=b.left;return c}function cd(a){if(0===a.Na.length)return null;var b;b=a.Na;b=b[b.length-1];return a.Id?a.Id(b.key,b.value):{key:b.key,value:b.value}}function dd(a,b,c,d,e){this.key=a;this.value=b;this.color=null!=c?c:!0;this.left=null!=d?d:$c;this.right=null!=e?e:$c}h=dd.prototype;
-h.X=function(a,b,c,d,e){return new dd(null!=a?a:this.key,null!=b?b:this.value,null!=c?c:this.color,null!=d?d:this.left,null!=e?e:this.right)};h.count=function(){return this.left.count()+1+this.right.count()};h.e=function(){return!1};h.fa=function(a){return this.left.fa(a)||a(this.key,this.value)||this.right.fa(a)};function ed(a){return a.left.e()?a:ed(a.left)}h.Ic=function(){return ed(this).key};h.Xb=function(){return this.right.e()?this.key:this.right.Xb()};
-h.La=function(a,b,c){var d,e;e=this;d=c(a,e.key);e=0>d?e.X(null,null,null,e.left.La(a,b,c),null):0===d?e.X(null,b,null,null,null):e.X(null,null,null,null,e.right.La(a,b,c));return fd(e)};function gd(a){if(a.left.e())return $c;a.left.ba()||a.left.left.ba()||(a=hd(a));a=a.X(null,null,null,gd(a.left),null);return fd(a)}
-h.remove=function(a,b){var c,d;c=this;if(0>b(a,c.key))c.left.e()||c.left.ba()||c.left.left.ba()||(c=hd(c)),c=c.X(null,null,null,c.left.remove(a,b),null);else{c.left.ba()&&(c=jd(c));c.right.e()||c.right.ba()||c.right.left.ba()||(c=kd(c),c.left.left.ba()&&(c=jd(c),c=kd(c)));if(0===b(a,c.key)){if(c.right.e())return $c;d=ed(c.right);c=c.X(d.key,d.value,null,null,gd(c.right))}c=c.X(null,null,null,null,c.right.remove(a,b))}return fd(c)};h.ba=function(){return this.color};
-function fd(a){a.right.ba()&&!a.left.ba()&&(a=ld(a));a.left.ba()&&a.left.left.ba()&&(a=jd(a));a.left.ba()&&a.right.ba()&&(a=kd(a));return a}function hd(a){a=kd(a);a.right.left.ba()&&(a=a.X(null,null,null,null,jd(a.right)),a=ld(a),a=kd(a));return a}function ld(a){return a.right.X(null,null,a.color,a.X(null,null,!0,null,a.right.left),null)}function jd(a){return a.left.X(null,null,a.color,null,a.X(null,null,!0,a.left.right,null))}
-function kd(a){return a.X(null,null,!a.color,a.left.X(null,null,!a.left.color,null,null),a.right.X(null,null,!a.right.color,null,null))}function md(){}h=md.prototype;h.X=function(){return this};h.La=function(a,b){return new dd(a,b,null)};h.remove=function(){return this};h.count=function(){return 0};h.e=function(){return!0};h.fa=function(){return!1};h.Ic=function(){return null};h.Xb=function(){return null};h.ba=function(){return!1};var $c=new md;function nd(a,b){this.D=a;y(m(this.D)&&null!==this.D,"LeafNode shouldn't be created with null/undefined value.");this.ha=b||M;od(this.ha);this.sb=null}h=nd.prototype;h.M=function(){return!0};h.L=function(){return this.ha};h.Z=function(a){return new nd(this.D,a)};h.K=function(a){return".priority"===a?this.ha:M};h.ra=function(a){return a.e()?this:".priority"===I(a)?this.ha:M};h.Da=function(){return!1};h.ff=function(){return null};
-h.P=function(a,b){return".priority"===a?this.Z(b):b.e()&&".priority"!==a?this:M.P(a,b).Z(this.ha)};h.C=function(a,b){var c=I(a);if(null===c)return b;if(b.e()&&".priority"!==c)return this;y(".priority"!==c||1===Qc(a),".priority must be the last token in a path");return this.P(c,M.C(T(a),b))};h.e=function(){return!1};h.ub=function(){return 0};h.I=function(a){return a&&!this.L().e()?{".value":this.za(),".priority":this.L().I()}:this.za()};
-h.hash=function(){if(null===this.sb){var a="";this.ha.e()||(a+="priority:"+pd(this.ha.I())+":");var b=typeof this.D,a=a+(b+":"),a="number"===b?a+Ab(this.D):a+this.D;this.sb=ib(a)}return this.sb};h.za=function(){return this.D};h.he=function(a){if(a===M)return 1;if(a instanceof W)return-1;y(a.M(),"Unknown node type");var b=typeof a.D,c=typeof this.D,d=Ga(qd,b),e=Ga(qd,c);y(0<=d,"Unknown leaf type: "+b);y(0<=e,"Unknown leaf type: "+c);return d===e?"object"===c?0:this.D<a.D?-1:this.D===a.D?0:1:e-d};
-var qd=["object","boolean","number","string"];nd.prototype.Fb=function(){return this};nd.prototype.Bc=function(){return!0};nd.prototype.ea=function(a){return a===this?!0:a.M()?this.D===a.D&&this.ha.ea(a.ha):!1};nd.prototype.toString=function(){return r(this.I(!0))};function rd(a,b){this.pd=a;this.Vb=b}rd.prototype.get=function(a){var b=t(this.pd,a);if(!b)throw Error("No index defined for "+a);return b===lc?null:b};function sd(a,b,c){var d=td(a.pd,function(d,f){var g=t(a.Vb,f);y(g,"Missing index implementation for "+f);if(d===lc){if(g.ue(b.Y)){for(var k=[],l=c.Ob(zc),n=P(l);n;)n.name!=b.name&&k.push(n),n=P(l);k.push(b);return ud(k,mc(g))}return lc}g=c.get(b.name);k=d;g&&(k=k.remove(new N(b.name,g)));return k.La(b,b.Y)});return new rd(d,a.Vb)}
-function vd(a,b,c){var d=td(a.pd,function(a){if(a===lc)return a;var d=c.get(b.name);return d?a.remove(new N(b.name,d)):a});return new rd(d,a.Vb)}var wd=new rd({".priority":lc},{".priority":L});function W(a,b,c){this.m=a;(this.ha=b)&&od(this.ha);this.ob=c;this.sb=null}h=W.prototype;h.M=function(){return!1};h.L=function(){return this.ha||M};h.Z=function(a){return new W(this.m,a,this.ob)};h.K=function(a){if(".priority"===a)return this.L();a=this.m.get(a);return null===a?M:a};h.ra=function(a){var b=I(a);return null===b?this:this.K(b).ra(T(a))};h.Da=function(a){return null!==this.m.get(a)};
-h.P=function(a,b){y(b,"We should always be passing snapshot nodes");if(".priority"===a)return this.Z(b);var c=new N(a,b),d;b.e()?(d=this.m.remove(a),c=vd(this.ob,c,this.m)):(d=this.m.La(a,b),c=sd(this.ob,c,this.m));return new W(d,this.ha,c)};h.C=function(a,b){var c=I(a);if(null===c)return b;y(".priority"!==I(a)||1===Qc(a),".priority must be the last token in a path");var d=this.K(c).C(T(a),b);return this.P(c,d)};h.e=function(){return this.m.e()};h.ub=function(){return this.m.count()};var xd=/^(0|[1-9]\d*)$/;
-h=W.prototype;h.I=function(a){if(this.e())return null;var b={},c=0,d=0,e=!0;this.U(L,function(f,g){b[f]=g.I(a);c++;e&&xd.test(f)?d=Math.max(d,Number(f)):e=!1});if(!a&&e&&d<2*c){var f=[],g;for(g in b)f[g]=b[g];return f}a&&!this.L().e()&&(b[".priority"]=this.L().I());return b};h.hash=function(){if(null===this.sb){var a="";this.L().e()||(a+="priority:"+pd(this.L().I())+":");this.U(L,function(b,c){var d=c.hash();""!==d&&(a+=":"+b+":"+d)});this.sb=""===a?"":ib(a)}return this.sb};
-h.ff=function(a,b,c){return(c=yd(this,c))?(a=ad(c,new N(a,b)))?a.name:null:ad(this.m,a)};function Cc(a,b){var c;c=(c=yd(a,b))?(c=c.Ic())&&c.name:a.m.Ic();return c?new N(c,a.m.get(c)):null}function Dc(a,b){var c;c=(c=yd(a,b))?(c=c.Xb())&&c.name:a.m.Xb();return c?new N(c,a.m.get(c)):null}h.U=function(a,b){var c=yd(this,a);return c?c.fa(function(a){return b(a.name,a.Y)}):this.m.fa(b)};h.Ob=function(a){return this.Pb(a.Ce(),a)};
-h.Pb=function(a,b){var c=yd(this,b);if(c)return c.Pb(a,function(a){return a});for(var c=this.m.Pb(a.name,zc),d=cd(c);null!=d&&0>b.compare(d,a);)P(c),d=cd(c);return c};h.gf=function(a){return this.Rb(a.Be(),a)};h.Rb=function(a,b){var c=yd(this,b);if(c)return c.Rb(a,function(a){return a});for(var c=this.m.Rb(a.name,zc),d=cd(c);null!=d&&0<b.compare(d,a);)P(c),d=cd(c);return c};h.he=function(a){return this.e()?a.e()?0:-1:a.M()||a.e()?1:a===pc?-1:0};
-h.Fb=function(a){if(a===rc||zd(this.ob.Vb,a.toString()))return this;var b=this.ob,c=this.m;y(a!==rc,"KeyIndex always exists and isn't meant to be added to the IndexMap.");for(var d=[],e=!1,c=c.Ob(zc),f=P(c);f;)e=e||a.ue(f.Y),d.push(f),f=P(c);d=e?ud(d,mc(a)):lc;e=a.toString();c=Ad(b.Vb);c[e]=a;a=Ad(b.pd);a[e]=d;return new W(this.m,this.ha,new rd(a,c))};h.Bc=function(a){return a===rc||zd(this.ob.Vb,a.toString())};
-h.ea=function(a){if(a===this)return!0;if(a.M())return!1;if(this.L().ea(a.L())&&this.m.count()===a.m.count()){var b=this.Ob(L);a=a.Ob(L);for(var c=P(b),d=P(a);c&&d;){if(c.name!==d.name||!c.Y.ea(d.Y))return!1;c=P(b);d=P(a)}return null===c&&null===d}return!1};function yd(a,b){return b===rc?null:a.ob.get(b.toString())}h.toString=function(){return r(this.I(!0))};function O(a,b){if(null===a)return M;var c=null;"object"===typeof a&&".priority"in a?c=a[".priority"]:"undefined"!==typeof b&&(c=b);y(null===c||"string"===typeof c||"number"===typeof c||"object"===typeof c&&".sv"in c,"Invalid priority type found: "+typeof c);"object"===typeof a&&".value"in a&&null!==a[".value"]&&(a=a[".value"]);if("object"!==typeof a||".sv"in a)return new nd(a,O(c));if(a instanceof Array){var d=M,e=a;A(e,function(a,b){if(s(e,b)&&"."!==b.substring(0,1)){var c=O(a);if(c.M()||!c.e())d=
-d.P(b,c)}});return d.Z(O(c))}var f=[],g=!1,k=a;ua(k,function(a){if("string"!==typeof a||"."!==a.substring(0,1)){var b=O(k[a]);b.e()||(g=g||!b.L().e(),f.push(new N(a,b)))}});var l=ud(f,ic,function(a){return a.name},jc);if(g){var n=ud(f,mc(L));return new W(l,O(c),new rd({".priority":n},{".priority":L}))}return new W(l,O(c),wd)}var Bd=Math.log(2);function Cd(a){this.count=parseInt(Math.log(a+1)/Bd,10);this.$e=this.count-1;this.Nf=a+1&parseInt(Array(this.count+1).join("1"),2)}
-function Dd(a){var b=!(a.Nf&1<<a.$e);a.$e--;return b}
-function ud(a,b,c,d){function e(b,d){var f=d-b;if(0==f)return null;if(1==f){var n=a[b],u=c?c(n):n;return new dd(u,n.Y,!1,null,null)}var n=parseInt(f/2,10)+b,f=e(b,n),x=e(n+1,d),n=a[n],u=c?c(n):n;return new dd(u,n.Y,!1,f,x)}a.sort(b);var f=function(b){function d(b,g){var k=u-b,x=u;u-=b;var x=e(k+1,x),k=a[k],E=c?c(k):k,x=new dd(E,k.Y,g,null,x);f?f.left=x:n=x;f=x}for(var f=null,n=null,u=a.length,x=0;x<b.count;++x){var E=Dd(b),id=Math.pow(2,b.count-(x+1));E?d(id,!1):(d(id,!1),d(id,!0))}return n}(new Cd(a.length));
-return null!==f?new Zc(d||b,f):new Zc(d||b)}function pd(a){return"number"===typeof a?"number:"+Ab(a):"string:"+a}function od(a){if(a.M()){var b=a.I();y("string"===typeof b||"number"===typeof b||"object"===typeof b&&s(b,".sv"),"Priority must be a string or number.")}else y(a===pc||a.e(),"priority of unexpected type.");y(a===pc||a.L().e(),"Priority nodes can't have a priority of their own.")}var M=new W(new Zc(jc),null,wd);function Ed(){W.call(this,new Zc(jc),M,wd)}ma(Ed,W);h=Ed.prototype;
-h.he=function(a){return a===this?0:1};h.ea=function(a){return a===this};h.L=function(){throw fb("Why is this called?");};h.K=function(){return M};h.e=function(){return!1};var pc=new Ed,nc=new N("[MIN_NAME]",M);function D(a,b,c){this.A=a;this.V=b;this.g=c}D.prototype.I=function(){F("Firebase.DataSnapshot.val",0,0,arguments.length);return this.A.I()};D.prototype.val=D.prototype.I;D.prototype.bf=function(){F("Firebase.DataSnapshot.exportVal",0,0,arguments.length);return this.A.I(!0)};D.prototype.exportVal=D.prototype.bf;D.prototype.Wf=function(){F("Firebase.DataSnapshot.exists",0,0,arguments.length);return!this.A.e()};D.prototype.exists=D.prototype.Wf;
-D.prototype.o=function(a){F("Firebase.DataSnapshot.child",0,1,arguments.length);ga(a)&&(a=String(a));Yb("Firebase.DataSnapshot.child",a);var b=new S(a),c=this.V.o(b);return new D(this.A.ra(b),c,L)};D.prototype.child=D.prototype.o;D.prototype.Da=function(a){F("Firebase.DataSnapshot.hasChild",1,1,arguments.length);Yb("Firebase.DataSnapshot.hasChild",a);var b=new S(a);return!this.A.ra(b).e()};D.prototype.hasChild=D.prototype.Da;
-D.prototype.L=function(){F("Firebase.DataSnapshot.getPriority",0,0,arguments.length);return this.A.L().I()};D.prototype.getPriority=D.prototype.L;D.prototype.forEach=function(a){F("Firebase.DataSnapshot.forEach",1,1,arguments.length);H("Firebase.DataSnapshot.forEach",1,a,!1);if(this.A.M())return!1;var b=this;return!!this.A.U(this.g,function(c,d){return a(new D(d,b.V.o(c),L))})};D.prototype.forEach=D.prototype.forEach;
-D.prototype.ld=function(){F("Firebase.DataSnapshot.hasChildren",0,0,arguments.length);return this.A.M()?!1:!this.A.e()};D.prototype.hasChildren=D.prototype.ld;D.prototype.name=function(){z("Firebase.DataSnapshot.name() being deprecated. Please use Firebase.DataSnapshot.key() instead.");F("Firebase.DataSnapshot.name",0,0,arguments.length);return this.key()};D.prototype.name=D.prototype.name;D.prototype.key=function(){F("Firebase.DataSnapshot.key",0,0,arguments.length);return this.V.key()};
-D.prototype.key=D.prototype.key;D.prototype.ub=function(){F("Firebase.DataSnapshot.numChildren",0,0,arguments.length);return this.A.ub()};D.prototype.numChildren=D.prototype.ub;D.prototype.cc=function(){F("Firebase.DataSnapshot.ref",0,0,arguments.length);return this.V};D.prototype.ref=D.prototype.cc;function Fd(a){y(ea(a)&&0<a.length,"Requires a non-empty array");this.Ff=a;this.Gc={}}Fd.prototype.Vd=function(a,b){for(var c=this.Gc[a]||[],d=0;d<c.length;d++)c[d].qc.apply(c[d].Ka,Array.prototype.slice.call(arguments,1))};Fd.prototype.vb=function(a,b,c){Gd(this,a);this.Gc[a]=this.Gc[a]||[];this.Gc[a].push({qc:b,Ka:c});(a=this.qe(a))&&b.apply(c,a)};Fd.prototype.Zb=function(a,b,c){Gd(this,a);a=this.Gc[a]||[];for(var d=0;d<a.length;d++)if(a[d].qc===b&&(!c||c===a[d].Ka)){a.splice(d,1);break}};
-function Gd(a,b){y(Ma(a.Ff,function(a){return a===b}),"Unknown event: "+b)};function Hd(){Fd.call(this,["visible"]);var a,b;"undefined"!==typeof document&&"undefined"!==typeof document.addEventListener&&("undefined"!==typeof document.hidden?(b="visibilitychange",a="hidden"):"undefined"!==typeof document.mozHidden?(b="mozvisibilitychange",a="mozHidden"):"undefined"!==typeof document.msHidden?(b="msvisibilitychange",a="msHidden"):"undefined"!==typeof document.webkitHidden&&(b="webkitvisibilitychange",a="webkitHidden"));this.mc=!0;if(b){var c=this;document.addEventListener(b,
-function(){var b=!document[a];b!==c.mc&&(c.mc=b,c.Vd("visible",b))},!1)}}ma(Hd,Fd);ca(Hd);Hd.prototype.qe=function(a){y("visible"===a,"Unknown event type: "+a);return[this.mc]};function Id(){Fd.call(this,["online"]);this.Lc=!0;if("undefined"!==typeof window&&"undefined"!==typeof window.addEventListener){var a=this;window.addEventListener("online",function(){a.Lc||a.Vd("online",!0);a.Lc=!0},!1);window.addEventListener("offline",function(){a.Lc&&a.Vd("online",!1);a.Lc=!1},!1)}}ma(Id,Fd);ca(Id);Id.prototype.qe=function(a){y("online"===a,"Unknown event type: "+a);return[this.Lc]};function A(a,b){for(var c in a)b.call(void 0,a[c],c,a)}function td(a,b){var c={},d;for(d in a)c[d]=b.call(void 0,a[d],d,a);return c}function Lb(a,b){for(var c in a)if(!b.call(void 0,a[c],c,a))return!1;return!0}function Jb(a){var b=0,c;for(c in a)b++;return b}function Kb(a){for(var b in a)return b}function Jd(a){var b=[],c=0,d;for(d in a)b[c++]=a[d];return b}function Kd(a){var b=[],c=0,d;for(d in a)b[c++]=d;return b}function zd(a,b){for(var c in a)if(a[c]==b)return!0;return!1}
-function Ld(a,b,c){for(var d in a)if(b.call(c,a[d],d,a))return d}function Md(a,b){var c=Ld(a,b,void 0);return c&&a[c]}function Nd(a){for(var b in a)return!1;return!0}function Od(a,b){return b in a?a[b]:void 0}function Ad(a){var b={},c;for(c in a)b[c]=a[c];return b}var Pd="constructor hasOwnProperty isPrototypeOf propertyIsEnumerable toLocaleString toString valueOf".split(" ");
-function Qd(a,b){for(var c,d,e=1;e<arguments.length;e++){d=arguments[e];for(c in d)a[c]=d[c];for(var f=0;f<Pd.length;f++)c=Pd[f],Object.prototype.hasOwnProperty.call(d,c)&&(a[c]=d[c])}};function Rd(){this.tc={}}function Sd(a,b,c){m(c)||(c=1);s(a.tc,b)||(a.tc[b]=0);a.tc[b]+=c}Rd.prototype.get=function(){return Ad(this.tc)};function Td(a){this.Pf=a;this.rd=null}Td.prototype.get=function(){var a=this.Pf.get(),b=Ad(a);if(this.rd)for(var c in this.rd)b[c]-=this.rd[c];this.rd=a;return b};function Ud(a,b){this.zf={};this.Pd=new Td(a);this.S=b;var c=1E4+2E4*Math.random();setTimeout(q(this.tf,this),Math.floor(c))}Ud.prototype.tf=function(){var a=this.Pd.get(),b={},c=!1,d;for(d in a)0<a[d]&&s(this.zf,d)&&(b[d]=a[d],c=!0);c&&(a=this.S,a.ja&&(b={c:b},a.f("reportStats",b),a.Ca("s",b)));setTimeout(q(this.tf,this),Math.floor(6E5*Math.random()))};var Vd={},Wd={};function Xd(a){a=a.toString();Vd[a]||(Vd[a]=new Rd);return Vd[a]}function Yd(a,b){var c=a.toString();Wd[c]||(Wd[c]=b());return Wd[c]};var Zd=null;"undefined"!==typeof MozWebSocket?Zd=MozWebSocket:"undefined"!==typeof WebSocket&&(Zd=WebSocket);function $d(a,b,c){this.ie=a;this.f=ob(this.ie);this.frames=this.Cc=null;this.ib=this.jb=this.Te=0;this.Ra=Xd(b);this.$a=(b.Ab?"wss://":"ws://")+b.Ma+"/.ws?v=5";"undefined"!==typeof location&&location.href&&-1!==location.href.indexOf("firebaseio.com")&&(this.$a+="&r=f");b.host!==b.Ma&&(this.$a=this.$a+"&ns="+b.tb);c&&(this.$a=this.$a+"&s="+c)}var ae;
-$d.prototype.open=function(a,b){this.fb=b;this.hg=a;this.f("Websocket connecting to "+this.$a);this.xc=!1;za.set("previous_websocket_failure",!0);try{this.ta=new Zd(this.$a)}catch(c){this.f("Error instantiating WebSocket.");var d=c.message||c.data;d&&this.f(d);this.eb();return}var e=this;this.ta.onopen=function(){e.f("Websocket connected.");e.xc=!0};this.ta.onclose=function(){e.f("Websocket connection was disconnected.");e.ta=null;e.eb()};this.ta.onmessage=function(a){if(null!==e.ta)if(a=a.data,e.ib+=
-a.length,Sd(e.Ra,"bytes_received",a.length),be(e),null!==e.frames)ce(e,a);else{a:{y(null===e.frames,"We already have a frame buffer");if(6>=a.length){var b=Number(a);if(!isNaN(b)){e.Te=b;e.frames=[];a=null;break a}}e.Te=1;e.frames=[]}null!==a&&ce(e,a)}};this.ta.onerror=function(a){e.f("WebSocket error.  Closing connection.");(a=a.message||a.data)&&e.f(a);e.eb()}};$d.prototype.start=function(){};
-$d.isAvailable=function(){var a=!1;if("undefined"!==typeof navigator&&navigator.userAgent){var b=navigator.userAgent.match(/Android ([0-9]{0,}\.[0-9]{0,})/);b&&1<b.length&&4.4>parseFloat(b[1])&&(a=!0)}return!a&&null!==Zd&&!ae};$d.responsesRequiredToBeHealthy=2;$d.healthyTimeout=3E4;h=$d.prototype;h.sd=function(){za.remove("previous_websocket_failure")};function ce(a,b){a.frames.push(b);if(a.frames.length==a.Te){var c=a.frames.join("");a.frames=null;c=ta(c);a.hg(c)}}
-h.send=function(a){be(this);a=r(a);this.jb+=a.length;Sd(this.Ra,"bytes_sent",a.length);a=yb(a,16384);1<a.length&&this.ta.send(String(a.length));for(var b=0;b<a.length;b++)this.ta.send(a[b])};h.Uc=function(){this.qb=!0;this.Cc&&(clearInterval(this.Cc),this.Cc=null);this.ta&&(this.ta.close(),this.ta=null)};h.eb=function(){this.qb||(this.f("WebSocket is closing itself"),this.Uc(),this.fb&&(this.fb(this.xc),this.fb=null))};h.close=function(){this.qb||(this.f("WebSocket is being closed"),this.Uc())};
-function be(a){clearInterval(a.Cc);a.Cc=setInterval(function(){a.ta&&a.ta.send("0");be(a)},Math.floor(45E3))};function de(a){this.$b=a;this.Cd=[];this.Jb=0;this.ge=-1;this.wb=null}function ee(a,b,c){a.ge=b;a.wb=c;a.ge<a.Jb&&(a.wb(),a.wb=null)}function fe(a,b,c){for(a.Cd[b]=c;a.Cd[a.Jb];){var d=a.Cd[a.Jb];delete a.Cd[a.Jb];for(var e=0;e<d.length;++e)if(d[e]){var f=a;Cb(function(){f.$b(d[e])})}if(a.Jb===a.ge){a.wb&&(clearTimeout(a.wb),a.wb(),a.wb=null);break}a.Jb++}};function ge(){this.set={}}h=ge.prototype;h.add=function(a,b){this.set[a]=null!==b?b:!0};h.contains=function(a){return s(this.set,a)};h.get=function(a){return this.contains(a)?this.set[a]:void 0};h.remove=function(a){delete this.set[a]};h.clear=function(){this.set={}};h.e=function(){return Nd(this.set)};h.count=function(){return Jb(this.set)};function he(a,b){A(a.set,function(a,d){b(d,a)})};function ie(a,b,c){this.ie=a;this.f=ob(a);this.ib=this.jb=0;this.Ra=Xd(b);this.Md=c;this.xc=!1;this.Zc=function(a){b.host!==b.Ma&&(a.ns=b.tb);var c=[],f;for(f in a)a.hasOwnProperty(f)&&c.push(f+"="+a[f]);return(b.Ab?"https://":"http://")+b.Ma+"/.lp?"+c.join("&")}}var je,ke;
-ie.prototype.open=function(a,b){this.Ze=0;this.ga=b;this.mf=new de(a);this.qb=!1;var c=this;this.lb=setTimeout(function(){c.f("Timed out trying to connect.");c.eb();c.lb=null},Math.floor(3E4));tb(function(){if(!c.qb){c.Pa=new le(function(a,b,d,k,l){me(c,arguments);if(c.Pa)if(c.lb&&(clearTimeout(c.lb),c.lb=null),c.xc=!0,"start"==a)c.id=b,c.rf=d;else if("close"===a)b?(c.Pa.Kd=!1,ee(c.mf,b,function(){c.eb()})):c.eb();else throw Error("Unrecognized command received: "+a);},function(a,b){me(c,arguments);
-fe(c.mf,a,b)},function(){c.eb()},c.Zc);var a={start:"t"};a.ser=Math.floor(1E8*Math.random());c.Pa.Wd&&(a.cb=c.Pa.Wd);a.v="5";c.Md&&(a.s=c.Md);"undefined"!==typeof location&&location.href&&-1!==location.href.indexOf("firebaseio.com")&&(a.r="f");a=c.Zc(a);c.f("Connecting via long-poll to "+a);ne(c.Pa,a,function(){})}})};
-ie.prototype.start=function(){var a=this.Pa,b=this.rf;a.cg=this.id;a.dg=b;for(a.ae=!0;oe(a););a=this.id;b=this.rf;this.Yb=document.createElement("iframe");var c={dframe:"t"};c.id=a;c.pw=b;this.Yb.src=this.Zc(c);this.Yb.style.display="none";document.body.appendChild(this.Yb)};ie.isAvailable=function(){return!ke&&!("object"===typeof window&&window.chrome&&window.chrome.extension&&!/^chrome/.test(window.location.href))&&!("object"===typeof Windows&&"object"===typeof Windows.Eg)&&(je||!0)};h=ie.prototype;
-h.sd=function(){};h.Uc=function(){this.qb=!0;this.Pa&&(this.Pa.close(),this.Pa=null);this.Yb&&(document.body.removeChild(this.Yb),this.Yb=null);this.lb&&(clearTimeout(this.lb),this.lb=null)};h.eb=function(){this.qb||(this.f("Longpoll is closing itself"),this.Uc(),this.ga&&(this.ga(this.xc),this.ga=null))};h.close=function(){this.qb||(this.f("Longpoll is being closed."),this.Uc())};
-h.send=function(a){a=r(a);this.jb+=a.length;Sd(this.Ra,"bytes_sent",a.length);a=jb(a);a=cb(a,!0);a=yb(a,1840);for(var b=0;b<a.length;b++){var c=this.Pa;c.Qc.push({tg:this.Ze,Bg:a.length,af:a[b]});c.ae&&oe(c);this.Ze++}};function me(a,b){var c=r(b).length;a.ib+=c;Sd(a.Ra,"bytes_received",c)}
-function le(a,b,c,d){this.Zc=d;this.fb=c;this.Ie=new ge;this.Qc=[];this.ke=Math.floor(1E8*Math.random());this.Kd=!0;this.Wd=eb();window["pLPCommand"+this.Wd]=a;window["pRTLPCB"+this.Wd]=b;a=document.createElement("iframe");a.style.display="none";if(document.body){document.body.appendChild(a);try{a.contentWindow.document||hb("No IE domain setting required")}catch(e){a.src="javascript:void((function(){document.open();document.domain='"+document.domain+"';document.close();})())"}}else throw"Document body has not initialized. Wait to initialize Firebase until after the document is ready.";
-a.contentDocument?a.ab=a.contentDocument:a.contentWindow?a.ab=a.contentWindow.document:a.document&&(a.ab=a.document);this.Ba=a;a="";this.Ba.src&&"javascript:"===this.Ba.src.substr(0,11)&&(a='<script>document.domain="'+document.domain+'";\x3c/script>');a="<html><body>"+a+"</body></html>";try{this.Ba.ab.open(),this.Ba.ab.write(a),this.Ba.ab.close()}catch(f){hb("frame writing exception"),f.stack&&hb(f.stack),hb(f)}}
-le.prototype.close=function(){this.ae=!1;if(this.Ba){this.Ba.ab.body.innerHTML="";var a=this;setTimeout(function(){null!==a.Ba&&(document.body.removeChild(a.Ba),a.Ba=null)},Math.floor(0))}var b=this.fb;b&&(this.fb=null,b())};
-function oe(a){if(a.ae&&a.Kd&&a.Ie.count()<(0<a.Qc.length?2:1)){a.ke++;var b={};b.id=a.cg;b.pw=a.dg;b.ser=a.ke;for(var b=a.Zc(b),c="",d=0;0<a.Qc.length;)if(1870>=a.Qc[0].af.length+30+c.length){var e=a.Qc.shift(),c=c+"&seg"+d+"="+e.tg+"&ts"+d+"="+e.Bg+"&d"+d+"="+e.af;d++}else break;pe(a,b+c,a.ke);return!0}return!1}function pe(a,b,c){function d(){a.Ie.remove(c);oe(a)}a.Ie.add(c);var e=setTimeout(d,Math.floor(25E3));ne(a,b,function(){clearTimeout(e);d()})}
-function ne(a,b,c){setTimeout(function(){try{if(a.Kd){var d=a.Ba.ab.createElement("script");d.type="text/javascript";d.async=!0;d.src=b;d.onload=d.onreadystatechange=function(){var a=d.readyState;a&&"loaded"!==a&&"complete"!==a||(d.onload=d.onreadystatechange=null,d.parentNode&&d.parentNode.removeChild(d),c())};d.onerror=function(){hb("Long-poll script failed to load: "+b);a.Kd=!1;a.close()};a.Ba.ab.body.appendChild(d)}}catch(e){}},Math.floor(1))};function qe(a){re(this,a)}var se=[ie,$d];function re(a,b){var c=$d&&$d.isAvailable(),d=c&&!(za.lf||!0===za.get("previous_websocket_failure"));b.Dg&&(c||z("wss:// URL used, but browser isn't known to support websockets.  Trying anyway."),d=!0);if(d)a.Xc=[$d];else{var e=a.Xc=[];zb(se,function(a,b){b&&b.isAvailable()&&e.push(b)})}}function te(a){if(0<a.Xc.length)return a.Xc[0];throw Error("No transports available");};function ue(a,b,c,d,e,f){this.id=a;this.f=ob("c:"+this.id+":");this.$b=c;this.Kc=d;this.ga=e;this.Ge=f;this.O=b;this.Bd=[];this.Xe=0;this.Af=new qe(b);this.Qa=0;this.f("Connection created");ve(this)}
-function ve(a){var b=te(a.Af);a.J=new b("c:"+a.id+":"+a.Xe++,a.O);a.Ke=b.responsesRequiredToBeHealthy||0;var c=we(a,a.J),d=xe(a,a.J);a.Yc=a.J;a.Tc=a.J;a.B=null;a.rb=!1;setTimeout(function(){a.J&&a.J.open(c,d)},Math.floor(0));b=b.healthyTimeout||0;0<b&&(a.nd=setTimeout(function(){a.nd=null;a.rb||(a.J&&102400<a.J.ib?(a.f("Connection exceeded healthy timeout but has received "+a.J.ib+" bytes.  Marking connection healthy."),a.rb=!0,a.J.sd()):a.J&&10240<a.J.jb?a.f("Connection exceeded healthy timeout but has sent "+
-a.J.jb+" bytes.  Leaving connection alive."):(a.f("Closing unhealthy connection after timeout."),a.close()))},Math.floor(b)))}function xe(a,b){return function(c){b===a.J?(a.J=null,c||0!==a.Qa?1===a.Qa&&a.f("Realtime connection lost."):(a.f("Realtime connection failed."),"s-"===a.O.Ma.substr(0,2)&&(za.remove("host:"+a.O.host),a.O.Ma=a.O.host)),a.close()):b===a.B?(a.f("Secondary connection lost."),c=a.B,a.B=null,a.Yc!==c&&a.Tc!==c||a.close()):a.f("closing an old connection")}}
-function we(a,b){return function(c){if(2!=a.Qa)if(b===a.Tc){var d=wb("t",c);c=wb("d",c);if("c"==d){if(d=wb("t",c),"d"in c)if(c=c.d,"h"===d){var d=c.ts,e=c.v,f=c.h;a.Md=c.s;Ba(a.O,f);0==a.Qa&&(a.J.start(),ye(a,a.J,d),"5"!==e&&z("Protocol version mismatch detected"),c=a.Af,(c=1<c.Xc.length?c.Xc[1]:null)&&ze(a,c))}else if("n"===d){a.f("recvd end transmission on primary");a.Tc=a.B;for(c=0;c<a.Bd.length;++c)a.xd(a.Bd[c]);a.Bd=[];Ae(a)}else"s"===d?(a.f("Connection shutdown command received. Shutting down..."),
-a.Ge&&(a.Ge(c),a.Ge=null),a.ga=null,a.close()):"r"===d?(a.f("Reset packet received.  New host: "+c),Ba(a.O,c),1===a.Qa?a.close():(Be(a),ve(a))):"e"===d?pb("Server Error: "+c):"o"===d?(a.f("got pong on primary."),Ce(a),De(a)):pb("Unknown control packet command: "+d)}else"d"==d&&a.xd(c)}else if(b===a.B)if(d=wb("t",c),c=wb("d",c),"c"==d)"t"in c&&(c=c.t,"a"===c?Ee(a):"r"===c?(a.f("Got a reset on secondary, closing it"),a.B.close(),a.Yc!==a.B&&a.Tc!==a.B||a.close()):"o"===c&&(a.f("got pong on secondary."),
-a.yf--,Ee(a)));else if("d"==d)a.Bd.push(c);else throw Error("Unknown protocol layer: "+d);else a.f("message on old connection")}}ue.prototype.Ca=function(a){Fe(this,{t:"d",d:a})};function Ae(a){a.Yc===a.B&&a.Tc===a.B&&(a.f("cleaning up and promoting a connection: "+a.B.ie),a.J=a.B,a.B=null)}
-function Ee(a){0>=a.yf?(a.f("Secondary connection is healthy."),a.rb=!0,a.B.sd(),a.B.start(),a.f("sending client ack on secondary"),a.B.send({t:"c",d:{t:"a",d:{}}}),a.f("Ending transmission on primary"),a.J.send({t:"c",d:{t:"n",d:{}}}),a.Yc=a.B,Ae(a)):(a.f("sending ping on secondary."),a.B.send({t:"c",d:{t:"p",d:{}}}))}ue.prototype.xd=function(a){Ce(this);this.$b(a)};function Ce(a){a.rb||(a.Ke--,0>=a.Ke&&(a.f("Primary connection is healthy."),a.rb=!0,a.J.sd()))}
-function ze(a,b){a.B=new b("c:"+a.id+":"+a.Xe++,a.O,a.Md);a.yf=b.responsesRequiredToBeHealthy||0;a.B.open(we(a,a.B),xe(a,a.B));setTimeout(function(){a.B&&(a.f("Timed out trying to upgrade."),a.B.close())},Math.floor(6E4))}function ye(a,b,c){a.f("Realtime connection established.");a.J=b;a.Qa=1;a.Kc&&(a.Kc(c),a.Kc=null);0===a.Ke?(a.f("Primary connection is healthy."),a.rb=!0):setTimeout(function(){De(a)},Math.floor(5E3))}
-function De(a){a.rb||1!==a.Qa||(a.f("sending ping on primary."),Fe(a,{t:"c",d:{t:"p",d:{}}}))}function Fe(a,b){if(1!==a.Qa)throw"Connection is not connected";a.Yc.send(b)}ue.prototype.close=function(){2!==this.Qa&&(this.f("Closing realtime connection."),this.Qa=2,Be(this),this.ga&&(this.ga(),this.ga=null))};function Be(a){a.f("Shutting down all connections");a.J&&(a.J.close(),a.J=null);a.B&&(a.B.close(),a.B=null);a.nd&&(clearTimeout(a.nd),a.nd=null)};function Ge(a){var b={},c={},d={},e="";try{var f=a.split("."),b=ta(gb(f[0])||""),c=ta(gb(f[1])||""),e=f[2],d=c.d||{};delete c.d}catch(g){}return{Gg:b,fe:c,data:d,xg:e}}function He(a){a=Ge(a).fe;return"object"===typeof a&&a.hasOwnProperty("iat")?t(a,"iat"):null}function Ie(a){a=Ge(a);var b=a.fe;return!!a.xg&&!!b&&"object"===typeof b&&b.hasOwnProperty("iat")};function Je(a,b,c,d){this.id=Ke++;this.f=ob("p:"+this.id+":");this.Cb=!0;this.Aa={};this.la=[];this.Nc=0;this.Jc=[];this.ja=!1;this.Wa=1E3;this.td=3E5;this.yd=b;this.wd=c;this.He=d;this.O=a;this.Oe=null;this.Sc={};this.sg=0;this.Dc=this.we=null;Le(this,0);Hd.Nb().vb("visible",this.kg,this);-1===a.host.indexOf("fblocal")&&Id.Nb().vb("online",this.ig,this)}var Ke=0,Me=0;h=Je.prototype;
-h.Ca=function(a,b,c){var d=++this.sg;a={r:d,a:a,b:b};this.f(r(a));y(this.ja,"sendRequest call when we're not connected not allowed.");this.Oa.Ca(a);c&&(this.Sc[d]=c)};function Ne(a,b,c,d,e){var f=b.Fa(),g=b.path.toString();a.f("Listen called for "+g+" "+f);a.Aa[g]=a.Aa[g]||{};y(!a.Aa[g][f],"listen() called twice for same path/queryId.");b={H:e,md:c,pg:Ic(b.n),tag:d};a.Aa[g][f]=b;a.ja&&Oe(a,g,f,b)}
-function Oe(a,b,c,d){a.f("Listen on "+b+" for "+c);var e={p:b};d.tag&&(e.q=d.pg,e.t=d.tag);e.h=d.md();a.Ca("q",e,function(e){if((a.Aa[b]&&a.Aa[b][c])===d){a.f("listen response",e);var g=e.s;"ok"!==g&&Pe(a,b,c);e=e.d;d.H&&d.H(g,e)}})}h.Q=function(a,b,c){this.Ib={Rf:a,cf:!1,qc:b,ad:c};this.f("Authenticating using credential: "+a);Qe(this);(b=40==a.length)||(a=Ge(a).fe,b="object"===typeof a&&!0===t(a,"admin"));b&&(this.f("Admin auth credential detected.  Reducing max reconnect time."),this.td=3E4)};
-h.Ue=function(a){delete this.Ib;this.ja&&this.Ca("unauth",{},function(b){a(b.s,b.d)})};function Qe(a){var b=a.Ib;a.ja&&b&&a.Ca("auth",{cred:b.Rf},function(c){var d=c.s;c=c.d||"error";"ok"!==d&&a.Ib===b&&delete a.Ib;b.cf?"ok"!==d&&b.ad&&b.ad(d,c):(b.cf=!0,b.qc&&b.qc(d,c))})}function Re(a,b,c,d){a.ja?Se(a,"o",b,c,d):a.Jc.push({Pc:b,action:"o",data:c,H:d})}function Te(a,b,c,d){a.ja?Se(a,"om",b,c,d):a.Jc.push({Pc:b,action:"om",data:c,H:d})}
-h.Fe=function(a,b){this.ja?Se(this,"oc",a,null,b):this.Jc.push({Pc:a,action:"oc",data:null,H:b})};function Se(a,b,c,d,e){c={p:c,d:d};a.f("onDisconnect "+b,c);a.Ca(b,c,function(a){e&&setTimeout(function(){e(a.s,a.d)},Math.floor(0))})}h.put=function(a,b,c,d){Ue(this,"p",a,b,c,d)};function Ve(a,b,c,d){Ue(a,"m",b,c,d,void 0)}function Ue(a,b,c,d,e,f){d={p:c,d:d};m(f)&&(d.h=f);a.la.push({action:b,uf:d,H:e});a.Nc++;b=a.la.length-1;a.ja?We(a,b):a.f("Buffering put: "+c)}
-function We(a,b){var c=a.la[b].action,d=a.la[b].uf,e=a.la[b].H;a.la[b].qg=a.ja;a.Ca(c,d,function(d){a.f(c+" response",d);delete a.la[b];a.Nc--;0===a.Nc&&(a.la=[]);e&&e(d.s,d.d)})}
-h.xd=function(a){if("r"in a){this.f("from server: "+r(a));var b=a.r,c=this.Sc[b];c&&(delete this.Sc[b],c(a.b))}else{if("error"in a)throw"A server-side error has occurred: "+a.error;"a"in a&&(b=a.a,c=a.b,this.f("handleServerMessage",b,c),"d"===b?this.yd(c.p,c.d,!1,c.t):"m"===b?this.yd(c.p,c.d,!0,c.t):"c"===b?Xe(this,c.p,c.q):"ac"===b?(a=c.s,b=c.d,c=this.Ib,delete this.Ib,c&&c.ad&&c.ad(a,b)):"sd"===b?this.Oe?this.Oe(c):"msg"in c&&"undefined"!==typeof console&&console.log("FIREBASE: "+c.msg.replace("\n",
-"\nFIREBASE: ")):pb("Unrecognized action received from server: "+r(b)+"\nAre you using the latest client?"))}};h.Kc=function(a){this.f("connection ready");this.ja=!0;this.Dc=(new Date).getTime();this.He({serverTimeOffset:a-(new Date).getTime()});Ye(this);this.wd(!0)};function Le(a,b){y(!a.Oa,"Scheduling a connect when we're already connected/ing?");a.Kb&&clearTimeout(a.Kb);a.Kb=setTimeout(function(){a.Kb=null;Ze(a)},Math.floor(b))}
-h.kg=function(a){a&&!this.mc&&this.Wa===this.td&&(this.f("Window became visible.  Reducing delay."),this.Wa=1E3,this.Oa||Le(this,0));this.mc=a};h.ig=function(a){a?(this.f("Browser went online.  Reconnecting."),this.Wa=1E3,this.Cb=!0,this.Oa||Le(this,0)):(this.f("Browser went offline.  Killing connection; don't reconnect."),this.Cb=!1,this.Oa&&this.Oa.close())};
-h.of=function(){this.f("data client disconnected");this.ja=!1;this.Oa=null;for(var a=0;a<this.la.length;a++){var b=this.la[a];b&&"h"in b.uf&&b.qg&&(b.H&&b.H("disconnect"),delete this.la[a],this.Nc--)}0===this.Nc&&(this.la=[]);if(this.Cb)this.mc?this.Dc&&(3E4<(new Date).getTime()-this.Dc&&(this.Wa=1E3),this.Dc=null):(this.f("Window isn't visible.  Delaying reconnect."),this.Wa=this.td,this.we=(new Date).getTime()),a=Math.max(0,this.Wa-((new Date).getTime()-this.we)),a*=Math.random(),this.f("Trying to reconnect in "+
-a+"ms"),Le(this,a),this.Wa=Math.min(this.td,1.3*this.Wa);else for(var c in this.Sc)delete this.Sc[c];this.wd(!1)};function Ze(a){if(a.Cb){a.f("Making a connection attempt");a.we=(new Date).getTime();a.Dc=null;var b=q(a.xd,a),c=q(a.Kc,a),d=q(a.of,a),e=a.id+":"+Me++;a.Oa=new ue(e,a.O,b,c,d,function(b){z(b+" ("+a.O.toString()+")");a.Cb=!1})}}h.pb=function(){this.Cb=!1;this.Oa?this.Oa.close():(this.Kb&&(clearTimeout(this.Kb),this.Kb=null),this.ja&&this.of())};
-h.hc=function(){this.Cb=!0;this.Wa=1E3;this.Oa||Le(this,0)};function Xe(a,b,c){c=c?Ja(c,function(a){return xb(a)}).join("$"):"default";(a=Pe(a,b,c))&&a.H&&a.H("permission_denied")}function Pe(a,b,c){b=(new S(b)).toString();var d=a.Aa[b][c];delete a.Aa[b][c];0===Jb(a.Aa[b])&&delete a.Aa[b];return d}function Ye(a){Qe(a);A(a.Aa,function(b,d){A(b,function(b,c){Oe(a,d,c,b)})});for(var b=0;b<a.la.length;b++)a.la[b]&&We(a,b);for(;a.Jc.length;)b=a.Jc.shift(),Se(a,b.action,b.Pc,b.data,b.H)};function $e(){this.m=this.D=null}$e.prototype.dc=function(a,b){if(a.e())this.D=b,this.m=null;else if(null!==this.D)this.D=this.D.C(a,b);else{null==this.m&&(this.m=new ge);var c=I(a);this.m.contains(c)||this.m.add(c,new $e);c=this.m.get(c);a=T(a);c.dc(a,b)}};
-function af(a,b){if(b.e())return a.D=null,a.m=null,!0;if(null!==a.D){if(a.D.M())return!1;var c=a.D;a.D=null;c.U(L,function(b,c){a.dc(new S(b),c)});return af(a,b)}return null!==a.m?(c=I(b),b=T(b),a.m.contains(c)&&af(a.m.get(c),b)&&a.m.remove(c),a.m.e()?(a.m=null,!0):!1):!0}function bf(a,b,c){null!==a.D?c(b,a.D):a.U(function(a,e){var f=new S(b.toString()+"/"+a);bf(e,f,c)})}$e.prototype.U=function(a){null!==this.m&&he(this.m,function(b,c){a(b,c)})};function cf(){this.Jd=M}cf.prototype.j=function(a){return this.Jd.ra(a)};cf.prototype.toString=function(){return this.Jd.toString()};function df(){this.nb=[]}function ef(a,b){for(var c=null,d=0;d<b.length;d++){var e=b[d],f=e.Qb();null===c||f.ea(c.Qb())||(a.nb.push(c),c=null);null===c&&(c=new ff(f));c.add(e)}c&&a.nb.push(c)}function Pc(a,b,c){ef(a,c);gf(a,function(a){return a.ea(b)})}function hf(a,b,c){ef(a,c);gf(a,function(a){return a.contains(b)||b.contains(a)})}
-function gf(a,b){for(var c=!0,d=0;d<a.nb.length;d++){var e=a.nb[d];if(e)if(e=e.Qb(),b(e)){for(var e=a.nb[d],f=0;f<e.kd.length;f++){var g=e.kd[f];if(null!==g){e.kd[f]=null;var k=g.Lb();lb&&hb("event: "+g.toString());Cb(k)}}a.nb[d]=null}else c=!1}c&&(a.nb=[])}function ff(a){this.Ea=a;this.kd=[]}ff.prototype.add=function(a){this.kd.push(a)};ff.prototype.Qb=function(){return this.Ea};var jf="auth.firebase.com";function kf(a,b,c){this.cd=a||{};this.Ud=b||{};this.Xa=c||{};this.cd.remember||(this.cd.remember="default")}var lf=["remember","redirectTo"];function mf(a){var b={},c={};ua(a||{},function(a,e){0<=Ga(lf,a)?b[a]=e:c[a]=e});return new kf(b,{},c)};var nf={NETWORK_ERROR:"Unable to contact the Firebase server.",SERVER_ERROR:"An unknown server error occurred.",TRANSPORT_UNAVAILABLE:"There are no login transports available for the requested method.",REQUEST_INTERRUPTED:"The browser redirected the page before the login request could complete.",USER_CANCELLED:"The user cancelled authentication."};function X(a){var b=Error(t(nf,a),a);b.code=a;return b};function of(){var a=window.opener.frames,b;for(b=a.length-1;0<=b;b--)try{if(a[b].location.protocol===window.location.protocol&&a[b].location.host===window.location.host&&"__winchan_relay_frame"===a[b].name)return a[b]}catch(c){}return null}function pf(a,b,c){a.attachEvent?a.attachEvent("on"+b,c):a.addEventListener&&a.addEventListener(b,c,!1)}function qf(a,b,c){a.detachEvent?a.detachEvent("on"+b,c):a.removeEventListener&&a.removeEventListener(b,c,!1)}
-function rf(a){/^https?:\/\//.test(a)||(a=window.location.href);var b=/^(https?:\/\/[\-_a-zA-Z\.0-9:]+)/.exec(a);return b?b[1]:a}function sf(a){var b="";try{a=a.replace("#","");var c={},d=a.replace(/^\?/,"").split("&");for(a=0;a<d.length;a++)if(d[a]){var e=d[a].split("=");c[e[0]]=e[1]}c&&s(c,"__firebase_request_key")&&(b=t(c,"__firebase_request_key"))}catch(f){}return b}
-function tf(a){var b=[],c;for(c in a)if(s(a,c)){var d=t(a,c);if(ea(d))for(var e=0;e<d.length;e++)b.push(encodeURIComponent(c)+"="+encodeURIComponent(d[e]));else b.push(encodeURIComponent(c)+"="+encodeURIComponent(t(a,c)))}return b?"&"+b.join("&"):""}function uf(){var a=rb(jf);return a.scheme+"://"+a.host+"/v2"}function vf(a){return uf()+"/"+a+"/auth/channel"};function wf(){return!!(window.cordova||window.phonegap||window.PhoneGap)&&/ios|iphone|ipod|ipad|android|blackberry|iemobile/i.test(navigator.userAgent)}function xf(){var a=navigator.userAgent;if("Microsoft Internet Explorer"===navigator.appName){if((a=a.match(/MSIE ([0-9]{1,}[\.0-9]{0,})/))&&1<a.length)return 8<=parseFloat(a[1])}else if(-1<a.indexOf("Trident")&&(a=a.match(/rv:([0-9]{2,2}[\.0-9]{0,})/))&&1<a.length)return 8<=parseFloat(a[1]);return!1};function yf(a){a.method||(a.method="GET");a.headers||(a.headers={});a.headers.content_type||(a.headers.content_type="application/json");a.headers.content_type=a.headers.content_type.toLowerCase();this.options=a}
-yf.prototype.open=function(a,b,c){function d(){c&&(c(X("REQUEST_INTERRUPTED")),c=null)}var e=new XMLHttpRequest,f=this.options.method.toUpperCase(),g;pf(window,"beforeunload",d);e.onreadystatechange=function(){if(c&&4===e.readyState){var a;if(200<=e.status&&300>e.status){try{a=ta(e.responseText)}catch(b){}c(null,a)}else 500<=e.status&&600>e.status?c(X("SERVER_ERROR")):c(X("NETWORK_ERROR"));c=null;qf(window,"beforeunload",d)}};if("GET"===f)a+=(/\?/.test(a)?"":"?")+tf(b),g=null;else{var k=this.options.headers.content_type;
-"application/json"===k&&(g=r(b));"application/x-www-form-urlencoded"===k&&(g=tf(b))}e.open(f,a,!0);a={"X-Requested-With":"XMLHttpRequest",Accept:"application/json;text/plain"};Qd(a,this.options.headers);for(var l in a)e.setRequestHeader(l,a[l]);e.send(g)};yf.isAvailable=function(){return!!window.XMLHttpRequest&&"string"===typeof(new XMLHttpRequest).responseType&&(!(navigator.userAgent.match(/MSIE/)||navigator.userAgent.match(/Trident/))||xf())};yf.prototype.sc=function(){return"json"};function zf(a){this.fc=Fa()+Fa()+Fa();this.pf=a}
-zf.prototype.open=function(a,b,c){function d(){c&&(c(X("USER_CANCELLED")),c=null)}var e=this,f=rb(jf),g;b.requestId=this.fc;b.redirectTo=f.scheme+"://"+f.host+"/blank/page.html";a+=/\?/.test(a)?"":"?";a+=tf(b);(g=window.open(a,"_blank","location=no"))&&ha(g.addEventListener)?(g.addEventListener("loadstart",function(a){var b;if(b=a&&a.url)a:{var n=a.url;try{var u=document.createElement("a");u.href=n;b=u.host===f.host&&"/blank/page.html"===u.pathname;break a}catch(x){}b=!1}b&&(a=sf(a.url),g.removeEventListener("exit",
-d),g.close(),a=new kf(null,null,{requestId:e.fc,requestKey:a}),e.pf.requestWithCredential("/auth/session",a,c),c=null)}),g.addEventListener("exit",d)):c(X("TRANSPORT_UNAVAILABLE"))};zf.isAvailable=function(){return wf()};zf.prototype.sc=function(){return"redirect"};function Af(a){if(!a.window_features||-1!==navigator.userAgent.indexOf("Fennec/")||-1!==navigator.userAgent.indexOf("Firefox/")&&-1!==navigator.userAgent.indexOf("Android"))a.window_features=void 0;a.window_name||(a.window_name="_blank");this.options=a}
-Af.prototype.open=function(a,b,c){function d(a){g&&(document.body.removeChild(g),g=void 0);u&&(u=clearInterval(u));qf(window,"message",e);qf(window,"unload",d);if(n&&!a)try{n.close()}catch(b){k.postMessage("die",l)}n=k=void 0}function e(a){if(a.origin===l)try{var b=ta(a.data);"ready"===b.a?k.postMessage(x,l):"error"===b.a?(d(!1),c&&(c(b.d),c=null)):"response"===b.a&&(d(b.forceKeepWindowOpen),c&&(c(null,b.d),c=null))}catch(e){}}var f=xf(),g,k;if(!this.options.relay_url)return c(Error("invalid arguments: origin of url and relay_url must match"));
-var l=rf(a);if(l!==rf(this.options.relay_url))c&&setTimeout(function(){c(Error("invalid arguments: origin of url and relay_url must match"))},0);else{f&&(g=document.createElement("iframe"),g.setAttribute("src",this.options.relay_url),g.style.display="none",g.setAttribute("name","__winchan_relay_frame"),document.body.appendChild(g),k=g.contentWindow);a+=(/\?/.test(a)?"":"?")+tf(b);var n=window.open(a,this.options.window_name,this.options.window_features);k||(k=n);var u=setInterval(function(){n&&n.closed&&
-(d(!1),c&&(c(X("USER_CANCELLED")),c=null))},500),x=r({a:"request",d:b});pf(window,"unload",d);pf(window,"message",e)}};
-Af.isAvailable=function(){return"postMessage"in window&&!/^file:\//.test(location.href)&&!(wf()||navigator.userAgent.match(/Windows Phone/)||window.Windows&&/^ms-appx:/.test(location.href)||navigator.userAgent.match(/(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/i)||navigator.userAgent.match(/CriOS/)||navigator.userAgent.match(/Twitter for iPhone/)||navigator.userAgent.match(/FBAN\/FBIOS/)||window.navigator.standalone)&&!navigator.userAgent.match(/PhantomJS/)};Af.prototype.sc=function(){return"popup"};function Bf(a){a.callback_parameter||(a.callback_parameter="callback");this.options=a;window.__firebase_auth_jsonp=window.__firebase_auth_jsonp||{}}
-Bf.prototype.open=function(a,b,c){function d(){c&&(c(X("REQUEST_INTERRUPTED")),c=null)}function e(){setTimeout(function(){window.__firebase_auth_jsonp[f]=void 0;Nd(window.__firebase_auth_jsonp)&&(window.__firebase_auth_jsonp=void 0);try{var a=document.getElementById(f);a&&a.parentNode.removeChild(a)}catch(b){}},1);qf(window,"beforeunload",d)}var f="fn"+(new Date).getTime()+Math.floor(99999*Math.random());b[this.options.callback_parameter]="__firebase_auth_jsonp."+f;a+=(/\?/.test(a)?"":"?")+tf(b);
-pf(window,"beforeunload",d);window.__firebase_auth_jsonp[f]=function(a){c&&(c(null,a),c=null);e()};Cf(f,a,c)};
-function Cf(a,b,c){setTimeout(function(){try{var d=document.createElement("script");d.type="text/javascript";d.id=a;d.async=!0;d.src=b;d.onerror=function(){var b=document.getElementById(a);null!==b&&b.parentNode.removeChild(b);c&&c(X("NETWORK_ERROR"))};var e=document.getElementsByTagName("head");(e&&0!=e.length?e[0]:document.documentElement).appendChild(d)}catch(f){c&&c(X("NETWORK_ERROR"))}},0)}Bf.isAvailable=function(){return!wf()};Bf.prototype.sc=function(){return"json"};function Df(a,b){this.Je=["session",a.Dd,a.tb].join(":");this.Rd=b}Df.prototype.set=function(a,b){if(!b)if(this.Rd.length)b=this.Rd[0];else throw Error("fb.login.SessionManager : No storage options available!");b.set(this.Je,a)};Df.prototype.get=function(){var a=Ja(this.Rd,q(this.Zf,this)),a=Ia(a,function(a){return null!==a});Qa(a,function(a,c){return He(c.token)-He(a.token)});return 0<a.length?a.shift():null};Df.prototype.Zf=function(a){try{var b=a.get(this.Je);if(b&&b.token)return b}catch(c){}return null};
-Df.prototype.clear=function(){var a=this;Ha(this.Rd,function(b){b.remove(a.Je)})};function Ef(a){this.fc=Fa()+Fa()+Fa();this.pf=a}Ef.prototype.open=function(a,b){v.set("redirect_request_id",this.fc);v.set("redirect_request_id",this.fc);b.requestId=this.fc;b.redirectTo=b.redirectTo||window.location.href;a+=(/\?/.test(a)?"":"?")+tf(b);window.location=a};Ef.isAvailable=function(){return!/^file:\//.test(location.href)&&!wf()};Ef.prototype.sc=function(){return"redirect"};function Ff(a,b,c,d){Fd.call(this,["auth_status"]);this.O=a;this.We=b;this.Cg=c;this.Ee=d;this.ic=new Df(a,[za,v]);this.hb=null;Gf(this)}ma(Ff,Fd);h=Ff.prototype;h.ne=function(){return this.hb||null};function Gf(a){v.get("redirect_request_id")&&Hf(a);var b=a.ic.get();b&&b.token?(If(a,b),a.We(b.token,function(c,d){Jf(a,c,d,!1,b.token,b)},function(b,d){Kf(a,"resumeSession()",b,d)})):If(a,null)}
-function Lf(a,b,c,d,e,f){"firebaseio-demo.com"===a.O.domain&&z("Firebase authentication is not supported on demo Firebases (*.firebaseio-demo.com). To secure your Firebase, create a production Firebase at https://www.firebase.com.");a.We(b,function(f,k){Jf(a,f,k,!0,b,c,d||{},e)},function(b,c){Kf(a,"auth()",b,c,f)})}function Mf(a,b){a.ic.clear();If(a,null);a.Cg(function(a,d){if("ok"===a)B(b,null);else{var e=(a||"error").toUpperCase(),f=e;d&&(f+=": "+d);f=Error(f);f.code=e;B(b,f)}})}
-function Jf(a,b,c,d,e,f,g,k){"ok"===b?(d&&(b=c.auth,f.auth=b,f.expires=c.expires,f.token=Ie(e)?e:"",c=null,b&&s(b,"uid")?c=t(b,"uid"):s(f,"uid")&&(c=t(f,"uid")),f.uid=c,c="custom",b&&s(b,"provider")?c=t(b,"provider"):s(f,"provider")&&(c=t(f,"provider")),f.provider=c,a.ic.clear(),Ie(e)&&(g=g||{},c=za,"sessionOnly"===g.remember&&(c=v),"none"!==g.remember&&a.ic.set(f,c)),If(a,f)),B(k,null,f)):(a.ic.clear(),If(a,null),f=a=(b||"error").toUpperCase(),c&&(f+=": "+c),f=Error(f),f.code=a,B(k,f))}
-function Kf(a,b,c,d,e){z(b+" was canceled: "+d);a.ic.clear();If(a,null);a=Error(d);a.code=c.toUpperCase();B(e,a)}function Nf(a,b,c,d,e){Of(a);c=new kf(d||{},{},c||{});Pf(a,[yf,Bf],"/auth/"+b,c,e)}
-function Qf(a,b,c,d){Of(a);var e=[Af,zf];c=mf(c);"anonymous"===b||"password"===b?setTimeout(function(){B(d,X("TRANSPORT_UNAVAILABLE"))},0):(c.Ud.window_features="menubar=yes,modal=yes,alwaysRaised=yeslocation=yes,resizable=yes,scrollbars=yes,status=yes,height=625,width=625,top="+("object"===typeof screen?.5*(screen.height-625):0)+",left="+("object"===typeof screen?.5*(screen.width-625):0),c.Ud.relay_url=vf(a.O.tb),c.Ud.requestWithCredential=q(a.gc,a),Pf(a,e,"/auth/"+b,c,d))}
-function Hf(a){var b=v.get("redirect_request_id");if(b){var c=v.get("redirect_client_options");v.remove("redirect_request_id");v.remove("redirect_client_options");var d=[yf,Bf],b={requestId:b,requestKey:sf(document.location.hash)},c=new kf(c,{},b);try{document.location.hash=document.location.hash.replace(/&__firebase_request_key=([a-zA-z0-9]*)/,"")}catch(e){}Pf(a,d,"/auth/session",c)}}h.je=function(a,b){Of(this);var c=mf(a);c.Xa._method="POST";this.gc("/users",c,function(a,c){a?B(b,a):B(b,a,c)})};
-h.Le=function(a,b){var c=this;Of(this);var d="/users/"+encodeURIComponent(a.email),e=mf(a);e.Xa._method="DELETE";this.gc(d,e,function(a,d){!a&&d&&d.uid&&c.hb&&c.hb.uid&&c.hb.uid===d.uid&&Mf(c);B(b,a)})};h.ee=function(a,b){Of(this);var c="/users/"+encodeURIComponent(a.email)+"/password",d=mf(a);d.Xa._method="PUT";d.Xa.password=a.newPassword;this.gc(c,d,function(a){B(b,a)})};
-h.de=function(a,b){Of(this);var c="/users/"+encodeURIComponent(a.oldEmail)+"/email",d=mf(a);d.Xa._method="PUT";d.Xa.email=a.newEmail;d.Xa.password=a.password;this.gc(c,d,function(a){B(b,a)})};h.Me=function(a,b){Of(this);var c="/users/"+encodeURIComponent(a.email)+"/password",d=mf(a);d.Xa._method="POST";this.gc(c,d,function(a){B(b,a)})};h.gc=function(a,b,c){Rf(this,[yf,Bf],a,b,c)};
-function Pf(a,b,c,d,e){Rf(a,b,c,d,function(b,c){!b&&c&&c.token&&c.uid?Lf(a,c.token,c,d.cd,function(a,b){a?B(e,a):B(e,null,b)}):B(e,b||X("UNKNOWN_ERROR"))})}
-function Rf(a,b,c,d,e){b=Ia(b,function(a){return"function"===typeof a.isAvailable&&a.isAvailable()});0===b.length?setTimeout(function(){B(e,X("TRANSPORT_UNAVAILABLE"))},0):(b=new (b.shift())(d.Ud),d=va(d.Xa),d.v="js-2.1.2",d.transport=b.sc(),d.suppress_status_codes=!0,a=uf()+"/"+a.O.tb+c,b.open(a,d,function(a,b){if(a)B(e,a);else if(b&&b.error){var c=Error(b.error.message);c.code=b.error.code;c.details=b.error.details;B(e,c)}else B(e,null,b)}))}
-function If(a,b){var c=null!==a.hb||null!==b;a.hb=b;c&&a.Vd("auth_status",b);a.Ee(null!==b)}h.qe=function(a){y("auth_status"===a,'initial event must be of type "auth_status"');return[this.hb]};function Of(a){var b=a.O;if("firebaseio.com"!==b.domain&&"firebaseio-demo.com"!==b.domain&&"auth.firebase.com"===jf)throw Error("This custom Firebase server ('"+a.O.domain+"') does not support delegated login.");};function Sf(a,b){return a&&"object"===typeof a?(y(".sv"in a,"Unexpected leaf node or priority contents"),b[a[".sv"]]):a}function Tf(a,b){var c=new $e;bf(a,new S(""),function(a,e){c.dc(a,Uf(e,b))});return c}function Uf(a,b){var c=a.L().I(),c=Sf(c,b),d;if(a.M()){var e=Sf(a.za(),b);return e!==a.za()||c!==a.L().I()?new nd(e,O(c)):a}d=a;c!==a.L().I()&&(d=d.Z(new nd(c)));a.U(L,function(a,c){var e=Uf(c,b);e!==c&&(d=d.P(a,e))});return d};function wc(a,b,c){this.A=a;this.aa=b;this.yc=c}function Vf(a){return a.aa}function vc(a,b){return a.aa&&!a.yc||a.A.Da(b)}wc.prototype.j=function(){return this.A};function Wf(a,b){this.F=a;this.Ld=b}function Xf(a,b,c,d){return new Wf(new wc(b,c,d),a.Ld)}function Yf(a){return a.F.aa?a.F.j():null}Wf.prototype.u=function(){return this.Ld};function xc(a){return a.Ld.aa?a.Ld.j():null};function Zf(a,b){this.Yd=a;this.Of=b}function $f(a){this.G=a}
-$f.prototype.Ya=function(a,b,c,d){var e=new yc,f;if(b.type===ag)b.source.me?c=bg(this,a,b.path,b.Ga,c,d,e):(y(b.source.df,"Unknown source."),f=b.source.Se,c=cg(this,a,b.path,b.Ga,c,d,f,e));else if(b.type===dg)b.source.me?c=eg(this,a,b.path,b.children,c,d,e):(y(b.source.df,"Unknown source."),f=b.source.Se,c=fg(this,a,b.path,b.children,c,d,f,e));else if(b.type===gg)if(b.Ne)if(f=b.path,null!=c.jc(f))c=a;else{b=new uc(c,a,d);d=a.F.j();if(f.e()||".priority"===I(f))Vf(a.u())?b=c.pa(xc(a)):(b=a.u().j(),
-y(b instanceof W,"serverChildren would be complete if leaf node"),b=c.pc(b)),b=this.G.oa(d,b,e);else{f=I(f);var g=c.Ta(f,a.u());null==g&&vc(a.u(),f)&&(g=d.K(f));b=null!=g?this.G.C(d,f,g,b,e):a.F.j().Da(f)?this.G.C(d,f,M,b,e):d;b.e()&&Vf(a.u())&&(d=c.pa(xc(a)),d.M()&&(b=this.G.oa(b,d,e)))}d=Vf(a.u())||null!=c.jc(U);c=Xf(a,b,d,this.G.ya())}else c=hg(this,a,b.path,c,d,e);else if(b.type===ig)d=b.path,b=a.u(),f=b.j(),g=b.aa||d.e(),c=jg(this,new Wf(a.F,new wc(f,g,b.yc)),d,c,tc,e);else throw fb("Unknown operation type: "+
-b.type);e=Jd(e.Za);d=c;b=d.F;b.aa&&(f=b.j().M()||b.j().e(),g=Yf(a),(0<e.length||!a.F.aa||f&&!b.j().ea(g)||!b.j().L().ea(g.L()))&&e.push(Fb(Yf(d))));return new Zf(c,e)};
-function jg(a,b,c,d,e,f){var g=b.F;if(null!=d.jc(c))return b;var k;if(c.e())y(Vf(b.u()),"If change path is empty, we must have complete server data"),a.G.ya()?(e=xc(b),d=d.pc(e instanceof W?e:M)):d=d.pa(xc(b)),f=a.G.oa(b.F.j(),d,f);else{var l=I(c);if(".priority"==l)y(1==Qc(c),"Can't have a priority with additional path components"),f=g.j(),k=b.u().j(),d=d.$c(c,f,k),f=null!=d?a.G.Z(f,d):g.j();else{var n=T(c);vc(g,l)?(k=b.u().j(),d=d.$c(c,g.j(),k),d=null!=d?g.j().K(l).C(n,d):g.j().K(l)):d=d.Ta(l,b.u());
-f=null!=d?a.G.C(g.j(),l,d,e,f):g.j()}}return Xf(b,f,g.aa||c.e(),a.G.ya())}function cg(a,b,c,d,e,f,g,k){var l=b.u();g=g?a.G:a.G.Mb();if(c.e())d=g.oa(l.j(),d,null);else if(g.ya()&&!l.yc)d=l.j().C(c,d),d=g.oa(l.j(),d,null);else{var n=I(c);if((c.e()?!l.aa||l.yc:!vc(l,I(c)))&&1<Qc(c))return b;d=l.j().K(n).C(T(c),d);d=".priority"==n?g.Z(l.j(),d):g.C(l.j(),n,d,tc,null)}l=l.aa||c.e();b=new Wf(b.F,new wc(d,l,g.ya()));return jg(a,b,c,e,new uc(e,b,f),k)}
-function bg(a,b,c,d,e,f,g){var k=b.F;e=new uc(e,b,f);if(c.e())g=a.G.oa(b.F.j(),d,g),a=Xf(b,g,!0,a.G.ya());else if(f=I(c),".priority"===f)g=a.G.Z(b.F.j(),d),a=Xf(b,g,k.aa,k.yc);else{var l=T(c);c=k.j().K(f);if(!l.e()){var n=e.ef(f);d=null!=n?".priority"===Rc(l)&&n.ra(l.parent()).e()?n:n.C(l,d):M}c.ea(d)?a=b:(g=a.G.C(k.j(),f,d,e,g),a=Xf(b,g,k.aa,a.G.ya()))}return a}
-function eg(a,b,c,d,e,f,g){var k=b;kg(d,function(d,n){var u=c.o(d);vc(b.F,I(u))&&(k=bg(a,k,u,n,e,f,g))});kg(d,function(d,n){var u=c.o(d);vc(b.F,I(u))||(k=bg(a,k,u,n,e,f,g))});return k}function lg(a,b){kg(b,function(b,d){a=a.C(b,d)});return a}
-function fg(a,b,c,d,e,f,g,k){if(b.u().j().e()&&!Vf(b.u()))return b;var l=b;c=c.e()?d:mg(ng,c,d);var n=b.u().j();c.children.fa(function(c,d){if(n.Da(c)){var E=b.u().j().K(c),E=lg(E,d);l=cg(a,l,new S(c),E,e,f,g,k)}});c.children.fa(function(c,d){var E=!Vf(b.u())&&null==d.value;n.Da(c)||E||(E=b.u().j().K(c),E=lg(E,d),l=cg(a,l,new S(c),E,e,f,g,k))});return l}
-function hg(a,b,c,d,e,f){if(null!=d.jc(c))return b;var g=new uc(d,b,e),k=e=b.F.j();if(Vf(b.u())){if(c.e())e=d.pa(xc(b)),k=a.G.oa(b.F.j(),e,f);else if(".priority"===I(c)){var l=d.Ta(I(c),b.u());null==l||e.e()||e.L().ea(l)||(k=a.G.Z(e,l))}else l=I(c),e=d.Ta(l,b.u()),null!=e&&(k=a.G.C(b.F.j(),l,e,g,f));e=!0}else b.F.aa?(k=e,e=Yf(b),e.M()||e.U(L,function(c){var e=d.Ta(c,b.u());null!=e&&(k=a.G.C(k,c,e,g,f))}),e=!0):(!c.e()&&(l=I(c),1==Qc(c)||vc(b.F,l))&&(c=d.Ta(l,b.u()),null!=c&&(k=a.G.C(e,l,c,g,f))),
-e=!1);return Xf(b,k,e,a.G.ya())};function og(a){this.V=a;this.g=a.n.g}function pg(a,b,c,d){var e=[],f=[];Ha(b,function(b){"child_changed"===b.type&&a.g.jf(b.De,b.Ha)&&f.push(new C("child_moved",b.Ha,b.Ua))});qg(a,e,"child_removed",b,d,c);qg(a,e,"child_added",b,d,c);qg(a,e,"child_moved",f,d,c);qg(a,e,"child_changed",b,d,c);qg(a,e,Gb,b,d,c);return e}function qg(a,b,c,d,e,f){d=Ia(d,function(a){return a.type===c});Qa(d,q(a.Qf,a));Ha(d,function(c){var d=rg(a,c,f);Ha(e,function(e){e.wf(c.type)&&b.push(e.createEvent(d,a.V))})})}
-function rg(a,b,c){"value"!==b.type&&"child_removed"!==b.type&&(b.Fd=c.ff(b.Ua,b.Ha,a.g));return b}og.prototype.Qf=function(a,b){if(null==a.Ua||null==b.Ua)throw fb("Should only compare child_ events.");return this.g.compare(new N(a.Ua,a.Ha),new N(b.Ua,b.Ha))};function sg(a,b){this.V=a;var c=a.n,d=new bc(c.g),c=Jc(c)?new bc(c.g):c.ka?new Ac(c):new dc(c);this.sf=new $f(c);var e=b.u(),f=b.F,g=d.oa(M,e.j(),null),k=c.oa(M,f.j(),null);this.Ia=new Wf(new wc(k,f.aa,c.ya()),new wc(g,e.aa,d.ya()));this.Va=[];this.Uf=new og(a)}function tg(a){return a.V}h=sg.prototype;h.u=function(){return this.Ia.u().j()};h.bb=function(a){var b=xc(this.Ia);return b&&(Jc(this.V.n)||!a.e()&&!b.K(I(a)).e())?b.ra(a):null};h.e=function(){return 0===this.Va.length};h.Gb=function(a){this.Va.push(a)};
-h.gb=function(a,b){var c=[];if(b){y(null==a,"A cancel should cancel all event registrations.");var d=this.V.path;Ha(this.Va,function(a){(a=a.Ye(b,d))&&c.push(a)})}if(a){for(var e=[],f=0;f<this.Va.length;++f){var g=this.Va[f];if(!g.matches(a))e.push(g);else if(a.hf()){e=e.concat(this.Va.slice(f+1));break}}this.Va=e}else this.Va=[];return c};
-h.Ya=function(a,b,c){a.type===dg&&null!==a.source.yb&&(y(xc(this.Ia),"We should always have a full cache before handling merges"),y(Yf(this.Ia),"Missing event cache, even though we have a server cache"));var d=this.Ia;a=this.sf.Ya(d,a,b,c);b=this.sf;c=a.Yd;y(c.F.j().Bc(b.G.g),"Event snap not indexed");y(c.u().j().Bc(b.G.g),"Server snap not indexed");y(Vf(a.Yd.u())||!Vf(d.u()),"Once a server snap is complete, it should never go back");this.Ia=a.Yd;return ug(this,a.Of,a.Yd.F.j(),null)};
-function vg(a,b){var c=a.Ia.F,d=[];c.j().M()||c.j().U(L,function(a,b){d.push(new C("child_added",b,a))});c.aa&&d.push(Fb(c.j()));return ug(a,d,c.j(),b)}function ug(a,b,c,d){return pg(a.Uf,b,c,d?[d]:a.Va)};function wg(a,b){this.value=a;this.children=b||xg}var xg=new Zc(function(a,b){return a===b?0:a<b?-1:1}),ng=new wg(null);function yg(a){var b=ng;A(a,function(a,d){b=b.set(new S(d),a)});return b}h=wg.prototype;h.e=function(){return null===this.value&&this.children.e()};function zg(a,b,c){if(null!=a.value&&c(a.value))return{path:U,value:a.value};if(b.e())return null;var d=I(b);a=a.children.get(d);return null!==a?(b=zg(a,T(b),c),null!=b?{path:(new S(d)).o(b.path),value:b.value}:null):null}
-function Ag(a,b){return zg(a,b,function(){return!0})}h.subtree=function(a){if(a.e())return this;var b=this.children.get(I(a));return null!==b?b.subtree(T(a)):ng};h.set=function(a,b){if(a.e())return new wg(b,this.children);var c=I(a),d=(this.children.get(c)||ng).set(T(a),b),c=this.children.La(c,d);return new wg(this.value,c)};
-h.remove=function(a){if(a.e())return this.children.e()?ng:new wg(null,this.children);var b=I(a),c=this.children.get(b);return c?(a=c.remove(T(a)),b=a.e()?this.children.remove(b):this.children.La(b,a),null===this.value&&b.e()?ng:new wg(this.value,b)):this};h.get=function(a){if(a.e())return this.value;var b=this.children.get(I(a));return b?b.get(T(a)):null};
-function mg(a,b,c){if(b.e())return c;var d=I(b);b=mg(a.children.get(d)||ng,T(b),c);d=b.e()?a.children.remove(d):a.children.La(d,b);return new wg(a.value,d)}function Bg(a,b){return Cg(a,U,b)}function Cg(a,b,c){var d={};a.children.fa(function(a,f){d[a]=Cg(f,b.o(a),c)});return c(b,a.value,d)}function Dg(a,b,c){return Eg(a,b,U,c)}function Eg(a,b,c,d){var e=a.value?d(c,a.value):!1;if(e)return e;if(b.e())return null;e=I(b);return(a=a.children.get(e))?Eg(a,T(b),c.o(e),d):null}
-function Fg(a,b,c){if(!b.e()){var d=!0;a.value&&(d=c(U,a.value));!0===d&&(d=I(b),(a=a.children.get(d))&&Gg(a,T(b),U.o(d),c))}}function Gg(a,b,c,d){if(b.e())return a;a.value&&d(c,a.value);var e=I(b);return(a=a.children.get(e))?Gg(a,T(b),c.o(e),d):ng}function kg(a,b){Hg(a,U,b)}function Hg(a,b,c){a.children.fa(function(a,e){Hg(e,b.o(a),c)});a.value&&c(b,a.value)}function Ig(a,b){a.children.fa(function(a,d){d.value&&b(a,d.value)})}
-h.toString=function(){var a={};kg(this,function(b,c){a[b.toString()]=c.toString()});return r(a)};function Jg(){this.va={}}h=Jg.prototype;h.e=function(){return Nd(this.va)};h.Ya=function(a,b,c){var d=a.source.yb;if(null!==d)return d=t(this.va,d),y(null!=d,"SyncTree gave us an op for an invalid query."),d.Ya(a,b,c);var e=[];A(this.va,function(d){e=e.concat(d.Ya(a,b,c))});return e};h.Gb=function(a,b,c,d,e){var f=a.Fa(),g=t(this.va,f);if(!g){var g=c.pa(e?d:null),k=!1;g?k=!0:(g=d instanceof W?c.pc(d):M,k=!1);g=new sg(a,new Wf(new wc(g,k,!1),new wc(d,e,!1)));this.va[f]=g}g.Gb(b);return vg(g,b)};
-h.gb=function(a,b,c){var d=a.Fa(),e=[],f=[],g=null!=Kg(this);if("default"===d){var k=this;A(this.va,function(a,d){f=f.concat(a.gb(b,c));a.e()&&(delete k.va[d],Jc(a.V.n)||e.push(a.V))})}else{var l=t(this.va,d);l&&(f=f.concat(l.gb(b,c)),l.e()&&(delete this.va[d],Jc(l.V.n)||e.push(l.V)))}g&&null==Kg(this)&&e.push(new R(a.k,a.path));return{rg:e,Vf:f}};function Lg(a){return Ia(Jd(a.va),function(a){return!Jc(a.V.n)})}h.bb=function(a){var b=null;A(this.va,function(c){b=b||c.bb(a)});return b};
-function Mg(a,b){if(Jc(b.n))return Kg(a);var c=b.Fa();return t(a.va,c)}function Kg(a){return Md(a.va,function(a){return Jc(a.V.n)})||null};function Ng(a){this.W=a}var Og=new Ng(new wg(null));function Pg(a,b,c){if(b.e())return new Ng(new wg(c));var d=Ag(a.W,b);if(null!=d){var e=d.path,d=d.value;b=V(e,b);d=d.C(b,c);return new Ng(a.W.set(e,d))}a=mg(a.W,b,new wg(c));return new Ng(a)}function Qg(a,b,c){var d=a;ua(c,function(a,c){d=Pg(d,b.o(a),c)});return d}Ng.prototype.Gd=function(a){if(a.e())return Og;a=mg(this.W,a,ng);return new Ng(a)};function Rg(a,b){var c=Ag(a.W,b);return null!=c?a.W.get(c.path).ra(V(c.path,b)):null}
-function Sg(a){var b=[],c=a.W.value;null!=c?c.M()||c.U(L,function(a,c){b.push(new N(a,c))}):a.W.children.fa(function(a,c){null!=c.value&&b.push(new N(a,c.value))});return b}function Tg(a,b){if(b.e())return a;var c=Rg(a,b);return null!=c?new Ng(new wg(c)):new Ng(a.W.subtree(b))}Ng.prototype.e=function(){return this.W.e()};Ng.prototype.apply=function(a){return Ug(U,this.W,a)};
-function Ug(a,b,c){if(null!=b.value)return c.C(a,b.value);var d=null;b.children.fa(function(b,f){".priority"===b?(y(null!==f.value,"Priority writes must always be leaf nodes"),d=f.value):c=Ug(a.o(b),f,c)});c.ra(a).e()||null===d||(c=c.C(a.o(".priority"),d));return c};function Vg(){this.T=Og;this.wa=[];this.Ec=-1}h=Vg.prototype;
-h.Gd=function(a){var b=Na(this.wa,function(b){return b.Zd===a});y(0<=b,"removeWrite called with nonexistent writeId.");var c=this.wa[b];this.wa.splice(b,1);for(var d=c.visible,e=!1,f=this.wa.length-1;d&&0<=f;){var g=this.wa[f];g.visible&&(f>=b&&Wg(g,c.path)?d=!1:c.path.contains(g.path)&&(e=!0));f--}if(d){if(e)this.T=Xg(this.wa,Yg,U),this.Ec=0<this.wa.length?this.wa[this.wa.length-1].Zd:-1;else if(c.Ga)this.T=this.T.Gd(c.path);else{var k=this;A(c.children,function(a,b){k.T=k.T.Gd(c.path.o(b))})}return c.path}return null};
-h.pa=function(a,b,c,d){if(c||d){var e=Tg(this.T,a);return!d&&e.e()?b:d||null!=b||null!=Rg(e,U)?(e=Xg(this.wa,function(b){return(b.visible||d)&&(!c||!(0<=Ga(c,b.Zd)))&&(b.path.contains(a)||a.contains(b.path))},a),b=b||M,e.apply(b)):null}e=Rg(this.T,a);if(null!=e)return e;e=Tg(this.T,a);return e.e()?b:null!=b||null!=Rg(e,U)?(b=b||M,e.apply(b)):null};
-h.pc=function(a,b){var c=M,d=Rg(this.T,a);if(d)d.M()||d.U(L,function(a,b){c=c.P(a,b)});else if(b){var e=Tg(this.T,a);b.U(L,function(a,b){var d=Tg(e,new S(a)).apply(b);c=c.P(a,d)});Ha(Sg(e),function(a){c=c.P(a.name,a.Y)})}else e=Tg(this.T,a),Ha(Sg(e),function(a){c=c.P(a.name,a.Y)});return c};h.$c=function(a,b,c,d){y(c||d,"Either existingEventSnap or existingServerSnap must exist");a=a.o(b);if(null!=Rg(this.T,a))return null;a=Tg(this.T,a);return a.e()?d.ra(b):a.apply(d.ra(b))};
-h.Ta=function(a,b,c){a=a.o(b);var d=Rg(this.T,a);return null!=d?d:vc(c,b)?Tg(this.T,a).apply(c.j().K(b)):null};h.jc=function(a){return Rg(this.T,a)};h.ce=function(a,b,c,d,e,f){var g;a=Tg(this.T,a);g=Rg(a,U);if(null==g)if(null!=b)g=a.apply(b);else return[];g=g.Fb(f);if(g.e()||g.M())return[];b=[];a=mc(f);e=e?g.Rb(c,f):g.Pb(c,f);for(f=P(e);f&&b.length<d;)0!==a(f,c)&&b.push(f),f=P(e);return b};
-function Wg(a,b){return a.Ga?a.path.contains(b):!!Ld(a.children,function(c,d){return a.path.o(d).contains(b)})}function Yg(a){return a.visible}
-function Xg(a,b,c){for(var d=Og,e=0;e<a.length;++e){var f=a[e];if(b(f)){var g=f.path;if(f.Ga)c.contains(g)?(g=V(c,g),d=Pg(d,g,f.Ga)):g.contains(c)&&(g=V(g,c),d=Pg(d,U,f.Ga.ra(g)));else if(f.children)if(c.contains(g))g=V(c,g),d=Qg(d,g,f.children);else{if(g.contains(c))if(g=V(g,c),g.e())d=Qg(d,U,f.children);else if(f=t(f.children,I(g)))f=f.ra(T(g)),d=Pg(d,U,f)}else throw fb("WriteRecord should have .snap or .children");}}return d}function Zg(a,b){this.Db=a;this.W=b}h=Zg.prototype;
-h.pa=function(a,b,c){return this.W.pa(this.Db,a,b,c)};h.pc=function(a){return this.W.pc(this.Db,a)};h.$c=function(a,b,c){return this.W.$c(this.Db,a,b,c)};h.jc=function(a){return this.W.jc(this.Db.o(a))};h.ce=function(a,b,c,d,e){return this.W.ce(this.Db,a,b,c,d,e)};h.Ta=function(a,b){return this.W.Ta(this.Db,a,b)};h.o=function(a){return new Zg(this.Db.o(a),this.W)};function $g(a,b,c){this.type=ag;this.source=a;this.path=b;this.Ga=c}$g.prototype.Mc=function(a){return this.path.e()?new $g(this.source,U,this.Ga.K(a)):new $g(this.source,T(this.path),this.Ga)};$g.prototype.toString=function(){return"Operation("+this.path+": "+this.source.toString()+" overwrite: "+this.Ga.toString()+")"};function ah(a,b){this.type=gg;this.source=bh;this.path=a;this.Ne=b}ah.prototype.Mc=function(){return this.path.e()?this:new ah(T(this.path),this.Ne)};ah.prototype.toString=function(){return"Operation("+this.path+": "+this.source.toString()+" ack write revert="+this.Ne+")"};function ch(a,b){this.type=ig;this.source=a;this.path=b}ch.prototype.Mc=function(){return this.path.e()?new ch(this.source,U):new ch(this.source,T(this.path))};ch.prototype.toString=function(){return"Operation("+this.path+": "+this.source.toString()+" listen_complete)"};function dh(a,b,c){this.type=dg;this.source=a;this.path=b;this.children=c}dh.prototype.Mc=function(a){if(this.path.e())return a=this.children.subtree(new S(a)),a.e()?null:a.value?new $g(this.source,U,a.value):new dh(this.source,U,a);y(I(this.path)===a,"Can't get a merge for a child not on the path of the operation");return new dh(this.source,T(this.path),this.children)};dh.prototype.toString=function(){return"Operation("+this.path+": "+this.source.toString()+" merge: "+this.children.toString()+")"};var ag=0,dg=1,gg=2,ig=3;function eh(a,b,c,d){this.me=a;this.df=b;this.yb=c;this.Se=d;y(!d||b,"Tagged queries must be from server.")}var bh=new eh(!0,!1,null,!1),fh=new eh(!1,!0,null,!1);eh.prototype.toString=function(){return this.me?"user":this.Se?"server(queryID="+this.yb+")":"server"};function gh(a){this.na=ng;this.xb=new Vg;this.Wc={};this.bc={};this.Fc=a}function hh(a,b,c,d,e){var f=a.xb,g=e;y(d>f.Ec,"Stacking an older write on top of newer ones");m(g)||(g=!0);f.wa.push({path:b,Ga:c,Zd:d,visible:g});g&&(f.T=Pg(f.T,b,c));f.Ec=d;return e?ih(a,new $g(bh,b,c)):[]}function jh(a,b,c,d){var e=a.xb;y(d>e.Ec,"Stacking an older merge on top of newer ones");e.wa.push({path:b,children:c,Zd:d,visible:!0});e.T=Qg(e.T,b,c);e.Ec=d;c=yg(c);return ih(a,new dh(bh,b,c))}
-function kh(a,b,c){c=c||!1;b=a.xb.Gd(b);return null==b?[]:ih(a,new ah(b,c))}function lh(a,b,c){c=yg(c);return ih(a,new dh(fh,b,c))}function mh(a,b,c,d){d=Od(a.Wc,"_"+d);if(null!=d){var e=nh(d);d=e.path;e=e.yb;b=V(d,b);c=new $g(new eh(!1,!0,e,!0),b,c);return oh(a,d,c)}return[]}function ph(a,b,c,d){if(d=Od(a.Wc,"_"+d)){var e=nh(d);d=e.path;e=e.yb;b=V(d,b);c=yg(c);c=new dh(new eh(!1,!0,e,!0),b,c);return oh(a,d,c)}return[]}
-gh.prototype.Gb=function(a,b){var c=a.path,d=null,e=!1;Fg(this.na,c,function(a,b){var f=V(a,c);d=b.bb(f);e=e||null!=Kg(b);return!d});var f=this.na.get(c);f?(e=e||null!=Kg(f),d=d||f.bb(U)):(f=new Jg,this.na=this.na.set(c,f));var g;null!=d?g=!0:(g=!1,d=M,Ig(this.na.subtree(c),function(a,b){var c=b.bb(U);c&&(d=d.P(a,c))}));var k=null!=Mg(f,a);if(!k&&!Jc(a.n)){var l=qh(a);y(!(l in this.bc),"View does not exist, but we have a tag");var n=rh++;this.bc[l]=n;this.Wc["_"+n]=l}g=f.Gb(a,b,new Zg(c,this.xb),
-d,g);k||e||(f=Mg(f,a),g=g.concat(sh(this,a,f)));return g};
-gh.prototype.gb=function(a,b,c){var d=a.path,e=this.na.get(d),f=[];if(e&&("default"===a.Fa()||null!=Mg(e,a))){f=e.gb(a,b,c);e.e()&&(this.na=this.na.remove(d));e=f.rg;f=f.Vf;b=-1!==Na(e,function(a){return Jc(a.n)});var g=Dg(this.na,d,function(a,b){return null!=Kg(b)});if(b&&!g&&(d=this.na.subtree(d),!d.e()))for(var d=th(d),k=0;k<d.length;++k){var l=d[k],n=l.V,l=uh(this,l);this.Fc.Pe(n,vh(this,n),l.md,l.H)}if(!g&&0<e.length&&!c)if(b)this.Fc.Qd(a,null);else{var u=this;Ha(e,function(a){a.Fa();var b=u.bc[qh(a)];
-u.Fc.Qd(a,b)})}wh(this,e)}return f};gh.prototype.pa=function(a,b){var c=this.xb,d=Dg(this.na,a,function(b,c){var d=V(b,a);if(d=c.bb(d))return d});return c.pa(a,d,b,!0)};function th(a){return Bg(a,function(a,c,d){if(c&&null!=Kg(c))return[Kg(c)];var e=[];c&&(e=Lg(c));A(d,function(a){e=e.concat(a)});return e})}function wh(a,b){for(var c=0;c<b.length;++c){var d=b[c];if(!Jc(d.n)){var d=qh(d),e=a.bc[d];delete a.bc[d];delete a.Wc["_"+e]}}}
-function sh(a,b,c){var d=b.path,e=vh(a,b);c=uh(a,c);b=a.Fc.Pe(b,e,c.md,c.H);d=a.na.subtree(d);if(e)y(null==Kg(d.value),"If we're adding a query, it shouldn't be shadowed");else for(e=Bg(d,function(a,b,c){if(!a.e()&&b&&null!=Kg(b))return[tg(Kg(b))];var d=[];b&&(d=d.concat(Ja(Lg(b),function(a){return a.V})));A(c,function(a){d=d.concat(a)});return d}),d=0;d<e.length;++d)c=e[d],a.Fc.Qd(c,vh(a,c));return b}
-function uh(a,b){var c=b.V,d=vh(a,c);return{md:function(){return(b.u()||M).hash()},H:function(b,f){if("ok"===b){if(f&&"object"===typeof f&&s(f,"w")){var g=t(f,"w");ea(g)&&0<=Ga(g,"no_index")&&z("Using an unspecified index. Consider adding "+('".indexOn": "'+c.n.g.toString()+'"')+" at "+c.path.toString()+" to your security rules for better performance")}if(d){var k=c.path;if(g=Od(a.Wc,"_"+d))var l=nh(g),g=l.path,l=l.yb,k=V(g,k),k=new ch(new eh(!1,!0,l,!0),k),g=oh(a,g,k);else g=[]}else g=ih(a,new ch(fh,
-c.path));return g}g="Unknown Error";"too_big"===b?g="The data requested exceeds the maximum size that can be accessed with a single request.":"permission_denied"==b?g="Client doesn't have permission to access the desired data.":"unavailable"==b&&(g="The service is unavailable");g=Error(b+": "+g);g.code=b.toUpperCase();return a.gb(c,null,g)}}}function qh(a){return a.path.toString()+"$"+a.Fa()}
-function nh(a){var b=a.indexOf("$");y(-1!==b&&b<a.length-1,"Bad queryKey.");return{yb:a.substr(b+1),path:new S(a.substr(0,b))}}function vh(a,b){var c=qh(b);return t(a.bc,c)}var rh=1;function oh(a,b,c){var d=a.na.get(b);y(d,"Missing sync point for query tag that we're tracking");return d.Ya(c,new Zg(b,a.xb),null)}function ih(a,b){return xh(a,b,a.na,null,new Zg(U,a.xb))}
-function xh(a,b,c,d,e){if(b.path.e())return yh(a,b,c,d,e);var f=c.get(U);null==d&&null!=f&&(d=f.bb(U));var g=[],k=I(b.path),l=b.Mc(k);if((c=c.children.get(k))&&l)var n=d?d.K(k):null,k=e.o(k),g=g.concat(xh(a,l,c,n,k));f&&(g=g.concat(f.Ya(b,e,d)));return g}function yh(a,b,c,d,e){var f=c.get(U);null==d&&null!=f&&(d=f.bb(U));var g=[];c.children.fa(function(c,f){var n=d?d.K(c):null,u=e.o(c),x=b.Mc(c);x&&(g=g.concat(yh(a,x,f,n,u)))});f&&(g=g.concat(f.Ya(b,e,d)));return g};function zh(a){this.O=a;this.Ra=Xd(a);this.$=new df;this.vd=1;this.S=new Je(this.O,q(this.yd,this),q(this.wd,this),q(this.He,this));this.zg=Yd(a,q(function(){return new Ud(this.Ra,this.S)},this));this.lc=new Tc;this.se=new cf;var b=this;this.qd=new gh({Pe:function(a,d,e,f){d=[];e=b.se.j(a.path);e.e()||(d=ih(b.qd,new $g(fh,a.path,e)),setTimeout(function(){f("ok")},0));return d},Qd:ba});Ah(this,"connected",!1);this.ga=new $e;this.Q=new Ff(a,q(this.S.Q,this.S),q(this.S.Ue,this.S),q(this.Ee,this));this.gd=
-0;this.te=null;this.N=new gh({Pe:function(a,d,e,f){Ne(b.S,a,e,d,function(d,e){var l=f(d,e);hf(b.$,a.path,l)});return[]},Qd:function(a,d){var e=b.S,f=a.path.toString(),g=a.Fa();e.f("Unlisten called for "+f+" "+g);if(Pe(e,f,g)&&e.ja){var k=Ic(a.n);e.f("Unlisten on "+f+" for "+g);f={p:f};d&&(f.q=k,f.t=d);e.Ca("n",f)}}})}h=zh.prototype;h.toString=function(){return(this.O.Ab?"https://":"http://")+this.O.host};h.name=function(){return this.O.tb};
-function Bh(a){a=a.se.j(new S(".info/serverTimeOffset")).I()||0;return(new Date).getTime()+a}function Ch(a){a=a={timestamp:Bh(a)};a.timestamp=a.timestamp||(new Date).getTime();return a}h.yd=function(a,b,c,d){this.gd++;var e=new S(a);b=this.te?this.te(a,b):b;a=[];d?c?(b=td(b,function(a){return O(a)}),a=ph(this.N,e,b,d)):(b=O(b),a=mh(this.N,e,b,d)):c?(d=td(b,function(a){return O(a)}),a=lh(this.N,e,d)):(d=O(b),a=ih(this.N,new $g(fh,e,d)));d=e;0<a.length&&(d=Dh(this,e));hf(this.$,d,a)};
-h.wd=function(a){Ah(this,"connected",a);!1===a&&Eh(this)};h.He=function(a){var b=this;zb(a,function(a,d){Ah(b,d,a)})};h.Ee=function(a){Ah(this,"authenticated",a)};function Ah(a,b,c){b=new S("/.info/"+b);c=O(c);var d=a.se;d.Jd=d.Jd.C(b,c);c=ih(a.qd,new $g(fh,b,c));hf(a.$,b,c)}
-h.Bb=function(a,b,c,d){this.f("set",{path:a.toString(),value:b,Hg:c});var e=Ch(this);b=O(b,c);var e=Uf(b,e),f=this.vd++,e=hh(this.N,a,e,f,!0);ef(this.$,e);var g=this;this.S.put(a.toString(),b.I(!0),function(b,c){var e="ok"===b;e||z("set at "+a+" failed: "+b);e=kh(g.N,f,!e);hf(g.$,a,e);Fh(d,b,c)});e=Gh(this,a);Dh(this,e);hf(this.$,e,[])};
-h.update=function(a,b,c){this.f("update",{path:a.toString(),value:b});var d=!0,e=Ch(this),f={};A(b,function(a,b){d=!1;var c=O(a);f[b]=Uf(c,e)});if(d)hb("update() called with empty data.  Don't do anything."),Fh(c,"ok");else{var g=this.vd++,k=jh(this.N,a,f,g);ef(this.$,k);var l=this;Ve(this.S,a.toString(),b,function(b,d){y("ok"===b||"permission_denied"===b,"merge at "+a+" failed.");var e="ok"===b;e||z("update at "+a+" failed: "+b);var e=kh(l.N,g,!e),f=a;0<e.length&&(f=Dh(l,a));hf(l.$,f,e);Fh(c,b,d)});
-b=Gh(this,a);Dh(this,b);hf(this.$,a,[])}};function Eh(a){a.f("onDisconnectEvents");var b=Ch(a),c=[];bf(Tf(a.ga,b),U,function(b,e){c=c.concat(ih(a.N,new $g(fh,b,e)));var f=Gh(a,b);Dh(a,f)});a.ga=new $e;hf(a.$,U,c)}h.Fe=function(a,b){var c=this;this.S.Fe(a.toString(),function(d,e){"ok"===d&&af(c.ga,a);Fh(b,d,e)})};function Hh(a,b,c,d){var e=O(c);Re(a.S,b.toString(),e.I(!0),function(c,g){"ok"===c&&a.ga.dc(b,e);Fh(d,c,g)})}
-function Ih(a,b,c,d,e){var f=O(c,d);Re(a.S,b.toString(),f.I(!0),function(c,d){"ok"===c&&a.ga.dc(b,f);Fh(e,c,d)})}function Jh(a,b,c,d){var e=!0,f;for(f in c)e=!1;e?(hb("onDisconnect().update() called with empty data.  Don't do anything."),Fh(d,"ok")):Te(a.S,b.toString(),c,function(e,f){if("ok"===e)for(var l in c){var n=O(c[l]);a.ga.dc(b.o(l),n)}Fh(d,e,f)})}function Oc(a,b,c){c=".info"===I(b.path)?a.qd.Gb(b,c):a.N.Gb(b,c);Pc(a.$,b.path,c)}h.pb=function(){this.S.pb()};h.hc=function(){this.S.hc()};
-h.Qe=function(a){if("undefined"!==typeof console){a?(this.Pd||(this.Pd=new Td(this.Ra)),a=this.Pd.get()):a=this.Ra.get();var b=Ka(Kd(a),function(a,b){return Math.max(b.length,a)},0),c;for(c in a){for(var d=a[c],e=c.length;e<b+2;e++)c+=" ";console.log(c+d)}}};h.Re=function(a){Sd(this.Ra,a);this.zg.zf[a]=!0};h.f=function(a){hb("r:"+this.S.id+":",arguments)};function Fh(a,b,c){a&&Cb(function(){if("ok"==b)a(null);else{var d=(b||"error").toUpperCase(),e=d;c&&(e+=": "+c);e=Error(e);e.code=d;a(e)}})};function Kh(a,b,c,d,e){function f(){}a.f("transaction on "+b);var g=new R(a,b);g.vb("value",f);c={path:b,update:c,H:d,status:null,qf:eb(),Ve:e,xf:0,Xd:function(){g.Zb("value",f)},$d:null,xa:null,dd:null,ed:null,fd:null};d=a.N.pa(b,void 0)||M;c.dd=d;d=c.update(d.I());if(m(d)){Sb("transaction failed: Data returned ",d);c.status=1;e=Uc(a.lc,b);var k=e.za()||[];k.push(c);Vc(e,k);"object"===typeof d&&null!==d&&s(d,".priority")?(k=t(d,".priority"),y(Qb(k),"Invalid priority returned by transaction. Priority must be a valid string, finite number, server value, or null.")):
-k=(a.N.pa(b)||M).L().I();e=Ch(a);d=O(d,k);e=Uf(d,e);c.ed=d;c.fd=e;c.xa=a.vd++;c=hh(a.N,b,e,c.xa,c.Ve);hf(a.$,b,c);Lh(a)}else c.Xd(),c.ed=null,c.fd=null,c.H&&(a=new D(c.dd,new R(a,c.path),L),c.H(null,!1,a))}function Lh(a,b){var c=b||a.lc;b||Mh(a,c);if(null!==c.za()){var d=Nh(a,c);y(0<d.length,"Sending zero length transaction queue");La(d,function(a){return 1===a.status})&&Oh(a,c.path(),d)}else c.ld()&&c.U(function(b){Lh(a,b)})}
-function Oh(a,b,c){for(var d=Ja(c,function(a){return a.xa}),e=a.N.pa(b,d)||M,d=e,e=e.hash(),f=0;f<c.length;f++){var g=c[f];y(1===g.status,"tryToSendTransactionQueue_: items in queue should all be run.");g.status=2;g.xf++;var k=V(b,g.path),d=d.C(k,g.ed)}d=d.I(!0);a.S.put(b.toString(),d,function(d){a.f("transaction put response",{path:b.toString(),status:d});var e=[];if("ok"===d){d=[];for(f=0;f<c.length;f++){c[f].status=3;e=e.concat(kh(a.N,c[f].xa));if(c[f].H){var g=c[f].fd,k=new R(a,c[f].path);d.push(q(c[f].H,
-null,null,!0,new D(g,k,L)))}c[f].Xd()}Mh(a,Uc(a.lc,b));Lh(a);hf(a.$,b,e);for(f=0;f<d.length;f++)Cb(d[f])}else{if("datastale"===d)for(f=0;f<c.length;f++)c[f].status=4===c[f].status?5:1;else for(z("transaction at "+b.toString()+" failed: "+d),f=0;f<c.length;f++)c[f].status=5,c[f].$d=d;Dh(a,b)}},e)}function Dh(a,b){var c=Ph(a,b),d=c.path(),c=Nh(a,c);Qh(a,c,d);return d}
-function Qh(a,b,c){if(0!==b.length){for(var d=[],e=[],f=Ja(b,function(a){return a.xa}),g=0;g<b.length;g++){var k=b[g],l=V(c,k.path),n=!1,u;y(null!==l,"rerunTransactionsUnderNode_: relativePath should not be null.");if(5===k.status)n=!0,u=k.$d,e=e.concat(kh(a.N,k.xa,!0));else if(1===k.status)if(25<=k.xf)n=!0,u="maxretry",e=e.concat(kh(a.N,k.xa,!0));else{var x=a.N.pa(k.path,f)||M;k.dd=x;var E=b[g].update(x.I());m(E)?(Sb("transaction failed: Data returned ",E),l=O(E),"object"===typeof E&&null!=E&&s(E,
-".priority")||(l=l.Z(x.L())),x=k.xa,E=Ch(a),E=Uf(l,E),k.ed=l,k.fd=E,k.xa=a.vd++,Oa(f,x),e=e.concat(hh(a.N,k.path,E,k.xa,k.Ve)),e=e.concat(kh(a.N,x,!0))):(n=!0,u="nodata",e=e.concat(kh(a.N,k.xa,!0)))}hf(a.$,c,e);e=[];n&&(b[g].status=3,setTimeout(b[g].Xd,Math.floor(0)),b[g].H&&("nodata"===u?(k=new R(a,b[g].path),d.push(q(b[g].H,null,null,!1,new D(b[g].dd,k,L)))):d.push(q(b[g].H,null,Error(u),!1,null))))}Mh(a,a.lc);for(g=0;g<d.length;g++)Cb(d[g]);Lh(a)}}
-function Ph(a,b){for(var c,d=a.lc;null!==(c=I(b))&&null===d.za();)d=Uc(d,c),b=T(b);return d}function Nh(a,b){var c=[];Rh(a,b,c);c.sort(function(a,b){return a.qf-b.qf});return c}function Rh(a,b,c){var d=b.za();if(null!==d)for(var e=0;e<d.length;e++)c.push(d[e]);b.U(function(b){Rh(a,b,c)})}function Mh(a,b){var c=b.za();if(c){for(var d=0,e=0;e<c.length;e++)3!==c[e].status&&(c[d]=c[e],d++);c.length=d;Vc(b,0<c.length?c:null)}b.U(function(b){Mh(a,b)})}
-function Gh(a,b){var c=Ph(a,b).path(),d=Uc(a.lc,b);Yc(d,function(b){Sh(a,b)});Sh(a,d);Xc(d,function(b){Sh(a,b)});return c}
-function Sh(a,b){var c=b.za();if(null!==c){for(var d=[],e=[],f=-1,g=0;g<c.length;g++)4!==c[g].status&&(2===c[g].status?(y(f===g-1,"All SENT items should be at beginning of queue."),f=g,c[g].status=4,c[g].$d="set"):(y(1===c[g].status,"Unexpected transaction status in abort"),c[g].Xd(),e=e.concat(kh(a.N,c[g].xa,!0)),c[g].H&&d.push(q(c[g].H,null,Error("set"),!1,null))));-1===f?Vc(b,null):c.length=f+1;hf(a.$,b.path(),e);for(g=0;g<d.length;g++)Cb(d[g])}};function Th(){this.ec={}}ca(Th);Th.prototype.pb=function(){for(var a in this.ec)this.ec[a].pb()};Th.prototype.interrupt=Th.prototype.pb;Th.prototype.hc=function(){for(var a in this.ec)this.ec[a].hc()};Th.prototype.resume=Th.prototype.hc;function Uh(a){var b=this;this.rc=a;this.Sd="*";xf()?this.Hc=this.od=of():(this.Hc=window.opener,this.od=window);if(!b.Hc)throw"Unable to find relay frame";pf(this.od,"message",q(this.$b,this));pf(this.od,"message",q(this.nf,this));try{Vh(this,{a:"ready"})}catch(c){pf(this.Hc,"load",function(){Vh(b,{a:"ready"})})}pf(window,"unload",q(this.jg,this))}function Vh(a,b){b=r(b);xf()?a.Hc.doPost(b,a.Sd):a.Hc.postMessage(b,a.Sd)}
-Uh.prototype.$b=function(a){var b=this,c;try{c=ta(a.data)}catch(d){}c&&"request"===c.a&&(qf(window,"message",this.$b),this.Sd=a.origin,this.rc&&setTimeout(function(){b.rc(b.Sd,c.d,function(a,c){b.Mf=!c;b.rc=void 0;Vh(b,{a:"response",d:a,forceKeepWindowOpen:c})})},0))};Uh.prototype.jg=function(){try{qf(this.od,"message",this.nf)}catch(a){}this.rc&&(Vh(this,{a:"error",d:"unknown closed window"}),this.rc=void 0);try{window.close()}catch(b){}};Uh.prototype.nf=function(a){if(this.Mf&&"die"===a.data)try{window.close()}catch(b){}};var Y={Xf:function(){je=ae=!0}};Y.forceLongPolling=Y.Xf;Y.Yf=function(){ke=!0};Y.forceWebSockets=Y.Yf;Y.wg=function(a,b){a.k.S.Oe=b};Y.setSecurityDebugCallback=Y.wg;Y.Qe=function(a,b){a.k.Qe(b)};Y.stats=Y.Qe;Y.Re=function(a,b){a.k.Re(b)};Y.statsIncrementCounter=Y.Re;Y.gd=function(a){return a.k.gd};Y.dataUpdateCount=Y.gd;Y.ag=function(a,b){a.k.te=b};Y.interceptServerData=Y.ag;Y.gg=function(a){new Uh(a)};Y.onPopupOpen=Y.gg;Y.ug=function(a){jf=a};Y.setAuthenticationServer=Y.ug;function Z(a,b){this.Rc=a;this.Ea=b}Z.prototype.cancel=function(a){F("Firebase.onDisconnect().cancel",0,1,arguments.length);H("Firebase.onDisconnect().cancel",1,a,!0);this.Rc.Fe(this.Ea,a||null)};Z.prototype.cancel=Z.prototype.cancel;Z.prototype.remove=function(a){F("Firebase.onDisconnect().remove",0,1,arguments.length);Zb("Firebase.onDisconnect().remove",this.Ea);H("Firebase.onDisconnect().remove",1,a,!0);Hh(this.Rc,this.Ea,null,a)};Z.prototype.remove=Z.prototype.remove;
-Z.prototype.set=function(a,b){F("Firebase.onDisconnect().set",1,2,arguments.length);Zb("Firebase.onDisconnect().set",this.Ea);Rb("Firebase.onDisconnect().set",a,!1);H("Firebase.onDisconnect().set",2,b,!0);Hh(this.Rc,this.Ea,a,b)};Z.prototype.set=Z.prototype.set;
-Z.prototype.Bb=function(a,b,c){F("Firebase.onDisconnect().setWithPriority",2,3,arguments.length);Zb("Firebase.onDisconnect().setWithPriority",this.Ea);Rb("Firebase.onDisconnect().setWithPriority",a,!1);Vb("Firebase.onDisconnect().setWithPriority",2,b);H("Firebase.onDisconnect().setWithPriority",3,c,!0);Ih(this.Rc,this.Ea,a,b,c)};Z.prototype.setWithPriority=Z.prototype.Bb;
-Z.prototype.update=function(a,b){F("Firebase.onDisconnect().update",1,2,arguments.length);Zb("Firebase.onDisconnect().update",this.Ea);if(ea(a)){for(var c={},d=0;d<a.length;++d)c[""+d]=a[d];a=c;z("Passing an Array to Firebase.onDisconnect().update() is deprecated. Use set() if you want to overwrite the existing data, or an Object with integer keys if you really do want to only update some of the children.")}Ub("Firebase.onDisconnect().update",a);H("Firebase.onDisconnect().update",2,b,!0);Jh(this.Rc,
-this.Ea,a,b)};Z.prototype.update=Z.prototype.update;var $={};$.nc=Je;$.DataConnection=$.nc;Je.prototype.yg=function(a,b){this.Ca("q",{p:a},b)};$.nc.prototype.simpleListen=$.nc.prototype.yg;Je.prototype.Sf=function(a,b){this.Ca("echo",{d:a},b)};$.nc.prototype.echo=$.nc.prototype.Sf;Je.prototype.interrupt=Je.prototype.pb;$.Df=ue;$.RealTimeConnection=$.Df;ue.prototype.sendRequest=ue.prototype.Ca;ue.prototype.close=ue.prototype.close;
-$.$f=function(a){var b=Je.prototype.put;Je.prototype.put=function(c,d,e,f){m(f)&&(f=a());b.call(this,c,d,e,f)};return function(){Je.prototype.put=b}};$.hijackHash=$.$f;$.Cf=Aa;$.ConnectionTarget=$.Cf;$.Fa=function(a){return a.Fa()};$.queryIdentifier=$.Fa;$.bg=function(a){return a.k.S.Aa};$.listens=$.bg;var Wh=function(){var a=0,b=[];return function(c){var d=c===a;a=c;for(var e=Array(8),f=7;0<=f;f--)e[f]="-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz".charAt(c%64),c=Math.floor(c/64);y(0===c,"Cannot push at time == 0");c=e.join("");if(d){for(f=11;0<=f&&63===b[f];f--)b[f]=0;b[f]++}else for(f=0;12>f;f++)b[f]=Math.floor(64*Math.random());for(f=0;12>f;f++)c+="-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz".charAt(b[f]);y(20===c.length,"NextPushId: Length should be 20.");
-return c}}();function R(a,b){var c,d,e;if(a instanceof zh)c=a,d=b;else{F("new Firebase",1,2,arguments.length);d=rb(arguments[0]);c=d.Ag;"firebase"===d.domain&&qb(d.host+" is no longer supported. Please use <YOUR FIREBASE>.firebaseio.com instead");c||qb("Cannot parse Firebase url. Please use https://<YOUR FIREBASE>.firebaseio.com");d.Ab||"undefined"!==typeof window&&window.location&&window.location.protocol&&-1!==window.location.protocol.indexOf("https:")&&z("Insecure Firebase access from a secure page. Please use https in calls to new Firebase().");
-c=new Aa(d.host,d.Ab,c,"ws"===d.scheme||"wss"===d.scheme);d=new S(d.Pc);e=d.toString();var f;!(f=!p(c.host)||0===c.host.length||!Pb(c.tb))&&(f=0!==e.length)&&(e&&(e=e.replace(/^\/*\.info(\/|$)/,"/")),f=!(p(e)&&0!==e.length&&!Ob.test(e)));if(f)throw Error(G("new Firebase",1,!1)+'must be a valid firebase URL and the path can\'t contain ".", "#", "$", "[", or "]".');if(b)if(b instanceof Th)e=b;else if(p(b))e=Th.Nb(),c.Dd=b;else throw Error("Expected a valid Firebase.Context for second argument to new Firebase()");
-else e=Th.Nb();f=c.toString();var g=t(e.ec,f);g||(g=new zh(c),e.ec[f]=g);c=g}Q.call(this,c,d,Fc,!1)}ma(R,Q);var Xh=R,Yh=["Firebase"],Zh=aa;Yh[0]in Zh||!Zh.execScript||Zh.execScript("var "+Yh[0]);for(var $h;Yh.length&&($h=Yh.shift());)!Yh.length&&m(Xh)?Zh[$h]=Xh:Zh=Zh[$h]?Zh[$h]:Zh[$h]={};R.prototype.name=function(){z("Firebase.name() being deprecated. Please use Firebase.key() instead.");F("Firebase.name",0,0,arguments.length);return this.key()};R.prototype.name=R.prototype.name;
-R.prototype.key=function(){F("Firebase.key",0,0,arguments.length);return this.path.e()?null:Rc(this.path)};R.prototype.key=R.prototype.key;R.prototype.o=function(a){F("Firebase.child",1,1,arguments.length);if(ga(a))a=String(a);else if(!(a instanceof S))if(null===I(this.path)){var b=a;b&&(b=b.replace(/^\/*\.info(\/|$)/,"/"));Yb("Firebase.child",b)}else Yb("Firebase.child",a);return new R(this.k,this.path.o(a))};R.prototype.child=R.prototype.o;
-R.prototype.parent=function(){F("Firebase.parent",0,0,arguments.length);var a=this.path.parent();return null===a?null:new R(this.k,a)};R.prototype.parent=R.prototype.parent;R.prototype.root=function(){F("Firebase.ref",0,0,arguments.length);for(var a=this;null!==a.parent();)a=a.parent();return a};R.prototype.root=R.prototype.root;
-R.prototype.toString=function(){F("Firebase.toString",0,0,arguments.length);var a;if(null===this.parent())a=this.k.toString();else{a=this.parent().toString()+"/";var b=this.key();a+=encodeURIComponent(String(b))}return a};R.prototype.toString=R.prototype.toString;R.prototype.set=function(a,b){F("Firebase.set",1,2,arguments.length);Zb("Firebase.set",this.path);Rb("Firebase.set",a,!1);H("Firebase.set",2,b,!0);this.k.Bb(this.path,a,null,b||null)};R.prototype.set=R.prototype.set;
-R.prototype.update=function(a,b){F("Firebase.update",1,2,arguments.length);Zb("Firebase.update",this.path);if(ea(a)){for(var c={},d=0;d<a.length;++d)c[""+d]=a[d];a=c;z("Passing an Array to Firebase.update() is deprecated. Use set() if you want to overwrite the existing data, or an Object with integer keys if you really do want to only update some of the children.")}Ub("Firebase.update",a);H("Firebase.update",2,b,!0);if(s(a,".priority"))throw Error("update() does not currently support updating .priority.");
-this.k.update(this.path,a,b||null)};R.prototype.update=R.prototype.update;R.prototype.Bb=function(a,b,c){F("Firebase.setWithPriority",2,3,arguments.length);Zb("Firebase.setWithPriority",this.path);Rb("Firebase.setWithPriority",a,!1);Vb("Firebase.setWithPriority",2,b);H("Firebase.setWithPriority",3,c,!0);if(".length"===this.key()||".keys"===this.key())throw"Firebase.setWithPriority failed: "+this.key()+" is a read-only object.";this.k.Bb(this.path,a,b,c||null)};R.prototype.setWithPriority=R.prototype.Bb;
-R.prototype.remove=function(a){F("Firebase.remove",0,1,arguments.length);Zb("Firebase.remove",this.path);H("Firebase.remove",1,a,!0);this.set(null,a)};R.prototype.remove=R.prototype.remove;
-R.prototype.transaction=function(a,b,c){F("Firebase.transaction",1,3,arguments.length);Zb("Firebase.transaction",this.path);H("Firebase.transaction",1,a,!1);H("Firebase.transaction",2,b,!0);if(m(c)&&"boolean"!=typeof c)throw Error(G("Firebase.transaction",3,!0)+"must be a boolean.");if(".length"===this.key()||".keys"===this.key())throw"Firebase.transaction failed: "+this.key()+" is a read-only object.";"undefined"===typeof c&&(c=!0);Kh(this.k,this.path,a,b||null,c)};R.prototype.transaction=R.prototype.transaction;
-R.prototype.vg=function(a,b){F("Firebase.setPriority",1,2,arguments.length);Zb("Firebase.setPriority",this.path);Vb("Firebase.setPriority",1,a);H("Firebase.setPriority",2,b,!0);this.k.Bb(this.path.o(".priority"),a,null,b)};R.prototype.setPriority=R.prototype.vg;R.prototype.push=function(a,b){F("Firebase.push",0,2,arguments.length);Zb("Firebase.push",this.path);Rb("Firebase.push",a,!0);H("Firebase.push",2,b,!0);var c=Bh(this.k),c=Wh(c),c=this.o(c);"undefined"!==typeof a&&null!==a&&c.set(a,b);return c};
-R.prototype.push=R.prototype.push;R.prototype.fb=function(){Zb("Firebase.onDisconnect",this.path);return new Z(this.k,this.path)};R.prototype.onDisconnect=R.prototype.fb;R.prototype.Q=function(a,b,c){z("FirebaseRef.auth() being deprecated. Please use FirebaseRef.authWithCustomToken() instead.");F("Firebase.auth",1,3,arguments.length);$b("Firebase.auth",a);H("Firebase.auth",2,b,!0);H("Firebase.auth",3,b,!0);Lf(this.k.Q,a,{},{remember:"none"},b,c)};R.prototype.auth=R.prototype.Q;
-R.prototype.Ue=function(a){F("Firebase.unauth",0,1,arguments.length);H("Firebase.unauth",1,a,!0);Mf(this.k.Q,a)};R.prototype.unauth=R.prototype.Ue;R.prototype.ne=function(){F("Firebase.getAuth",0,0,arguments.length);return this.k.Q.ne()};R.prototype.getAuth=R.prototype.ne;R.prototype.fg=function(a,b){F("Firebase.onAuth",1,2,arguments.length);H("Firebase.onAuth",1,a,!1);Mb("Firebase.onAuth",2,b);this.k.Q.vb("auth_status",a,b)};R.prototype.onAuth=R.prototype.fg;
-R.prototype.eg=function(a,b){F("Firebase.offAuth",1,2,arguments.length);H("Firebase.offAuth",1,a,!1);Mb("Firebase.offAuth",2,b);this.k.Q.Zb("auth_status",a,b)};R.prototype.offAuth=R.prototype.eg;R.prototype.Hf=function(a,b,c){F("Firebase.authWithCustomToken",2,3,arguments.length);$b("Firebase.authWithCustomToken",a);H("Firebase.authWithCustomToken",2,b,!1);J("Firebase.authWithCustomToken",3,c,!0);Lf(this.k.Q,a,{},c||{},b)};R.prototype.authWithCustomToken=R.prototype.Hf;
-R.prototype.If=function(a,b,c){F("Firebase.authWithOAuthPopup",2,3,arguments.length);ac("Firebase.authWithOAuthPopup",1,a);H("Firebase.authWithOAuthPopup",2,b,!1);J("Firebase.authWithOAuthPopup",3,c,!0);Qf(this.k.Q,a,c,b)};R.prototype.authWithOAuthPopup=R.prototype.If;
-R.prototype.Jf=function(a,b,c){F("Firebase.authWithOAuthRedirect",2,3,arguments.length);ac("Firebase.authWithOAuthRedirect",1,a);H("Firebase.authWithOAuthRedirect",2,b,!1);J("Firebase.authWithOAuthRedirect",3,c,!0);var d=this.k.Q;Of(d);var e=[Ef],f=mf(c);"anonymous"===a||"firebase"===a?B(b,X("TRANSPORT_UNAVAILABLE")):(v.set("redirect_client_options",f.cd),Pf(d,e,"/auth/"+a,f,b))};R.prototype.authWithOAuthRedirect=R.prototype.Jf;
-R.prototype.Kf=function(a,b,c,d){F("Firebase.authWithOAuthToken",3,4,arguments.length);ac("Firebase.authWithOAuthToken",1,a);H("Firebase.authWithOAuthToken",3,c,!1);J("Firebase.authWithOAuthToken",4,d,!0);p(b)?(ac("Firebase.authWithOAuthToken",2,b),Nf(this.k.Q,a+"/token",{access_token:b},d,c)):(J("Firebase.authWithOAuthToken",2,b,!1),Nf(this.k.Q,a+"/token",b,d,c))};R.prototype.authWithOAuthToken=R.prototype.Kf;
-R.prototype.Gf=function(a,b){F("Firebase.authAnonymously",1,2,arguments.length);H("Firebase.authAnonymously",1,a,!1);J("Firebase.authAnonymously",2,b,!0);Nf(this.k.Q,"anonymous",{},b,a)};R.prototype.authAnonymously=R.prototype.Gf;
-R.prototype.Lf=function(a,b,c){F("Firebase.authWithPassword",2,3,arguments.length);J("Firebase.authWithPassword",1,a,!1);K("Firebase.authWithPassword",a,"email");K("Firebase.authWithPassword",a,"password");H("Firebase.authAnonymously",2,b,!1);J("Firebase.authAnonymously",3,c,!0);Nf(this.k.Q,"password",a,c,b)};R.prototype.authWithPassword=R.prototype.Lf;
-R.prototype.je=function(a,b){F("Firebase.createUser",2,2,arguments.length);J("Firebase.createUser",1,a,!1);K("Firebase.createUser",a,"email");K("Firebase.createUser",a,"password");H("Firebase.createUser",2,b,!1);this.k.Q.je(a,b)};R.prototype.createUser=R.prototype.je;R.prototype.Le=function(a,b){F("Firebase.removeUser",2,2,arguments.length);J("Firebase.removeUser",1,a,!1);K("Firebase.removeUser",a,"email");K("Firebase.removeUser",a,"password");H("Firebase.removeUser",2,b,!1);this.k.Q.Le(a,b)};
-R.prototype.removeUser=R.prototype.Le;R.prototype.ee=function(a,b){F("Firebase.changePassword",2,2,arguments.length);J("Firebase.changePassword",1,a,!1);K("Firebase.changePassword",a,"email");K("Firebase.changePassword",a,"oldPassword");K("Firebase.changePassword",a,"newPassword");H("Firebase.changePassword",2,b,!1);this.k.Q.ee(a,b)};R.prototype.changePassword=R.prototype.ee;
-R.prototype.de=function(a,b){F("Firebase.changeEmail",2,2,arguments.length);J("Firebase.changeEmail",1,a,!1);K("Firebase.changeEmail",a,"oldEmail");K("Firebase.changeEmail",a,"newEmail");K("Firebase.changeEmail",a,"password");H("Firebase.changeEmail",2,b,!1);this.k.Q.de(a,b)};R.prototype.changeEmail=R.prototype.de;
-R.prototype.Me=function(a,b){F("Firebase.resetPassword",2,2,arguments.length);J("Firebase.resetPassword",1,a,!1);K("Firebase.resetPassword",a,"email");H("Firebase.resetPassword",2,b,!1);this.k.Q.Me(a,b)};R.prototype.resetPassword=R.prototype.Me;R.goOffline=function(){F("Firebase.goOffline",0,0,arguments.length);Th.Nb().pb()};R.goOnline=function(){F("Firebase.goOnline",0,0,arguments.length);Th.Nb().hc()};
-function nb(a,b){y(!b||!0===a||!1===a,"Can't turn on custom loggers persistently.");!0===a?("undefined"!==typeof console&&("function"===typeof console.log?lb=q(console.log,console):"object"===typeof console.log&&(lb=function(a){console.log(a)})),b&&v.set("logging_enabled",!0)):a?lb=a:(lb=null,v.remove("logging_enabled"))}R.enableLogging=nb;R.ServerValue={TIMESTAMP:{".sv":"timestamp"}};R.SDK_VERSION="2.1.2";R.INTERNAL=Y;R.Context=Th;R.TEST_ACCESS=$;})();
-module.exports = Firebase;
+function ma(a,b){function c(){}c.prototype=b.prototype;a.Wg=b.prototype;a.prototype=new c;a.prototype.constructor=a;a.Sg=function(a,c,f){for(var g=Array(arguments.length-2),k=2;k<arguments.length;k++)g[k-2]=arguments[k];return b.prototype[c].apply(a,g)}};function r(a,b){for(var c in a)b.call(void 0,a[c],c,a)}function na(a,b){var c={},d;for(d in a)c[d]=b.call(void 0,a[d],d,a);return c}function oa(a,b){for(var c in a)if(!b.call(void 0,a[c],c,a))return!1;return!0}function pa(a){var b=0,c;for(c in a)b++;return b}function qa(a){for(var b in a)return b}function ra(a){var b=[],c=0,d;for(d in a)b[c++]=a[d];return b}function sa(a){var b=[],c=0,d;for(d in a)b[c++]=d;return b}function ta(a,b){for(var c in a)if(a[c]==b)return!0;return!1}
+function ua(a,b,c){for(var d in a)if(b.call(c,a[d],d,a))return d}function va(a,b){var c=ua(a,b,void 0);return c&&a[c]}function wa(a){for(var b in a)return!1;return!0}function xa(a){var b={},c;for(c in a)b[c]=a[c];return b}var ya="constructor hasOwnProperty isPrototypeOf propertyIsEnumerable toLocaleString toString valueOf".split(" ");
+function za(a,b){for(var c,d,e=1;e<arguments.length;e++){d=arguments[e];for(c in d)a[c]=d[c];for(var f=0;f<ya.length;f++)c=ya[f],Object.prototype.hasOwnProperty.call(d,c)&&(a[c]=d[c])}};function Aa(a){a=String(a);if(/^\s*$/.test(a)?0:/^[\],:{}\s\u2028\u2029]*$/.test(a.replace(/\\["\\\/bfnrtu]/g,"@").replace(/"[^"\\\n\r\u2028\u2029\x00-\x08\x0a-\x1f]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,"]").replace(/(?:^|:|,)(?:[\s\u2028\u2029]*\[)+/g,"")))try{return eval("("+a+")")}catch(b){}throw Error("Invalid JSON string: "+a);}function Ba(){this.Rd=void 0}
+function Ca(a,b,c){switch(typeof b){case "string":Da(b,c);break;case "number":c.push(isFinite(b)&&!isNaN(b)?b:"null");break;case "boolean":c.push(b);break;case "undefined":c.push("null");break;case "object":if(null==b){c.push("null");break}if(ea(b)){var d=b.length;c.push("[");for(var e="",f=0;f<d;f++)c.push(e),e=b[f],Ca(a,a.Rd?a.Rd.call(b,String(f),e):e,c),e=",";c.push("]");break}c.push("{");d="";for(f in b)Object.prototype.hasOwnProperty.call(b,f)&&(e=b[f],"function"!=typeof e&&(c.push(d),Da(f,c),
+c.push(":"),Ca(a,a.Rd?a.Rd.call(b,f,e):e,c),d=","));c.push("}");break;case "function":break;default:throw Error("Unknown type: "+typeof b);}}var Ea={'"':'\\"',"\\":"\\\\","/":"\\/","\b":"\\b","\f":"\\f","\n":"\\n","\r":"\\r","\t":"\\t","\x0B":"\\u000b"},Fa=/\uffff/.test("\uffff")?/[\\\"\x00-\x1f\x7f-\uffff]/g:/[\\\"\x00-\x1f\x7f-\xff]/g;
+function Da(a,b){b.push('"',a.replace(Fa,function(a){if(a in Ea)return Ea[a];var b=a.charCodeAt(0),e="\\u";16>b?e+="000":256>b?e+="00":4096>b&&(e+="0");return Ea[a]=e+b.toString(16)}),'"')};function Ga(){return Math.floor(2147483648*Math.random()).toString(36)+Math.abs(Math.floor(2147483648*Math.random())^la()).toString(36)};var Ha;a:{var Ia=aa.navigator;if(Ia){var Ja=Ia.userAgent;if(Ja){Ha=Ja;break a}}Ha=""};function Ka(){this.Wa=-1};function La(){this.Wa=-1;this.Wa=64;this.R=[];this.me=[];this.Qf=[];this.Kd=[];this.Kd[0]=128;for(var a=1;a<this.Wa;++a)this.Kd[a]=0;this.ce=this.ac=0;this.reset()}ma(La,Ka);La.prototype.reset=function(){this.R[0]=1732584193;this.R[1]=4023233417;this.R[2]=2562383102;this.R[3]=271733878;this.R[4]=3285377520;this.ce=this.ac=0};
+function Ma(a,b,c){c||(c=0);var d=a.Qf;if(p(b))for(var e=0;16>e;e++)d[e]=b.charCodeAt(c)<<24|b.charCodeAt(c+1)<<16|b.charCodeAt(c+2)<<8|b.charCodeAt(c+3),c+=4;else for(e=0;16>e;e++)d[e]=b[c]<<24|b[c+1]<<16|b[c+2]<<8|b[c+3],c+=4;for(e=16;80>e;e++){var f=d[e-3]^d[e-8]^d[e-14]^d[e-16];d[e]=(f<<1|f>>>31)&4294967295}b=a.R[0];c=a.R[1];for(var g=a.R[2],k=a.R[3],l=a.R[4],m,e=0;80>e;e++)40>e?20>e?(f=k^c&(g^k),m=1518500249):(f=c^g^k,m=1859775393):60>e?(f=c&g|k&(c|g),m=2400959708):(f=c^g^k,m=3395469782),f=(b<<
+5|b>>>27)+f+l+m+d[e]&4294967295,l=k,k=g,g=(c<<30|c>>>2)&4294967295,c=b,b=f;a.R[0]=a.R[0]+b&4294967295;a.R[1]=a.R[1]+c&4294967295;a.R[2]=a.R[2]+g&4294967295;a.R[3]=a.R[3]+k&4294967295;a.R[4]=a.R[4]+l&4294967295}
+La.prototype.update=function(a,b){if(null!=a){n(b)||(b=a.length);for(var c=b-this.Wa,d=0,e=this.me,f=this.ac;d<b;){if(0==f)for(;d<=c;)Ma(this,a,d),d+=this.Wa;if(p(a))for(;d<b;){if(e[f]=a.charCodeAt(d),++f,++d,f==this.Wa){Ma(this,e);f=0;break}}else for(;d<b;)if(e[f]=a[d],++f,++d,f==this.Wa){Ma(this,e);f=0;break}}this.ac=f;this.ce+=b}};var t=Array.prototype,Na=t.indexOf?function(a,b,c){return t.indexOf.call(a,b,c)}:function(a,b,c){c=null==c?0:0>c?Math.max(0,a.length+c):c;if(p(a))return p(b)&&1==b.length?a.indexOf(b,c):-1;for(;c<a.length;c++)if(c in a&&a[c]===b)return c;return-1},Oa=t.forEach?function(a,b,c){t.forEach.call(a,b,c)}:function(a,b,c){for(var d=a.length,e=p(a)?a.split(""):a,f=0;f<d;f++)f in e&&b.call(c,e[f],f,a)},Pa=t.filter?function(a,b,c){return t.filter.call(a,b,c)}:function(a,b,c){for(var d=a.length,e=[],f=0,g=p(a)?
+a.split(""):a,k=0;k<d;k++)if(k in g){var l=g[k];b.call(c,l,k,a)&&(e[f++]=l)}return e},Qa=t.map?function(a,b,c){return t.map.call(a,b,c)}:function(a,b,c){for(var d=a.length,e=Array(d),f=p(a)?a.split(""):a,g=0;g<d;g++)g in f&&(e[g]=b.call(c,f[g],g,a));return e},Ra=t.reduce?function(a,b,c,d){for(var e=[],f=1,g=arguments.length;f<g;f++)e.push(arguments[f]);d&&(e[0]=q(b,d));return t.reduce.apply(a,e)}:function(a,b,c,d){var e=c;Oa(a,function(c,g){e=b.call(d,e,c,g,a)});return e},Sa=t.every?function(a,b,
+c){return t.every.call(a,b,c)}:function(a,b,c){for(var d=a.length,e=p(a)?a.split(""):a,f=0;f<d;f++)if(f in e&&!b.call(c,e[f],f,a))return!1;return!0};function Ta(a,b){var c=Ua(a,b,void 0);return 0>c?null:p(a)?a.charAt(c):a[c]}function Ua(a,b,c){for(var d=a.length,e=p(a)?a.split(""):a,f=0;f<d;f++)if(f in e&&b.call(c,e[f],f,a))return f;return-1}function Va(a,b){var c=Na(a,b);0<=c&&t.splice.call(a,c,1)}function Wa(a,b,c){return 2>=arguments.length?t.slice.call(a,b):t.slice.call(a,b,c)}
+function Xa(a,b){a.sort(b||Ya)}function Ya(a,b){return a>b?1:a<b?-1:0};var Za=-1!=Ha.indexOf("Opera")||-1!=Ha.indexOf("OPR"),$a=-1!=Ha.indexOf("Trident")||-1!=Ha.indexOf("MSIE"),ab=-1!=Ha.indexOf("Gecko")&&-1==Ha.toLowerCase().indexOf("webkit")&&!(-1!=Ha.indexOf("Trident")||-1!=Ha.indexOf("MSIE")),bb=-1!=Ha.toLowerCase().indexOf("webkit");
+(function(){var a="",b;if(Za&&aa.opera)return a=aa.opera.version,ha(a)?a():a;ab?b=/rv\:([^\);]+)(\)|;)/:$a?b=/\b(?:MSIE|rv)[: ]([^\);]+)(\)|;)/:bb&&(b=/WebKit\/(\S+)/);b&&(a=(a=b.exec(Ha))?a[1]:"");return $a&&(b=(b=aa.document)?b.documentMode:void 0,b>parseFloat(a))?String(b):a})();var cb=null,db=null,eb=null;function fb(a,b){if(!fa(a))throw Error("encodeByteArray takes an array as a parameter");gb();for(var c=b?db:cb,d=[],e=0;e<a.length;e+=3){var f=a[e],g=e+1<a.length,k=g?a[e+1]:0,l=e+2<a.length,m=l?a[e+2]:0,v=f>>2,f=(f&3)<<4|k>>4,k=(k&15)<<2|m>>6,m=m&63;l||(m=64,g||(k=64));d.push(c[v],c[f],c[k],c[m])}return d.join("")}
+function gb(){if(!cb){cb={};db={};eb={};for(var a=0;65>a;a++)cb[a]="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=".charAt(a),db[a]="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.".charAt(a),eb[db[a]]=a,62<=a&&(eb["ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=".charAt(a)]=a)}};function u(a,b){return Object.prototype.hasOwnProperty.call(a,b)}function w(a,b){if(Object.prototype.hasOwnProperty.call(a,b))return a[b]}function hb(a,b){for(var c in a)Object.prototype.hasOwnProperty.call(a,c)&&b(c,a[c])}function ib(a){var b={};hb(a,function(a,d){b[a]=d});return b};function jb(a){var b=[];hb(a,function(a,d){ea(d)?Oa(d,function(d){b.push(encodeURIComponent(a)+"="+encodeURIComponent(d))}):b.push(encodeURIComponent(a)+"="+encodeURIComponent(d))});return b.length?"&"+b.join("&"):""}function kb(a){var b={};a=a.replace(/^\?/,"").split("&");Oa(a,function(a){a&&(a=a.split("="),b[a[0]]=a[1])});return b};function x(a,b,c,d){var e;d<b?e="at least "+b:d>c&&(e=0===c?"none":"no more than "+c);if(e)throw Error(a+" failed: Was called with "+d+(1===d?" argument.":" arguments.")+" Expects "+e+".");}function z(a,b,c){var d="";switch(b){case 1:d=c?"first":"First";break;case 2:d=c?"second":"Second";break;case 3:d=c?"third":"Third";break;case 4:d=c?"fourth":"Fourth";break;default:throw Error("errorPrefix called with argumentNumber > 4.  Need to update it?");}return a=a+" failed: "+(d+" argument ")}
+function A(a,b,c,d){if((!d||n(c))&&!ha(c))throw Error(z(a,b,d)+"must be a valid function.");}function lb(a,b,c){if(n(c)&&(!ia(c)||null===c))throw Error(z(a,b,!0)+"must be a valid context object.");};function mb(a){return"undefined"!==typeof JSON&&n(JSON.parse)?JSON.parse(a):Aa(a)}function B(a){if("undefined"!==typeof JSON&&n(JSON.stringify))a=JSON.stringify(a);else{var b=[];Ca(new Ba,a,b);a=b.join("")}return a};function nb(){this.Td=C}nb.prototype.j=function(a){return this.Td.oa(a)};nb.prototype.toString=function(){return this.Td.toString()};function ob(){}ob.prototype.mf=function(){return null};ob.prototype.ye=function(){return null};var pb=new ob;function qb(a,b,c){this.Nf=a;this.Ka=b;this.Jd=c}qb.prototype.mf=function(a){var b=this.Ka.D;if(rb(b,a))return b.j().M(a);b=null!=this.Jd?new sb(this.Jd,!0,!1):this.Ka.u();return this.Nf.Xa(a,b)};qb.prototype.ye=function(a,b,c){var d=null!=this.Jd?this.Jd:tb(this.Ka);a=this.Nf.ne(d,b,1,c,a);return 0===a.length?null:a[0]};function ub(){this.tb=[]}function vb(a,b){for(var c=null,d=0;d<b.length;d++){var e=b[d],f=e.Zb();null===c||f.Z(c.Zb())||(a.tb.push(c),c=null);null===c&&(c=new wb(f));c.add(e)}c&&a.tb.push(c)}function xb(a,b,c){vb(a,c);yb(a,function(a){return a.Z(b)})}function zb(a,b,c){vb(a,c);yb(a,function(a){return a.contains(b)||b.contains(a)})}
+function yb(a,b){for(var c=!0,d=0;d<a.tb.length;d++){var e=a.tb[d];if(e)if(e=e.Zb(),b(e)){for(var e=a.tb[d],f=0;f<e.ud.length;f++){var g=e.ud[f];if(null!==g){e.ud[f]=null;var k=g.Ub();Ab&&Bb("event: "+g.toString());Cb(k)}}a.tb[d]=null}else c=!1}c&&(a.tb=[])}function wb(a){this.qa=a;this.ud=[]}wb.prototype.add=function(a){this.ud.push(a)};wb.prototype.Zb=function(){return this.qa};function D(a,b,c,d){this.type=a;this.Ja=b;this.Ya=c;this.Je=d;this.Pd=void 0}function Db(a){return new D(Eb,a)}var Eb="value";function Fb(a,b,c,d){this.ue=b;this.Xd=c;this.Pd=d;this.td=a}Fb.prototype.Zb=function(){var a=this.Xd.lc();return"value"===this.td?a.path:a.parent().path};Fb.prototype.ze=function(){return this.td};Fb.prototype.Ub=function(){return this.ue.Ub(this)};Fb.prototype.toString=function(){return this.Zb().toString()+":"+this.td+":"+B(this.Xd.jf())};function Gb(a,b,c){this.ue=a;this.error=b;this.path=c}Gb.prototype.Zb=function(){return this.path};Gb.prototype.ze=function(){return"cancel"};
+Gb.prototype.Ub=function(){return this.ue.Ub(this)};Gb.prototype.toString=function(){return this.path.toString()+":cancel"};function sb(a,b,c){this.B=a;this.$=b;this.Tb=c}function Hb(a){return a.$}function rb(a,b){return a.$&&!a.Tb||a.B.Ha(b)}sb.prototype.j=function(){return this.B};function Ib(a){this.ag=a;this.Cd=null}Ib.prototype.get=function(){var a=this.ag.get(),b=xa(a);if(this.Cd)for(var c in this.Cd)b[c]-=this.Cd[c];this.Cd=a;return b};function Jb(a,b){this.Jf={};this.Zd=new Ib(a);this.ca=b;var c=1E4+2E4*Math.random();setTimeout(q(this.Ef,this),Math.floor(c))}Jb.prototype.Ef=function(){var a=this.Zd.get(),b={},c=!1,d;for(d in a)0<a[d]&&u(this.Jf,d)&&(b[d]=a[d],c=!0);c&&this.ca.Df(b);setTimeout(q(this.Ef,this),Math.floor(6E5*Math.random()))};function Kb(){this.Dc={}}function Lb(a,b,c){n(c)||(c=1);u(a.Dc,b)||(a.Dc[b]=0);a.Dc[b]+=c}Kb.prototype.get=function(){return xa(this.Dc)};var Mb={},Nb={};function Ob(a){a=a.toString();Mb[a]||(Mb[a]=new Kb);return Mb[a]}function Pb(a,b){var c=a.toString();Nb[c]||(Nb[c]=b());return Nb[c]};function E(a,b){this.name=a;this.S=b}function Qb(a,b){return new E(a,b)};function Rb(a,b){return Sb(a.name,b.name)}function Tb(a,b){return Sb(a,b)};function Ub(a,b,c){this.type=Vb;this.source=a;this.path=b;this.Ia=c}Ub.prototype.Xc=function(a){return this.path.e()?new Ub(this.source,F,this.Ia.M(a)):new Ub(this.source,G(this.path),this.Ia)};Ub.prototype.toString=function(){return"Operation("+this.path+": "+this.source.toString()+" overwrite: "+this.Ia.toString()+")"};function Wb(a,b){this.type=Xb;this.source=Yb;this.path=a;this.Te=b}Wb.prototype.Xc=function(){return this.path.e()?this:new Wb(G(this.path),this.Te)};Wb.prototype.toString=function(){return"Operation("+this.path+": "+this.source.toString()+" ack write revert="+this.Te+")"};function Zb(a,b){this.type=$b;this.source=a;this.path=b}Zb.prototype.Xc=function(){return this.path.e()?new Zb(this.source,F):new Zb(this.source,G(this.path))};Zb.prototype.toString=function(){return"Operation("+this.path+": "+this.source.toString()+" listen_complete)"};function ac(a,b){this.La=a;this.xa=b?b:bc}h=ac.prototype;h.Na=function(a,b){return new ac(this.La,this.xa.Na(a,b,this.La).X(null,null,!1,null,null))};h.remove=function(a){return new ac(this.La,this.xa.remove(a,this.La).X(null,null,!1,null,null))};h.get=function(a){for(var b,c=this.xa;!c.e();){b=this.La(a,c.key);if(0===b)return c.value;0>b?c=c.left:0<b&&(c=c.right)}return null};
+function cc(a,b){for(var c,d=a.xa,e=null;!d.e();){c=a.La(b,d.key);if(0===c){if(d.left.e())return e?e.key:null;for(d=d.left;!d.right.e();)d=d.right;return d.key}0>c?d=d.left:0<c&&(e=d,d=d.right)}throw Error("Attempted to find predecessor key for a nonexistent key.  What gives?");}h.e=function(){return this.xa.e()};h.count=function(){return this.xa.count()};h.Rc=function(){return this.xa.Rc()};h.fc=function(){return this.xa.fc()};h.ha=function(a){return this.xa.ha(a)};
+h.Xb=function(a){return new dc(this.xa,null,this.La,!1,a)};h.Yb=function(a,b){return new dc(this.xa,a,this.La,!1,b)};h.$b=function(a,b){return new dc(this.xa,a,this.La,!0,b)};h.of=function(a){return new dc(this.xa,null,this.La,!0,a)};function dc(a,b,c,d,e){this.Sd=e||null;this.Ee=d;this.Pa=[];for(e=1;!a.e();)if(e=b?c(a.key,b):1,d&&(e*=-1),0>e)a=this.Ee?a.left:a.right;else if(0===e){this.Pa.push(a);break}else this.Pa.push(a),a=this.Ee?a.right:a.left}
+function H(a){if(0===a.Pa.length)return null;var b=a.Pa.pop(),c;c=a.Sd?a.Sd(b.key,b.value):{key:b.key,value:b.value};if(a.Ee)for(b=b.left;!b.e();)a.Pa.push(b),b=b.right;else for(b=b.right;!b.e();)a.Pa.push(b),b=b.left;return c}function ec(a){if(0===a.Pa.length)return null;var b;b=a.Pa;b=b[b.length-1];return a.Sd?a.Sd(b.key,b.value):{key:b.key,value:b.value}}function fc(a,b,c,d,e){this.key=a;this.value=b;this.color=null!=c?c:!0;this.left=null!=d?d:bc;this.right=null!=e?e:bc}h=fc.prototype;
+h.X=function(a,b,c,d,e){return new fc(null!=a?a:this.key,null!=b?b:this.value,null!=c?c:this.color,null!=d?d:this.left,null!=e?e:this.right)};h.count=function(){return this.left.count()+1+this.right.count()};h.e=function(){return!1};h.ha=function(a){return this.left.ha(a)||a(this.key,this.value)||this.right.ha(a)};function gc(a){return a.left.e()?a:gc(a.left)}h.Rc=function(){return gc(this).key};h.fc=function(){return this.right.e()?this.key:this.right.fc()};
+h.Na=function(a,b,c){var d,e;e=this;d=c(a,e.key);e=0>d?e.X(null,null,null,e.left.Na(a,b,c),null):0===d?e.X(null,b,null,null,null):e.X(null,null,null,null,e.right.Na(a,b,c));return hc(e)};function ic(a){if(a.left.e())return bc;a.left.fa()||a.left.left.fa()||(a=jc(a));a=a.X(null,null,null,ic(a.left),null);return hc(a)}
+h.remove=function(a,b){var c,d;c=this;if(0>b(a,c.key))c.left.e()||c.left.fa()||c.left.left.fa()||(c=jc(c)),c=c.X(null,null,null,c.left.remove(a,b),null);else{c.left.fa()&&(c=kc(c));c.right.e()||c.right.fa()||c.right.left.fa()||(c=lc(c),c.left.left.fa()&&(c=kc(c),c=lc(c)));if(0===b(a,c.key)){if(c.right.e())return bc;d=gc(c.right);c=c.X(d.key,d.value,null,null,ic(c.right))}c=c.X(null,null,null,null,c.right.remove(a,b))}return hc(c)};h.fa=function(){return this.color};
+function hc(a){a.right.fa()&&!a.left.fa()&&(a=mc(a));a.left.fa()&&a.left.left.fa()&&(a=kc(a));a.left.fa()&&a.right.fa()&&(a=lc(a));return a}function jc(a){a=lc(a);a.right.left.fa()&&(a=a.X(null,null,null,null,kc(a.right)),a=mc(a),a=lc(a));return a}function mc(a){return a.right.X(null,null,a.color,a.X(null,null,!0,null,a.right.left),null)}function kc(a){return a.left.X(null,null,a.color,null,a.X(null,null,!0,a.left.right,null))}
+function lc(a){return a.X(null,null,!a.color,a.left.X(null,null,!a.left.color,null,null),a.right.X(null,null,!a.right.color,null,null))}function nc(){}h=nc.prototype;h.X=function(){return this};h.Na=function(a,b){return new fc(a,b,null)};h.remove=function(){return this};h.count=function(){return 0};h.e=function(){return!0};h.ha=function(){return!1};h.Rc=function(){return null};h.fc=function(){return null};h.fa=function(){return!1};var bc=new nc;function oc(a,b){return a&&"object"===typeof a?(J(".sv"in a,"Unexpected leaf node or priority contents"),b[a[".sv"]]):a}function pc(a,b){var c=new qc;rc(a,new K(""),function(a,e){c.mc(a,sc(e,b))});return c}function sc(a,b){var c=a.A().K(),c=oc(c,b),d;if(a.N()){var e=oc(a.Ba(),b);return e!==a.Ba()||c!==a.A().K()?new tc(e,L(c)):a}d=a;c!==a.A().K()&&(d=d.da(new tc(c)));a.U(M,function(a,c){var e=sc(c,b);e!==c&&(d=d.Q(a,e))});return d};function K(a,b){if(1==arguments.length){this.o=a.split("/");for(var c=0,d=0;d<this.o.length;d++)0<this.o[d].length&&(this.o[c]=this.o[d],c++);this.o.length=c;this.Y=0}else this.o=a,this.Y=b}function N(a,b){var c=O(a);if(null===c)return b;if(c===O(b))return N(G(a),G(b));throw Error("INTERNAL ERROR: innerPath ("+b+") is not within outerPath ("+a+")");}function O(a){return a.Y>=a.o.length?null:a.o[a.Y]}function uc(a){return a.o.length-a.Y}
+function G(a){var b=a.Y;b<a.o.length&&b++;return new K(a.o,b)}function vc(a){return a.Y<a.o.length?a.o[a.o.length-1]:null}h=K.prototype;h.toString=function(){for(var a="",b=this.Y;b<this.o.length;b++)""!==this.o[b]&&(a+="/"+this.o[b]);return a||"/"};h.slice=function(a){return this.o.slice(this.Y+(a||0))};h.parent=function(){if(this.Y>=this.o.length)return null;for(var a=[],b=this.Y;b<this.o.length-1;b++)a.push(this.o[b]);return new K(a,0)};
+h.w=function(a){for(var b=[],c=this.Y;c<this.o.length;c++)b.push(this.o[c]);if(a instanceof K)for(c=a.Y;c<a.o.length;c++)b.push(a.o[c]);else for(a=a.split("/"),c=0;c<a.length;c++)0<a[c].length&&b.push(a[c]);return new K(b,0)};h.e=function(){return this.Y>=this.o.length};h.Z=function(a){if(uc(this)!==uc(a))return!1;for(var b=this.Y,c=a.Y;b<=this.o.length;b++,c++)if(this.o[b]!==a.o[c])return!1;return!0};
+h.contains=function(a){var b=this.Y,c=a.Y;if(uc(this)>uc(a))return!1;for(;b<this.o.length;){if(this.o[b]!==a.o[c])return!1;++b;++c}return!0};var F=new K("");function wc(a,b){this.Qa=a.slice();this.Ea=Math.max(1,this.Qa.length);this.hf=b;for(var c=0;c<this.Qa.length;c++)this.Ea+=xc(this.Qa[c]);yc(this)}wc.prototype.push=function(a){0<this.Qa.length&&(this.Ea+=1);this.Qa.push(a);this.Ea+=xc(a);yc(this)};wc.prototype.pop=function(){var a=this.Qa.pop();this.Ea-=xc(a);0<this.Qa.length&&--this.Ea};
+function yc(a){if(768<a.Ea)throw Error(a.hf+"has a key path longer than 768 bytes ("+a.Ea+").");if(32<a.Qa.length)throw Error(a.hf+"path specified exceeds the maximum depth that can be written (32) or object contains a cycle "+zc(a));}function zc(a){return 0==a.Qa.length?"":"in property '"+a.Qa.join(".")+"'"};function Ac(){this.wc={}}Ac.prototype.set=function(a,b){null==b?delete this.wc[a]:this.wc[a]=b};Ac.prototype.get=function(a){return u(this.wc,a)?this.wc[a]:null};Ac.prototype.remove=function(a){delete this.wc[a]};Ac.prototype.rf=!0;function Bc(a){this.Ec=a;this.Od="firebase:"}h=Bc.prototype;h.set=function(a,b){null==b?this.Ec.removeItem(this.Od+a):this.Ec.setItem(this.Od+a,B(b))};h.get=function(a){a=this.Ec.getItem(this.Od+a);return null==a?null:mb(a)};h.remove=function(a){this.Ec.removeItem(this.Od+a)};h.rf=!1;h.toString=function(){return this.Ec.toString()};function Cc(a){try{if("undefined"!==typeof window&&"undefined"!==typeof window[a]){var b=window[a];b.setItem("firebase:sentinel","cache");b.removeItem("firebase:sentinel");return new Bc(b)}}catch(c){}return new Ac}var Dc=Cc("localStorage"),P=Cc("sessionStorage");function Ec(a,b,c,d,e){this.host=a.toLowerCase();this.domain=this.host.substr(this.host.indexOf(".")+1);this.lb=b;this.Bb=c;this.Qg=d;this.Nd=e||"";this.Oa=Dc.get("host:"+a)||this.host}function Fc(a,b){b!==a.Oa&&(a.Oa=b,"s-"===a.Oa.substr(0,2)&&Dc.set("host:"+a.host,a.Oa))}Ec.prototype.toString=function(){var a=(this.lb?"https://":"http://")+this.host;this.Nd&&(a+="<"+this.Nd+">");return a};var Gc=function(){var a=1;return function(){return a++}}();function J(a,b){if(!a)throw Hc(b);}function Hc(a){return Error("Firebase (2.2.3) INTERNAL ASSERT FAILED: "+a)}
+function Ic(a){try{var b;if("undefined"!==typeof atob)b=atob(a);else{gb();for(var c=eb,d=[],e=0;e<a.length;){var f=c[a.charAt(e++)],g=e<a.length?c[a.charAt(e)]:0;++e;var k=e<a.length?c[a.charAt(e)]:64;++e;var l=e<a.length?c[a.charAt(e)]:64;++e;if(null==f||null==g||null==k||null==l)throw Error();d.push(f<<2|g>>4);64!=k&&(d.push(g<<4&240|k>>2),64!=l&&d.push(k<<6&192|l))}if(8192>d.length)b=String.fromCharCode.apply(null,d);else{a="";for(c=0;c<d.length;c+=8192)a+=String.fromCharCode.apply(null,Wa(d,c,
+c+8192));b=a}}return b}catch(m){Bb("base64Decode failed: ",m)}return null}function Jc(a){var b=Kc(a);a=new La;a.update(b);var b=[],c=8*a.ce;56>a.ac?a.update(a.Kd,56-a.ac):a.update(a.Kd,a.Wa-(a.ac-56));for(var d=a.Wa-1;56<=d;d--)a.me[d]=c&255,c/=256;Ma(a,a.me);for(d=c=0;5>d;d++)for(var e=24;0<=e;e-=8)b[c]=a.R[d]>>e&255,++c;return fb(b)}
+function Lc(a){for(var b="",c=0;c<arguments.length;c++)b=fa(arguments[c])?b+Lc.apply(null,arguments[c]):"object"===typeof arguments[c]?b+B(arguments[c]):b+arguments[c],b+=" ";return b}var Ab=null,Mc=!0;function Bb(a){!0===Mc&&(Mc=!1,null===Ab&&!0===P.get("logging_enabled")&&Nc(!0));if(Ab){var b=Lc.apply(null,arguments);Ab(b)}}function Oc(a){return function(){Bb(a,arguments)}}
+function Pc(a){if("undefined"!==typeof console){var b="FIREBASE INTERNAL ERROR: "+Lc.apply(null,arguments);"undefined"!==typeof console.error?console.error(b):console.log(b)}}function Qc(a){var b=Lc.apply(null,arguments);throw Error("FIREBASE FATAL ERROR: "+b);}function Q(a){if("undefined"!==typeof console){var b="FIREBASE WARNING: "+Lc.apply(null,arguments);"undefined"!==typeof console.warn?console.warn(b):console.log(b)}}
+function Rc(a){var b="",c="",d="",e="",f=!0,g="https",k=443;if(p(a)){var l=a.indexOf("//");0<=l&&(g=a.substring(0,l-1),a=a.substring(l+2));l=a.indexOf("/");-1===l&&(l=a.length);b=a.substring(0,l);e="";a=a.substring(l).split("/");for(l=0;l<a.length;l++)if(0<a[l].length){var m=a[l];try{m=decodeURIComponent(m.replace(/\+/g," "))}catch(v){}e+="/"+m}a=b.split(".");3===a.length?(c=a[1],d=a[0].toLowerCase()):2===a.length&&(c=a[0]);l=b.indexOf(":");0<=l&&(f="https"===g||"wss"===g,k=b.substring(l+1),isFinite(k)&&
+(k=String(k)),k=p(k)?/^\s*-?0x/i.test(k)?parseInt(k,16):parseInt(k,10):NaN)}return{host:b,port:k,domain:c,Ng:d,lb:f,scheme:g,$c:e}}function Sc(a){return ga(a)&&(a!=a||a==Number.POSITIVE_INFINITY||a==Number.NEGATIVE_INFINITY)}
+function Tc(a){if("complete"===document.readyState)a();else{var b=!1,c=function(){document.body?b||(b=!0,a()):setTimeout(c,Math.floor(10))};document.addEventListener?(document.addEventListener("DOMContentLoaded",c,!1),window.addEventListener("load",c,!1)):document.attachEvent&&(document.attachEvent("onreadystatechange",function(){"complete"===document.readyState&&c()}),window.attachEvent("onload",c))}}
+function Sb(a,b){if(a===b)return 0;if("[MIN_NAME]"===a||"[MAX_NAME]"===b)return-1;if("[MIN_NAME]"===b||"[MAX_NAME]"===a)return 1;var c=Uc(a),d=Uc(b);return null!==c?null!==d?0==c-d?a.length-b.length:c-d:-1:null!==d?1:a<b?-1:1}function Vc(a,b){if(b&&a in b)return b[a];throw Error("Missing required key ("+a+") in object: "+B(b));}
+function Wc(a){if("object"!==typeof a||null===a)return B(a);var b=[],c;for(c in a)b.push(c);b.sort();c="{";for(var d=0;d<b.length;d++)0!==d&&(c+=","),c+=B(b[d]),c+=":",c+=Wc(a[b[d]]);return c+"}"}function Xc(a,b){if(a.length<=b)return[a];for(var c=[],d=0;d<a.length;d+=b)d+b>a?c.push(a.substring(d,a.length)):c.push(a.substring(d,d+b));return c}function Yc(a,b){if(ea(a))for(var c=0;c<a.length;++c)b(c,a[c]);else r(a,b)}
+function Zc(a){J(!Sc(a),"Invalid JSON number");var b,c,d,e;0===a?(d=c=0,b=-Infinity===1/a?1:0):(b=0>a,a=Math.abs(a),a>=Math.pow(2,-1022)?(d=Math.min(Math.floor(Math.log(a)/Math.LN2),1023),c=d+1023,d=Math.round(a*Math.pow(2,52-d)-Math.pow(2,52))):(c=0,d=Math.round(a/Math.pow(2,-1074))));e=[];for(a=52;a;--a)e.push(d%2?1:0),d=Math.floor(d/2);for(a=11;a;--a)e.push(c%2?1:0),c=Math.floor(c/2);e.push(b?1:0);e.reverse();b=e.join("");c="";for(a=0;64>a;a+=8)d=parseInt(b.substr(a,8),2).toString(16),1===d.length&&
+(d="0"+d),c+=d;return c.toLowerCase()}var $c=/^-?\d{1,10}$/;function Uc(a){return $c.test(a)&&(a=Number(a),-2147483648<=a&&2147483647>=a)?a:null}function Cb(a){try{a()}catch(b){setTimeout(function(){Q("Exception was thrown by user callback.",b.stack||"");throw b;},Math.floor(0))}}function R(a,b){if(ha(a)){var c=Array.prototype.slice.call(arguments,1).slice();Cb(function(){a.apply(null,c)})}};function Kc(a){for(var b=[],c=0,d=0;d<a.length;d++){var e=a.charCodeAt(d);55296<=e&&56319>=e&&(e-=55296,d++,J(d<a.length,"Surrogate pair missing trail surrogate."),e=65536+(e<<10)+(a.charCodeAt(d)-56320));128>e?b[c++]=e:(2048>e?b[c++]=e>>6|192:(65536>e?b[c++]=e>>12|224:(b[c++]=e>>18|240,b[c++]=e>>12&63|128),b[c++]=e>>6&63|128),b[c++]=e&63|128)}return b}function xc(a){for(var b=0,c=0;c<a.length;c++){var d=a.charCodeAt(c);128>d?b++:2048>d?b+=2:55296<=d&&56319>=d?(b+=4,c++):b+=3}return b};function ad(a){var b={},c={},d={},e="";try{var f=a.split("."),b=mb(Ic(f[0])||""),c=mb(Ic(f[1])||""),e=f[2],d=c.d||{};delete c.d}catch(g){}return{Tg:b,Ac:c,data:d,Kg:e}}function bd(a){a=ad(a).Ac;return"object"===typeof a&&a.hasOwnProperty("iat")?w(a,"iat"):null}function cd(a){a=ad(a);var b=a.Ac;return!!a.Kg&&!!b&&"object"===typeof b&&b.hasOwnProperty("iat")};function dd(a){this.V=a;this.g=a.n.g}function ed(a,b,c,d){var e=[],f=[];Oa(b,function(b){"child_changed"===b.type&&a.g.zd(b.Je,b.Ja)&&f.push(new D("child_moved",b.Ja,b.Ya))});fd(a,e,"child_removed",b,d,c);fd(a,e,"child_added",b,d,c);fd(a,e,"child_moved",f,d,c);fd(a,e,"child_changed",b,d,c);fd(a,e,Eb,b,d,c);return e}function fd(a,b,c,d,e,f){d=Pa(d,function(a){return a.type===c});Xa(d,q(a.bg,a));Oa(d,function(c){var d=gd(a,c,f);Oa(e,function(e){e.Gf(c.type)&&b.push(e.createEvent(d,a.V))})})}
+function gd(a,b,c){"value"!==b.type&&"child_removed"!==b.type&&(b.Pd=c.nf(b.Ya,b.Ja,a.g));return b}dd.prototype.bg=function(a,b){if(null==a.Ya||null==b.Ya)throw Hc("Should only compare child_ events.");return this.g.compare(new E(a.Ya,a.Ja),new E(b.Ya,b.Ja))};function hd(){this.eb={}}
+function id(a,b){var c=b.type,d=b.Ya;J("child_added"==c||"child_changed"==c||"child_removed"==c,"Only child changes supported for tracking");J(".priority"!==d,"Only non-priority child changes can be tracked.");var e=w(a.eb,d);if(e){var f=e.type;if("child_added"==c&&"child_removed"==f)a.eb[d]=new D("child_changed",b.Ja,d,e.Ja);else if("child_removed"==c&&"child_added"==f)delete a.eb[d];else if("child_removed"==c&&"child_changed"==f)a.eb[d]=new D("child_removed",e.Je,d);else if("child_changed"==c&&
+"child_added"==f)a.eb[d]=new D("child_added",b.Ja,d);else if("child_changed"==c&&"child_changed"==f)a.eb[d]=new D("child_changed",b.Ja,d,e.Je);else throw Hc("Illegal combination of changes: "+b+" occurred after "+e);}else a.eb[d]=b};function jd(a,b,c){this.Pb=a;this.qb=b;this.sb=c||null}h=jd.prototype;h.Gf=function(a){return"value"===a};h.createEvent=function(a,b){var c=b.n.g;return new Fb("value",this,new S(a.Ja,b.lc(),c))};h.Ub=function(a){var b=this.sb;if("cancel"===a.ze()){J(this.qb,"Raising a cancel event on a listener with no cancel callback");var c=this.qb;return function(){c.call(b,a.error)}}var d=this.Pb;return function(){d.call(b,a.Xd)}};h.df=function(a,b){return this.qb?new Gb(this,a,b):null};
+h.matches=function(a){return a instanceof jd?a.Pb&&this.Pb?a.Pb===this.Pb&&a.sb===this.sb:!0:!1};h.pf=function(){return null!==this.Pb};function kd(a,b,c){this.ga=a;this.qb=b;this.sb=c}h=kd.prototype;h.Gf=function(a){a="children_added"===a?"child_added":a;return("children_removed"===a?"child_removed":a)in this.ga};h.df=function(a,b){return this.qb?new Gb(this,a,b):null};
+h.createEvent=function(a,b){J(null!=a.Ya,"Child events should have a childName.");var c=b.lc().w(a.Ya);return new Fb(a.type,this,new S(a.Ja,c,b.n.g),a.Pd)};h.Ub=function(a){var b=this.sb;if("cancel"===a.ze()){J(this.qb,"Raising a cancel event on a listener with no cancel callback");var c=this.qb;return function(){c.call(b,a.error)}}var d=this.ga[a.td];return function(){d.call(b,a.Xd,a.Pd)}};
+h.matches=function(a){if(a instanceof kd){if(!this.ga||!a.ga)return!0;if(this.sb===a.sb){var b=pa(a.ga);if(b===pa(this.ga)){if(1===b){var b=qa(a.ga),c=qa(this.ga);return c===b&&(!a.ga[b]||!this.ga[c]||a.ga[b]===this.ga[c])}return oa(this.ga,function(b,c){return a.ga[c]===b})}}}return!1};h.pf=function(){return null!==this.ga};function ld(a){this.g=a}h=ld.prototype;h.G=function(a,b,c,d,e){J(a.Ic(this.g),"A node must be indexed if only a child is updated");d=a.M(b);if(d.Z(c))return a;null!=e&&(c.e()?a.Ha(b)?id(e,new D("child_removed",d,b)):J(a.N(),"A child remove without an old child only makes sense on a leaf node"):d.e()?id(e,new D("child_added",c,b)):id(e,new D("child_changed",c,b,d)));return a.N()&&c.e()?a:a.Q(b,c).mb(this.g)};
+h.ta=function(a,b,c){null!=c&&(a.N()||a.U(M,function(a,e){b.Ha(a)||id(c,new D("child_removed",e,a))}),b.N()||b.U(M,function(b,e){if(a.Ha(b)){var f=a.M(b);f.Z(e)||id(c,new D("child_changed",e,b,f))}else id(c,new D("child_added",e,b))}));return b.mb(this.g)};h.da=function(a,b){return a.e()?C:a.da(b)};h.Ga=function(){return!1};h.Vb=function(){return this};function md(a){this.Be=new ld(a.g);this.g=a.g;var b;a.la?(b=nd(a),b=a.g.Oc(od(a),b)):b=a.g.Sc();this.fd=b;a.na?(b=pd(a),a=a.g.Oc(qd(a),b)):a=a.g.Pc();this.Fc=a}h=md.prototype;h.matches=function(a){return 0>=this.g.compare(this.fd,a)&&0>=this.g.compare(a,this.Fc)};h.G=function(a,b,c,d,e){this.matches(new E(b,c))||(c=C);return this.Be.G(a,b,c,d,e)};h.ta=function(a,b,c){b.N()&&(b=C);var d=b.mb(this.g),d=d.da(C),e=this;b.U(M,function(a,b){e.matches(new E(a,b))||(d=d.Q(a,C))});return this.Be.ta(a,d,c)};
+h.da=function(a){return a};h.Ga=function(){return!0};h.Vb=function(){return this.Be};function rd(a){this.ra=new md(a);this.g=a.g;J(a.ia,"Only valid if limit has been set");this.ja=a.ja;this.Ib=!sd(a)}h=rd.prototype;h.G=function(a,b,c,d,e){this.ra.matches(new E(b,c))||(c=C);return a.M(b).Z(c)?a:a.Cb()<this.ja?this.ra.Vb().G(a,b,c,d,e):td(this,a,b,c,d,e)};
+h.ta=function(a,b,c){var d;if(b.N()||b.e())d=C.mb(this.g);else if(2*this.ja<b.Cb()&&b.Ic(this.g)){d=C.mb(this.g);b=this.Ib?b.$b(this.ra.Fc,this.g):b.Yb(this.ra.fd,this.g);for(var e=0;0<b.Pa.length&&e<this.ja;){var f=H(b),g;if(g=this.Ib?0>=this.g.compare(this.ra.fd,f):0>=this.g.compare(f,this.ra.Fc))d=d.Q(f.name,f.S),e++;else break}}else{d=b.mb(this.g);d=d.da(C);var k,l,m;if(this.Ib){b=d.of(this.g);k=this.ra.Fc;l=this.ra.fd;var v=vd(this.g);m=function(a,b){return v(b,a)}}else b=d.Xb(this.g),k=this.ra.fd,
+l=this.ra.Fc,m=vd(this.g);for(var e=0,y=!1;0<b.Pa.length;)f=H(b),!y&&0>=m(k,f)&&(y=!0),(g=y&&e<this.ja&&0>=m(f,l))?e++:d=d.Q(f.name,C)}return this.ra.Vb().ta(a,d,c)};h.da=function(a){return a};h.Ga=function(){return!0};h.Vb=function(){return this.ra.Vb()};
+function td(a,b,c,d,e,f){var g;if(a.Ib){var k=vd(a.g);g=function(a,b){return k(b,a)}}else g=vd(a.g);J(b.Cb()==a.ja,"");var l=new E(c,d),m=a.Ib?wd(b,a.g):xd(b,a.g),v=a.ra.matches(l);if(b.Ha(c)){var y=b.M(c),m=e.ye(a.g,m,a.Ib);null!=m&&m.name==c&&(m=e.ye(a.g,m,a.Ib));e=null==m?1:g(m,l);if(v&&!d.e()&&0<=e)return null!=f&&id(f,new D("child_changed",d,c,y)),b.Q(c,d);null!=f&&id(f,new D("child_removed",y,c));b=b.Q(c,C);return null!=m&&a.ra.matches(m)?(null!=f&&id(f,new D("child_added",m.S,m.name)),b.Q(m.name,
+m.S)):b}return d.e()?b:v&&0<=g(m,l)?(null!=f&&(id(f,new D("child_removed",m.S,m.name)),id(f,new D("child_added",d,c))),b.Q(c,d).Q(m.name,C)):b};function yd(a,b){this.ie=a;this.$f=b}function zd(a){this.I=a}
+zd.prototype.bb=function(a,b,c,d){var e=new hd,f;if(b.type===Vb)b.source.we?c=Ad(this,a,b.path,b.Ia,c,d,e):(J(b.source.lf,"Unknown source."),f=b.source.Ze,c=Bd(this,a,b.path,b.Ia,c,d,f,e));else if(b.type===Cd)b.source.we?c=Dd(this,a,b.path,b.children,c,d,e):(J(b.source.lf,"Unknown source."),f=b.source.Ze,c=Ed(this,a,b.path,b.children,c,d,f,e));else if(b.type===Xb)if(b.Te)if(f=b.path,null!=c.sc(f))c=a;else{b=new qb(c,a,d);d=a.D.j();if(f.e()||".priority"===O(f))Hb(a.u())?b=c.ua(tb(a)):(b=a.u().j(),
+J(b instanceof T,"serverChildren would be complete if leaf node"),b=c.xc(b)),b=this.I.ta(d,b,e);else{f=O(f);var g=c.Xa(f,a.u());null==g&&rb(a.u(),f)&&(g=d.M(f));b=null!=g?this.I.G(d,f,g,b,e):a.D.j().Ha(f)?this.I.G(d,f,C,b,e):d;b.e()&&Hb(a.u())&&(d=c.ua(tb(a)),d.N()&&(b=this.I.ta(b,d,e)))}d=Hb(a.u())||null!=c.sc(F);c=Fd(a,b,d,this.I.Ga())}else c=Gd(this,a,b.path,c,d,e);else if(b.type===$b)d=b.path,b=a.u(),f=b.j(),g=b.$||d.e(),c=Hd(this,new Id(a.D,new sb(f,g,b.Tb)),d,c,pb,e);else throw Hc("Unknown operation type: "+
+b.type);e=ra(e.eb);d=c;b=d.D;b.$&&(f=b.j().N()||b.j().e(),g=Jd(a),(0<e.length||!a.D.$||f&&!b.j().Z(g)||!b.j().A().Z(g.A()))&&e.push(Db(Jd(d))));return new yd(c,e)};
+function Hd(a,b,c,d,e,f){var g=b.D;if(null!=d.sc(c))return b;var k;if(c.e())J(Hb(b.u()),"If change path is empty, we must have complete server data"),b.u().Tb?(e=tb(b),d=d.xc(e instanceof T?e:C)):d=d.ua(tb(b)),f=a.I.ta(b.D.j(),d,f);else{var l=O(c);if(".priority"==l)J(1==uc(c),"Can't have a priority with additional path components"),f=g.j(),k=b.u().j(),d=d.kd(c,f,k),f=null!=d?a.I.da(f,d):g.j();else{var m=G(c);rb(g,l)?(k=b.u().j(),d=d.kd(c,g.j(),k),d=null!=d?g.j().M(l).G(m,d):g.j().M(l)):d=d.Xa(l,b.u());
+f=null!=d?a.I.G(g.j(),l,d,e,f):g.j()}}return Fd(b,f,g.$||c.e(),a.I.Ga())}function Bd(a,b,c,d,e,f,g,k){var l=b.u();g=g?a.I:a.I.Vb();if(c.e())d=g.ta(l.j(),d,null);else if(g.Ga()&&!l.Tb)d=l.j().G(c,d),d=g.ta(l.j(),d,null);else{var m=O(c);if((c.e()?!l.$||l.Tb:!rb(l,O(c)))&&1<uc(c))return b;d=l.j().M(m).G(G(c),d);d=".priority"==m?g.da(l.j(),d):g.G(l.j(),m,d,pb,null)}l=l.$||c.e();b=new Id(b.D,new sb(d,l,g.Ga()));return Hd(a,b,c,e,new qb(e,b,f),k)}
+function Ad(a,b,c,d,e,f,g){var k=b.D;e=new qb(e,b,f);if(c.e())g=a.I.ta(b.D.j(),d,g),a=Fd(b,g,!0,a.I.Ga());else if(f=O(c),".priority"===f)g=a.I.da(b.D.j(),d),a=Fd(b,g,k.$,k.Tb);else{var l=G(c);c=k.j().M(f);if(!l.e()){var m=e.mf(f);d=null!=m?".priority"===vc(l)&&m.oa(l.parent()).e()?m:m.G(l,d):C}c.Z(d)?a=b:(g=a.I.G(k.j(),f,d,e,g),a=Fd(b,g,k.$,a.I.Ga()))}return a}
+function Dd(a,b,c,d,e,f,g){var k=b;Kd(d,function(d,m){var v=c.w(d);rb(b.D,O(v))&&(k=Ad(a,k,v,m,e,f,g))});Kd(d,function(d,m){var v=c.w(d);rb(b.D,O(v))||(k=Ad(a,k,v,m,e,f,g))});return k}function Ld(a,b){Kd(b,function(b,d){a=a.G(b,d)});return a}
+function Ed(a,b,c,d,e,f,g,k){if(b.u().j().e()&&!Hb(b.u()))return b;var l=b;c=c.e()?d:Md(Nd,c,d);var m=b.u().j();c.children.ha(function(c,d){if(m.Ha(c)){var I=b.u().j().M(c),I=Ld(I,d);l=Bd(a,l,new K(c),I,e,f,g,k)}});c.children.ha(function(c,d){var I=!Hb(b.u())&&null==d.value;m.Ha(c)||I||(I=b.u().j().M(c),I=Ld(I,d),l=Bd(a,l,new K(c),I,e,f,g,k))});return l}
+function Gd(a,b,c,d,e,f){if(null!=d.sc(c))return b;var g=new qb(d,b,e),k=e=b.D.j();if(Hb(b.u())){if(c.e())e=d.ua(tb(b)),k=a.I.ta(b.D.j(),e,f);else if(".priority"===O(c)){var l=d.Xa(O(c),b.u());null==l||e.e()||e.A().Z(l)||(k=a.I.da(e,l))}else l=O(c),e=d.Xa(l,b.u()),null!=e&&(k=a.I.G(b.D.j(),l,e,g,f));e=!0}else if(b.D.$||c.e())k=e,e=b.D.j(),e.N()||e.U(M,function(c){var e=d.Xa(c,b.u());null!=e&&(k=a.I.G(k,c,e,g,f))}),e=b.D.$;else{l=O(c);if(1==uc(c)||rb(b.D,l))c=d.Xa(l,b.u()),null!=c&&(k=a.I.G(e,l,c,
+g,f));e=!1}return Fd(b,k,e,a.I.Ga())};function Od(){}var Pd={};function vd(a){return q(a.compare,a)}Od.prototype.zd=function(a,b){return 0!==this.compare(new E("[MIN_NAME]",a),new E("[MIN_NAME]",b))};Od.prototype.Sc=function(){return Qd};function Rd(a){this.cc=a}ma(Rd,Od);h=Rd.prototype;h.Hc=function(a){return!a.M(this.cc).e()};h.compare=function(a,b){var c=a.S.M(this.cc),d=b.S.M(this.cc),c=c.Cc(d);return 0===c?Sb(a.name,b.name):c};h.Oc=function(a,b){var c=L(a),c=C.Q(this.cc,c);return new E(b,c)};
+h.Pc=function(){var a=C.Q(this.cc,Sd);return new E("[MAX_NAME]",a)};h.toString=function(){return this.cc};function Td(){}ma(Td,Od);h=Td.prototype;h.compare=function(a,b){var c=a.S.A(),d=b.S.A(),c=c.Cc(d);return 0===c?Sb(a.name,b.name):c};h.Hc=function(a){return!a.A().e()};h.zd=function(a,b){return!a.A().Z(b.A())};h.Sc=function(){return Qd};h.Pc=function(){return new E("[MAX_NAME]",new tc("[PRIORITY-POST]",Sd))};h.Oc=function(a,b){var c=L(a);return new E(b,new tc("[PRIORITY-POST]",c))};
+h.toString=function(){return".priority"};var M=new Td;function Ud(){}ma(Ud,Od);h=Ud.prototype;h.compare=function(a,b){return Sb(a.name,b.name)};h.Hc=function(){throw Hc("KeyIndex.isDefinedOn not expected to be called.");};h.zd=function(){return!1};h.Sc=function(){return Qd};h.Pc=function(){return new E("[MAX_NAME]",C)};h.Oc=function(a){J(p(a),"KeyIndex indexValue must always be a string.");return new E(a,C)};h.toString=function(){return".key"};var Vd=new Ud;function Wd(){}ma(Wd,Od);h=Wd.prototype;
+h.compare=function(a,b){var c=a.S.Cc(b.S);return 0===c?Sb(a.name,b.name):c};h.Hc=function(){return!0};h.zd=function(a,b){return!a.Z(b)};h.Sc=function(){return Qd};h.Pc=function(){return Xd};h.Oc=function(a,b){var c=L(a);return new E(b,c)};h.toString=function(){return".value"};var Yd=new Wd;function Zd(){this.Rb=this.na=this.Lb=this.la=this.ia=!1;this.ja=0;this.Nb="";this.ec=null;this.wb="";this.bc=null;this.ub="";this.g=M}var $d=new Zd;function sd(a){return""===a.Nb?a.la:"l"===a.Nb}function od(a){J(a.la,"Only valid if start has been set");return a.ec}function nd(a){J(a.la,"Only valid if start has been set");return a.Lb?a.wb:"[MIN_NAME]"}function qd(a){J(a.na,"Only valid if end has been set");return a.bc}
+function pd(a){J(a.na,"Only valid if end has been set");return a.Rb?a.ub:"[MAX_NAME]"}function ae(a){var b=new Zd;b.ia=a.ia;b.ja=a.ja;b.la=a.la;b.ec=a.ec;b.Lb=a.Lb;b.wb=a.wb;b.na=a.na;b.bc=a.bc;b.Rb=a.Rb;b.ub=a.ub;b.g=a.g;return b}h=Zd.prototype;h.Ge=function(a){var b=ae(this);b.ia=!0;b.ja=a;b.Nb="";return b};h.He=function(a){var b=ae(this);b.ia=!0;b.ja=a;b.Nb="l";return b};h.Ie=function(a){var b=ae(this);b.ia=!0;b.ja=a;b.Nb="r";return b};
+h.Yd=function(a,b){var c=ae(this);c.la=!0;n(a)||(a=null);c.ec=a;null!=b?(c.Lb=!0,c.wb=b):(c.Lb=!1,c.wb="");return c};h.sd=function(a,b){var c=ae(this);c.na=!0;n(a)||(a=null);c.bc=a;n(b)?(c.Rb=!0,c.ub=b):(c.Vg=!1,c.ub="");return c};function be(a,b){var c=ae(a);c.g=b;return c}function ce(a){var b={};a.la&&(b.sp=a.ec,a.Lb&&(b.sn=a.wb));a.na&&(b.ep=a.bc,a.Rb&&(b.en=a.ub));if(a.ia){b.l=a.ja;var c=a.Nb;""===c&&(c=sd(a)?"l":"r");b.vf=c}a.g!==M&&(b.i=a.g.toString());return b}
+function de(a){return!(a.la||a.na||a.ia)}function ee(a){var b={};if(de(a)&&a.g==M)return b;var c;a.g===M?c="$priority":a.g===Yd?c="$value":(J(a.g instanceof Rd,"Unrecognized index type!"),c=a.g.toString());b.orderBy=B(c);a.la&&(b.startAt=B(a.ec),a.Lb&&(b.startAt+=","+B(a.wb)));a.na&&(b.endAt=B(a.bc),a.Rb&&(b.endAt+=","+B(a.ub)));a.ia&&(sd(a)?b.limitToFirst=a.ja:b.limitToLast=a.ja);return b}h.toString=function(){return B(ce(this))};function fe(a,b){this.Ad=a;this.dc=b}fe.prototype.get=function(a){var b=w(this.Ad,a);if(!b)throw Error("No index defined for "+a);return b===Pd?null:b};function ge(a,b,c){var d=na(a.Ad,function(d,f){var g=w(a.dc,f);J(g,"Missing index implementation for "+f);if(d===Pd){if(g.Hc(b.S)){for(var k=[],l=c.Xb(Qb),m=H(l);m;)m.name!=b.name&&k.push(m),m=H(l);k.push(b);return he(k,vd(g))}return Pd}g=c.get(b.name);k=d;g&&(k=k.remove(new E(b.name,g)));return k.Na(b,b.S)});return new fe(d,a.dc)}
+function ie(a,b,c){var d=na(a.Ad,function(a){if(a===Pd)return a;var d=c.get(b.name);return d?a.remove(new E(b.name,d)):a});return new fe(d,a.dc)}var je=new fe({".priority":Pd},{".priority":M});function tc(a,b){this.C=a;J(n(this.C)&&null!==this.C,"LeafNode shouldn't be created with null/undefined value.");this.ba=b||C;ke(this.ba);this.Ab=null}h=tc.prototype;h.N=function(){return!0};h.A=function(){return this.ba};h.da=function(a){return new tc(this.C,a)};h.M=function(a){return".priority"===a?this.ba:C};h.oa=function(a){return a.e()?this:".priority"===O(a)?this.ba:C};h.Ha=function(){return!1};h.nf=function(){return null};
+h.Q=function(a,b){return".priority"===a?this.da(b):b.e()&&".priority"!==a?this:C.Q(a,b).da(this.ba)};h.G=function(a,b){var c=O(a);if(null===c)return b;if(b.e()&&".priority"!==c)return this;J(".priority"!==c||1===uc(a),".priority must be the last token in a path");return this.Q(c,C.G(G(a),b))};h.e=function(){return!1};h.Cb=function(){return 0};h.K=function(a){return a&&!this.A().e()?{".value":this.Ba(),".priority":this.A().K()}:this.Ba()};
+h.hash=function(){if(null===this.Ab){var a="";this.ba.e()||(a+="priority:"+le(this.ba.K())+":");var b=typeof this.C,a=a+(b+":"),a="number"===b?a+Zc(this.C):a+this.C;this.Ab=Jc(a)}return this.Ab};h.Ba=function(){return this.C};h.Cc=function(a){if(a===C)return 1;if(a instanceof T)return-1;J(a.N(),"Unknown node type");var b=typeof a.C,c=typeof this.C,d=Na(me,b),e=Na(me,c);J(0<=d,"Unknown leaf type: "+b);J(0<=e,"Unknown leaf type: "+c);return d===e?"object"===c?0:this.C<a.C?-1:this.C===a.C?0:1:e-d};
+var me=["object","boolean","number","string"];tc.prototype.mb=function(){return this};tc.prototype.Ic=function(){return!0};tc.prototype.Z=function(a){return a===this?!0:a.N()?this.C===a.C&&this.ba.Z(a.ba):!1};tc.prototype.toString=function(){return B(this.K(!0))};function T(a,b,c){this.m=a;(this.ba=b)&&ke(this.ba);a.e()&&J(!this.ba||this.ba.e(),"An empty node cannot have a priority");this.vb=c;this.Ab=null}h=T.prototype;h.N=function(){return!1};h.A=function(){return this.ba||C};h.da=function(a){return this.m.e()?this:new T(this.m,a,this.vb)};h.M=function(a){if(".priority"===a)return this.A();a=this.m.get(a);return null===a?C:a};h.oa=function(a){var b=O(a);return null===b?this:this.M(b).oa(G(a))};h.Ha=function(a){return null!==this.m.get(a)};
+h.Q=function(a,b){J(b,"We should always be passing snapshot nodes");if(".priority"===a)return this.da(b);var c=new E(a,b),d,e;b.e()?(d=this.m.remove(a),c=ie(this.vb,c,this.m)):(d=this.m.Na(a,b),c=ge(this.vb,c,this.m));e=d.e()?C:this.ba;return new T(d,e,c)};h.G=function(a,b){var c=O(a);if(null===c)return b;J(".priority"!==O(a)||1===uc(a),".priority must be the last token in a path");var d=this.M(c).G(G(a),b);return this.Q(c,d)};h.e=function(){return this.m.e()};h.Cb=function(){return this.m.count()};
+var ne=/^(0|[1-9]\d*)$/;h=T.prototype;h.K=function(a){if(this.e())return null;var b={},c=0,d=0,e=!0;this.U(M,function(f,g){b[f]=g.K(a);c++;e&&ne.test(f)?d=Math.max(d,Number(f)):e=!1});if(!a&&e&&d<2*c){var f=[],g;for(g in b)f[g]=b[g];return f}a&&!this.A().e()&&(b[".priority"]=this.A().K());return b};h.hash=function(){if(null===this.Ab){var a="";this.A().e()||(a+="priority:"+le(this.A().K())+":");this.U(M,function(b,c){var d=c.hash();""!==d&&(a+=":"+b+":"+d)});this.Ab=""===a?"":Jc(a)}return this.Ab};
+h.nf=function(a,b,c){return(c=oe(this,c))?(a=cc(c,new E(a,b)))?a.name:null:cc(this.m,a)};function wd(a,b){var c;c=(c=oe(a,b))?(c=c.Rc())&&c.name:a.m.Rc();return c?new E(c,a.m.get(c)):null}function xd(a,b){var c;c=(c=oe(a,b))?(c=c.fc())&&c.name:a.m.fc();return c?new E(c,a.m.get(c)):null}h.U=function(a,b){var c=oe(this,a);return c?c.ha(function(a){return b(a.name,a.S)}):this.m.ha(b)};h.Xb=function(a){return this.Yb(a.Sc(),a)};
+h.Yb=function(a,b){var c=oe(this,b);if(c)return c.Yb(a,function(a){return a});for(var c=this.m.Yb(a.name,Qb),d=ec(c);null!=d&&0>b.compare(d,a);)H(c),d=ec(c);return c};h.of=function(a){return this.$b(a.Pc(),a)};h.$b=function(a,b){var c=oe(this,b);if(c)return c.$b(a,function(a){return a});for(var c=this.m.$b(a.name,Qb),d=ec(c);null!=d&&0<b.compare(d,a);)H(c),d=ec(c);return c};h.Cc=function(a){return this.e()?a.e()?0:-1:a.N()||a.e()?1:a===Sd?-1:0};
+h.mb=function(a){if(a===Vd||ta(this.vb.dc,a.toString()))return this;var b=this.vb,c=this.m;J(a!==Vd,"KeyIndex always exists and isn't meant to be added to the IndexMap.");for(var d=[],e=!1,c=c.Xb(Qb),f=H(c);f;)e=e||a.Hc(f.S),d.push(f),f=H(c);d=e?he(d,vd(a)):Pd;e=a.toString();c=xa(b.dc);c[e]=a;a=xa(b.Ad);a[e]=d;return new T(this.m,this.ba,new fe(a,c))};h.Ic=function(a){return a===Vd||ta(this.vb.dc,a.toString())};
+h.Z=function(a){if(a===this)return!0;if(a.N())return!1;if(this.A().Z(a.A())&&this.m.count()===a.m.count()){var b=this.Xb(M);a=a.Xb(M);for(var c=H(b),d=H(a);c&&d;){if(c.name!==d.name||!c.S.Z(d.S))return!1;c=H(b);d=H(a)}return null===c&&null===d}return!1};function oe(a,b){return b===Vd?null:a.vb.get(b.toString())}h.toString=function(){return B(this.K(!0))};function L(a,b){if(null===a)return C;var c=null;"object"===typeof a&&".priority"in a?c=a[".priority"]:"undefined"!==typeof b&&(c=b);J(null===c||"string"===typeof c||"number"===typeof c||"object"===typeof c&&".sv"in c,"Invalid priority type found: "+typeof c);"object"===typeof a&&".value"in a&&null!==a[".value"]&&(a=a[".value"]);if("object"!==typeof a||".sv"in a)return new tc(a,L(c));if(a instanceof Array){var d=C,e=a;r(e,function(a,b){if(u(e,b)&&"."!==b.substring(0,1)){var c=L(a);if(c.N()||!c.e())d=
+d.Q(b,c)}});return d.da(L(c))}var f=[],g=!1,k=a;hb(k,function(a){if("string"!==typeof a||"."!==a.substring(0,1)){var b=L(k[a]);b.e()||(g=g||!b.A().e(),f.push(new E(a,b)))}});if(0==f.length)return C;var l=he(f,Rb,function(a){return a.name},Tb);if(g){var m=he(f,vd(M));return new T(l,L(c),new fe({".priority":m},{".priority":M}))}return new T(l,L(c),je)}var pe=Math.log(2);
+function qe(a){this.count=parseInt(Math.log(a+1)/pe,10);this.ff=this.count-1;this.Zf=a+1&parseInt(Array(this.count+1).join("1"),2)}function re(a){var b=!(a.Zf&1<<a.ff);a.ff--;return b}
+function he(a,b,c,d){function e(b,d){var f=d-b;if(0==f)return null;if(1==f){var m=a[b],v=c?c(m):m;return new fc(v,m.S,!1,null,null)}var m=parseInt(f/2,10)+b,f=e(b,m),y=e(m+1,d),m=a[m],v=c?c(m):m;return new fc(v,m.S,!1,f,y)}a.sort(b);var f=function(b){function d(b,g){var k=v-b,y=v;v-=b;var y=e(k+1,y),k=a[k],I=c?c(k):k,y=new fc(I,k.S,g,null,y);f?f.left=y:m=y;f=y}for(var f=null,m=null,v=a.length,y=0;y<b.count;++y){var I=re(b),ud=Math.pow(2,b.count-(y+1));I?d(ud,!1):(d(ud,!1),d(ud,!0))}return m}(new qe(a.length));
+return null!==f?new ac(d||b,f):new ac(d||b)}function le(a){return"number"===typeof a?"number:"+Zc(a):"string:"+a}function ke(a){if(a.N()){var b=a.K();J("string"===typeof b||"number"===typeof b||"object"===typeof b&&u(b,".sv"),"Priority must be a string or number.")}else J(a===Sd||a.e(),"priority of unexpected type.");J(a===Sd||a.A().e(),"Priority nodes can't have a priority of their own.")}var C=new T(new ac(Tb),null,je);function se(){T.call(this,new ac(Tb),C,je)}ma(se,T);h=se.prototype;
+h.Cc=function(a){return a===this?0:1};h.Z=function(a){return a===this};h.A=function(){return this};h.M=function(){return C};h.e=function(){return!1};var Sd=new se,Qd=new E("[MIN_NAME]",C),Xd=new E("[MAX_NAME]",Sd);function Id(a,b){this.D=a;this.Vd=b}function Fd(a,b,c,d){return new Id(new sb(b,c,d),a.Vd)}function Jd(a){return a.D.$?a.D.j():null}Id.prototype.u=function(){return this.Vd};function tb(a){return a.Vd.$?a.Vd.j():null};function te(a,b){this.V=a;var c=a.n,d=new ld(c.g),c=de(c)?new ld(c.g):c.ia?new rd(c):new md(c);this.Cf=new zd(c);var e=b.u(),f=b.D,g=d.ta(C,e.j(),null),k=c.ta(C,f.j(),null);this.Ka=new Id(new sb(k,f.$,c.Ga()),new sb(g,e.$,d.Ga()));this.Za=[];this.fg=new dd(a)}function ue(a){return a.V}h=te.prototype;h.u=function(){return this.Ka.u().j()};h.hb=function(a){var b=tb(this.Ka);return b&&(de(this.V.n)||!a.e()&&!b.M(O(a)).e())?b.oa(a):null};h.e=function(){return 0===this.Za.length};h.Ob=function(a){this.Za.push(a)};
+h.kb=function(a,b){var c=[];if(b){J(null==a,"A cancel should cancel all event registrations.");var d=this.V.path;Oa(this.Za,function(a){(a=a.df(b,d))&&c.push(a)})}if(a){for(var e=[],f=0;f<this.Za.length;++f){var g=this.Za[f];if(!g.matches(a))e.push(g);else if(a.pf()){e=e.concat(this.Za.slice(f+1));break}}this.Za=e}else this.Za=[];return c};
+h.bb=function(a,b,c){a.type===Cd&&null!==a.source.Hb&&(J(tb(this.Ka),"We should always have a full cache before handling merges"),J(Jd(this.Ka),"Missing event cache, even though we have a server cache"));var d=this.Ka;a=this.Cf.bb(d,a,b,c);b=this.Cf;c=a.ie;J(c.D.j().Ic(b.I.g),"Event snap not indexed");J(c.u().j().Ic(b.I.g),"Server snap not indexed");J(Hb(a.ie.u())||!Hb(d.u()),"Once a server snap is complete, it should never go back");this.Ka=a.ie;return ve(this,a.$f,a.ie.D.j(),null)};
+function we(a,b){var c=a.Ka.D,d=[];c.j().N()||c.j().U(M,function(a,b){d.push(new D("child_added",b,a))});c.$&&d.push(Db(c.j()));return ve(a,d,c.j(),b)}function ve(a,b,c,d){return ed(a.fg,b,c,d?[d]:a.Za)};function xe(a,b,c){this.type=Cd;this.source=a;this.path=b;this.children=c}xe.prototype.Xc=function(a){if(this.path.e())return a=this.children.subtree(new K(a)),a.e()?null:a.value?new Ub(this.source,F,a.value):new xe(this.source,F,a);J(O(this.path)===a,"Can't get a merge for a child not on the path of the operation");return new xe(this.source,G(this.path),this.children)};xe.prototype.toString=function(){return"Operation("+this.path+": "+this.source.toString()+" merge: "+this.children.toString()+")"};var Vb=0,Cd=1,Xb=2,$b=3;function ye(a,b,c,d){this.we=a;this.lf=b;this.Hb=c;this.Ze=d;J(!d||b,"Tagged queries must be from server.")}var Yb=new ye(!0,!1,null,!1),ze=new ye(!1,!0,null,!1);ye.prototype.toString=function(){return this.we?"user":this.Ze?"server(queryID="+this.Hb+")":"server"};function Ae(a,b){this.f=Oc("p:rest:");this.H=a;this.Fb=b;this.Fa=null;this.aa={}}function Be(a,b){if(n(b))return"tag$"+b;var c=a.n;J(de(c)&&c.g==M,"should have a tag if it's not a default query.");return a.path.toString()}h=Ae.prototype;
+h.sf=function(a,b,c,d){var e=a.path.toString();this.f("Listen called for "+e+" "+a.wa());var f=Be(a,c),g={};this.aa[f]=g;a=ee(a.n);var k=this;Ce(this,e+".json",a,function(a,b){var v=b;404===a&&(a=v=null);null===a&&k.Fb(e,v,!1,c);w(k.aa,f)===g&&d(a?401==a?"permission_denied":"rest_error:"+a:"ok",null)})};h.Lf=function(a,b){var c=Be(a,b);delete this.aa[c]};h.P=function(a,b){this.Fa=a;var c=ad(a),d=c.data,c=c.Ac&&c.Ac.exp;b&&b("ok",{auth:d,expires:c})};h.fe=function(a){this.Fa=null;a("ok",null)};
+h.Le=function(){};h.xf=function(){};h.Id=function(){};h.put=function(){};h.tf=function(){};h.Df=function(){};
+function Ce(a,b,c,d){c=c||{};c.format="export";a.Fa&&(c.auth=a.Fa);var e=(a.H.lb?"https://":"http://")+a.H.host+b+"?"+jb(c);a.f("Sending REST request for "+e);var f=new XMLHttpRequest;f.onreadystatechange=function(){if(d&&4===f.readyState){a.f("REST Response for "+e+" received. status:",f.status,"response:",f.responseText);var b=null;if(200<=f.status&&300>f.status){try{b=mb(f.responseText)}catch(c){Q("Failed to parse JSON response for "+e+": "+f.responseText)}d(null,b)}else 401!==f.status&&404!==
+f.status&&Q("Got unsuccessful REST response for "+e+" Status: "+f.status),d(f.status);d=null}};f.open("GET",e,!0);f.send()};function De(a,b){this.value=a;this.children=b||Ee}var Ee=new ac(function(a,b){return a===b?0:a<b?-1:1});function Fe(a){var b=Nd;r(a,function(a,d){b=b.set(new K(d),a)});return b}h=De.prototype;h.e=function(){return null===this.value&&this.children.e()};function Ge(a,b,c){if(null!=a.value&&c(a.value))return{path:F,value:a.value};if(b.e())return null;var d=O(b);a=a.children.get(d);return null!==a?(b=Ge(a,G(b),c),null!=b?{path:(new K(d)).w(b.path),value:b.value}:null):null}
+function He(a,b){return Ge(a,b,function(){return!0})}h.subtree=function(a){if(a.e())return this;var b=this.children.get(O(a));return null!==b?b.subtree(G(a)):Nd};h.set=function(a,b){if(a.e())return new De(b,this.children);var c=O(a),d=(this.children.get(c)||Nd).set(G(a),b),c=this.children.Na(c,d);return new De(this.value,c)};
+h.remove=function(a){if(a.e())return this.children.e()?Nd:new De(null,this.children);var b=O(a),c=this.children.get(b);return c?(a=c.remove(G(a)),b=a.e()?this.children.remove(b):this.children.Na(b,a),null===this.value&&b.e()?Nd:new De(this.value,b)):this};h.get=function(a){if(a.e())return this.value;var b=this.children.get(O(a));return b?b.get(G(a)):null};
+function Md(a,b,c){if(b.e())return c;var d=O(b);b=Md(a.children.get(d)||Nd,G(b),c);d=b.e()?a.children.remove(d):a.children.Na(d,b);return new De(a.value,d)}function Ie(a,b){return Je(a,F,b)}function Je(a,b,c){var d={};a.children.ha(function(a,f){d[a]=Je(f,b.w(a),c)});return c(b,a.value,d)}function Ke(a,b,c){return Le(a,b,F,c)}function Le(a,b,c,d){var e=a.value?d(c,a.value):!1;if(e)return e;if(b.e())return null;e=O(b);return(a=a.children.get(e))?Le(a,G(b),c.w(e),d):null}
+function Me(a,b,c){var d=F;if(!b.e()){var e=!0;a.value&&(e=c(d,a.value));!0===e&&(e=O(b),(a=a.children.get(e))&&Ne(a,G(b),d.w(e),c))}}function Ne(a,b,c,d){if(b.e())return a;a.value&&d(c,a.value);var e=O(b);return(a=a.children.get(e))?Ne(a,G(b),c.w(e),d):Nd}function Kd(a,b){Oe(a,F,b)}function Oe(a,b,c){a.children.ha(function(a,e){Oe(e,b.w(a),c)});a.value&&c(b,a.value)}function Pe(a,b){a.children.ha(function(a,d){d.value&&b(a,d.value)})}var Nd=new De(null);
+De.prototype.toString=function(){var a={};Kd(this,function(b,c){a[b.toString()]=c.toString()});return B(a)};function Qe(a){this.W=a}var Re=new Qe(new De(null));function Se(a,b,c){if(b.e())return new Qe(new De(c));var d=He(a.W,b);if(null!=d){var e=d.path,d=d.value;b=N(e,b);d=d.G(b,c);return new Qe(a.W.set(e,d))}a=Md(a.W,b,new De(c));return new Qe(a)}function Te(a,b,c){var d=a;hb(c,function(a,c){d=Se(d,b.w(a),c)});return d}Qe.prototype.Qd=function(a){if(a.e())return Re;a=Md(this.W,a,Nd);return new Qe(a)};function Ue(a,b){var c=He(a.W,b);return null!=c?a.W.get(c.path).oa(N(c.path,b)):null}
+function Ve(a){var b=[],c=a.W.value;null!=c?c.N()||c.U(M,function(a,c){b.push(new E(a,c))}):a.W.children.ha(function(a,c){null!=c.value&&b.push(new E(a,c.value))});return b}function We(a,b){if(b.e())return a;var c=Ue(a,b);return null!=c?new Qe(new De(c)):new Qe(a.W.subtree(b))}Qe.prototype.e=function(){return this.W.e()};Qe.prototype.apply=function(a){return Xe(F,this.W,a)};
+function Xe(a,b,c){if(null!=b.value)return c.G(a,b.value);var d=null;b.children.ha(function(b,f){".priority"===b?(J(null!==f.value,"Priority writes must always be leaf nodes"),d=f.value):c=Xe(a.w(b),f,c)});c.oa(a).e()||null===d||(c=c.G(a.w(".priority"),d));return c};function Ye(){this.T=Re;this.za=[];this.Lc=-1}h=Ye.prototype;
+h.Qd=function(a){var b=Ua(this.za,function(b){return b.je===a});J(0<=b,"removeWrite called with nonexistent writeId.");var c=this.za[b];this.za.splice(b,1);for(var d=c.visible,e=!1,f=this.za.length-1;d&&0<=f;){var g=this.za[f];g.visible&&(f>=b&&Ze(g,c.path)?d=!1:c.path.contains(g.path)&&(e=!0));f--}if(d){if(e)this.T=$e(this.za,af,F),this.Lc=0<this.za.length?this.za[this.za.length-1].je:-1;else if(c.Ia)this.T=this.T.Qd(c.path);else{var k=this;r(c.children,function(a,b){k.T=k.T.Qd(c.path.w(b))})}return c.path}return null};
+h.ua=function(a,b,c,d){if(c||d){var e=We(this.T,a);return!d&&e.e()?b:d||null!=b||null!=Ue(e,F)?(e=$e(this.za,function(b){return(b.visible||d)&&(!c||!(0<=Na(c,b.je)))&&(b.path.contains(a)||a.contains(b.path))},a),b=b||C,e.apply(b)):null}e=Ue(this.T,a);if(null!=e)return e;e=We(this.T,a);return e.e()?b:null!=b||null!=Ue(e,F)?(b=b||C,e.apply(b)):null};
+h.xc=function(a,b){var c=C,d=Ue(this.T,a);if(d)d.N()||d.U(M,function(a,b){c=c.Q(a,b)});else if(b){var e=We(this.T,a);b.U(M,function(a,b){var d=We(e,new K(a)).apply(b);c=c.Q(a,d)});Oa(Ve(e),function(a){c=c.Q(a.name,a.S)})}else e=We(this.T,a),Oa(Ve(e),function(a){c=c.Q(a.name,a.S)});return c};h.kd=function(a,b,c,d){J(c||d,"Either existingEventSnap or existingServerSnap must exist");a=a.w(b);if(null!=Ue(this.T,a))return null;a=We(this.T,a);return a.e()?d.oa(b):a.apply(d.oa(b))};
+h.Xa=function(a,b,c){a=a.w(b);var d=Ue(this.T,a);return null!=d?d:rb(c,b)?We(this.T,a).apply(c.j().M(b)):null};h.sc=function(a){return Ue(this.T,a)};h.ne=function(a,b,c,d,e,f){var g;a=We(this.T,a);g=Ue(a,F);if(null==g)if(null!=b)g=a.apply(b);else return[];g=g.mb(f);if(g.e()||g.N())return[];b=[];a=vd(f);e=e?g.$b(c,f):g.Yb(c,f);for(f=H(e);f&&b.length<d;)0!==a(f,c)&&b.push(f),f=H(e);return b};
+function Ze(a,b){return a.Ia?a.path.contains(b):!!ua(a.children,function(c,d){return a.path.w(d).contains(b)})}function af(a){return a.visible}
+function $e(a,b,c){for(var d=Re,e=0;e<a.length;++e){var f=a[e];if(b(f)){var g=f.path;if(f.Ia)c.contains(g)?(g=N(c,g),d=Se(d,g,f.Ia)):g.contains(c)&&(g=N(g,c),d=Se(d,F,f.Ia.oa(g)));else if(f.children)if(c.contains(g))g=N(c,g),d=Te(d,g,f.children);else{if(g.contains(c))if(g=N(g,c),g.e())d=Te(d,F,f.children);else if(f=w(f.children,O(g)))f=f.oa(G(g)),d=Se(d,F,f)}else throw Hc("WriteRecord should have .snap or .children");}}return d}function bf(a,b){this.Mb=a;this.W=b}h=bf.prototype;
+h.ua=function(a,b,c){return this.W.ua(this.Mb,a,b,c)};h.xc=function(a){return this.W.xc(this.Mb,a)};h.kd=function(a,b,c){return this.W.kd(this.Mb,a,b,c)};h.sc=function(a){return this.W.sc(this.Mb.w(a))};h.ne=function(a,b,c,d,e){return this.W.ne(this.Mb,a,b,c,d,e)};h.Xa=function(a,b){return this.W.Xa(this.Mb,a,b)};h.w=function(a){return new bf(this.Mb.w(a),this.W)};function cf(){this.ya={}}h=cf.prototype;h.e=function(){return wa(this.ya)};h.bb=function(a,b,c){var d=a.source.Hb;if(null!==d)return d=w(this.ya,d),J(null!=d,"SyncTree gave us an op for an invalid query."),d.bb(a,b,c);var e=[];r(this.ya,function(d){e=e.concat(d.bb(a,b,c))});return e};h.Ob=function(a,b,c,d,e){var f=a.wa(),g=w(this.ya,f);if(!g){var g=c.ua(e?d:null),k=!1;g?k=!0:(g=d instanceof T?c.xc(d):C,k=!1);g=new te(a,new Id(new sb(g,k,!1),new sb(d,e,!1)));this.ya[f]=g}g.Ob(b);return we(g,b)};
+h.kb=function(a,b,c){var d=a.wa(),e=[],f=[],g=null!=df(this);if("default"===d){var k=this;r(this.ya,function(a,d){f=f.concat(a.kb(b,c));a.e()&&(delete k.ya[d],de(a.V.n)||e.push(a.V))})}else{var l=w(this.ya,d);l&&(f=f.concat(l.kb(b,c)),l.e()&&(delete this.ya[d],de(l.V.n)||e.push(l.V)))}g&&null==df(this)&&e.push(new U(a.k,a.path));return{Eg:e,gg:f}};function ef(a){return Pa(ra(a.ya),function(a){return!de(a.V.n)})}h.hb=function(a){var b=null;r(this.ya,function(c){b=b||c.hb(a)});return b};
+function ff(a,b){if(de(b.n))return df(a);var c=b.wa();return w(a.ya,c)}function df(a){return va(a.ya,function(a){return de(a.V.n)})||null};function gf(a){this.sa=Nd;this.Gb=new Ye;this.Ye={};this.kc={};this.Mc=a}function hf(a,b,c,d,e){var f=a.Gb,g=e;J(d>f.Lc,"Stacking an older write on top of newer ones");n(g)||(g=!0);f.za.push({path:b,Ia:c,je:d,visible:g});g&&(f.T=Se(f.T,b,c));f.Lc=d;return e?jf(a,new Ub(Yb,b,c)):[]}function kf(a,b,c,d){var e=a.Gb;J(d>e.Lc,"Stacking an older merge on top of newer ones");e.za.push({path:b,children:c,je:d,visible:!0});e.T=Te(e.T,b,c);e.Lc=d;c=Fe(c);return jf(a,new xe(Yb,b,c))}
+function lf(a,b,c){c=c||!1;b=a.Gb.Qd(b);return null==b?[]:jf(a,new Wb(b,c))}function mf(a,b,c){c=Fe(c);return jf(a,new xe(ze,b,c))}function nf(a,b,c,d){d=of(a,d);if(null!=d){var e=pf(d);d=e.path;e=e.Hb;b=N(d,b);c=new Ub(new ye(!1,!0,e,!0),b,c);return qf(a,d,c)}return[]}function rf(a,b,c,d){if(d=of(a,d)){var e=pf(d);d=e.path;e=e.Hb;b=N(d,b);c=Fe(c);c=new xe(new ye(!1,!0,e,!0),b,c);return qf(a,d,c)}return[]}
+gf.prototype.Ob=function(a,b){var c=a.path,d=null,e=!1;Me(this.sa,c,function(a,b){var f=N(a,c);d=b.hb(f);e=e||null!=df(b);return!d});var f=this.sa.get(c);f?(e=e||null!=df(f),d=d||f.hb(F)):(f=new cf,this.sa=this.sa.set(c,f));var g;null!=d?g=!0:(g=!1,d=C,Pe(this.sa.subtree(c),function(a,b){var c=b.hb(F);c&&(d=d.Q(a,c))}));var k=null!=ff(f,a);if(!k&&!de(a.n)){var l=sf(a);J(!(l in this.kc),"View does not exist, but we have a tag");var m=tf++;this.kc[l]=m;this.Ye["_"+m]=l}g=f.Ob(a,b,new bf(c,this.Gb),
+d,g);k||e||(f=ff(f,a),g=g.concat(uf(this,a,f)));return g};
+gf.prototype.kb=function(a,b,c){var d=a.path,e=this.sa.get(d),f=[];if(e&&("default"===a.wa()||null!=ff(e,a))){f=e.kb(a,b,c);e.e()&&(this.sa=this.sa.remove(d));e=f.Eg;f=f.gg;b=-1!==Ua(e,function(a){return de(a.n)});var g=Ke(this.sa,d,function(a,b){return null!=df(b)});if(b&&!g&&(d=this.sa.subtree(d),!d.e()))for(var d=vf(d),k=0;k<d.length;++k){var l=d[k],m=l.V,l=wf(this,l);this.Mc.Ve(m,xf(this,m),l.wd,l.J)}if(!g&&0<e.length&&!c)if(b)this.Mc.$d(a,null);else{var v=this;Oa(e,function(a){a.wa();var b=v.kc[sf(a)];
+v.Mc.$d(a,b)})}yf(this,e)}return f};gf.prototype.ua=function(a,b){var c=this.Gb,d=Ke(this.sa,a,function(b,c){var d=N(b,a);if(d=c.hb(d))return d});return c.ua(a,d,b,!0)};function vf(a){return Ie(a,function(a,c,d){if(c&&null!=df(c))return[df(c)];var e=[];c&&(e=ef(c));r(d,function(a){e=e.concat(a)});return e})}function yf(a,b){for(var c=0;c<b.length;++c){var d=b[c];if(!de(d.n)){var d=sf(d),e=a.kc[d];delete a.kc[d];delete a.Ye["_"+e]}}}
+function uf(a,b,c){var d=b.path,e=xf(a,b);c=wf(a,c);b=a.Mc.Ve(b,e,c.wd,c.J);d=a.sa.subtree(d);if(e)J(null==df(d.value),"If we're adding a query, it shouldn't be shadowed");else for(e=Ie(d,function(a,b,c){if(!a.e()&&b&&null!=df(b))return[ue(df(b))];var d=[];b&&(d=d.concat(Qa(ef(b),function(a){return a.V})));r(c,function(a){d=d.concat(a)});return d}),d=0;d<e.length;++d)c=e[d],a.Mc.$d(c,xf(a,c));return b}
+function wf(a,b){var c=b.V,d=xf(a,c);return{wd:function(){return(b.u()||C).hash()},J:function(b){if("ok"===b){if(d){var f=c.path;if(b=of(a,d)){var g=pf(b);b=g.path;g=g.Hb;f=N(b,f);f=new Zb(new ye(!1,!0,g,!0),f);b=qf(a,b,f)}else b=[]}else b=jf(a,new Zb(ze,c.path));return b}f="Unknown Error";"too_big"===b?f="The data requested exceeds the maximum size that can be accessed with a single request.":"permission_denied"==b?f="Client doesn't have permission to access the desired data.":"unavailable"==b&&
+(f="The service is unavailable");f=Error(b+": "+f);f.code=b.toUpperCase();return a.kb(c,null,f)}}}function sf(a){return a.path.toString()+"$"+a.wa()}function pf(a){var b=a.indexOf("$");J(-1!==b&&b<a.length-1,"Bad queryKey.");return{Hb:a.substr(b+1),path:new K(a.substr(0,b))}}function of(a,b){var c=a.Ye,d="_"+b;return d in c?c[d]:void 0}function xf(a,b){var c=sf(b);return w(a.kc,c)}var tf=1;
+function qf(a,b,c){var d=a.sa.get(b);J(d,"Missing sync point for query tag that we're tracking");return d.bb(c,new bf(b,a.Gb),null)}function jf(a,b){return zf(a,b,a.sa,null,new bf(F,a.Gb))}function zf(a,b,c,d,e){if(b.path.e())return Af(a,b,c,d,e);var f=c.get(F);null==d&&null!=f&&(d=f.hb(F));var g=[],k=O(b.path),l=b.Xc(k);if((c=c.children.get(k))&&l)var m=d?d.M(k):null,k=e.w(k),g=g.concat(zf(a,l,c,m,k));f&&(g=g.concat(f.bb(b,e,d)));return g}
+function Af(a,b,c,d,e){var f=c.get(F);null==d&&null!=f&&(d=f.hb(F));var g=[];c.children.ha(function(c,f){var m=d?d.M(c):null,v=e.w(c),y=b.Xc(c);y&&(g=g.concat(Af(a,y,f,m,v)))});f&&(g=g.concat(f.bb(b,e,d)));return g};function Bf(){this.children={};this.md=0;this.value=null}function Cf(a,b,c){this.Fd=a?a:"";this.Zc=b?b:null;this.B=c?c:new Bf}function Df(a,b){for(var c=b instanceof K?b:new K(b),d=a,e;null!==(e=O(c));)d=new Cf(e,d,w(d.B.children,e)||new Bf),c=G(c);return d}h=Cf.prototype;h.Ba=function(){return this.B.value};function Ef(a,b){J("undefined"!==typeof b,"Cannot set value to undefined");a.B.value=b;Ff(a)}h.clear=function(){this.B.value=null;this.B.children={};this.B.md=0;Ff(this)};
+h.vd=function(){return 0<this.B.md};h.e=function(){return null===this.Ba()&&!this.vd()};h.U=function(a){var b=this;r(this.B.children,function(c,d){a(new Cf(d,b,c))})};function Gf(a,b,c,d){c&&!d&&b(a);a.U(function(a){Gf(a,b,!0,d)});c&&d&&b(a)}function Hf(a,b){for(var c=a.parent();null!==c&&!b(c);)c=c.parent()}h.path=function(){return new K(null===this.Zc?this.Fd:this.Zc.path()+"/"+this.Fd)};h.name=function(){return this.Fd};h.parent=function(){return this.Zc};
+function Ff(a){if(null!==a.Zc){var b=a.Zc,c=a.Fd,d=a.e(),e=u(b.B.children,c);d&&e?(delete b.B.children[c],b.B.md--,Ff(b)):d||e||(b.B.children[c]=a.B,b.B.md++,Ff(b))}};function If(a){J(ea(a)&&0<a.length,"Requires a non-empty array");this.Rf=a;this.Nc={}}If.prototype.ee=function(a,b){for(var c=this.Nc[a]||[],d=0;d<c.length;d++)c[d].yc.apply(c[d].Ma,Array.prototype.slice.call(arguments,1))};If.prototype.Db=function(a,b,c){Jf(this,a);this.Nc[a]=this.Nc[a]||[];this.Nc[a].push({yc:b,Ma:c});(a=this.Ae(a))&&b.apply(c,a)};If.prototype.hc=function(a,b,c){Jf(this,a);a=this.Nc[a]||[];for(var d=0;d<a.length;d++)if(a[d].yc===b&&(!c||c===a[d].Ma)){a.splice(d,1);break}};
+function Jf(a,b){J(Ta(a.Rf,function(a){return a===b}),"Unknown event: "+b)};var Kf=function(){var a=0,b=[];return function(c){var d=c===a;a=c;for(var e=Array(8),f=7;0<=f;f--)e[f]="-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz".charAt(c%64),c=Math.floor(c/64);J(0===c,"Cannot push at time == 0");c=e.join("");if(d){for(f=11;0<=f&&63===b[f];f--)b[f]=0;b[f]++}else for(f=0;12>f;f++)b[f]=Math.floor(64*Math.random());for(f=0;12>f;f++)c+="-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz".charAt(b[f]);J(20===c.length,"nextPushId: Length should be 20.");
+return c}}();function Lf(){If.call(this,["online"]);this.Wc=!0;if("undefined"!==typeof window&&"undefined"!==typeof window.addEventListener){var a=this;window.addEventListener("online",function(){a.Wc||a.ee("online",!0);a.Wc=!0},!1);window.addEventListener("offline",function(){a.Wc&&a.ee("online",!1);a.Wc=!1},!1)}}ma(Lf,If);Lf.prototype.Ae=function(a){J("online"===a,"Unknown event type: "+a);return[this.Wc]};ca(Lf);function Mf(){If.call(this,["visible"]);var a,b;"undefined"!==typeof document&&"undefined"!==typeof document.addEventListener&&("undefined"!==typeof document.hidden?(b="visibilitychange",a="hidden"):"undefined"!==typeof document.mozHidden?(b="mozvisibilitychange",a="mozHidden"):"undefined"!==typeof document.msHidden?(b="msvisibilitychange",a="msHidden"):"undefined"!==typeof document.webkitHidden&&(b="webkitvisibilitychange",a="webkitHidden"));this.uc=!0;if(b){var c=this;document.addEventListener(b,
+function(){var b=!document[a];b!==c.uc&&(c.uc=b,c.ee("visible",b))},!1)}}ma(Mf,If);Mf.prototype.Ae=function(a){J("visible"===a,"Unknown event type: "+a);return[this.uc]};ca(Mf);var Nf=/[\[\].#$\/\u0000-\u001F\u007F]/,Of=/[\[\].#$\u0000-\u001F\u007F]/;function Pf(a){return p(a)&&0!==a.length&&!Nf.test(a)}function Qf(a){return null===a||p(a)||ga(a)&&!Sc(a)||ia(a)&&u(a,".sv")}function Rf(a,b,c,d){d&&!n(b)||Sf(z(a,1,d),b,c)}
+function Sf(a,b,c){c instanceof K&&(c=new wc(c,a));if(!n(b))throw Error(a+"contains undefined "+zc(c));if(ha(b))throw Error(a+"contains a function "+zc(c)+" with contents: "+b.toString());if(Sc(b))throw Error(a+"contains "+b.toString()+" "+zc(c));if(p(b)&&b.length>10485760/3&&10485760<xc(b))throw Error(a+"contains a string greater than 10485760 utf8 bytes "+zc(c)+" ('"+b.substring(0,50)+"...')");if(ia(b)){var d=!1,e=!1;hb(b,function(b,g){if(".value"===b)d=!0;else if(".priority"!==b&&".sv"!==b&&(e=
+!0,!Pf(b)))throw Error(a+" contains an invalid key ("+b+") "+zc(c)+'.  Keys must be non-empty strings and can\'t contain ".", "#", "$", "/", "[", or "]"');c.push(b);Sf(a,g,c);c.pop()});if(d&&e)throw Error(a+' contains ".value" child '+zc(c)+" in addition to actual children.");}}
+function Tf(a,b,c){if(!ia(b)||ea(b))throw Error(z(a,1,!1)+" must be an Object containing the children to replace.");if(u(b,".value"))throw Error(z(a,1,!1)+' must not contain ".value".  To overwrite with a leaf value, just use .set() instead.');Rf(a,b,c,!1)}
+function Uf(a,b,c){if(Sc(c))throw Error(z(a,b,!1)+"is "+c.toString()+", but must be a valid Firebase priority (a string, finite number, server value, or null).");if(!Qf(c))throw Error(z(a,b,!1)+"must be a valid Firebase priority (a string, finite number, server value, or null).");}
+function Vf(a,b,c){if(!c||n(b))switch(b){case "value":case "child_added":case "child_removed":case "child_changed":case "child_moved":break;default:throw Error(z(a,1,c)+'must be a valid event type: "value", "child_added", "child_removed", "child_changed", or "child_moved".');}}function Wf(a,b,c,d){if((!d||n(c))&&!Pf(c))throw Error(z(a,b,d)+'was an invalid key: "'+c+'".  Firebase keys must be non-empty strings and can\'t contain ".", "#", "$", "/", "[", or "]").');}
+function Xf(a,b){if(!p(b)||0===b.length||Of.test(b))throw Error(z(a,1,!1)+'was an invalid path: "'+b+'". Paths must be non-empty strings and can\'t contain ".", "#", "$", "[", or "]"');}function Yf(a,b){if(".info"===O(b))throw Error(a+" failed: Can't modify data under /.info/");}function Zf(a,b){if(!p(b))throw Error(z(a,1,!1)+"must be a valid credential (a string).");}function $f(a,b,c){if(!p(c))throw Error(z(a,b,!1)+"must be a valid string.");}
+function ag(a,b,c,d){if(!d||n(c))if(!ia(c)||null===c)throw Error(z(a,b,d)+"must be a valid object.");}function bg(a,b,c){if(!ia(b)||null===b||!u(b,c))throw Error(z(a,1,!1)+'must contain the key "'+c+'"');if(!p(w(b,c)))throw Error(z(a,1,!1)+'must contain the key "'+c+'" with type "string"');};function cg(){this.set={}}h=cg.prototype;h.add=function(a,b){this.set[a]=null!==b?b:!0};h.contains=function(a){return u(this.set,a)};h.get=function(a){return this.contains(a)?this.set[a]:void 0};h.remove=function(a){delete this.set[a]};h.clear=function(){this.set={}};h.e=function(){return wa(this.set)};h.count=function(){return pa(this.set)};function dg(a,b){r(a.set,function(a,d){b(d,a)})}h.keys=function(){var a=[];r(this.set,function(b,c){a.push(c)});return a};function qc(){this.m=this.C=null}qc.prototype.find=function(a){if(null!=this.C)return this.C.oa(a);if(a.e()||null==this.m)return null;var b=O(a);a=G(a);return this.m.contains(b)?this.m.get(b).find(a):null};qc.prototype.mc=function(a,b){if(a.e())this.C=b,this.m=null;else if(null!==this.C)this.C=this.C.G(a,b);else{null==this.m&&(this.m=new cg);var c=O(a);this.m.contains(c)||this.m.add(c,new qc);c=this.m.get(c);a=G(a);c.mc(a,b)}};
+function eg(a,b){if(b.e())return a.C=null,a.m=null,!0;if(null!==a.C){if(a.C.N())return!1;var c=a.C;a.C=null;c.U(M,function(b,c){a.mc(new K(b),c)});return eg(a,b)}return null!==a.m?(c=O(b),b=G(b),a.m.contains(c)&&eg(a.m.get(c),b)&&a.m.remove(c),a.m.e()?(a.m=null,!0):!1):!0}function rc(a,b,c){null!==a.C?c(b,a.C):a.U(function(a,e){var f=new K(b.toString()+"/"+a);rc(e,f,c)})}qc.prototype.U=function(a){null!==this.m&&dg(this.m,function(b,c){a(b,c)})};var fg="auth.firebase.com";function gg(a,b,c){this.nd=a||{};this.de=b||{};this.ab=c||{};this.nd.remember||(this.nd.remember="default")}var hg=["remember","redirectTo"];function ig(a){var b={},c={};hb(a||{},function(a,e){0<=Na(hg,a)?b[a]=e:c[a]=e});return new gg(b,{},c)};function jg(a,b){this.Pe=["session",a.Nd,a.Bb].join(":");this.ae=b}jg.prototype.set=function(a,b){if(!b)if(this.ae.length)b=this.ae[0];else throw Error("fb.login.SessionManager : No storage options available!");b.set(this.Pe,a)};jg.prototype.get=function(){var a=Qa(this.ae,q(this.kg,this)),a=Pa(a,function(a){return null!==a});Xa(a,function(a,c){return bd(c.token)-bd(a.token)});return 0<a.length?a.shift():null};jg.prototype.kg=function(a){try{var b=a.get(this.Pe);if(b&&b.token)return b}catch(c){}return null};
+jg.prototype.clear=function(){var a=this;Oa(this.ae,function(b){b.remove(a.Pe)})};function kg(){return!!(window.cordova||window.phonegap||window.PhoneGap)&&/ios|iphone|ipod|ipad|android|blackberry|iemobile/i.test(navigator.userAgent)}function lg(){var a=navigator.userAgent;if("Microsoft Internet Explorer"===navigator.appName){if((a=a.match(/MSIE ([0-9]{1,}[\.0-9]{0,})/))&&1<a.length)return 8<=parseFloat(a[1])}else if(-1<a.indexOf("Trident")&&(a=a.match(/rv:([0-9]{2,2}[\.0-9]{0,})/))&&1<a.length)return 8<=parseFloat(a[1]);return!1};function mg(){var a=window.opener.frames,b;for(b=a.length-1;0<=b;b--)try{if(a[b].location.protocol===window.location.protocol&&a[b].location.host===window.location.host&&"__winchan_relay_frame"===a[b].name)return a[b]}catch(c){}return null}function ng(a,b,c){a.attachEvent?a.attachEvent("on"+b,c):a.addEventListener&&a.addEventListener(b,c,!1)}function og(a,b,c){a.detachEvent?a.detachEvent("on"+b,c):a.removeEventListener&&a.removeEventListener(b,c,!1)}
+function pg(a){/^https?:\/\//.test(a)||(a=window.location.href);var b=/^(https?:\/\/[\-_a-zA-Z\.0-9:]+)/.exec(a);return b?b[1]:a}function qg(a){var b="";try{a=a.replace("#","");var c=kb(a);c&&u(c,"__firebase_request_key")&&(b=w(c,"__firebase_request_key"))}catch(d){}return b}function rg(){var a=Rc(fg);return a.scheme+"://"+a.host+"/v2"}function sg(a){return rg()+"/"+a+"/auth/channel"};function tg(a){var b=this;this.zc=a;this.be="*";lg()?this.Qc=this.yd=mg():(this.Qc=window.opener,this.yd=window);if(!b.Qc)throw"Unable to find relay frame";ng(this.yd,"message",q(this.ic,this));ng(this.yd,"message",q(this.wf,this));try{ug(this,{a:"ready"})}catch(c){ng(this.Qc,"load",function(){ug(b,{a:"ready"})})}ng(window,"unload",q(this.vg,this))}function ug(a,b){b=B(b);lg()?a.Qc.doPost(b,a.be):a.Qc.postMessage(b,a.be)}
+tg.prototype.ic=function(a){var b=this,c;try{c=mb(a.data)}catch(d){}c&&"request"===c.a&&(og(window,"message",this.ic),this.be=a.origin,this.zc&&setTimeout(function(){b.zc(b.be,c.d,function(a,c){b.Yf=!c;b.zc=void 0;ug(b,{a:"response",d:a,forceKeepWindowOpen:c})})},0))};tg.prototype.vg=function(){try{og(this.yd,"message",this.wf)}catch(a){}this.zc&&(ug(this,{a:"error",d:"unknown closed window"}),this.zc=void 0);try{window.close()}catch(b){}};tg.prototype.wf=function(a){if(this.Yf&&"die"===a.data)try{window.close()}catch(b){}};function vg(a){this.oc=Ga()+Ga()+Ga();this.zf=a}vg.prototype.open=function(a,b){P.set("redirect_request_id",this.oc);P.set("redirect_request_id",this.oc);b.requestId=this.oc;b.redirectTo=b.redirectTo||window.location.href;a+=(/\?/.test(a)?"":"?")+jb(b);window.location=a};vg.isAvailable=function(){return!/^file:\//.test(location.href)&&!kg()};vg.prototype.Bc=function(){return"redirect"};var wg={NETWORK_ERROR:"Unable to contact the Firebase server.",SERVER_ERROR:"An unknown server error occurred.",TRANSPORT_UNAVAILABLE:"There are no login transports available for the requested method.",REQUEST_INTERRUPTED:"The browser redirected the page before the login request could complete.",USER_CANCELLED:"The user cancelled authentication."};function xg(a){var b=Error(w(wg,a),a);b.code=a;return b};function yg(a){if(!a.window_features||-1!==navigator.userAgent.indexOf("Fennec/")||-1!==navigator.userAgent.indexOf("Firefox/")&&-1!==navigator.userAgent.indexOf("Android"))a.window_features=void 0;a.window_name||(a.window_name="_blank");this.options=a}
+yg.prototype.open=function(a,b,c){function d(a){g&&(document.body.removeChild(g),g=void 0);v&&(v=clearInterval(v));og(window,"message",e);og(window,"unload",d);if(m&&!a)try{m.close()}catch(b){k.postMessage("die",l)}m=k=void 0}function e(a){if(a.origin===l)try{var b=mb(a.data);"ready"===b.a?k.postMessage(y,l):"error"===b.a?(d(!1),c&&(c(b.d),c=null)):"response"===b.a&&(d(b.forceKeepWindowOpen),c&&(c(null,b.d),c=null))}catch(e){}}var f=lg(),g,k;if(!this.options.relay_url)return c(Error("invalid arguments: origin of url and relay_url must match"));
+var l=pg(a);if(l!==pg(this.options.relay_url))c&&setTimeout(function(){c(Error("invalid arguments: origin of url and relay_url must match"))},0);else{f&&(g=document.createElement("iframe"),g.setAttribute("src",this.options.relay_url),g.style.display="none",g.setAttribute("name","__winchan_relay_frame"),document.body.appendChild(g),k=g.contentWindow);a+=(/\?/.test(a)?"":"?")+jb(b);var m=window.open(a,this.options.window_name,this.options.window_features);k||(k=m);var v=setInterval(function(){m&&m.closed&&
+(d(!1),c&&(c(xg("USER_CANCELLED")),c=null))},500),y=B({a:"request",d:b});ng(window,"unload",d);ng(window,"message",e)}};
+yg.isAvailable=function(){return"postMessage"in window&&!/^file:\//.test(location.href)&&!(kg()||navigator.userAgent.match(/Windows Phone/)||window.Windows&&/^ms-appx:/.test(location.href)||navigator.userAgent.match(/(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/i)||navigator.userAgent.match(/CriOS/)||navigator.userAgent.match(/Twitter for iPhone/)||navigator.userAgent.match(/FBAN\/FBIOS/)||window.navigator.standalone)&&!navigator.userAgent.match(/PhantomJS/)};yg.prototype.Bc=function(){return"popup"};function zg(a){a.method||(a.method="GET");a.headers||(a.headers={});a.headers.content_type||(a.headers.content_type="application/json");a.headers.content_type=a.headers.content_type.toLowerCase();this.options=a}
+zg.prototype.open=function(a,b,c){function d(){c&&(c(xg("REQUEST_INTERRUPTED")),c=null)}var e=new XMLHttpRequest,f=this.options.method.toUpperCase(),g;ng(window,"beforeunload",d);e.onreadystatechange=function(){if(c&&4===e.readyState){var a;if(200<=e.status&&300>e.status){try{a=mb(e.responseText)}catch(b){}c(null,a)}else 500<=e.status&&600>e.status?c(xg("SERVER_ERROR")):c(xg("NETWORK_ERROR"));c=null;og(window,"beforeunload",d)}};if("GET"===f)a+=(/\?/.test(a)?"":"?")+jb(b),g=null;else{var k=this.options.headers.content_type;
+"application/json"===k&&(g=B(b));"application/x-www-form-urlencoded"===k&&(g=jb(b))}e.open(f,a,!0);a={"X-Requested-With":"XMLHttpRequest",Accept:"application/json;text/plain"};za(a,this.options.headers);for(var l in a)e.setRequestHeader(l,a[l]);e.send(g)};zg.isAvailable=function(){return!!window.XMLHttpRequest&&"string"===typeof(new XMLHttpRequest).responseType&&(!(navigator.userAgent.match(/MSIE/)||navigator.userAgent.match(/Trident/))||lg())};zg.prototype.Bc=function(){return"json"};function Ag(a){this.oc=Ga()+Ga()+Ga();this.zf=a}
+Ag.prototype.open=function(a,b,c){function d(){c&&(c(xg("USER_CANCELLED")),c=null)}var e=this,f=Rc(fg),g;b.requestId=this.oc;b.redirectTo=f.scheme+"://"+f.host+"/blank/page.html";a+=/\?/.test(a)?"":"?";a+=jb(b);(g=window.open(a,"_blank","location=no"))&&ha(g.addEventListener)?(g.addEventListener("loadstart",function(a){var b;if(b=a&&a.url)a:{try{var m=document.createElement("a");m.href=a.url;b=m.host===f.host&&"/blank/page.html"===m.pathname;break a}catch(v){}b=!1}b&&(a=qg(a.url),g.removeEventListener("exit",
+d),g.close(),a=new gg(null,null,{requestId:e.oc,requestKey:a}),e.zf.requestWithCredential("/auth/session",a,c),c=null)}),g.addEventListener("exit",d)):c(xg("TRANSPORT_UNAVAILABLE"))};Ag.isAvailable=function(){return kg()};Ag.prototype.Bc=function(){return"redirect"};function Bg(a){a.callback_parameter||(a.callback_parameter="callback");this.options=a;window.__firebase_auth_jsonp=window.__firebase_auth_jsonp||{}}
+Bg.prototype.open=function(a,b,c){function d(){c&&(c(xg("REQUEST_INTERRUPTED")),c=null)}function e(){setTimeout(function(){window.__firebase_auth_jsonp[f]=void 0;wa(window.__firebase_auth_jsonp)&&(window.__firebase_auth_jsonp=void 0);try{var a=document.getElementById(f);a&&a.parentNode.removeChild(a)}catch(b){}},1);og(window,"beforeunload",d)}var f="fn"+(new Date).getTime()+Math.floor(99999*Math.random());b[this.options.callback_parameter]="__firebase_auth_jsonp."+f;a+=(/\?/.test(a)?"":"?")+jb(b);
+ng(window,"beforeunload",d);window.__firebase_auth_jsonp[f]=function(a){c&&(c(null,a),c=null);e()};Cg(f,a,c)};
+function Cg(a,b,c){setTimeout(function(){try{var d=document.createElement("script");d.type="text/javascript";d.id=a;d.async=!0;d.src=b;d.onerror=function(){var b=document.getElementById(a);null!==b&&b.parentNode.removeChild(b);c&&c(xg("NETWORK_ERROR"))};var e=document.getElementsByTagName("head");(e&&0!=e.length?e[0]:document.documentElement).appendChild(d)}catch(f){c&&c(xg("NETWORK_ERROR"))}},0)}Bg.isAvailable=function(){return!0};Bg.prototype.Bc=function(){return"json"};function Dg(a,b,c,d){If.call(this,["auth_status"]);this.H=a;this.bf=b;this.Pg=c;this.Ke=d;this.rc=new jg(a,[Dc,P]);this.nb=null;Eg(this)}ma(Dg,If);h=Dg.prototype;h.xe=function(){return this.nb||null};function Eg(a){P.get("redirect_request_id")&&Fg(a);var b=a.rc.get();b&&b.token?(Gg(a,b),a.bf(b.token,function(c,d){Hg(a,c,d,!1,b.token,b)},function(b,d){Ig(a,"resumeSession()",b,d)})):Gg(a,null)}
+function Jg(a,b,c,d,e,f){"firebaseio-demo.com"===a.H.domain&&Q("Firebase authentication is not supported on demo Firebases (*.firebaseio-demo.com). To secure your Firebase, create a production Firebase at https://www.firebase.com.");a.bf(b,function(f,k){Hg(a,f,k,!0,b,c,d||{},e)},function(b,c){Ig(a,"auth()",b,c,f)})}function Kg(a,b){a.rc.clear();Gg(a,null);a.Pg(function(a,d){if("ok"===a)R(b,null);else{var e=(a||"error").toUpperCase(),f=e;d&&(f+=": "+d);f=Error(f);f.code=e;R(b,f)}})}
+function Hg(a,b,c,d,e,f,g,k){"ok"===b?(d&&(b=c.auth,f.auth=b,f.expires=c.expires,f.token=cd(e)?e:"",c=null,b&&u(b,"uid")?c=w(b,"uid"):u(f,"uid")&&(c=w(f,"uid")),f.uid=c,c="custom",b&&u(b,"provider")?c=w(b,"provider"):u(f,"provider")&&(c=w(f,"provider")),f.provider=c,a.rc.clear(),cd(e)&&(g=g||{},c=Dc,"sessionOnly"===g.remember&&(c=P),"none"!==g.remember&&a.rc.set(f,c)),Gg(a,f)),R(k,null,f)):(a.rc.clear(),Gg(a,null),f=a=(b||"error").toUpperCase(),c&&(f+=": "+c),f=Error(f),f.code=a,R(k,f))}
+function Ig(a,b,c,d,e){Q(b+" was canceled: "+d);a.rc.clear();Gg(a,null);a=Error(d);a.code=c.toUpperCase();R(e,a)}function Lg(a,b,c,d,e){Mg(a);c=new gg(d||{},{},c||{});Ng(a,[zg,Bg],"/auth/"+b,c,e)}
+function Og(a,b,c,d){Mg(a);var e=[yg,Ag];c=ig(c);"anonymous"===b||"password"===b?setTimeout(function(){R(d,xg("TRANSPORT_UNAVAILABLE"))},0):(c.de.window_features="menubar=yes,modal=yes,alwaysRaised=yeslocation=yes,resizable=yes,scrollbars=yes,status=yes,height=625,width=625,top="+("object"===typeof screen?.5*(screen.height-625):0)+",left="+("object"===typeof screen?.5*(screen.width-625):0),c.de.relay_url=sg(a.H.Bb),c.de.requestWithCredential=q(a.pc,a),Ng(a,e,"/auth/"+b,c,d))}
+function Fg(a){var b=P.get("redirect_request_id");if(b){var c=P.get("redirect_client_options");P.remove("redirect_request_id");P.remove("redirect_client_options");var d=[zg,Bg],b={requestId:b,requestKey:qg(document.location.hash)},c=new gg(c,{},b);try{document.location.hash=document.location.hash.replace(/&__firebase_request_key=([a-zA-z0-9]*)/,"")}catch(e){}Ng(a,d,"/auth/session",c)}}h.se=function(a,b){Mg(this);var c=ig(a);c.ab._method="POST";this.pc("/users",c,function(a,c){a?R(b,a):R(b,a,c)})};
+h.Re=function(a,b){var c=this;Mg(this);var d="/users/"+encodeURIComponent(a.email),e=ig(a);e.ab._method="DELETE";this.pc(d,e,function(a,d){!a&&d&&d.uid&&c.nb&&c.nb.uid&&c.nb.uid===d.uid&&Kg(c);R(b,a)})};h.pe=function(a,b){Mg(this);var c="/users/"+encodeURIComponent(a.email)+"/password",d=ig(a);d.ab._method="PUT";d.ab.password=a.newPassword;this.pc(c,d,function(a){R(b,a)})};
+h.oe=function(a,b){Mg(this);var c="/users/"+encodeURIComponent(a.oldEmail)+"/email",d=ig(a);d.ab._method="PUT";d.ab.email=a.newEmail;d.ab.password=a.password;this.pc(c,d,function(a){R(b,a)})};h.Se=function(a,b){Mg(this);var c="/users/"+encodeURIComponent(a.email)+"/password",d=ig(a);d.ab._method="POST";this.pc(c,d,function(a){R(b,a)})};h.pc=function(a,b,c){Pg(this,[zg,Bg],a,b,c)};
+function Ng(a,b,c,d,e){Pg(a,b,c,d,function(b,c){!b&&c&&c.token&&c.uid?Jg(a,c.token,c,d.nd,function(a,b){a?R(e,a):R(e,null,b)}):R(e,b||xg("UNKNOWN_ERROR"))})}
+function Pg(a,b,c,d,e){b=Pa(b,function(a){return"function"===typeof a.isAvailable&&a.isAvailable()});0===b.length?setTimeout(function(){R(e,xg("TRANSPORT_UNAVAILABLE"))},0):(b=new (b.shift())(d.de),d=ib(d.ab),d.v="js-2.2.3",d.transport=b.Bc(),d.suppress_status_codes=!0,a=rg()+"/"+a.H.Bb+c,b.open(a,d,function(a,b){if(a)R(e,a);else if(b&&b.error){var c=Error(b.error.message);c.code=b.error.code;c.details=b.error.details;R(e,c)}else R(e,null,b)}))}
+function Gg(a,b){var c=null!==a.nb||null!==b;a.nb=b;c&&a.ee("auth_status",b);a.Ke(null!==b)}h.Ae=function(a){J("auth_status"===a,'initial event must be of type "auth_status"');return[this.nb]};function Mg(a){var b=a.H;if("firebaseio.com"!==b.domain&&"firebaseio-demo.com"!==b.domain&&"auth.firebase.com"===fg)throw Error("This custom Firebase server ('"+a.H.domain+"') does not support delegated login.");};function Qg(a){this.ic=a;this.Md=[];this.Qb=0;this.qe=-1;this.Eb=null}function Rg(a,b,c){a.qe=b;a.Eb=c;a.qe<a.Qb&&(a.Eb(),a.Eb=null)}function Sg(a,b,c){for(a.Md[b]=c;a.Md[a.Qb];){var d=a.Md[a.Qb];delete a.Md[a.Qb];for(var e=0;e<d.length;++e)if(d[e]){var f=a;Cb(function(){f.ic(d[e])})}if(a.Qb===a.qe){a.Eb&&(clearTimeout(a.Eb),a.Eb(),a.Eb=null);break}a.Qb++}};function Tg(a,b,c){this.re=a;this.f=Oc(a);this.ob=this.pb=0;this.Va=Ob(b);this.Wd=c;this.Gc=!1;this.jd=function(a){b.host!==b.Oa&&(a.ns=b.Bb);var c=[],f;for(f in a)a.hasOwnProperty(f)&&c.push(f+"="+a[f]);return(b.lb?"https://":"http://")+b.Oa+"/.lp?"+c.join("&")}}var Ug,Vg;
+Tg.prototype.open=function(a,b){this.ef=0;this.ka=b;this.uf=new Qg(a);this.yb=!1;var c=this;this.rb=setTimeout(function(){c.f("Timed out trying to connect.");c.ib();c.rb=null},Math.floor(3E4));Tc(function(){if(!c.yb){c.Ta=new Wg(function(a,b,d,k,l){Xg(c,arguments);if(c.Ta)if(c.rb&&(clearTimeout(c.rb),c.rb=null),c.Gc=!0,"start"==a)c.id=b,c.Bf=d;else if("close"===a)b?(c.Ta.Ud=!1,Rg(c.uf,b,function(){c.ib()})):c.ib();else throw Error("Unrecognized command received: "+a);},function(a,b){Xg(c,arguments);
+Sg(c.uf,a,b)},function(){c.ib()},c.jd);var a={start:"t"};a.ser=Math.floor(1E8*Math.random());c.Ta.ge&&(a.cb=c.Ta.ge);a.v="5";c.Wd&&(a.s=c.Wd);"undefined"!==typeof location&&location.href&&-1!==location.href.indexOf("firebaseio.com")&&(a.r="f");a=c.jd(a);c.f("Connecting via long-poll to "+a);Yg(c.Ta,a,function(){})}})};
+Tg.prototype.start=function(){var a=this.Ta,b=this.Bf;a.og=this.id;a.pg=b;for(a.le=!0;Zg(a););a=this.id;b=this.Bf;this.gc=document.createElement("iframe");var c={dframe:"t"};c.id=a;c.pw=b;this.gc.src=this.jd(c);this.gc.style.display="none";document.body.appendChild(this.gc)};Tg.isAvailable=function(){return!Vg&&!("object"===typeof window&&window.chrome&&window.chrome.extension&&!/^chrome/.test(window.location.href))&&!("object"===typeof Windows&&"object"===typeof Windows.Rg)&&(Ug||!0)};h=Tg.prototype;
+h.Dd=function(){};h.ed=function(){this.yb=!0;this.Ta&&(this.Ta.close(),this.Ta=null);this.gc&&(document.body.removeChild(this.gc),this.gc=null);this.rb&&(clearTimeout(this.rb),this.rb=null)};h.ib=function(){this.yb||(this.f("Longpoll is closing itself"),this.ed(),this.ka&&(this.ka(this.Gc),this.ka=null))};h.close=function(){this.yb||(this.f("Longpoll is being closed."),this.ed())};
+h.send=function(a){a=B(a);this.pb+=a.length;Lb(this.Va,"bytes_sent",a.length);a=Kc(a);a=fb(a,!0);a=Xc(a,1840);for(var b=0;b<a.length;b++){var c=this.Ta;c.ad.push({Gg:this.ef,Og:a.length,gf:a[b]});c.le&&Zg(c);this.ef++}};function Xg(a,b){var c=B(b).length;a.ob+=c;Lb(a.Va,"bytes_received",c)}
+function Wg(a,b,c,d){this.jd=d;this.jb=c;this.Oe=new cg;this.ad=[];this.te=Math.floor(1E8*Math.random());this.Ud=!0;this.ge=Gc();window["pLPCommand"+this.ge]=a;window["pRTLPCB"+this.ge]=b;a=document.createElement("iframe");a.style.display="none";if(document.body){document.body.appendChild(a);try{a.contentWindow.document||Bb("No IE domain setting required")}catch(e){a.src="javascript:void((function(){document.open();document.domain='"+document.domain+"';document.close();})())"}}else throw"Document body has not initialized. Wait to initialize Firebase until after the document is ready.";
+a.contentDocument?a.gb=a.contentDocument:a.contentWindow?a.gb=a.contentWindow.document:a.document&&(a.gb=a.document);this.Ca=a;a="";this.Ca.src&&"javascript:"===this.Ca.src.substr(0,11)&&(a='<script>document.domain="'+document.domain+'";\x3c/script>');a="<html><body>"+a+"</body></html>";try{this.Ca.gb.open(),this.Ca.gb.write(a),this.Ca.gb.close()}catch(f){Bb("frame writing exception"),f.stack&&Bb(f.stack),Bb(f)}}
+Wg.prototype.close=function(){this.le=!1;if(this.Ca){this.Ca.gb.body.innerHTML="";var a=this;setTimeout(function(){null!==a.Ca&&(document.body.removeChild(a.Ca),a.Ca=null)},Math.floor(0))}var b=this.jb;b&&(this.jb=null,b())};
+function Zg(a){if(a.le&&a.Ud&&a.Oe.count()<(0<a.ad.length?2:1)){a.te++;var b={};b.id=a.og;b.pw=a.pg;b.ser=a.te;for(var b=a.jd(b),c="",d=0;0<a.ad.length;)if(1870>=a.ad[0].gf.length+30+c.length){var e=a.ad.shift(),c=c+"&seg"+d+"="+e.Gg+"&ts"+d+"="+e.Og+"&d"+d+"="+e.gf;d++}else break;$g(a,b+c,a.te);return!0}return!1}function $g(a,b,c){function d(){a.Oe.remove(c);Zg(a)}a.Oe.add(c,1);var e=setTimeout(d,Math.floor(25E3));Yg(a,b,function(){clearTimeout(e);d()})}
+function Yg(a,b,c){setTimeout(function(){try{if(a.Ud){var d=a.Ca.gb.createElement("script");d.type="text/javascript";d.async=!0;d.src=b;d.onload=d.onreadystatechange=function(){var a=d.readyState;a&&"loaded"!==a&&"complete"!==a||(d.onload=d.onreadystatechange=null,d.parentNode&&d.parentNode.removeChild(d),c())};d.onerror=function(){Bb("Long-poll script failed to load: "+b);a.Ud=!1;a.close()};a.Ca.gb.body.appendChild(d)}}catch(e){}},Math.floor(1))};var ah=null;"undefined"!==typeof MozWebSocket?ah=MozWebSocket:"undefined"!==typeof WebSocket&&(ah=WebSocket);function bh(a,b,c){this.re=a;this.f=Oc(this.re);this.frames=this.Jc=null;this.ob=this.pb=this.$e=0;this.Va=Ob(b);this.fb=(b.lb?"wss://":"ws://")+b.Oa+"/.ws?v=5";"undefined"!==typeof location&&location.href&&-1!==location.href.indexOf("firebaseio.com")&&(this.fb+="&r=f");b.host!==b.Oa&&(this.fb=this.fb+"&ns="+b.Bb);c&&(this.fb=this.fb+"&s="+c)}var ch;
+bh.prototype.open=function(a,b){this.jb=b;this.tg=a;this.f("Websocket connecting to "+this.fb);this.Gc=!1;Dc.set("previous_websocket_failure",!0);try{this.va=new ah(this.fb)}catch(c){this.f("Error instantiating WebSocket.");var d=c.message||c.data;d&&this.f(d);this.ib();return}var e=this;this.va.onopen=function(){e.f("Websocket connected.");e.Gc=!0};this.va.onclose=function(){e.f("Websocket connection was disconnected.");e.va=null;e.ib()};this.va.onmessage=function(a){if(null!==e.va)if(a=a.data,e.ob+=
+a.length,Lb(e.Va,"bytes_received",a.length),dh(e),null!==e.frames)eh(e,a);else{a:{J(null===e.frames,"We already have a frame buffer");if(6>=a.length){var b=Number(a);if(!isNaN(b)){e.$e=b;e.frames=[];a=null;break a}}e.$e=1;e.frames=[]}null!==a&&eh(e,a)}};this.va.onerror=function(a){e.f("WebSocket error.  Closing connection.");(a=a.message||a.data)&&e.f(a);e.ib()}};bh.prototype.start=function(){};
+bh.isAvailable=function(){var a=!1;if("undefined"!==typeof navigator&&navigator.userAgent){var b=navigator.userAgent.match(/Android ([0-9]{0,}\.[0-9]{0,})/);b&&1<b.length&&4.4>parseFloat(b[1])&&(a=!0)}return!a&&null!==ah&&!ch};bh.responsesRequiredToBeHealthy=2;bh.healthyTimeout=3E4;h=bh.prototype;h.Dd=function(){Dc.remove("previous_websocket_failure")};function eh(a,b){a.frames.push(b);if(a.frames.length==a.$e){var c=a.frames.join("");a.frames=null;c=mb(c);a.tg(c)}}
+h.send=function(a){dh(this);a=B(a);this.pb+=a.length;Lb(this.Va,"bytes_sent",a.length);a=Xc(a,16384);1<a.length&&this.va.send(String(a.length));for(var b=0;b<a.length;b++)this.va.send(a[b])};h.ed=function(){this.yb=!0;this.Jc&&(clearInterval(this.Jc),this.Jc=null);this.va&&(this.va.close(),this.va=null)};h.ib=function(){this.yb||(this.f("WebSocket is closing itself"),this.ed(),this.jb&&(this.jb(this.Gc),this.jb=null))};h.close=function(){this.yb||(this.f("WebSocket is being closed"),this.ed())};
+function dh(a){clearInterval(a.Jc);a.Jc=setInterval(function(){a.va&&a.va.send("0");dh(a)},Math.floor(45E3))};function fh(a){gh(this,a)}var hh=[Tg,bh];function gh(a,b){var c=bh&&bh.isAvailable(),d=c&&!(Dc.rf||!0===Dc.get("previous_websocket_failure"));b.Qg&&(c||Q("wss:// URL used, but browser isn't known to support websockets.  Trying anyway."),d=!0);if(d)a.gd=[bh];else{var e=a.gd=[];Yc(hh,function(a,b){b&&b.isAvailable()&&e.push(b)})}}function ih(a){if(0<a.gd.length)return a.gd[0];throw Error("No transports available");};function jh(a,b,c,d,e,f){this.id=a;this.f=Oc("c:"+this.id+":");this.ic=c;this.Vc=d;this.ka=e;this.Me=f;this.H=b;this.Ld=[];this.cf=0;this.Kf=new fh(b);this.Ua=0;this.f("Connection created");kh(this)}
+function kh(a){var b=ih(a.Kf);a.L=new b("c:"+a.id+":"+a.cf++,a.H);a.Qe=b.responsesRequiredToBeHealthy||0;var c=lh(a,a.L),d=mh(a,a.L);a.hd=a.L;a.dd=a.L;a.F=null;a.zb=!1;setTimeout(function(){a.L&&a.L.open(c,d)},Math.floor(0));b=b.healthyTimeout||0;0<b&&(a.xd=setTimeout(function(){a.xd=null;a.zb||(a.L&&102400<a.L.ob?(a.f("Connection exceeded healthy timeout but has received "+a.L.ob+" bytes.  Marking connection healthy."),a.zb=!0,a.L.Dd()):a.L&&10240<a.L.pb?a.f("Connection exceeded healthy timeout but has sent "+
+a.L.pb+" bytes.  Leaving connection alive."):(a.f("Closing unhealthy connection after timeout."),a.close()))},Math.floor(b)))}function mh(a,b){return function(c){b===a.L?(a.L=null,c||0!==a.Ua?1===a.Ua&&a.f("Realtime connection lost."):(a.f("Realtime connection failed."),"s-"===a.H.Oa.substr(0,2)&&(Dc.remove("host:"+a.H.host),a.H.Oa=a.H.host)),a.close()):b===a.F?(a.f("Secondary connection lost."),c=a.F,a.F=null,a.hd!==c&&a.dd!==c||a.close()):a.f("closing an old connection")}}
+function lh(a,b){return function(c){if(2!=a.Ua)if(b===a.dd){var d=Vc("t",c);c=Vc("d",c);if("c"==d){if(d=Vc("t",c),"d"in c)if(c=c.d,"h"===d){var d=c.ts,e=c.v,f=c.h;a.Wd=c.s;Fc(a.H,f);0==a.Ua&&(a.L.start(),nh(a,a.L,d),"5"!==e&&Q("Protocol version mismatch detected"),c=a.Kf,(c=1<c.gd.length?c.gd[1]:null)&&oh(a,c))}else if("n"===d){a.f("recvd end transmission on primary");a.dd=a.F;for(c=0;c<a.Ld.length;++c)a.Hd(a.Ld[c]);a.Ld=[];ph(a)}else"s"===d?(a.f("Connection shutdown command received. Shutting down..."),
+a.Me&&(a.Me(c),a.Me=null),a.ka=null,a.close()):"r"===d?(a.f("Reset packet received.  New host: "+c),Fc(a.H,c),1===a.Ua?a.close():(qh(a),kh(a))):"e"===d?Pc("Server Error: "+c):"o"===d?(a.f("got pong on primary."),rh(a),sh(a)):Pc("Unknown control packet command: "+d)}else"d"==d&&a.Hd(c)}else if(b===a.F)if(d=Vc("t",c),c=Vc("d",c),"c"==d)"t"in c&&(c=c.t,"a"===c?th(a):"r"===c?(a.f("Got a reset on secondary, closing it"),a.F.close(),a.hd!==a.F&&a.dd!==a.F||a.close()):"o"===c&&(a.f("got pong on secondary."),
+a.If--,th(a)));else if("d"==d)a.Ld.push(c);else throw Error("Unknown protocol layer: "+d);else a.f("message on old connection")}}jh.prototype.Da=function(a){uh(this,{t:"d",d:a})};function ph(a){a.hd===a.F&&a.dd===a.F&&(a.f("cleaning up and promoting a connection: "+a.F.re),a.L=a.F,a.F=null)}
+function th(a){0>=a.If?(a.f("Secondary connection is healthy."),a.zb=!0,a.F.Dd(),a.F.start(),a.f("sending client ack on secondary"),a.F.send({t:"c",d:{t:"a",d:{}}}),a.f("Ending transmission on primary"),a.L.send({t:"c",d:{t:"n",d:{}}}),a.hd=a.F,ph(a)):(a.f("sending ping on secondary."),a.F.send({t:"c",d:{t:"p",d:{}}}))}jh.prototype.Hd=function(a){rh(this);this.ic(a)};function rh(a){a.zb||(a.Qe--,0>=a.Qe&&(a.f("Primary connection is healthy."),a.zb=!0,a.L.Dd()))}
+function oh(a,b){a.F=new b("c:"+a.id+":"+a.cf++,a.H,a.Wd);a.If=b.responsesRequiredToBeHealthy||0;a.F.open(lh(a,a.F),mh(a,a.F));setTimeout(function(){a.F&&(a.f("Timed out trying to upgrade."),a.F.close())},Math.floor(6E4))}function nh(a,b,c){a.f("Realtime connection established.");a.L=b;a.Ua=1;a.Vc&&(a.Vc(c),a.Vc=null);0===a.Qe?(a.f("Primary connection is healthy."),a.zb=!0):setTimeout(function(){sh(a)},Math.floor(5E3))}
+function sh(a){a.zb||1!==a.Ua||(a.f("sending ping on primary."),uh(a,{t:"c",d:{t:"p",d:{}}}))}function uh(a,b){if(1!==a.Ua)throw"Connection is not connected";a.hd.send(b)}jh.prototype.close=function(){2!==this.Ua&&(this.f("Closing realtime connection."),this.Ua=2,qh(this),this.ka&&(this.ka(),this.ka=null))};function qh(a){a.f("Shutting down all connections");a.L&&(a.L.close(),a.L=null);a.F&&(a.F.close(),a.F=null);a.xd&&(clearTimeout(a.xd),a.xd=null)};function vh(a,b,c,d){this.id=wh++;this.f=Oc("p:"+this.id+":");this.Kb=!0;this.aa={};this.pa=[];this.Yc=0;this.Uc=[];this.ma=!1;this.$a=1E3;this.Ed=3E5;this.Fb=b;this.Tc=c;this.Ne=d;this.H=a;this.Ue=null;this.cd={};this.Fg=0;this.Kc=this.Fe=null;xh(this,0);Mf.Wb().Db("visible",this.wg,this);-1===a.host.indexOf("fblocal")&&Lf.Wb().Db("online",this.ug,this)}var wh=0,yh=0;h=vh.prototype;
+h.Da=function(a,b,c){var d=++this.Fg;a={r:d,a:a,b:b};this.f(B(a));J(this.ma,"sendRequest call when we're not connected not allowed.");this.Sa.Da(a);c&&(this.cd[d]=c)};h.sf=function(a,b,c,d){var e=a.wa(),f=a.path.toString();this.f("Listen called for "+f+" "+e);this.aa[f]=this.aa[f]||{};J(!this.aa[f][e],"listen() called twice for same path/queryId.");a={J:d,wd:b,Cg:a,tag:c};this.aa[f][e]=a;this.ma&&zh(this,a)};
+function zh(a,b){var c=b.Cg,d=c.path.toString(),e=c.wa();a.f("Listen on "+d+" for "+e);var f={p:d};b.tag&&(f.q=ce(c.n),f.t=b.tag);f.h=b.wd();a.Da("q",f,function(f){var k=f.d,l=f.s;if(k&&"object"===typeof k&&u(k,"w")){var m=w(k,"w");ea(m)&&0<=Na(m,"no_index")&&Q("Using an unspecified index. Consider adding "+('".indexOn": "'+c.n.g.toString()+'"')+" at "+c.path.toString()+" to your security rules for better performance")}(a.aa[d]&&a.aa[d][e])===b&&(a.f("listen response",f),"ok"!==l&&Ah(a,d,e),b.J&&
+b.J(l,k))})}h.P=function(a,b,c){this.Fa={cg:a,kf:!1,yc:b,ld:c};this.f("Authenticating using credential: "+a);Bh(this);(b=40==a.length)||(a=ad(a).Ac,b="object"===typeof a&&!0===w(a,"admin"));b&&(this.f("Admin auth credential detected.  Reducing max reconnect time."),this.Ed=3E4)};h.fe=function(a){delete this.Fa;this.ma&&this.Da("unauth",{},function(b){a(b.s,b.d)})};
+function Bh(a){var b=a.Fa;a.ma&&b&&a.Da("auth",{cred:b.cg},function(c){var d=c.s;c=c.d||"error";"ok"!==d&&a.Fa===b&&delete a.Fa;b.kf?"ok"!==d&&b.ld&&b.ld(d,c):(b.kf=!0,b.yc&&b.yc(d,c))})}h.Lf=function(a,b){var c=a.path.toString(),d=a.wa();this.f("Unlisten called for "+c+" "+d);if(Ah(this,c,d)&&this.ma){var e=ce(a.n);this.f("Unlisten on "+c+" for "+d);c={p:c};b&&(c.q=e,c.t=b);this.Da("n",c)}};h.Le=function(a,b,c){this.ma?Ch(this,"o",a,b,c):this.Uc.push({$c:a,action:"o",data:b,J:c})};
+h.xf=function(a,b,c){this.ma?Ch(this,"om",a,b,c):this.Uc.push({$c:a,action:"om",data:b,J:c})};h.Id=function(a,b){this.ma?Ch(this,"oc",a,null,b):this.Uc.push({$c:a,action:"oc",data:null,J:b})};function Ch(a,b,c,d,e){c={p:c,d:d};a.f("onDisconnect "+b,c);a.Da(b,c,function(a){e&&setTimeout(function(){e(a.s,a.d)},Math.floor(0))})}h.put=function(a,b,c,d){Dh(this,"p",a,b,c,d)};h.tf=function(a,b,c,d){Dh(this,"m",a,b,c,d)};
+function Dh(a,b,c,d,e,f){d={p:c,d:d};n(f)&&(d.h=f);a.pa.push({action:b,Ff:d,J:e});a.Yc++;b=a.pa.length-1;a.ma?Eh(a,b):a.f("Buffering put: "+c)}function Eh(a,b){var c=a.pa[b].action,d=a.pa[b].Ff,e=a.pa[b].J;a.pa[b].Dg=a.ma;a.Da(c,d,function(d){a.f(c+" response",d);delete a.pa[b];a.Yc--;0===a.Yc&&(a.pa=[]);e&&e(d.s,d.d)})}h.Df=function(a){this.ma&&(a={c:a},this.f("reportStats",a),this.Da("s",a))};
+h.Hd=function(a){if("r"in a){this.f("from server: "+B(a));var b=a.r,c=this.cd[b];c&&(delete this.cd[b],c(a.b))}else{if("error"in a)throw"A server-side error has occurred: "+a.error;"a"in a&&(b=a.a,c=a.b,this.f("handleServerMessage",b,c),"d"===b?this.Fb(c.p,c.d,!1,c.t):"m"===b?this.Fb(c.p,c.d,!0,c.t):"c"===b?Fh(this,c.p,c.q):"ac"===b?(a=c.s,b=c.d,c=this.Fa,delete this.Fa,c&&c.ld&&c.ld(a,b)):"sd"===b?this.Ue?this.Ue(c):"msg"in c&&"undefined"!==typeof console&&console.log("FIREBASE: "+c.msg.replace("\n",
+"\nFIREBASE: ")):Pc("Unrecognized action received from server: "+B(b)+"\nAre you using the latest client?"))}};h.Vc=function(a){this.f("connection ready");this.ma=!0;this.Kc=(new Date).getTime();this.Ne({serverTimeOffset:a-(new Date).getTime()});Gh(this);this.Tc(!0)};function xh(a,b){J(!a.Sa,"Scheduling a connect when we're already connected/ing?");a.Sb&&clearTimeout(a.Sb);a.Sb=setTimeout(function(){a.Sb=null;Hh(a)},Math.floor(b))}
+h.wg=function(a){a&&!this.uc&&this.$a===this.Ed&&(this.f("Window became visible.  Reducing delay."),this.$a=1E3,this.Sa||xh(this,0));this.uc=a};h.ug=function(a){a?(this.f("Browser went online.  Reconnecting."),this.$a=1E3,this.Kb=!0,this.Sa||xh(this,0)):(this.f("Browser went offline.  Killing connection; don't reconnect."),this.Kb=!1,this.Sa&&this.Sa.close())};
+h.yf=function(){this.f("data client disconnected");this.ma=!1;this.Sa=null;for(var a=0;a<this.pa.length;a++){var b=this.pa[a];b&&"h"in b.Ff&&b.Dg&&(b.J&&b.J("disconnect"),delete this.pa[a],this.Yc--)}0===this.Yc&&(this.pa=[]);if(this.Kb)this.uc?this.Kc&&(3E4<(new Date).getTime()-this.Kc&&(this.$a=1E3),this.Kc=null):(this.f("Window isn't visible.  Delaying reconnect."),this.$a=this.Ed,this.Fe=(new Date).getTime()),a=Math.max(0,this.$a-((new Date).getTime()-this.Fe)),a*=Math.random(),this.f("Trying to reconnect in "+
+a+"ms"),xh(this,a),this.$a=Math.min(this.Ed,1.3*this.$a);else for(var c in this.cd)delete this.cd[c];this.Tc(!1)};function Hh(a){if(a.Kb){a.f("Making a connection attempt");a.Fe=(new Date).getTime();a.Kc=null;var b=q(a.Hd,a),c=q(a.Vc,a),d=q(a.yf,a),e=a.id+":"+yh++;a.Sa=new jh(e,a.H,b,c,d,function(b){Q(b+" ("+a.H.toString()+")");a.Kb=!1})}}h.xb=function(){this.Kb=!1;this.Sa?this.Sa.close():(this.Sb&&(clearTimeout(this.Sb),this.Sb=null),this.ma&&this.yf())};
+h.qc=function(){this.Kb=!0;this.$a=1E3;this.Sa||xh(this,0)};function Fh(a,b,c){c=c?Qa(c,function(a){return Wc(a)}).join("$"):"default";(a=Ah(a,b,c))&&a.J&&a.J("permission_denied")}function Ah(a,b,c){b=(new K(b)).toString();var d;n(a.aa[b])?(d=a.aa[b][c],delete a.aa[b][c],0===pa(a.aa[b])&&delete a.aa[b]):d=void 0;return d}
+function Gh(a){Bh(a);r(a.aa,function(b){r(b,function(b){zh(a,b)})});for(var b=0;b<a.pa.length;b++)a.pa[b]&&Eh(a,b);for(;a.Uc.length;)b=a.Uc.shift(),Ch(a,b.action,b.$c,b.data,b.J)};var V={ig:function(){Ug=ch=!0}};V.forceLongPolling=V.ig;V.jg=function(){Vg=!0};V.forceWebSockets=V.jg;V.Jg=function(a,b){a.k.Ra.Ue=b};V.setSecurityDebugCallback=V.Jg;V.We=function(a,b){a.k.We(b)};V.stats=V.We;V.Xe=function(a,b){a.k.Xe(b)};V.statsIncrementCounter=V.Xe;V.rd=function(a){return a.k.rd};V.dataUpdateCount=V.rd;V.mg=function(a,b){a.k.De=b};V.interceptServerData=V.mg;V.sg=function(a){new tg(a)};V.onPopupOpen=V.sg;V.Hg=function(a){fg=a};V.setAuthenticationServer=V.Hg;function S(a,b,c){this.B=a;this.V=b;this.g=c}S.prototype.K=function(){x("Firebase.DataSnapshot.val",0,0,arguments.length);return this.B.K()};S.prototype.val=S.prototype.K;S.prototype.jf=function(){x("Firebase.DataSnapshot.exportVal",0,0,arguments.length);return this.B.K(!0)};S.prototype.exportVal=S.prototype.jf;S.prototype.hg=function(){x("Firebase.DataSnapshot.exists",0,0,arguments.length);return!this.B.e()};S.prototype.exists=S.prototype.hg;
+S.prototype.w=function(a){x("Firebase.DataSnapshot.child",0,1,arguments.length);ga(a)&&(a=String(a));Xf("Firebase.DataSnapshot.child",a);var b=new K(a),c=this.V.w(b);return new S(this.B.oa(b),c,M)};S.prototype.child=S.prototype.w;S.prototype.Ha=function(a){x("Firebase.DataSnapshot.hasChild",1,1,arguments.length);Xf("Firebase.DataSnapshot.hasChild",a);var b=new K(a);return!this.B.oa(b).e()};S.prototype.hasChild=S.prototype.Ha;
+S.prototype.A=function(){x("Firebase.DataSnapshot.getPriority",0,0,arguments.length);return this.B.A().K()};S.prototype.getPriority=S.prototype.A;S.prototype.forEach=function(a){x("Firebase.DataSnapshot.forEach",1,1,arguments.length);A("Firebase.DataSnapshot.forEach",1,a,!1);if(this.B.N())return!1;var b=this;return!!this.B.U(this.g,function(c,d){return a(new S(d,b.V.w(c),M))})};S.prototype.forEach=S.prototype.forEach;
+S.prototype.vd=function(){x("Firebase.DataSnapshot.hasChildren",0,0,arguments.length);return this.B.N()?!1:!this.B.e()};S.prototype.hasChildren=S.prototype.vd;S.prototype.name=function(){Q("Firebase.DataSnapshot.name() being deprecated. Please use Firebase.DataSnapshot.key() instead.");x("Firebase.DataSnapshot.name",0,0,arguments.length);return this.key()};S.prototype.name=S.prototype.name;S.prototype.key=function(){x("Firebase.DataSnapshot.key",0,0,arguments.length);return this.V.key()};
+S.prototype.key=S.prototype.key;S.prototype.Cb=function(){x("Firebase.DataSnapshot.numChildren",0,0,arguments.length);return this.B.Cb()};S.prototype.numChildren=S.prototype.Cb;S.prototype.lc=function(){x("Firebase.DataSnapshot.ref",0,0,arguments.length);return this.V};S.prototype.ref=S.prototype.lc;function Ih(a,b){this.H=a;this.Va=Ob(a);this.ea=new ub;this.Gd=1;this.Ra=null;b||0<=("object"===typeof window&&window.navigator&&window.navigator.userAgent||"").search(/googlebot|google webmaster tools|bingbot|yahoo! slurp|baiduspider|yandexbot|duckduckbot/i)?(this.ca=new Ae(this.H,q(this.Fb,this)),setTimeout(q(this.Tc,this,!0),0)):this.ca=this.Ra=new vh(this.H,q(this.Fb,this),q(this.Tc,this),q(this.Ne,this));this.Mg=Pb(a,q(function(){return new Jb(this.Va,this.ca)},this));this.tc=new Cf;this.Ce=
+new nb;var c=this;this.Bd=new gf({Ve:function(a,b,f,g){b=[];f=c.Ce.j(a.path);f.e()||(b=jf(c.Bd,new Ub(ze,a.path,f)),setTimeout(function(){g("ok")},0));return b},$d:ba});Jh(this,"connected",!1);this.ka=new qc;this.P=new Dg(a,q(this.ca.P,this.ca),q(this.ca.fe,this.ca),q(this.Ke,this));this.rd=0;this.De=null;this.O=new gf({Ve:function(a,b,f,g){c.ca.sf(a,f,b,function(b,e){var f=g(b,e);zb(c.ea,a.path,f)});return[]},$d:function(a,b){c.ca.Lf(a,b)}})}h=Ih.prototype;
+h.toString=function(){return(this.H.lb?"https://":"http://")+this.H.host};h.name=function(){return this.H.Bb};function Kh(a){a=a.Ce.j(new K(".info/serverTimeOffset")).K()||0;return(new Date).getTime()+a}function Lh(a){a=a={timestamp:Kh(a)};a.timestamp=a.timestamp||(new Date).getTime();return a}
+h.Fb=function(a,b,c,d){this.rd++;var e=new K(a);b=this.De?this.De(a,b):b;a=[];d?c?(b=na(b,function(a){return L(a)}),a=rf(this.O,e,b,d)):(b=L(b),a=nf(this.O,e,b,d)):c?(d=na(b,function(a){return L(a)}),a=mf(this.O,e,d)):(d=L(b),a=jf(this.O,new Ub(ze,e,d)));d=e;0<a.length&&(d=Mh(this,e));zb(this.ea,d,a)};h.Tc=function(a){Jh(this,"connected",a);!1===a&&Nh(this)};h.Ne=function(a){var b=this;Yc(a,function(a,d){Jh(b,d,a)})};h.Ke=function(a){Jh(this,"authenticated",a)};
+function Jh(a,b,c){b=new K("/.info/"+b);c=L(c);var d=a.Ce;d.Td=d.Td.G(b,c);c=jf(a.Bd,new Ub(ze,b,c));zb(a.ea,b,c)}h.Jb=function(a,b,c,d){this.f("set",{path:a.toString(),value:b,Ug:c});var e=Lh(this);b=L(b,c);var e=sc(b,e),f=this.Gd++,e=hf(this.O,a,e,f,!0);vb(this.ea,e);var g=this;this.ca.put(a.toString(),b.K(!0),function(b,c){var e="ok"===b;e||Q("set at "+a+" failed: "+b);e=lf(g.O,f,!e);zb(g.ea,a,e);Oh(d,b,c)});e=Ph(this,a);Mh(this,e);zb(this.ea,e,[])};
+h.update=function(a,b,c){this.f("update",{path:a.toString(),value:b});var d=!0,e=Lh(this),f={};r(b,function(a,b){d=!1;var c=L(a);f[b]=sc(c,e)});if(d)Bb("update() called with empty data.  Don't do anything."),Oh(c,"ok");else{var g=this.Gd++,k=kf(this.O,a,f,g);vb(this.ea,k);var l=this;this.ca.tf(a.toString(),b,function(b,d){var e="ok"===b;e||Q("update at "+a+" failed: "+b);var e=lf(l.O,g,!e),f=a;0<e.length&&(f=Mh(l,a));zb(l.ea,f,e);Oh(c,b,d)});b=Ph(this,a);Mh(this,b);zb(this.ea,a,[])}};
+function Nh(a){a.f("onDisconnectEvents");var b=Lh(a),c=[];rc(pc(a.ka,b),F,function(b,e){c=c.concat(jf(a.O,new Ub(ze,b,e)));var f=Ph(a,b);Mh(a,f)});a.ka=new qc;zb(a.ea,F,c)}h.Id=function(a,b){var c=this;this.ca.Id(a.toString(),function(d,e){"ok"===d&&eg(c.ka,a);Oh(b,d,e)})};function Qh(a,b,c,d){var e=L(c);a.ca.Le(b.toString(),e.K(!0),function(c,g){"ok"===c&&a.ka.mc(b,e);Oh(d,c,g)})}function Rh(a,b,c,d,e){var f=L(c,d);a.ca.Le(b.toString(),f.K(!0),function(c,d){"ok"===c&&a.ka.mc(b,f);Oh(e,c,d)})}
+function Sh(a,b,c,d){var e=!0,f;for(f in c)e=!1;e?(Bb("onDisconnect().update() called with empty data.  Don't do anything."),Oh(d,"ok")):a.ca.xf(b.toString(),c,function(e,f){if("ok"===e)for(var l in c){var m=L(c[l]);a.ka.mc(b.w(l),m)}Oh(d,e,f)})}function Th(a,b,c){c=".info"===O(b.path)?a.Bd.Ob(b,c):a.O.Ob(b,c);xb(a.ea,b.path,c)}h.xb=function(){this.Ra&&this.Ra.xb()};h.qc=function(){this.Ra&&this.Ra.qc()};
+h.We=function(a){if("undefined"!==typeof console){a?(this.Zd||(this.Zd=new Ib(this.Va)),a=this.Zd.get()):a=this.Va.get();var b=Ra(sa(a),function(a,b){return Math.max(b.length,a)},0),c;for(c in a){for(var d=a[c],e=c.length;e<b+2;e++)c+=" ";console.log(c+d)}}};h.Xe=function(a){Lb(this.Va,a);this.Mg.Jf[a]=!0};h.f=function(a){var b="";this.Ra&&(b=this.Ra.id+":");Bb(b,arguments)};
+function Oh(a,b,c){a&&Cb(function(){if("ok"==b)a(null);else{var d=(b||"error").toUpperCase(),e=d;c&&(e+=": "+c);e=Error(e);e.code=d;a(e)}})};function Uh(a,b,c,d,e){function f(){}a.f("transaction on "+b);var g=new U(a,b);g.Db("value",f);c={path:b,update:c,J:d,status:null,Af:Gc(),af:e,Hf:0,he:function(){g.hc("value",f)},ke:null,Aa:null,od:null,pd:null,qd:null};d=a.O.ua(b,void 0)||C;c.od=d;d=c.update(d.K());if(n(d)){Sf("transaction failed: Data returned ",d,c.path);c.status=1;e=Df(a.tc,b);var k=e.Ba()||[];k.push(c);Ef(e,k);"object"===typeof d&&null!==d&&u(d,".priority")?(k=w(d,".priority"),J(Qf(k),"Invalid priority returned by transaction. Priority must be a valid string, finite number, server value, or null.")):
+k=(a.O.ua(b)||C).A().K();e=Lh(a);d=L(d,k);e=sc(d,e);c.pd=d;c.qd=e;c.Aa=a.Gd++;c=hf(a.O,b,e,c.Aa,c.af);zb(a.ea,b,c);Vh(a)}else c.he(),c.pd=null,c.qd=null,c.J&&(a=new S(c.od,new U(a,c.path),M),c.J(null,!1,a))}function Vh(a,b){var c=b||a.tc;b||Wh(a,c);if(null!==c.Ba()){var d=Xh(a,c);J(0<d.length,"Sending zero length transaction queue");Sa(d,function(a){return 1===a.status})&&Yh(a,c.path(),d)}else c.vd()&&c.U(function(b){Vh(a,b)})}
+function Yh(a,b,c){for(var d=Qa(c,function(a){return a.Aa}),e=a.O.ua(b,d)||C,d=e,e=e.hash(),f=0;f<c.length;f++){var g=c[f];J(1===g.status,"tryToSendTransactionQueue_: items in queue should all be run.");g.status=2;g.Hf++;var k=N(b,g.path),d=d.G(k,g.pd)}d=d.K(!0);a.ca.put(b.toString(),d,function(d){a.f("transaction put response",{path:b.toString(),status:d});var e=[];if("ok"===d){d=[];for(f=0;f<c.length;f++){c[f].status=3;e=e.concat(lf(a.O,c[f].Aa));if(c[f].J){var g=c[f].qd,k=new U(a,c[f].path);d.push(q(c[f].J,
+null,null,!0,new S(g,k,M)))}c[f].he()}Wh(a,Df(a.tc,b));Vh(a);zb(a.ea,b,e);for(f=0;f<d.length;f++)Cb(d[f])}else{if("datastale"===d)for(f=0;f<c.length;f++)c[f].status=4===c[f].status?5:1;else for(Q("transaction at "+b.toString()+" failed: "+d),f=0;f<c.length;f++)c[f].status=5,c[f].ke=d;Mh(a,b)}},e)}function Mh(a,b){var c=Zh(a,b),d=c.path(),c=Xh(a,c);$h(a,c,d);return d}
+function $h(a,b,c){if(0!==b.length){for(var d=[],e=[],f=Qa(b,function(a){return a.Aa}),g=0;g<b.length;g++){var k=b[g],l=N(c,k.path),m=!1,v;J(null!==l,"rerunTransactionsUnderNode_: relativePath should not be null.");if(5===k.status)m=!0,v=k.ke,e=e.concat(lf(a.O,k.Aa,!0));else if(1===k.status)if(25<=k.Hf)m=!0,v="maxretry",e=e.concat(lf(a.O,k.Aa,!0));else{var y=a.O.ua(k.path,f)||C;k.od=y;var I=b[g].update(y.K());n(I)?(Sf("transaction failed: Data returned ",I,k.path),l=L(I),"object"===typeof I&&null!=
+I&&u(I,".priority")||(l=l.da(y.A())),y=k.Aa,I=Lh(a),I=sc(l,I),k.pd=l,k.qd=I,k.Aa=a.Gd++,Va(f,y),e=e.concat(hf(a.O,k.path,I,k.Aa,k.af)),e=e.concat(lf(a.O,y,!0))):(m=!0,v="nodata",e=e.concat(lf(a.O,k.Aa,!0)))}zb(a.ea,c,e);e=[];m&&(b[g].status=3,setTimeout(b[g].he,Math.floor(0)),b[g].J&&("nodata"===v?(k=new U(a,b[g].path),d.push(q(b[g].J,null,null,!1,new S(b[g].od,k,M)))):d.push(q(b[g].J,null,Error(v),!1,null))))}Wh(a,a.tc);for(g=0;g<d.length;g++)Cb(d[g]);Vh(a)}}
+function Zh(a,b){for(var c,d=a.tc;null!==(c=O(b))&&null===d.Ba();)d=Df(d,c),b=G(b);return d}function Xh(a,b){var c=[];ai(a,b,c);c.sort(function(a,b){return a.Af-b.Af});return c}function ai(a,b,c){var d=b.Ba();if(null!==d)for(var e=0;e<d.length;e++)c.push(d[e]);b.U(function(b){ai(a,b,c)})}function Wh(a,b){var c=b.Ba();if(c){for(var d=0,e=0;e<c.length;e++)3!==c[e].status&&(c[d]=c[e],d++);c.length=d;Ef(b,0<c.length?c:null)}b.U(function(b){Wh(a,b)})}
+function Ph(a,b){var c=Zh(a,b).path(),d=Df(a.tc,b);Hf(d,function(b){bi(a,b)});bi(a,d);Gf(d,function(b){bi(a,b)});return c}
+function bi(a,b){var c=b.Ba();if(null!==c){for(var d=[],e=[],f=-1,g=0;g<c.length;g++)4!==c[g].status&&(2===c[g].status?(J(f===g-1,"All SENT items should be at beginning of queue."),f=g,c[g].status=4,c[g].ke="set"):(J(1===c[g].status,"Unexpected transaction status in abort"),c[g].he(),e=e.concat(lf(a.O,c[g].Aa,!0)),c[g].J&&d.push(q(c[g].J,null,Error("set"),!1,null))));-1===f?Ef(b,null):c.length=f+1;zb(a.ea,b.path(),e);for(g=0;g<d.length;g++)Cb(d[g])}};function W(){this.nc={};this.Mf=!1}ca(W);W.prototype.xb=function(){for(var a in this.nc)this.nc[a].xb()};W.prototype.interrupt=W.prototype.xb;W.prototype.qc=function(){for(var a in this.nc)this.nc[a].qc()};W.prototype.resume=W.prototype.qc;W.prototype.ve=function(){this.Mf=!0};function X(a,b){this.bd=a;this.qa=b}X.prototype.cancel=function(a){x("Firebase.onDisconnect().cancel",0,1,arguments.length);A("Firebase.onDisconnect().cancel",1,a,!0);this.bd.Id(this.qa,a||null)};X.prototype.cancel=X.prototype.cancel;X.prototype.remove=function(a){x("Firebase.onDisconnect().remove",0,1,arguments.length);Yf("Firebase.onDisconnect().remove",this.qa);A("Firebase.onDisconnect().remove",1,a,!0);Qh(this.bd,this.qa,null,a)};X.prototype.remove=X.prototype.remove;
+X.prototype.set=function(a,b){x("Firebase.onDisconnect().set",1,2,arguments.length);Yf("Firebase.onDisconnect().set",this.qa);Rf("Firebase.onDisconnect().set",a,this.qa,!1);A("Firebase.onDisconnect().set",2,b,!0);Qh(this.bd,this.qa,a,b)};X.prototype.set=X.prototype.set;
+X.prototype.Jb=function(a,b,c){x("Firebase.onDisconnect().setWithPriority",2,3,arguments.length);Yf("Firebase.onDisconnect().setWithPriority",this.qa);Rf("Firebase.onDisconnect().setWithPriority",a,this.qa,!1);Uf("Firebase.onDisconnect().setWithPriority",2,b);A("Firebase.onDisconnect().setWithPriority",3,c,!0);Rh(this.bd,this.qa,a,b,c)};X.prototype.setWithPriority=X.prototype.Jb;
+X.prototype.update=function(a,b){x("Firebase.onDisconnect().update",1,2,arguments.length);Yf("Firebase.onDisconnect().update",this.qa);if(ea(a)){for(var c={},d=0;d<a.length;++d)c[""+d]=a[d];a=c;Q("Passing an Array to Firebase.onDisconnect().update() is deprecated. Use set() if you want to overwrite the existing data, or an Object with integer keys if you really do want to only update some of the children.")}Tf("Firebase.onDisconnect().update",a,this.qa);A("Firebase.onDisconnect().update",2,b,!0);
+Sh(this.bd,this.qa,a,b)};X.prototype.update=X.prototype.update;function Y(a,b,c,d){this.k=a;this.path=b;this.n=c;this.jc=d}
+function ci(a){var b=null,c=null;a.la&&(b=od(a));a.na&&(c=qd(a));if(a.g===Vd){if(a.la){if("[MIN_NAME]"!=nd(a))throw Error("Query: When ordering by key, you may only pass one argument to startAt(), endAt(), or equalTo().");if("string"!==typeof b)throw Error("Query: When ordering by key, the argument passed to startAt(), endAt(),or equalTo() must be a string.");}if(a.na){if("[MAX_NAME]"!=pd(a))throw Error("Query: When ordering by key, you may only pass one argument to startAt(), endAt(), or equalTo().");if("string"!==
+typeof c)throw Error("Query: When ordering by key, the argument passed to startAt(), endAt(),or equalTo() must be a string.");}}else if(a.g===M){if(null!=b&&!Qf(b)||null!=c&&!Qf(c))throw Error("Query: When ordering by priority, the first argument passed to startAt(), endAt(), or equalTo() must be a valid priority value (null, a number, or a string).");}else if(J(a.g instanceof Rd||a.g===Yd,"unknown index type."),null!=b&&"object"===typeof b||null!=c&&"object"===typeof c)throw Error("Query: First argument passed to startAt(), endAt(), or equalTo() cannot be an object.");
+}function di(a){if(a.la&&a.na&&a.ia&&(!a.ia||""===a.Nb))throw Error("Query: Can't combine startAt(), endAt(), and limit(). Use limitToFirst() or limitToLast() instead.");}function ei(a,b){if(!0===a.jc)throw Error(b+": You can't combine multiple orderBy calls.");}Y.prototype.lc=function(){x("Query.ref",0,0,arguments.length);return new U(this.k,this.path)};Y.prototype.ref=Y.prototype.lc;
+Y.prototype.Db=function(a,b,c,d){x("Query.on",2,4,arguments.length);Vf("Query.on",a,!1);A("Query.on",2,b,!1);var e=fi("Query.on",c,d);if("value"===a)Th(this.k,this,new jd(b,e.cancel||null,e.Ma||null));else{var f={};f[a]=b;Th(this.k,this,new kd(f,e.cancel,e.Ma))}return b};Y.prototype.on=Y.prototype.Db;
+Y.prototype.hc=function(a,b,c){x("Query.off",0,3,arguments.length);Vf("Query.off",a,!0);A("Query.off",2,b,!0);lb("Query.off",3,c);var d=null,e=null;"value"===a?d=new jd(b||null,null,c||null):a&&(b&&(e={},e[a]=b),d=new kd(e,null,c||null));e=this.k;d=".info"===O(this.path)?e.Bd.kb(this,d):e.O.kb(this,d);xb(e.ea,this.path,d)};Y.prototype.off=Y.prototype.hc;
+Y.prototype.xg=function(a,b){function c(g){f&&(f=!1,e.hc(a,c),b.call(d.Ma,g))}x("Query.once",2,4,arguments.length);Vf("Query.once",a,!1);A("Query.once",2,b,!1);var d=fi("Query.once",arguments[2],arguments[3]),e=this,f=!0;this.Db(a,c,function(b){e.hc(a,c);d.cancel&&d.cancel.call(d.Ma,b)})};Y.prototype.once=Y.prototype.xg;
+Y.prototype.Ge=function(a){Q("Query.limit() being deprecated. Please use Query.limitToFirst() or Query.limitToLast() instead.");x("Query.limit",1,1,arguments.length);if(!ga(a)||Math.floor(a)!==a||0>=a)throw Error("Query.limit: First argument must be a positive integer.");if(this.n.ia)throw Error("Query.limit: Limit was already set (by another call to limit, limitToFirst, orlimitToLast.");var b=this.n.Ge(a);di(b);return new Y(this.k,this.path,b,this.jc)};Y.prototype.limit=Y.prototype.Ge;
+Y.prototype.He=function(a){x("Query.limitToFirst",1,1,arguments.length);if(!ga(a)||Math.floor(a)!==a||0>=a)throw Error("Query.limitToFirst: First argument must be a positive integer.");if(this.n.ia)throw Error("Query.limitToFirst: Limit was already set (by another call to limit, limitToFirst, or limitToLast).");return new Y(this.k,this.path,this.n.He(a),this.jc)};Y.prototype.limitToFirst=Y.prototype.He;
+Y.prototype.Ie=function(a){x("Query.limitToLast",1,1,arguments.length);if(!ga(a)||Math.floor(a)!==a||0>=a)throw Error("Query.limitToLast: First argument must be a positive integer.");if(this.n.ia)throw Error("Query.limitToLast: Limit was already set (by another call to limit, limitToFirst, or limitToLast).");return new Y(this.k,this.path,this.n.Ie(a),this.jc)};Y.prototype.limitToLast=Y.prototype.Ie;
+Y.prototype.yg=function(a){x("Query.orderByChild",1,1,arguments.length);if("$key"===a)throw Error('Query.orderByChild: "$key" is invalid.  Use Query.orderByKey() instead.');if("$priority"===a)throw Error('Query.orderByChild: "$priority" is invalid.  Use Query.orderByPriority() instead.');if("$value"===a)throw Error('Query.orderByChild: "$value" is invalid.  Use Query.orderByValue() instead.');Wf("Query.orderByChild",1,a,!1);ei(this,"Query.orderByChild");var b=be(this.n,new Rd(a));ci(b);return new Y(this.k,
+this.path,b,!0)};Y.prototype.orderByChild=Y.prototype.yg;Y.prototype.zg=function(){x("Query.orderByKey",0,0,arguments.length);ei(this,"Query.orderByKey");var a=be(this.n,Vd);ci(a);return new Y(this.k,this.path,a,!0)};Y.prototype.orderByKey=Y.prototype.zg;Y.prototype.Ag=function(){x("Query.orderByPriority",0,0,arguments.length);ei(this,"Query.orderByPriority");var a=be(this.n,M);ci(a);return new Y(this.k,this.path,a,!0)};Y.prototype.orderByPriority=Y.prototype.Ag;
+Y.prototype.Bg=function(){x("Query.orderByValue",0,0,arguments.length);ei(this,"Query.orderByValue");var a=be(this.n,Yd);ci(a);return new Y(this.k,this.path,a,!0)};Y.prototype.orderByValue=Y.prototype.Bg;
+Y.prototype.Yd=function(a,b){x("Query.startAt",0,2,arguments.length);Rf("Query.startAt",a,this.path,!0);Wf("Query.startAt",2,b,!0);var c=this.n.Yd(a,b);di(c);ci(c);if(this.n.la)throw Error("Query.startAt: Starting point was already set (by another call to startAt or equalTo).");n(a)||(b=a=null);return new Y(this.k,this.path,c,this.jc)};Y.prototype.startAt=Y.prototype.Yd;
+Y.prototype.sd=function(a,b){x("Query.endAt",0,2,arguments.length);Rf("Query.endAt",a,this.path,!0);Wf("Query.endAt",2,b,!0);var c=this.n.sd(a,b);di(c);ci(c);if(this.n.na)throw Error("Query.endAt: Ending point was already set (by another call to endAt or equalTo).");return new Y(this.k,this.path,c,this.jc)};Y.prototype.endAt=Y.prototype.sd;
+Y.prototype.eg=function(a,b){x("Query.equalTo",1,2,arguments.length);Rf("Query.equalTo",a,this.path,!1);Wf("Query.equalTo",2,b,!0);if(this.n.la)throw Error("Query.equalTo: Starting point was already set (by another call to endAt or equalTo).");if(this.n.na)throw Error("Query.equalTo: Ending point was already set (by another call to endAt or equalTo).");return this.Yd(a,b).sd(a,b)};Y.prototype.equalTo=Y.prototype.eg;
+Y.prototype.toString=function(){x("Query.toString",0,0,arguments.length);for(var a=this.path,b="",c=a.Y;c<a.o.length;c++)""!==a.o[c]&&(b+="/"+encodeURIComponent(String(a.o[c])));a=this.k.toString()+(b||"/");b=jb(ee(this.n));return a+=b.replace(/^&/,"")};Y.prototype.toString=Y.prototype.toString;Y.prototype.wa=function(){var a=Wc(ce(this.n));return"{}"===a?"default":a};
+function fi(a,b,c){var d={cancel:null,Ma:null};if(b&&c)d.cancel=b,A(a,3,d.cancel,!0),d.Ma=c,lb(a,4,d.Ma);else if(b)if("object"===typeof b&&null!==b)d.Ma=b;else if("function"===typeof b)d.cancel=b;else throw Error(z(a,3,!0)+" must either be a cancel callback or a context object.");return d};var Z={};Z.vc=vh;Z.DataConnection=Z.vc;vh.prototype.Lg=function(a,b){this.Da("q",{p:a},b)};Z.vc.prototype.simpleListen=Z.vc.prototype.Lg;vh.prototype.dg=function(a,b){this.Da("echo",{d:a},b)};Z.vc.prototype.echo=Z.vc.prototype.dg;vh.prototype.interrupt=vh.prototype.xb;Z.Pf=jh;Z.RealTimeConnection=Z.Pf;jh.prototype.sendRequest=jh.prototype.Da;jh.prototype.close=jh.prototype.close;
+Z.lg=function(a){var b=vh.prototype.put;vh.prototype.put=function(c,d,e,f){n(f)&&(f=a());b.call(this,c,d,e,f)};return function(){vh.prototype.put=b}};Z.hijackHash=Z.lg;Z.Of=Ec;Z.ConnectionTarget=Z.Of;Z.wa=function(a){return a.wa()};Z.queryIdentifier=Z.wa;Z.ng=function(a){return a.k.Ra.aa};Z.listens=Z.ng;Z.ve=function(a){a.ve()};Z.forceRestClient=Z.ve;function U(a,b){var c,d,e;if(a instanceof Ih)c=a,d=b;else{x("new Firebase",1,2,arguments.length);d=Rc(arguments[0]);c=d.Ng;"firebase"===d.domain&&Qc(d.host+" is no longer supported. Please use <YOUR FIREBASE>.firebaseio.com instead");c||Qc("Cannot parse Firebase url. Please use https://<YOUR FIREBASE>.firebaseio.com");d.lb||"undefined"!==typeof window&&window.location&&window.location.protocol&&-1!==window.location.protocol.indexOf("https:")&&Q("Insecure Firebase access from a secure page. Please use https in calls to new Firebase().");
+c=new Ec(d.host,d.lb,c,"ws"===d.scheme||"wss"===d.scheme);d=new K(d.$c);e=d.toString();var f;!(f=!p(c.host)||0===c.host.length||!Pf(c.Bb))&&(f=0!==e.length)&&(e&&(e=e.replace(/^\/*\.info(\/|$)/,"/")),f=!(p(e)&&0!==e.length&&!Of.test(e)));if(f)throw Error(z("new Firebase",1,!1)+'must be a valid firebase URL and the path can\'t contain ".", "#", "$", "[", or "]".');if(b)if(b instanceof W)e=b;else if(p(b))e=W.Wb(),c.Nd=b;else throw Error("Expected a valid Firebase.Context for second argument to new Firebase()");
+else e=W.Wb();f=c.toString();var g=w(e.nc,f);g||(g=new Ih(c,e.Mf),e.nc[f]=g);c=g}Y.call(this,c,d,$d,!1)}ma(U,Y);var gi=U,hi=["Firebase"],ii=aa;hi[0]in ii||!ii.execScript||ii.execScript("var "+hi[0]);for(var ji;hi.length&&(ji=hi.shift());)!hi.length&&n(gi)?ii[ji]=gi:ii=ii[ji]?ii[ji]:ii[ji]={};U.prototype.name=function(){Q("Firebase.name() being deprecated. Please use Firebase.key() instead.");x("Firebase.name",0,0,arguments.length);return this.key()};U.prototype.name=U.prototype.name;
+U.prototype.key=function(){x("Firebase.key",0,0,arguments.length);return this.path.e()?null:vc(this.path)};U.prototype.key=U.prototype.key;U.prototype.w=function(a){x("Firebase.child",1,1,arguments.length);if(ga(a))a=String(a);else if(!(a instanceof K))if(null===O(this.path)){var b=a;b&&(b=b.replace(/^\/*\.info(\/|$)/,"/"));Xf("Firebase.child",b)}else Xf("Firebase.child",a);return new U(this.k,this.path.w(a))};U.prototype.child=U.prototype.w;
+U.prototype.parent=function(){x("Firebase.parent",0,0,arguments.length);var a=this.path.parent();return null===a?null:new U(this.k,a)};U.prototype.parent=U.prototype.parent;U.prototype.root=function(){x("Firebase.ref",0,0,arguments.length);for(var a=this;null!==a.parent();)a=a.parent();return a};U.prototype.root=U.prototype.root;
+U.prototype.set=function(a,b){x("Firebase.set",1,2,arguments.length);Yf("Firebase.set",this.path);Rf("Firebase.set",a,this.path,!1);A("Firebase.set",2,b,!0);this.k.Jb(this.path,a,null,b||null)};U.prototype.set=U.prototype.set;
+U.prototype.update=function(a,b){x("Firebase.update",1,2,arguments.length);Yf("Firebase.update",this.path);if(ea(a)){for(var c={},d=0;d<a.length;++d)c[""+d]=a[d];a=c;Q("Passing an Array to Firebase.update() is deprecated. Use set() if you want to overwrite the existing data, or an Object with integer keys if you really do want to only update some of the children.")}Tf("Firebase.update",a,this.path);A("Firebase.update",2,b,!0);this.k.update(this.path,a,b||null)};U.prototype.update=U.prototype.update;
+U.prototype.Jb=function(a,b,c){x("Firebase.setWithPriority",2,3,arguments.length);Yf("Firebase.setWithPriority",this.path);Rf("Firebase.setWithPriority",a,this.path,!1);Uf("Firebase.setWithPriority",2,b);A("Firebase.setWithPriority",3,c,!0);if(".length"===this.key()||".keys"===this.key())throw"Firebase.setWithPriority failed: "+this.key()+" is a read-only object.";this.k.Jb(this.path,a,b,c||null)};U.prototype.setWithPriority=U.prototype.Jb;
+U.prototype.remove=function(a){x("Firebase.remove",0,1,arguments.length);Yf("Firebase.remove",this.path);A("Firebase.remove",1,a,!0);this.set(null,a)};U.prototype.remove=U.prototype.remove;
+U.prototype.transaction=function(a,b,c){x("Firebase.transaction",1,3,arguments.length);Yf("Firebase.transaction",this.path);A("Firebase.transaction",1,a,!1);A("Firebase.transaction",2,b,!0);if(n(c)&&"boolean"!=typeof c)throw Error(z("Firebase.transaction",3,!0)+"must be a boolean.");if(".length"===this.key()||".keys"===this.key())throw"Firebase.transaction failed: "+this.key()+" is a read-only object.";"undefined"===typeof c&&(c=!0);Uh(this.k,this.path,a,b||null,c)};U.prototype.transaction=U.prototype.transaction;
+U.prototype.Ig=function(a,b){x("Firebase.setPriority",1,2,arguments.length);Yf("Firebase.setPriority",this.path);Uf("Firebase.setPriority",1,a);A("Firebase.setPriority",2,b,!0);this.k.Jb(this.path.w(".priority"),a,null,b)};U.prototype.setPriority=U.prototype.Ig;
+U.prototype.push=function(a,b){x("Firebase.push",0,2,arguments.length);Yf("Firebase.push",this.path);Rf("Firebase.push",a,this.path,!0);A("Firebase.push",2,b,!0);var c=Kh(this.k),c=Kf(c),c=this.w(c);"undefined"!==typeof a&&null!==a&&c.set(a,b);return c};U.prototype.push=U.prototype.push;U.prototype.jb=function(){Yf("Firebase.onDisconnect",this.path);return new X(this.k,this.path)};U.prototype.onDisconnect=U.prototype.jb;
+U.prototype.P=function(a,b,c){Q("FirebaseRef.auth() being deprecated. Please use FirebaseRef.authWithCustomToken() instead.");x("Firebase.auth",1,3,arguments.length);Zf("Firebase.auth",a);A("Firebase.auth",2,b,!0);A("Firebase.auth",3,b,!0);Jg(this.k.P,a,{},{remember:"none"},b,c)};U.prototype.auth=U.prototype.P;U.prototype.fe=function(a){x("Firebase.unauth",0,1,arguments.length);A("Firebase.unauth",1,a,!0);Kg(this.k.P,a)};U.prototype.unauth=U.prototype.fe;
+U.prototype.xe=function(){x("Firebase.getAuth",0,0,arguments.length);return this.k.P.xe()};U.prototype.getAuth=U.prototype.xe;U.prototype.rg=function(a,b){x("Firebase.onAuth",1,2,arguments.length);A("Firebase.onAuth",1,a,!1);lb("Firebase.onAuth",2,b);this.k.P.Db("auth_status",a,b)};U.prototype.onAuth=U.prototype.rg;U.prototype.qg=function(a,b){x("Firebase.offAuth",1,2,arguments.length);A("Firebase.offAuth",1,a,!1);lb("Firebase.offAuth",2,b);this.k.P.hc("auth_status",a,b)};U.prototype.offAuth=U.prototype.qg;
+U.prototype.Tf=function(a,b,c){x("Firebase.authWithCustomToken",2,3,arguments.length);Zf("Firebase.authWithCustomToken",a);A("Firebase.authWithCustomToken",2,b,!1);ag("Firebase.authWithCustomToken",3,c,!0);Jg(this.k.P,a,{},c||{},b)};U.prototype.authWithCustomToken=U.prototype.Tf;U.prototype.Uf=function(a,b,c){x("Firebase.authWithOAuthPopup",2,3,arguments.length);$f("Firebase.authWithOAuthPopup",1,a);A("Firebase.authWithOAuthPopup",2,b,!1);ag("Firebase.authWithOAuthPopup",3,c,!0);Og(this.k.P,a,c,b)};
+U.prototype.authWithOAuthPopup=U.prototype.Uf;U.prototype.Vf=function(a,b,c){x("Firebase.authWithOAuthRedirect",2,3,arguments.length);$f("Firebase.authWithOAuthRedirect",1,a);A("Firebase.authWithOAuthRedirect",2,b,!1);ag("Firebase.authWithOAuthRedirect",3,c,!0);var d=this.k.P;Mg(d);var e=[vg],f=ig(c);"anonymous"===a||"firebase"===a?R(b,xg("TRANSPORT_UNAVAILABLE")):(P.set("redirect_client_options",f.nd),Ng(d,e,"/auth/"+a,f,b))};U.prototype.authWithOAuthRedirect=U.prototype.Vf;
+U.prototype.Wf=function(a,b,c,d){x("Firebase.authWithOAuthToken",3,4,arguments.length);$f("Firebase.authWithOAuthToken",1,a);A("Firebase.authWithOAuthToken",3,c,!1);ag("Firebase.authWithOAuthToken",4,d,!0);p(b)?($f("Firebase.authWithOAuthToken",2,b),Lg(this.k.P,a+"/token",{access_token:b},d,c)):(ag("Firebase.authWithOAuthToken",2,b,!1),Lg(this.k.P,a+"/token",b,d,c))};U.prototype.authWithOAuthToken=U.prototype.Wf;
+U.prototype.Sf=function(a,b){x("Firebase.authAnonymously",1,2,arguments.length);A("Firebase.authAnonymously",1,a,!1);ag("Firebase.authAnonymously",2,b,!0);Lg(this.k.P,"anonymous",{},b,a)};U.prototype.authAnonymously=U.prototype.Sf;
+U.prototype.Xf=function(a,b,c){x("Firebase.authWithPassword",2,3,arguments.length);ag("Firebase.authWithPassword",1,a,!1);bg("Firebase.authWithPassword",a,"email");bg("Firebase.authWithPassword",a,"password");A("Firebase.authAnonymously",2,b,!1);ag("Firebase.authAnonymously",3,c,!0);Lg(this.k.P,"password",a,c,b)};U.prototype.authWithPassword=U.prototype.Xf;
+U.prototype.se=function(a,b){x("Firebase.createUser",2,2,arguments.length);ag("Firebase.createUser",1,a,!1);bg("Firebase.createUser",a,"email");bg("Firebase.createUser",a,"password");A("Firebase.createUser",2,b,!1);this.k.P.se(a,b)};U.prototype.createUser=U.prototype.se;U.prototype.Re=function(a,b){x("Firebase.removeUser",2,2,arguments.length);ag("Firebase.removeUser",1,a,!1);bg("Firebase.removeUser",a,"email");bg("Firebase.removeUser",a,"password");A("Firebase.removeUser",2,b,!1);this.k.P.Re(a,b)};
+U.prototype.removeUser=U.prototype.Re;U.prototype.pe=function(a,b){x("Firebase.changePassword",2,2,arguments.length);ag("Firebase.changePassword",1,a,!1);bg("Firebase.changePassword",a,"email");bg("Firebase.changePassword",a,"oldPassword");bg("Firebase.changePassword",a,"newPassword");A("Firebase.changePassword",2,b,!1);this.k.P.pe(a,b)};U.prototype.changePassword=U.prototype.pe;
+U.prototype.oe=function(a,b){x("Firebase.changeEmail",2,2,arguments.length);ag("Firebase.changeEmail",1,a,!1);bg("Firebase.changeEmail",a,"oldEmail");bg("Firebase.changeEmail",a,"newEmail");bg("Firebase.changeEmail",a,"password");A("Firebase.changeEmail",2,b,!1);this.k.P.oe(a,b)};U.prototype.changeEmail=U.prototype.oe;
+U.prototype.Se=function(a,b){x("Firebase.resetPassword",2,2,arguments.length);ag("Firebase.resetPassword",1,a,!1);bg("Firebase.resetPassword",a,"email");A("Firebase.resetPassword",2,b,!1);this.k.P.Se(a,b)};U.prototype.resetPassword=U.prototype.Se;U.goOffline=function(){x("Firebase.goOffline",0,0,arguments.length);W.Wb().xb()};U.goOnline=function(){x("Firebase.goOnline",0,0,arguments.length);W.Wb().qc()};
+function Nc(a,b){J(!b||!0===a||!1===a,"Can't turn on custom loggers persistently.");!0===a?("undefined"!==typeof console&&("function"===typeof console.log?Ab=q(console.log,console):"object"===typeof console.log&&(Ab=function(a){console.log(a)})),b&&P.set("logging_enabled",!0)):a?Ab=a:(Ab=null,P.remove("logging_enabled"))}U.enableLogging=Nc;U.ServerValue={TIMESTAMP:{".sv":"timestamp"}};U.SDK_VERSION="2.2.3";U.INTERNAL=V;U.Context=W;U.TEST_ACCESS=Z;})();
 
+module.exports = Firebase;
 
 },{}],2:[function(require,module,exports){
 // shim for using process in browser
@@ -313,15 +328,14 @@ process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
 
-
 },{}],3:[function(require,module,exports){
 (function (global){
 /**
  * @license
- * lodash 3.1.0 (Custom Build) <https://lodash.com/>
+ * lodash 3.6.0 (Custom Build) <https://lodash.com/>
  * Build: `lodash modern -d -o ./index.js`
  * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
- * Based on Underscore.js 1.7.0 <http://underscorejs.org/LICENSE>
+ * Based on Underscore.js 1.8.2 <http://underscorejs.org/LICENSE>
  * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
  * Available under MIT license <https://lodash.com/license>
  */
@@ -331,7 +345,7 @@ process.chdir = function (dir) {
   var undefined;
 
   /** Used as the semantic version number. */
-  var VERSION = '3.1.0';
+  var VERSION = '3.6.0';
 
   /** Used to compose bitmasks for wrapper metadata. */
   var BIND_FLAG = 1,
@@ -341,8 +355,8 @@ process.chdir = function (dir) {
       CURRY_RIGHT_FLAG = 16,
       PARTIAL_FLAG = 32,
       PARTIAL_RIGHT_FLAG = 64,
-      REARG_FLAG = 128,
-      ARY_FLAG = 256;
+      ARY_FLAG = 128,
+      REARG_FLAG = 256;
 
   /** Used as default options for `_.trunc`. */
   var DEFAULT_TRUNC_LENGTH = 30,
@@ -353,9 +367,9 @@ process.chdir = function (dir) {
       HOT_SPAN = 16;
 
   /** Used to indicate the type of lazy iteratees. */
-  var LAZY_FILTER_FLAG = 0,
-      LAZY_MAP_FLAG = 1,
-      LAZY_WHILE_FLAG = 2;
+  var LAZY_DROP_WHILE_FLAG = 0,
+      LAZY_FILTER_FLAG = 1,
+      LAZY_MAP_FLAG = 2;
 
   /** Used as the `TypeError` message for "Functions" methods. */
   var FUNC_ERROR_TEXT = 'Expected a function';
@@ -406,17 +420,17 @@ process.chdir = function (dir) {
       reInterpolate = /<%=([\s\S]+?)%>/g;
 
   /**
-   * Used to match ES template delimiters.
-   * See the [ES spec](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-template-literal-lexical-components)
-   * for more details.
+   * Used to match [combining diacritical marks](https://en.wikipedia.org/wiki/Combining_Diacritical_Marks).
+   */
+  var reComboMarks = /[\u0300-\u036f\ufe20-\ufe23]/g;
+
+  /**
+   * Used to match [ES template delimiters](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-template-literal-lexical-components).
    */
   var reEsTemplate = /\$\{([^\\}]*(?:\\.[^\\}]*)*)\}/g;
 
   /** Used to match `RegExp` flags from their coerced string values. */
   var reFlags = /\w*$/;
-
-  /** Used to detect named functions. */
-  var reFuncName = /^\s*function[ \n\r\t]+\w/;
 
   /** Used to detect hexadecimal string values. */
   var reHexPrefix = /^0[xX]/;
@@ -431,15 +445,12 @@ process.chdir = function (dir) {
   var reNoMatch = /($^)/;
 
   /**
-   * Used to match `RegExp` special characters.
-   * See this [article on `RegExp` characters](http://www.regular-expressions.info/characters.html#special)
-   * for more details.
+   * Used to match `RegExp` [special characters](http://www.regular-expressions.info/characters.html#special).
+   * In addition to special characters the forward slash is escaped to allow for
+   * easier `eval` use and `Function` compilation.
    */
   var reRegExpChars = /[.*+?^${}()|[\]\/\\]/g,
       reHasRegExpChars = RegExp(reRegExpChars.source);
-
-  /** Used to detect functions containing a `this` reference. */
-  var reThis = /\bthis\b/;
 
   /** Used to match unescaped characters in compiled string literals. */
   var reUnescapedString = /['\n\r\u2028\u2029\\]/g;
@@ -449,7 +460,7 @@ process.chdir = function (dir) {
     var upper = '[A-Z\\xc0-\\xd6\\xd8-\\xde]',
         lower = '[a-z\\xdf-\\xf6\\xf8-\\xff]+';
 
-    return RegExp(upper + '{2,}(?=' + upper + lower + ')|' + upper + '?' + lower + '|' + upper + '+|[0-9]+', 'g');
+    return RegExp(upper + '+(?=' + upper + lower + ')|' + upper + '?' + lower + '|' + upper + '+|[0-9]+', 'g');
   }());
 
   /** Used to detect and test for whitespace. */
@@ -471,7 +482,7 @@ process.chdir = function (dir) {
     'Object', 'RegExp', 'Set', 'String', '_', 'clearTimeout', 'document',
     'isFinite', 'parseInt', 'setTimeout', 'TypeError', 'Uint8Array',
     'Uint8ClampedArray', 'Uint16Array', 'Uint32Array', 'WeakMap',
-    'window', 'WinRTError'
+    'window'
   ];
 
   /** Used to make template sourceURLs easier to identify. */
@@ -571,28 +582,31 @@ process.chdir = function (dir) {
     '\u2029': 'u2029'
   };
 
-  /**
-   * Used as a reference to the global object.
-   *
-   * The `this` value is used if it is the global object to avoid Greasemonkey's
-   * restricted `window` object, otherwise the `window` object is used.
-   */
-  var root = (objectTypes[typeof window] && window !== (this && this.window)) ? window : this;
-
   /** Detect free variable `exports`. */
   var freeExports = objectTypes[typeof exports] && exports && !exports.nodeType && exports;
 
   /** Detect free variable `module`. */
   var freeModule = objectTypes[typeof module] && module && !module.nodeType && module;
 
-  /** Detect free variable `global` from Node.js or Browserified code and use it as `root`. */
+  /** Detect free variable `global` from Node.js. */
   var freeGlobal = freeExports && freeModule && typeof global == 'object' && global;
-  if (freeGlobal && (freeGlobal.global === freeGlobal || freeGlobal.window === freeGlobal || freeGlobal.self === freeGlobal)) {
-    root = freeGlobal;
-  }
+
+  /** Detect free variable `self`. */
+  var freeSelf = objectTypes[typeof self] && self && self.Object && self;
+
+  /** Detect free variable `window`. */
+  var freeWindow = objectTypes[typeof window] && window && window.Object && window;
 
   /** Detect the popular CommonJS extension `module.exports`. */
   var moduleExports = freeModule && freeModule.exports === freeExports && freeExports;
+
+  /**
+   * Used as a reference to the global object.
+   *
+   * The `this` value is used if it is the global object to avoid Greasemonkey's
+   * restricted `window` object, otherwise the `window` object is used.
+   */
+  var root = freeGlobal || ((freeWindow !== (this && this.window)) && freeWindow) || freeSelf || this;
 
   /*--------------------------------------------------------------------------*/
 
@@ -621,19 +635,41 @@ process.chdir = function (dir) {
   }
 
   /**
+   * The base implementation of `_.findIndex` and `_.findLastIndex` without
+   * support for callback shorthands and `this` binding.
+   *
+   * @private
+   * @param {Array} array The array to search.
+   * @param {Function} predicate The function invoked per iteration.
+   * @param {boolean} [fromRight] Specify iterating from right to left.
+   * @returns {number} Returns the index of the matched value, else `-1`.
+   */
+  function baseFindIndex(array, predicate, fromRight) {
+    var length = array.length,
+        index = fromRight ? length : -1;
+
+    while ((fromRight ? index-- : ++index < length)) {
+      if (predicate(array[index], index, array)) {
+        return index;
+      }
+    }
+    return -1;
+  }
+
+  /**
    * The base implementation of `_.indexOf` without support for binary searches.
    *
    * @private
    * @param {Array} array The array to search.
    * @param {*} value The value to search for.
-   * @param {number} [fromIndex=0] The index to search from.
+   * @param {number} fromIndex The index to search from.
    * @returns {number} Returns the index of the matched value, else `-1`.
    */
   function baseIndexOf(array, value, fromIndex) {
     if (value !== value) {
       return indexOfNaN(array, fromIndex);
     }
-    var index = (fromIndex || 0) - 1,
+    var index = fromIndex - 1,
         length = array.length;
 
     while (++index < length) {
@@ -645,23 +681,17 @@ process.chdir = function (dir) {
   }
 
   /**
-   * The base implementation of `_.sortBy` and `_.sortByAll` which uses `comparer`
-   * to define the sort order of `array` and replaces criteria objects with their
-   * corresponding values.
+   * The base implementation of `_.isFunction` without support for environments
+   * with incorrect `typeof` results.
    *
    * @private
-   * @param {Array} array The array to sort.
-   * @param {Function} comparer The function to define sort order.
-   * @returns {Array} Returns `array`.
+   * @param {*} value The value to check.
+   * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
    */
-  function baseSortBy(array, comparer) {
-    var length = array.length;
-
-    array.sort(comparer);
-    while (length--) {
-      array[length] = array[length].value;
-    }
-    return array;
+  function baseIsFunction(value) {
+    // Avoid a Chakra JIT bug in compatibility modes of IE 11.
+    // See https://github.com/jashkenas/underscore/issues/1621 for more details.
+    return typeof value == 'function' || false;
   }
 
   /**
@@ -737,24 +767,33 @@ process.chdir = function (dir) {
   }
 
   /**
-   * Used by `_.sortByAll` to compare multiple properties of each element
-   * in a collection and stable sort them in ascending order.
+   * Used by `_.sortByOrder` to compare multiple properties of each element
+   * in a collection and stable sort them in the following order:
+   *
+   * If orders is unspecified, sort in ascending order for all properties.
+   * Otherwise, for each property, sort in ascending order if its corresponding value in
+   * orders is true, and descending order if false.
    *
    * @private
    * @param {Object} object The object to compare to `other`.
    * @param {Object} other The object to compare to `object`.
+   * @param {boolean[]} orders The order to sort by for each property.
    * @returns {number} Returns the sort order indicator for `object`.
    */
-  function compareMultipleAscending(object, other) {
+  function compareMultiple(object, other, orders) {
     var index = -1,
         objCriteria = object.criteria,
         othCriteria = other.criteria,
-        length = objCriteria.length;
+        length = objCriteria.length,
+        ordersLength = orders.length;
 
     while (++index < length) {
       var result = baseCompareAscending(objCriteria[index], othCriteria[index]);
       if (result) {
-        return result;
+        if (index >= ordersLength) {
+          return result;
+        }
+        return result * (orders[index] ? 1 : -1);
       }
     }
     // Fixes an `Array#sort` bug in the JS engine embedded in Adobe applications
@@ -803,17 +842,16 @@ process.chdir = function (dir) {
 
   /**
    * Gets the index at which the first occurrence of `NaN` is found in `array`.
-   * If `fromRight` is provided elements of `array` are iterated from right to left.
    *
    * @private
    * @param {Array} array The array to search.
-   * @param {number} [fromIndex] The index to search from.
+   * @param {number} fromIndex The index to search from.
    * @param {boolean} [fromRight] Specify iterating from right to left.
    * @returns {number} Returns the index of the matched `NaN`, else `-1`.
    */
   function indexOfNaN(array, fromIndex, fromRight) {
     var length = array.length,
-        index = fromRight ? (fromIndex || length) : ((fromIndex || 0) - 1);
+        index = fromIndex + (fromRight ? 0 : -1);
 
     while ((fromRight ? index-- : ++index < length)) {
       var other = array[index];
@@ -832,7 +870,7 @@ process.chdir = function (dir) {
    * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
    */
   function isObjectLike(value) {
-    return (value && typeof value == 'object') || false;
+    return !!value && typeof value == 'object';
   }
 
   /**
@@ -954,19 +992,19 @@ process.chdir = function (dir) {
    * @returns {Function} Returns a new `lodash` function.
    * @example
    *
-   * _.mixin({ 'add': function(a, b) { return a + b; } });
+   * _.mixin({ 'foo': _.constant('foo') });
    *
    * var lodash = _.runInContext();
-   * lodash.mixin({ 'sub': function(a, b) { return a - b; } });
+   * lodash.mixin({ 'bar': lodash.constant('bar') });
    *
-   * _.isFunction(_.add);
+   * _.isFunction(_.foo);
    * // => true
-   * _.isFunction(_.sub);
+   * _.isFunction(_.bar);
    * // => false
    *
-   * lodash.isFunction(lodash.add);
+   * lodash.isFunction(lodash.foo);
    * // => false
-   * lodash.isFunction(lodash.sub);
+   * lodash.isFunction(lodash.bar);
    * // => true
    *
    * // using `context` to mock `Date#getTime` use in `_.now`
@@ -1000,7 +1038,8 @@ process.chdir = function (dir) {
 
     /** Used for native method references. */
     var arrayProto = Array.prototype,
-        objectProto = Object.prototype;
+        objectProto = Object.prototype,
+        stringProto = String.prototype;
 
     /** Used to detect DOM support. */
     var document = (document = context.window) && document.document;
@@ -1018,9 +1057,8 @@ process.chdir = function (dir) {
     var idCounter = 0;
 
     /**
-     * Used to resolve the `toStringTag` of values.
-     * See the [ES spec](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-object.prototype.tostring)
-     * for more details.
+     * Used to resolve the [`toStringTag`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-object.prototype.tostring)
+     * of values.
      */
     var objToString = objectProto.toString;
 
@@ -1046,7 +1084,6 @@ process.chdir = function (dir) {
         setTimeout = context.setTimeout,
         splice = arrayProto.splice,
         Uint8Array = isNative(Uint8Array = context.Uint8Array) && Uint8Array,
-        unshift = arrayProto.unshift,
         WeakMap = isNative(WeakMap = context.WeakMap) && WeakMap;
 
     /** Used to clone array buffers. */
@@ -1086,19 +1123,21 @@ process.chdir = function (dir) {
     var FLOAT64_BYTES_PER_ELEMENT = Float64Array ? Float64Array.BYTES_PER_ELEMENT : 0;
 
     /**
-     * Used as the maximum length of an array-like value.
-     * See the [ES spec](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-number.max_safe_integer)
-     * for more details.
+     * Used as the [maximum length](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-number.max_safe_integer)
+     * of an array-like value.
      */
     var MAX_SAFE_INTEGER = Math.pow(2, 53) - 1;
 
     /** Used to store function metadata. */
     var metaMap = WeakMap && new WeakMap;
 
+    /** Used to lookup unminified function names. */
+    var realNames = {};
+
     /*------------------------------------------------------------------------*/
 
     /**
-     * Creates a `lodash` object which wraps `value` to enable intuitive chaining.
+     * Creates a `lodash` object which wraps `value` to enable implicit chaining.
      * Methods that operate on and return arrays, collections, and functions can
      * be chained together. Methods that return a boolean or single value will
      * automatically end the chain returning the unwrapped value. Explicit chaining
@@ -1113,65 +1152,76 @@ process.chdir = function (dir) {
      * Chaining is supported in custom builds as long as the `_#value` method is
      * directly or indirectly included in the build.
      *
-     * In addition to lodash methods, wrappers also have the following `Array` methods:
-     * `concat`, `join`, `pop`, `push`, `reverse`, `shift`, `slice`, `sort`, `splice`,
-     * and `unshift`
+     * In addition to lodash methods, wrappers have `Array` and `String` methods.
      *
-     * The wrapper functions that support shortcut fusion are:
-     * `drop`, `dropRight`, `dropRightWhile`, `dropWhile`, `filter`, `first`,
-     * `initial`, `last`, `map`, `pluck`, `reject`, `rest`, `reverse`, `slice`,
-     * `take`, `takeRight`, `takeRightWhile`, `takeWhile`, and `where`
+     * The wrapper `Array` methods are:
+     * `concat`, `join`, `pop`, `push`, `reverse`, `shift`, `slice`, `sort`,
+     * `splice`, and `unshift`
      *
-     * The chainable wrapper functions are:
+     * The wrapper `String` methods are:
+     * `replace` and `split`
+     *
+     * The wrapper methods that support shortcut fusion are:
+     * `compact`, `drop`, `dropRight`, `dropRightWhile`, `dropWhile`, `filter`,
+     * `first`, `initial`, `last`, `map`, `pluck`, `reject`, `rest`, `reverse`,
+     * `slice`, `take`, `takeRight`, `takeRightWhile`, `takeWhile`, `toArray`,
+     * and `where`
+     *
+     * The chainable wrapper methods are:
      * `after`, `ary`, `assign`, `at`, `before`, `bind`, `bindAll`, `bindKey`,
-     * `callback`, `chain`, `chunk`, `compact`, `concat`, `constant`, `countBy`,
-     * `create`, `curry`, `debounce`, `defaults`, `defer`, `delay`, `difference`,
-     * `drop`, `dropRight`, `dropRightWhile`, `dropWhile`, `filter`, `flatten`,
-     * `flattenDeep`, `flow`, `flowRight`, `forEach`, `forEachRight`, `forIn`,
-     * `forInRight`, `forOwn`, `forOwnRight`, `functions`, `groupBy`, `indexBy`,
-     * `initial`, `intersection`, `invert`, `invoke`, `keys`, `keysIn`, `map`,
-     * `mapValues`, `matches`, `memoize`, `merge`, `mixin`, `negate`, `noop`,
-     * `omit`, `once`, `pairs`, `partial`, `partialRight`, `partition`, `pick`,
-     * `pluck`, `property`, `propertyOf`, `pull`, `pullAt`, `push`, `range`,
-     * `rearg`, `reject`, `remove`, `rest`, `reverse`, `shuffle`, `slice`, `sort`,
-     * `sortBy`, `sortByAll`, `splice`, `take`, `takeRight`, `takeRightWhile`,
-     * `takeWhile`, `tap`, `throttle`, `thru`, `times`, `toArray`, `toPlainObject`,
-     * `transform`, `union`, `uniq`, `unshift`, `unzip`, `values`, `valuesIn`,
-     * `where`, `without`, `wrap`, `xor`, `zip`, and `zipObject`
+     * `callback`, `chain`, `chunk`, `commit`, `compact`, `concat`, `constant`,
+     * `countBy`, `create`, `curry`, `debounce`, `defaults`, `defer`, `delay`,
+     * `difference`, `drop`, `dropRight`, `dropRightWhile`, `dropWhile`, `fill`,
+     * `filter`, `flatten`, `flattenDeep`, `flow`, `flowRight`, `forEach`,
+     * `forEachRight`, `forIn`, `forInRight`, `forOwn`, `forOwnRight`, `functions`,
+     * `groupBy`, `indexBy`, `initial`, `intersection`, `invert`, `invoke`, `keys`,
+     * `keysIn`, `map`, `mapValues`, `matches`, `matchesProperty`, `memoize`, `merge`,
+     * `mixin`, `negate`, `noop`, `omit`, `once`, `pairs`, `partial`, `partialRight`,
+     * `partition`, `pick`, `plant`, `pluck`, `property`, `propertyOf`, `pull`,
+     * `pullAt`, `push`, `range`, `rearg`, `reject`, `remove`, `rest`, `reverse`,
+     * `shuffle`, `slice`, `sort`, `sortBy`, `sortByAll`, `sortByOrder`, `splice`,
+     * `spread`, `take`, `takeRight`, `takeRightWhile`, `takeWhile`, `tap`,
+     * `throttle`, `thru`, `times`, `toArray`, `toPlainObject`, `transform`,
+     * `union`, `uniq`, `unshift`, `unzip`, `values`, `valuesIn`, `where`,
+     * `without`, `wrap`, `xor`, `zip`, and `zipObject`
      *
-     * The wrapper functions that are **not** chainable by default are:
-     * `attempt`, `camelCase`, `capitalize`, `clone`, `cloneDeep`, `deburr`,
+     * The wrapper methods that are **not** chainable by default are:
+     * `add`, `attempt`, `camelCase`, `capitalize`, `clone`, `cloneDeep`, `deburr`,
      * `endsWith`, `escape`, `escapeRegExp`, `every`, `find`, `findIndex`, `findKey`,
      * `findLast`, `findLastIndex`, `findLastKey`, `findWhere`, `first`, `has`,
-     * `identity`, `includes`, `indexOf`, `isArguments`, `isArray`, `isBoolean`,
-     * `isDate`, `isElement`, `isEmpty`, `isEqual`, `isError`, `isFinite`,
-     * `isFunction`, `isMatch`, `isNative`, `isNaN`, `isNull`, `isNumber`,
+     * `identity`, `includes`, `indexOf`, `inRange`, `isArguments`, `isArray`,
+     * `isBoolean`, `isDate`, `isElement`, `isEmpty`, `isEqual`, `isError`,
+     * `isFinite`,`isFunction`, `isMatch`, `isNative`, `isNaN`, `isNull`, `isNumber`,
      * `isObject`, `isPlainObject`, `isRegExp`, `isString`, `isUndefined`,
      * `isTypedArray`, `join`, `kebabCase`, `last`, `lastIndexOf`, `max`, `min`,
      * `noConflict`, `now`, `pad`, `padLeft`, `padRight`, `parseInt`, `pop`,
      * `random`, `reduce`, `reduceRight`, `repeat`, `result`, `runInContext`,
      * `shift`, `size`, `snakeCase`, `some`, `sortedIndex`, `sortedLastIndex`,
-     * `startCase`, `startsWith`, `template`, `trim`, `trimLeft`, `trimRight`,
-     * `trunc`, `unescape`, `uniqueId`, `value`, and `words`
+     * `startCase`, `startsWith`, `sum`, `template`, `trim`, `trimLeft`,
+     * `trimRight`, `trunc`, `unescape`, `uniqueId`, `value`, and `words`
      *
-     * The wrapper function `sample` will return a wrapped value when `n` is provided,
+     * The wrapper method `sample` will return a wrapped value when `n` is provided,
      * otherwise an unwrapped value is returned.
      *
      * @name _
      * @constructor
      * @category Chain
      * @param {*} value The value to wrap in a `lodash` instance.
-     * @returns {Object} Returns a `lodash` instance.
+     * @returns {Object} Returns the new `lodash` wrapper instance.
      * @example
      *
      * var wrapped = _([1, 2, 3]);
      *
      * // returns an unwrapped value
-     * wrapped.reduce(function(sum, n) { return sum + n; });
+     * wrapped.reduce(function(sum, n) {
+     *   return sum + n;
+     * });
      * // => 6
      *
      * // returns a wrapped value
-     * var squares = wrapped.map(function(n) { return n * n; });
+     * var squares = wrapped.map(function(n) {
+     *   return n * n;
+     * });
      *
      * _.isArray(squares);
      * // => false
@@ -1180,15 +1230,24 @@ process.chdir = function (dir) {
      * // => true
      */
     function lodash(value) {
-      if (isObjectLike(value) && !isArray(value)) {
+      if (isObjectLike(value) && !isArray(value) && !(value instanceof LazyWrapper)) {
         if (value instanceof LodashWrapper) {
           return value;
         }
-        if (hasOwnProperty.call(value, '__wrapped__')) {
-          return new LodashWrapper(value.__wrapped__, value.__chain__, arrayCopy(value.__actions__));
+        if (hasOwnProperty.call(value, '__chain__') && hasOwnProperty.call(value, '__wrapped__')) {
+          return wrapperClone(value);
         }
       }
       return new LodashWrapper(value);
+    }
+
+    /**
+     * The function whose prototype all chaining wrappers inherit from.
+     *
+     * @private
+     */
+    function baseLodash() {
+      // No operation performed.
     }
 
     /**
@@ -1200,9 +1259,9 @@ process.chdir = function (dir) {
      * @param {Array} [actions=[]] Actions to peform to resolve the unwrapped value.
      */
     function LodashWrapper(value, chainAll, actions) {
+      this.__wrapped__ = value;
       this.__actions__ = actions || [];
       this.__chain__ = !!chainAll;
-      this.__wrapped__ = value;
     }
 
     /**
@@ -1224,7 +1283,7 @@ process.chdir = function (dir) {
        * @memberOf _.support
        * @type boolean
        */
-      support.funcDecomp = !isNative(context.WinRTError) && reThis.test(runInContext);
+      support.funcDecomp = /\bthis\b/.test(function() { return this; });
 
       /**
        * Detect if `Function#name` is supported (all but IE).
@@ -1335,14 +1394,14 @@ process.chdir = function (dir) {
      * @param {*} value The value to wrap.
      */
     function LazyWrapper(value) {
-      this.actions = null;
-      this.dir = 1;
-      this.dropCount = 0;
-      this.filtered = false;
-      this.iteratees = null;
-      this.takeCount = POSITIVE_INFINITY;
-      this.views = null;
-      this.wrapped = value;
+      this.__wrapped__ = value;
+      this.__actions__ = null;
+      this.__dir__ = 1;
+      this.__dropCount__ = 0;
+      this.__filtered__ = false;
+      this.__iteratees__ = null;
+      this.__takeCount__ = POSITIVE_INFINITY;
+      this.__views__ = null;
     }
 
     /**
@@ -1354,18 +1413,17 @@ process.chdir = function (dir) {
      * @returns {Object} Returns the cloned `LazyWrapper` object.
      */
     function lazyClone() {
-      var actions = this.actions,
-          iteratees = this.iteratees,
-          views = this.views,
-          result = new LazyWrapper(this.wrapped);
+      var actions = this.__actions__,
+          iteratees = this.__iteratees__,
+          views = this.__views__,
+          result = new LazyWrapper(this.__wrapped__);
 
-      result.actions = actions ? arrayCopy(actions) : null;
-      result.dir = this.dir;
-      result.dropCount = this.dropCount;
-      result.filtered = this.filtered;
-      result.iteratees = iteratees ? arrayCopy(iteratees) : null;
-      result.takeCount = this.takeCount;
-      result.views = views ? arrayCopy(views) : null;
+      result.__actions__ = actions ? arrayCopy(actions) : null;
+      result.__dir__ = this.__dir__;
+      result.__filtered__ = this.__filtered__;
+      result.__iteratees__ = iteratees ? arrayCopy(iteratees) : null;
+      result.__takeCount__ = this.__takeCount__;
+      result.__views__ = views ? arrayCopy(views) : null;
       return result;
     }
 
@@ -1378,13 +1436,13 @@ process.chdir = function (dir) {
      * @returns {Object} Returns the new reversed `LazyWrapper` object.
      */
     function lazyReverse() {
-      if (this.filtered) {
+      if (this.__filtered__) {
         var result = new LazyWrapper(this);
-        result.dir = -1;
-        result.filtered = true;
+        result.__dir__ = -1;
+        result.__filtered__ = true;
       } else {
         result = this.clone();
-        result.dir *= -1;
+        result.__dir__ *= -1;
       }
       return result;
     }
@@ -1398,20 +1456,19 @@ process.chdir = function (dir) {
      * @returns {*} Returns the unwrapped value.
      */
     function lazyValue() {
-      var array = this.wrapped.value();
+      var array = this.__wrapped__.value();
       if (!isArray(array)) {
-        return baseWrapperValue(array, this.actions);
+        return baseWrapperValue(array, this.__actions__);
       }
-      var dir = this.dir,
+      var dir = this.__dir__,
           isRight = dir < 0,
-          view = getView(0, array.length, this.views),
+          view = getView(0, array.length, this.__views__),
           start = view.start,
           end = view.end,
           length = end - start,
-          dropCount = this.dropCount,
-          takeCount = nativeMin(length, this.takeCount - dropCount),
-          index = isRight ? end : start - 1,
-          iteratees = this.iteratees,
+          index = isRight ? end : (start - 1),
+          takeCount = nativeMin(length, this.__takeCount__),
+          iteratees = this.__iteratees__,
           iterLength = iteratees ? iteratees.length : 0,
           resIndex = 0,
           result = [];
@@ -1426,24 +1483,34 @@ process.chdir = function (dir) {
         while (++iterIndex < iterLength) {
           var data = iteratees[iterIndex],
               iteratee = data.iteratee,
-              computed = iteratee(value, index, array),
               type = data.type;
 
-          if (type == LAZY_MAP_FLAG) {
-            value = computed;
-          } else if (!computed) {
-            if (type == LAZY_FILTER_FLAG) {
-              continue outer;
-            } else {
-              break outer;
+          if (type == LAZY_DROP_WHILE_FLAG) {
+            if (data.done && (isRight ? (index > data.index) : (index < data.index))) {
+              data.count = 0;
+              data.done = false;
+            }
+            data.index = index;
+            if (!data.done) {
+              var limit = data.limit;
+              if (!(data.done = limit > -1 ? (data.count++ >= limit) : !iteratee(value))) {
+                continue outer;
+              }
+            }
+          } else {
+            var computed = iteratee(value);
+            if (type == LAZY_MAP_FLAG) {
+              value = computed;
+            } else if (!computed) {
+              if (type == LAZY_FILTER_FLAG) {
+                continue outer;
+              } else {
+                break outer;
+              }
             }
           }
         }
-        if (dropCount) {
-          dropCount--;
-        } else {
-          result[resIndex++] = value;
-        }
+        result[resIndex++] = value;
       }
       return result;
     }
@@ -1592,7 +1659,7 @@ process.chdir = function (dir) {
 
     /**
      * A specialized version of `_.forEach` for arrays without support for callback
-     * shorthands or `this` binding.
+     * shorthands and `this` binding.
      *
      * @private
      * @param {Array} array The array to iterate over.
@@ -1613,7 +1680,7 @@ process.chdir = function (dir) {
 
     /**
      * A specialized version of `_.forEachRight` for arrays without support for
-     * callback shorthands or `this` binding.
+     * callback shorthands and `this` binding.
      *
      * @private
      * @param {Array} array The array to iterate over.
@@ -1633,7 +1700,7 @@ process.chdir = function (dir) {
 
     /**
      * A specialized version of `_.every` for arrays without support for callback
-     * shorthands or `this` binding.
+     * shorthands and `this` binding.
      *
      * @private
      * @param {Array} array The array to iterate over.
@@ -1655,7 +1722,7 @@ process.chdir = function (dir) {
 
     /**
      * A specialized version of `_.filter` for arrays without support for callback
-     * shorthands or `this` binding.
+     * shorthands and `this` binding.
      *
      * @private
      * @param {Array} array The array to iterate over.
@@ -1679,7 +1746,7 @@ process.chdir = function (dir) {
 
     /**
      * A specialized version of `_.map` for arrays without support for callback
-     * shorthands or `this` binding.
+     * shorthands and `this` binding.
      *
      * @private
      * @param {Array} array The array to iterate over.
@@ -1741,7 +1808,7 @@ process.chdir = function (dir) {
 
     /**
      * A specialized version of `_.reduce` for arrays without support for callback
-     * shorthands or `this` binding.
+     * shorthands and `this` binding.
      *
      * @private
      * @param {Array} array The array to iterate over.
@@ -1766,7 +1833,7 @@ process.chdir = function (dir) {
 
     /**
      * A specialized version of `_.reduceRight` for arrays without support for
-     * callback shorthands or `this` binding.
+     * callback shorthands and `this` binding.
      *
      * @private
      * @param {Array} array The array to iterate over.
@@ -1789,7 +1856,7 @@ process.chdir = function (dir) {
 
     /**
      * A specialized version of `_.some` for arrays without support for callback
-     * shorthands or `this` binding.
+     * shorthands and `this` binding.
      *
      * @private
      * @param {Array} array The array to iterate over.
@@ -1807,6 +1874,23 @@ process.chdir = function (dir) {
         }
       }
       return false;
+    }
+
+    /**
+     * A specialized version of `_.sum` for arrays without support for iteratees.
+     *
+     * @private
+     * @param {Array} array The array to iterate over.
+     * @returns {number} Returns the sum.
+     */
+    function arraySum(array) {
+      var length = array.length,
+          result = 0;
+
+      while (length--) {
+        result += +array[length] || 0;
+      }
+      return result;
     }
 
     /**
@@ -1856,14 +1940,14 @@ process.chdir = function (dir) {
         return baseCopy(source, object, props);
       }
       var index = -1,
-          length = props.length
+          length = props.length;
 
       while (++index < length) {
         var key = props[index],
             value = object[key],
             result = customizer(value, source[key], key, object, source);
 
-        if ((result === result ? result !== value : value === value) ||
+        if ((result === result ? (result !== value) : (value === value)) ||
             (typeof value == 'undefined' && !(key in object))) {
           object[key] = result;
         }
@@ -1924,26 +2008,6 @@ process.chdir = function (dir) {
     }
 
     /**
-     * The base implementation of `_.bindAll` without support for individual
-     * method name arguments.
-     *
-     * @private
-     * @param {Object} object The object to bind and assign the bound methods to.
-     * @param {string[]} methodNames The object method names to bind.
-     * @returns {Object} Returns `object`.
-     */
-    function baseBindAll(object, methodNames) {
-      var index = -1,
-          length = methodNames.length;
-
-      while (++index < length) {
-        var key = methodNames[index];
-        object[key] = createWrapper(object[key], BIND_FLAG, object);
-      }
-      return object;
-    }
-
-    /**
      * The base implementation of `_.callback` which supports specifying the
      * number of arguments to provide to `func`.
      *
@@ -1956,17 +2020,19 @@ process.chdir = function (dir) {
     function baseCallback(func, thisArg, argCount) {
       var type = typeof func;
       if (type == 'function') {
-        return (typeof thisArg != 'undefined' && isBindable(func))
-          ? bindCallback(func, thisArg, argCount)
-          : func;
+        return typeof thisArg == 'undefined'
+          ? func
+          : bindCallback(func, thisArg, argCount);
       }
       if (func == null) {
         return identity;
       }
-      // Handle "_.property" and "_.matches" style callback shorthands.
-      return type == 'object'
-        ? baseMatches(func)
-        : baseProperty(func + '');
+      if (type == 'object') {
+        return baseMatches(func);
+      }
+      return typeof thisArg == 'undefined'
+        ? baseProperty(func + '')
+        : baseMatchesProperty(func + '', thisArg);
     }
 
     /**
@@ -2063,14 +2129,14 @@ process.chdir = function (dir) {
      * @private
      * @param {Function} func The function to delay.
      * @param {number} wait The number of milliseconds to delay invocation.
-     * @param {Object} args The `arguments` object to slice and provide to `func`.
+     * @param {Object} args The arguments provide to `func`.
      * @returns {number} Returns the timer id.
      */
-    function baseDelay(func, wait, args, fromIndex) {
-      if (!isFunction(func)) {
+    function baseDelay(func, wait, args) {
+      if (typeof func != 'function') {
         throw new TypeError(FUNC_ERROR_TEXT);
       }
-      return setTimeout(function() { func.apply(undefined, baseSlice(args, fromIndex)); }, wait);
+      return setTimeout(function() { func.apply(undefined, args); }, wait);
     }
 
     /**
@@ -2092,7 +2158,7 @@ process.chdir = function (dir) {
       var index = -1,
           indexOf = getIndexOf(),
           isCommon = indexOf == baseIndexOf,
-          cache = isCommon && values.length >= 200 && createCache(values),
+          cache = (isCommon && values.length >= 200) ? createCache(values) : null,
           valuesLength = values.length;
 
       if (cache) {
@@ -2113,7 +2179,7 @@ process.chdir = function (dir) {
           }
           result.push(value);
         }
-        else if (indexOf(values, value) < 0) {
+        else if (indexOf(values, value, 0) < 0) {
           result.push(value);
         }
       }
@@ -2129,21 +2195,7 @@ process.chdir = function (dir) {
      * @param {Function} iteratee The function invoked per iteration.
      * @returns {Array|Object|string} Returns `collection`.
      */
-    function baseEach(collection, iteratee) {
-      var length = collection ? collection.length : 0;
-      if (!isLength(length)) {
-        return baseForOwn(collection, iteratee);
-      }
-      var index = -1,
-          iterable = toObject(collection);
-
-      while (++index < length) {
-        if (iteratee(iterable[index], index, iterable) === false) {
-          break;
-        }
-      }
-      return collection;
-    }
+    var baseEach = createBaseEach(baseForOwn);
 
     /**
      * The base implementation of `_.forEachRight` without support for callback
@@ -2154,23 +2206,11 @@ process.chdir = function (dir) {
      * @param {Function} iteratee The function invoked per iteration.
      * @returns {Array|Object|string} Returns `collection`.
      */
-    function baseEachRight(collection, iteratee) {
-      var length = collection ? collection.length : 0;
-      if (!isLength(length)) {
-        return baseForOwnRight(collection, iteratee);
-      }
-      var iterable = toObject(collection);
-      while (length--) {
-        if (iteratee(iterable[length], length, iterable) === false) {
-          break;
-        }
-      }
-      return collection;
-    }
+    var baseEachRight = createBaseEach(baseForOwnRight, true);
 
     /**
      * The base implementation of `_.every` without support for callback
-     * shorthands or `this` binding.
+     * shorthands and `this` binding.
      *
      * @private
      * @param {Array|Object|string} collection The collection to iterate over.
@@ -2188,8 +2228,38 @@ process.chdir = function (dir) {
     }
 
     /**
+     * The base implementation of `_.fill` without an iteratee call guard.
+     *
+     * @private
+     * @param {Array} array The array to fill.
+     * @param {*} value The value to fill `array` with.
+     * @param {number} [start=0] The start position.
+     * @param {number} [end=array.length] The end position.
+     * @returns {Array} Returns `array`.
+     */
+    function baseFill(array, value, start, end) {
+      var length = array.length;
+
+      start = start == null ? 0 : (+start || 0);
+      if (start < 0) {
+        start = -start > length ? 0 : (length + start);
+      }
+      end = (typeof end == 'undefined' || end > length) ? length : (+end || 0);
+      if (end < 0) {
+        end += length;
+      }
+      length = start > end ? 0 : (end >>> 0);
+      start >>>= 0;
+
+      while (start < length) {
+        array[start++] = value;
+      }
+      return array;
+    }
+
+    /**
      * The base implementation of `_.filter` without support for callback
-     * shorthands or `this` binding.
+     * shorthands and `this` binding.
      *
      * @private
      * @param {Array|Object|string} collection The collection to iterate over.
@@ -2236,13 +2306,12 @@ process.chdir = function (dir) {
      *
      * @private
      * @param {Array} array The array to flatten.
-     * @param {boolean} [isDeep] Specify a deep flatten.
-     * @param {boolean} [isStrict] Restrict flattening to arrays and `arguments` objects.
-     * @param {number} [fromIndex=0] The index to start from.
+     * @param {boolean} isDeep Specify a deep flatten.
+     * @param {boolean} isStrict Restrict flattening to arrays and `arguments` objects.
      * @returns {Array} Returns the new flattened array.
      */
-    function baseFlatten(array, isDeep, isStrict, fromIndex) {
-      var index = (fromIndex || 0) - 1,
+    function baseFlatten(array, isDeep, isStrict) {
+      var index = -1,
           length = array.length,
           resIndex = -1,
           result = [];
@@ -2281,20 +2350,7 @@ process.chdir = function (dir) {
      * @param {Function} keysFunc The function to get the keys of `object`.
      * @returns {Object} Returns `object`.
      */
-    function baseFor(object, iteratee, keysFunc) {
-      var index = -1,
-          iterable = toObject(object),
-          props = keysFunc(object),
-          length = props.length;
-
-      while (++index < length) {
-        var key = props[index];
-        if (iteratee(iterable[key], key, iterable) === false) {
-          break;
-        }
-      }
-      return object;
-    }
+    var baseFor = createBaseFor();
 
     /**
      * This function is like `baseFor` except that it iterates over properties
@@ -2306,19 +2362,7 @@ process.chdir = function (dir) {
      * @param {Function} keysFunc The function to get the keys of `object`.
      * @returns {Object} Returns `object`.
      */
-    function baseForRight(object, iteratee, keysFunc) {
-      var iterable = toObject(object),
-          props = keysFunc(object),
-          length = props.length;
-
-      while (length--) {
-        var key = props[length];
-        if (iteratee(iterable[key], key, iterable) === false) {
-          break;
-        }
-      }
-      return object;
-    }
+    var baseForRight = createBaseFor(true);
 
     /**
      * The base implementation of `_.forIn` without support for callback
@@ -2384,30 +2428,6 @@ process.chdir = function (dir) {
     }
 
     /**
-     * The base implementation of `_.invoke` which requires additional arguments
-     * to be provided as an array of arguments rather than individually.
-     *
-     * @private
-     * @param {Array|Object|string} collection The collection to iterate over.
-     * @param {Function|string} methodName The name of the method to invoke or
-     *  the function invoked per iteration.
-     * @param {Array} [args] The arguments to invoke the method with.
-     * @returns {Array} Returns the array of results.
-     */
-    function baseInvoke(collection, methodName, args) {
-      var index = -1,
-          isFunc = typeof methodName == 'function',
-          length = collection ? collection.length : 0,
-          result = isLength(length) ? Array(length) : [];
-
-      baseEach(collection, function(value) {
-        var func = isFunc ? methodName : (value != null && value[methodName]);
-        result[++index] = func ? func.apply(value, args) : undefined;
-      });
-      return result;
-    }
-
-    /**
      * The base implementation of `_.isEqual` without support for `this` binding
      * `customizer` functions.
      *
@@ -2415,12 +2435,12 @@ process.chdir = function (dir) {
      * @param {*} value The value to compare.
      * @param {*} other The other value to compare.
      * @param {Function} [customizer] The function to customize comparing values.
-     * @param {boolean} [isWhere] Specify performing partial comparisons.
+     * @param {boolean} [isLoose] Specify performing partial comparisons.
      * @param {Array} [stackA] Tracks traversed `value` objects.
      * @param {Array} [stackB] Tracks traversed `other` objects.
      * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
      */
-    function baseIsEqual(value, other, customizer, isWhere, stackA, stackB) {
+    function baseIsEqual(value, other, customizer, isLoose, stackA, stackB) {
       // Exit early for identical values.
       if (value === other) {
         // Treat `+0` vs. `-0` as not equal.
@@ -2435,7 +2455,7 @@ process.chdir = function (dir) {
         // Return `false` unless both values are `NaN`.
         return value !== value && other !== other;
       }
-      return baseIsEqualDeep(value, other, baseIsEqual, customizer, isWhere, stackA, stackB);
+      return baseIsEqualDeep(value, other, baseIsEqual, customizer, isLoose, stackA, stackB);
     }
 
     /**
@@ -2448,12 +2468,12 @@ process.chdir = function (dir) {
      * @param {Object} other The other object to compare.
      * @param {Function} equalFunc The function to determine equivalents of values.
      * @param {Function} [customizer] The function to customize comparing objects.
-     * @param {boolean} [isWhere] Specify performing partial comparisons.
+     * @param {boolean} [isLoose] Specify performing partial comparisons.
      * @param {Array} [stackA=[]] Tracks traversed `value` objects.
      * @param {Array} [stackB=[]] Tracks traversed `other` objects.
      * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
      */
-    function baseIsEqualDeep(object, other, equalFunc, customizer, isWhere, stackA, stackB) {
+    function baseIsEqualDeep(object, other, equalFunc, customizer, isLoose, stackA, stackB) {
       var objIsArr = isArray(object),
           othIsArr = isArray(other),
           objTag = arrayTag,
@@ -2475,21 +2495,27 @@ process.chdir = function (dir) {
           othIsArr = isTypedArray(other);
         }
       }
-      var objIsObj = objTag == objectTag,
-          othIsObj = othTag == objectTag,
+      var objIsObj = (objTag == objectTag || (isLoose && objTag == funcTag)),
+          othIsObj = (othTag == objectTag || (isLoose && othTag == funcTag)),
           isSameTag = objTag == othTag;
 
       if (isSameTag && !(objIsArr || objIsObj)) {
         return equalByTag(object, other, objTag);
       }
-      var valWrapped = objIsObj && hasOwnProperty.call(object, '__wrapped__'),
-          othWrapped = othIsObj && hasOwnProperty.call(other, '__wrapped__');
+      if (isLoose) {
+        if (!isSameTag && !(objIsObj && othIsObj)) {
+          return false;
+        }
+      } else {
+        var valWrapped = objIsObj && hasOwnProperty.call(object, '__wrapped__'),
+            othWrapped = othIsObj && hasOwnProperty.call(other, '__wrapped__');
 
-      if (valWrapped || othWrapped) {
-        return equalFunc(valWrapped ? object.value() : object, othWrapped ? other.value() : other, customizer, isWhere, stackA, stackB);
-      }
-      if (!isSameTag) {
-        return false;
+        if (valWrapped || othWrapped) {
+          return equalFunc(valWrapped ? object.value() : object, othWrapped ? other.value() : other, customizer, isLoose, stackA, stackB);
+        }
+        if (!isSameTag) {
+          return false;
+        }
       }
       // Assume cyclic values are equal.
       // For more information on detecting circular references see https://es5.github.io/#JO.
@@ -2506,7 +2532,7 @@ process.chdir = function (dir) {
       stackA.push(object);
       stackB.push(other);
 
-      var result = (objIsArr ? equalArrays : equalObjects)(object, other, equalFunc, customizer, isWhere, stackA, stackB);
+      var result = (objIsArr ? equalArrays : equalObjects)(object, other, equalFunc, customizer, isLoose, stackA, stackB);
 
       stackA.pop();
       stackB.pop();
@@ -2516,10 +2542,10 @@ process.chdir = function (dir) {
 
     /**
      * The base implementation of `_.isMatch` without support for callback
-     * shorthands or `this` binding.
+     * shorthands and `this` binding.
      *
      * @private
-     * @param {Object} source The object to inspect.
+     * @param {Object} object The object to inspect.
      * @param {Array} props The source property names to match.
      * @param {Array} values The source values to match.
      * @param {Array} strictCompareFlags Strict comparison flags for source values.
@@ -2527,30 +2553,27 @@ process.chdir = function (dir) {
      * @returns {boolean} Returns `true` if `object` is a match, else `false`.
      */
     function baseIsMatch(object, props, values, strictCompareFlags, customizer) {
-      var length = props.length;
-      if (object == null) {
-        return !length;
-      }
       var index = -1,
+          length = props.length,
           noCustomizer = !customizer;
 
       while (++index < length) {
         if ((noCustomizer && strictCompareFlags[index])
               ? values[index] !== object[props[index]]
-              : !hasOwnProperty.call(object, props[index])
+              : !(props[index] in object)
             ) {
           return false;
         }
       }
       index = -1;
       while (++index < length) {
-        var key = props[index];
-        if (noCustomizer && strictCompareFlags[index]) {
-          var result = hasOwnProperty.call(object, key);
-        } else {
-          var objValue = object[key],
-              srcValue = values[index];
+        var key = props[index],
+            objValue = object[key],
+            srcValue = values[index];
 
+        if (noCustomizer && strictCompareFlags[index]) {
+          var result = typeof objValue != 'undefined' || (key in object);
+        } else {
           result = customizer ? customizer(objValue, srcValue, key) : undefined;
           if (typeof result == 'undefined') {
             result = baseIsEqual(srcValue, objValue, customizer, true);
@@ -2565,7 +2588,7 @@ process.chdir = function (dir) {
 
     /**
      * The base implementation of `_.map` without support for callback shorthands
-     * or `this` binding.
+     * and `this` binding.
      *
      * @private
      * @param {Array|Object|string} collection The collection to iterate over.
@@ -2581,8 +2604,7 @@ process.chdir = function (dir) {
     }
 
     /**
-     * The base implementation of `_.matches` which supports specifying whether
-     * `source` should be cloned.
+     * The base implementation of `_.matches` which does not clone `source`.
      *
      * @private
      * @param {Object} source The object of property values to match.
@@ -2592,13 +2614,17 @@ process.chdir = function (dir) {
       var props = keys(source),
           length = props.length;
 
+      if (!length) {
+        return constant(true);
+      }
       if (length == 1) {
         var key = props[0],
             value = source[key];
 
         if (isStrictComparable(value)) {
           return function(object) {
-            return object != null && value === object[key] && hasOwnProperty.call(object, key);
+            return object != null && object[key] === value &&
+              (typeof value != 'undefined' || (key in toObject(object)));
           };
         }
       }
@@ -2611,7 +2637,28 @@ process.chdir = function (dir) {
         strictCompareFlags[length] = isStrictComparable(value);
       }
       return function(object) {
-        return baseIsMatch(object, props, values, strictCompareFlags);
+        return object != null && baseIsMatch(toObject(object), props, values, strictCompareFlags);
+      };
+    }
+
+    /**
+     * The base implementation of `_.matchesProperty` which does not coerce `key`
+     * to a string.
+     *
+     * @private
+     * @param {string} key The key of the property to get.
+     * @param {*} value The value to compare.
+     * @returns {Function} Returns the new function.
+     */
+    function baseMatchesProperty(key, value) {
+      if (isStrictComparable(value)) {
+        return function(object) {
+          return object != null && object[key] === value &&
+            (typeof value != 'undefined' || (key in toObject(object)));
+        };
+      }
+      return function(object) {
+        return object != null && baseIsEqual(value, object[key], null, true);
       };
     }
 
@@ -2628,8 +2675,10 @@ process.chdir = function (dir) {
      * @returns {Object} Returns the destination object.
      */
     function baseMerge(object, source, customizer, stackA, stackB) {
+      if (!isObject(object)) {
+        return object;
+      }
       var isSrcArr = isLength(source.length) && (isArray(source) || isTypedArray(source));
-
       (isSrcArr ? arrayEach : baseForOwn)(source, function(srcValue, key, source) {
         if (isObjectLike(srcValue)) {
           stackA || (stackA = []);
@@ -2644,7 +2693,7 @@ process.chdir = function (dir) {
           result = srcValue;
         }
         if ((isSrcArr || typeof result != 'undefined') &&
-            (isCommon || (result === result ? result !== value : value === value))) {
+            (isCommon || (result === result ? (result !== value) : (value === value)))) {
           object[key] = result;
         }
       });
@@ -2685,7 +2734,7 @@ process.chdir = function (dir) {
         if (isLength(srcValue.length) && (isArray(srcValue) || isTypedArray(srcValue))) {
           result = isArray(value)
             ? value
-            : (value ? arrayCopy(value) : []);
+            : ((value && value.length) ? arrayCopy(value) : []);
         }
         else if (isPlainObject(srcValue) || isArguments(srcValue)) {
           result = isArguments(value)
@@ -2704,7 +2753,7 @@ process.chdir = function (dir) {
       if (isCommon) {
         // Recursively merge objects and arrays (susceptible to call stack limits).
         object[key] = mergeFunc(result, srcValue, customizer, stackA, stackB);
-      } else if (result === result ? result !== value : value === value) {
+      } else if (result === result ? (result !== value) : (value === value)) {
         object[key] = result;
       }
     }
@@ -2723,30 +2772,6 @@ process.chdir = function (dir) {
     }
 
     /**
-     * The base implementation of `_.pullAt` without support for individual
-     * index arguments.
-     *
-     * @private
-     * @param {Array} array The array to modify.
-     * @param {number[]} indexes The indexes of elements to remove.
-     * @returns {Array} Returns the new array of removed elements.
-     */
-    function basePullAt(array, indexes) {
-      var length = indexes.length,
-          result = baseAt(array, indexes);
-
-      indexes.sort(baseCompareAscending);
-      while (length--) {
-        var index = parseFloat(indexes[length]);
-        if (index != previous && isIndex(index)) {
-          var previous = index;
-          splice.call(array, index, 1);
-        }
-      }
-      return result;
-    }
-
-    /**
      * The base implementation of `_.random` without support for argument juggling
      * and returning floating-point numbers.
      *
@@ -2761,7 +2786,7 @@ process.chdir = function (dir) {
 
     /**
      * The base implementation of `_.reduce` and `_.reduceRight` without support
-     * for callback shorthands or `this` binding, which iterates over `collection`
+     * for callback shorthands and `this` binding, which iterates over `collection`
      * using the provided `eachFunc`.
      *
      * @private
@@ -2777,7 +2802,7 @@ process.chdir = function (dir) {
       eachFunc(collection, function(value, index, collection) {
         accumulator = initFromCollection
           ? (initFromCollection = false, value)
-          : iteratee(accumulator, value, index, collection)
+          : iteratee(accumulator, value, index, collection);
       });
       return accumulator;
     }
@@ -2816,7 +2841,7 @@ process.chdir = function (dir) {
       if (end < 0) {
         end += length;
       }
-      length = start > end ? 0 : (end - start) >>> 0;
+      length = start > end ? 0 : ((end - start) >>> 0);
       start >>>= 0;
 
       var result = Array(length);
@@ -2828,7 +2853,7 @@ process.chdir = function (dir) {
 
     /**
      * The base implementation of `_.some` without support for callback shorthands
-     * or `this` binding.
+     * and `this` binding.
      *
      * @private
      * @param {Array|Object|string} collection The collection to iterate over.
@@ -2847,6 +2872,72 @@ process.chdir = function (dir) {
     }
 
     /**
+     * The base implementation of `_.sortBy` which uses `comparer` to define
+     * the sort order of `array` and replaces criteria objects with their
+     * corresponding values.
+     *
+     * @private
+     * @param {Array} array The array to sort.
+     * @param {Function} comparer The function to define sort order.
+     * @returns {Array} Returns `array`.
+     */
+    function baseSortBy(array, comparer) {
+      var length = array.length;
+
+      array.sort(comparer);
+      while (length--) {
+        array[length] = array[length].value;
+      }
+      return array;
+    }
+
+    /**
+     * The base implementation of `_.sortByOrder` without param guards.
+     *
+     * @private
+     * @param {Array|Object|string} collection The collection to iterate over.
+     * @param {string[]} props The property names to sort by.
+     * @param {boolean[]} orders The sort orders of `props`.
+     * @returns {Array} Returns the new sorted array.
+     */
+    function baseSortByOrder(collection, props, orders) {
+      var index = -1,
+          length = collection.length,
+          result = isLength(length) ? Array(length) : [];
+
+      baseEach(collection, function(value) {
+        var length = props.length,
+            criteria = Array(length);
+
+        while (length--) {
+          criteria[length] = value == null ? undefined : value[props[length]];
+        }
+        result[++index] = { 'criteria': criteria, 'index': index, 'value': value };
+      });
+
+      return baseSortBy(result, function(object, other) {
+        return compareMultiple(object, other, orders);
+      });
+    }
+
+    /**
+     * The base implementation of `_.sum` without support for callback shorthands
+     * and `this` binding.
+     *
+     * @private
+     * @param {Array|Object|string} collection The collection to iterate over.
+     * @param {Function} iteratee The function invoked per iteration.
+     * @returns {number} Returns the sum.
+     */
+    function baseSum(collection, iteratee) {
+      var result = 0;
+      baseEach(collection, function(value, index, collection) {
+        result += +iteratee(value, index, collection) || 0;
+      });
+      return result;
+    }
+
+    /**
      * The base implementation of `_.uniq` without support for callback shorthands
      * and `this` binding.
      *
@@ -2861,7 +2952,7 @@ process.chdir = function (dir) {
           length = array.length,
           isCommon = indexOf == baseIndexOf,
           isLarge = isCommon && length >= 200,
-          seen = isLarge && createCache(),
+          seen = isLarge ? createCache() : null,
           result = [];
 
       if (seen) {
@@ -2888,7 +2979,7 @@ process.chdir = function (dir) {
           }
           result.push(value);
         }
-        else if (indexOf(seen, computed) < 0) {
+        else if (indexOf(seen, computed, 0) < 0) {
           if (iteratee || isLarge) {
             seen.push(computed);
           }
@@ -2920,6 +3011,27 @@ process.chdir = function (dir) {
     }
 
     /**
+     * The base implementation of `_.dropRightWhile`, `_.dropWhile`, `_.takeRightWhile`,
+     * and `_.takeWhile` without support for callback shorthands and `this` binding.
+     *
+     * @private
+     * @param {Array} array The array to query.
+     * @param {Function} predicate The function invoked per iteration.
+     * @param {boolean} [isDrop] Specify dropping elements instead of taking them.
+     * @param {boolean} [fromRight] Specify iterating from right to left.
+     * @returns {Array} Returns the slice of `array`.
+     */
+    function baseWhile(array, predicate, isDrop, fromRight) {
+      var length = array.length,
+          index = fromRight ? length : -1;
+
+      while ((fromRight ? index-- : ++index < length) && predicate(array[index], index, array)) {}
+      return isDrop
+        ? baseSlice(array, (fromRight ? 0 : index), (fromRight ? index + 1 : length))
+        : baseSlice(array, (fromRight ? index + 1 : 0), (fromRight ? length : index));
+    }
+
+    /**
      * The base implementation of `wrapperValue` which returns the result of
      * performing a sequence of actions on the unwrapped `value`, where each
      * successive action is supplied the return value of the previous.
@@ -2927,7 +3039,7 @@ process.chdir = function (dir) {
      * @private
      * @param {*} value The unwrapped value.
      * @param {Array} actions Actions to peform to resolve the unwrapped value.
-     * @returns {*} Returns the resolved unwrapped value.
+     * @returns {*} Returns the resolved value.
      */
     function baseWrapperValue(value, actions) {
       var result = value;
@@ -2954,8 +3066,7 @@ process.chdir = function (dir) {
      * @private
      * @param {Array} array The sorted array to inspect.
      * @param {*} value The value to evaluate.
-     * @param {boolean} [retHighest] Specify returning the highest, instead
-     *  of the lowest, index at which a value should be inserted into `array`.
+     * @param {boolean} [retHighest] Specify returning the highest qualified index.
      * @returns {number} Returns the index at which `value` should be inserted
      *  into `array`.
      */
@@ -2988,8 +3099,7 @@ process.chdir = function (dir) {
      * @param {Array} array The sorted array to inspect.
      * @param {*} value The value to evaluate.
      * @param {Function} iteratee The function invoked per iteration.
-     * @param {boolean} [retHighest] Specify returning the highest, instead
-     *  of the lowest, index at which a value should be inserted into `array`.
+     * @param {boolean} [retHighest] Specify returning the highest qualified index.
      * @returns {number} Returns the index at which `value` should be inserted
      *  into `array`.
      */
@@ -3153,8 +3263,10 @@ process.chdir = function (dir) {
     /**
      * Creates a function that aggregates a collection, creating an accumulator
      * object composed from the results of running each element in the collection
-     * through an iteratee. The `setter` sets the keys and values of the accumulator
-     * object. If `initializer` is provided initializes the accumulator object.
+     * through an iteratee.
+     *
+     * **Note:** This function is used to create `_.countBy`, `_.groupBy`, `_.indexBy`,
+     * and `_.partition`.
      *
      * @private
      * @param {Function} setter The function to set keys and values of the accumulator object.
@@ -3187,32 +3299,91 @@ process.chdir = function (dir) {
      * Creates a function that assigns properties of source object(s) to a given
      * destination object.
      *
+     * **Note:** This function is used to create `_.assign`, `_.defaults`, and `_.merge`.
+     *
      * @private
      * @param {Function} assigner The function to assign values.
      * @returns {Function} Returns the new assigner function.
      */
     function createAssigner(assigner) {
       return function() {
-        var length = arguments.length,
-            object = arguments[0];
+        var args = arguments,
+            length = args.length,
+            object = args[0];
 
         if (length < 2 || object == null) {
           return object;
         }
-        if (length > 3 && isIterateeCall(arguments[1], arguments[2], arguments[3])) {
-          length = 2;
+        var customizer = args[length - 2],
+            thisArg = args[length - 1],
+            guard = args[3];
+
+        if (length > 3 && typeof customizer == 'function') {
+          customizer = bindCallback(customizer, thisArg, 5);
+          length -= 2;
+        } else {
+          customizer = (length > 2 && typeof thisArg == 'function') ? thisArg : null;
+          length -= (customizer ? 1 : 0);
         }
-        // Juggle arguments.
-        if (length > 3 && typeof arguments[length - 2] == 'function') {
-          var customizer = bindCallback(arguments[--length - 1], arguments[length--], 5);
-        } else if (length > 2 && typeof arguments[length - 1] == 'function') {
-          customizer = arguments[--length];
+        if (guard && isIterateeCall(args[1], args[2], guard)) {
+          customizer = length == 3 ? null : customizer;
+          length = 2;
         }
         var index = 0;
         while (++index < length) {
-          var source = arguments[index];
+          var source = args[index];
           if (source) {
             assigner(object, source, customizer);
+          }
+        }
+        return object;
+      };
+    }
+
+    /**
+     * Creates a `baseEach` or `baseEachRight` function.
+     *
+     * @private
+     * @param {Function} eachFunc The function to iterate over a collection.
+     * @param {boolean} [fromRight] Specify iterating from right to left.
+     * @returns {Function} Returns the new base function.
+     */
+    function createBaseEach(eachFunc, fromRight) {
+      return function(collection, iteratee) {
+        var length = collection ? collection.length : 0;
+        if (!isLength(length)) {
+          return eachFunc(collection, iteratee);
+        }
+        var index = fromRight ? length : -1,
+            iterable = toObject(collection);
+
+        while ((fromRight ? index-- : ++index < length)) {
+          if (iteratee(iterable[index], index, iterable) === false) {
+            break;
+          }
+        }
+        return collection;
+      };
+    }
+
+    /**
+     * Creates a base function for `_.forIn` or `_.forInRight`.
+     *
+     * @private
+     * @param {boolean} [fromRight] Specify iterating from right to left.
+     * @returns {Function} Returns the new base function.
+     */
+    function createBaseFor(fromRight) {
+      return function(object, iteratee, keysFunc) {
+        var iterable = toObject(object),
+            props = keysFunc(object),
+            length = props.length,
+            index = fromRight ? length : -1;
+
+        while ((fromRight ? index-- : ++index < length)) {
+          var key = props[index];
+          if (iteratee(iterable[key], key, iterable) === false) {
+            break;
           }
         }
         return object;
@@ -3232,7 +3403,8 @@ process.chdir = function (dir) {
       var Ctor = createCtorWrapper(func);
 
       function wrapper() {
-        return (this instanceof wrapper ? Ctor : func).apply(thisArg, arguments);
+        var fn = (this && this !== root && this instanceof wrapper) ? Ctor : func;
+        return fn.apply(thisArg, arguments);
       }
       return wrapper;
     }
@@ -3290,7 +3462,26 @@ process.chdir = function (dir) {
     }
 
     /**
-     * Creates a function that gets the extremum value of a collection.
+     * Creates a `_.curry` or `_.curryRight` function.
+     *
+     * @private
+     * @param {boolean} flag The curry bit flag.
+     * @returns {Function} Returns the new curry function.
+     */
+    function createCurry(flag) {
+      function curryFunc(func, arity, guard) {
+        if (guard && isIterateeCall(func, arity, guard)) {
+          arity = null;
+        }
+        var result = createWrapper(func, flag, null, null, null, null, null, arity);
+        result.placeholder = curryFunc.placeholder;
+        return result;
+      }
+      return curryFunc;
+    }
+
+    /**
+     * Creates a `_.max` or `_.min` function.
      *
      * @private
      * @param {Function} arrayFunc The function to get the extremum value from an array.
@@ -3319,6 +3510,204 @@ process.chdir = function (dir) {
           }
         }
         return extremumBy(collection, iteratee, isMin);
+      };
+    }
+
+    /**
+     * Creates a `_.find` or `_.findLast` function.
+     *
+     * @private
+     * @param {Function} eachFunc The function to iterate over a collection.
+     * @param {boolean} [fromRight] Specify iterating from right to left.
+     * @returns {Function} Returns the new find function.
+     */
+    function createFind(eachFunc, fromRight) {
+      return function(collection, predicate, thisArg) {
+        predicate = getCallback(predicate, thisArg, 3);
+        if (isArray(collection)) {
+          var index = baseFindIndex(collection, predicate, fromRight);
+          return index > -1 ? collection[index] : undefined;
+        }
+        return baseFind(collection, predicate, eachFunc);
+      }
+    }
+
+    /**
+     * Creates a `_.findIndex` or `_.findLastIndex` function.
+     *
+     * @private
+     * @param {boolean} [fromRight] Specify iterating from right to left.
+     * @returns {Function} Returns the new find function.
+     */
+    function createFindIndex(fromRight) {
+      return function(array, predicate, thisArg) {
+        if (!(array && array.length)) {
+          return -1;
+        }
+        predicate = getCallback(predicate, thisArg, 3);
+        return baseFindIndex(array, predicate, fromRight);
+      };
+    }
+
+    /**
+     * Creates a `_.findKey` or `_.findLastKey` function.
+     *
+     * @private
+     * @param {Function} objectFunc The function to iterate over an object.
+     * @returns {Function} Returns the new find function.
+     */
+    function createFindKey(objectFunc) {
+      return function(object, predicate, thisArg) {
+        predicate = getCallback(predicate, thisArg, 3);
+        return baseFind(object, predicate, objectFunc, true);
+      };
+    }
+
+    /**
+     * Creates a `_.flow` or `_.flowRight` function.
+     *
+     * @private
+     * @param {boolean} [fromRight] Specify iterating from right to left.
+     * @returns {Function} Returns the new flow function.
+     */
+    function createFlow(fromRight) {
+      return function() {
+        var length = arguments.length;
+        if (!length) {
+          return function() { return arguments[0]; };
+        }
+        var wrapper,
+            index = fromRight ? length : -1,
+            leftIndex = 0,
+            funcs = Array(length);
+
+        while ((fromRight ? index-- : ++index < length)) {
+          var func = funcs[leftIndex++] = arguments[index];
+          if (typeof func != 'function') {
+            throw new TypeError(FUNC_ERROR_TEXT);
+          }
+          var funcName = wrapper ? '' : getFuncName(func);
+          wrapper = funcName == 'wrapper' ? new LodashWrapper([]) : wrapper;
+        }
+        index = wrapper ? -1 : length;
+        while (++index < length) {
+          func = funcs[index];
+          funcName = getFuncName(func);
+
+          var data = funcName == 'wrapper' ? getData(func) : null;
+          if (data && isLaziable(data[0])) {
+            wrapper = wrapper[getFuncName(data[0])].apply(wrapper, data[3]);
+          } else {
+            wrapper = (func.length == 1 && isLaziable(func)) ? wrapper[funcName]() : wrapper.thru(func);
+          }
+        }
+        return function() {
+          var args = arguments;
+          if (wrapper && args.length == 1 && isArray(args[0])) {
+            return wrapper.plant(args[0]).value();
+          }
+          var index = 0,
+              result = funcs[index].apply(this, args);
+
+          while (++index < length) {
+            result = funcs[index].call(this, result);
+          }
+          return result;
+        };
+      };
+    }
+
+    /**
+     * Creates a function for `_.forEach` or `_.forEachRight`.
+     *
+     * @private
+     * @param {Function} arrayFunc The function to iterate over an array.
+     * @param {Function} eachFunc The function to iterate over a collection.
+     * @returns {Function} Returns the new each function.
+     */
+    function createForEach(arrayFunc, eachFunc) {
+      return function(collection, iteratee, thisArg) {
+        return (typeof iteratee == 'function' && typeof thisArg == 'undefined' && isArray(collection))
+          ? arrayFunc(collection, iteratee)
+          : eachFunc(collection, bindCallback(iteratee, thisArg, 3));
+      };
+    }
+
+    /**
+     * Creates a function for `_.forIn` or `_.forInRight`.
+     *
+     * @private
+     * @param {Function} objectFunc The function to iterate over an object.
+     * @returns {Function} Returns the new each function.
+     */
+    function createForIn(objectFunc) {
+      return function(object, iteratee, thisArg) {
+        if (typeof iteratee != 'function' || typeof thisArg != 'undefined') {
+          iteratee = bindCallback(iteratee, thisArg, 3);
+        }
+        return objectFunc(object, iteratee, keysIn);
+      };
+    }
+
+    /**
+     * Creates a function for `_.forOwn` or `_.forOwnRight`.
+     *
+     * @private
+     * @param {Function} objectFunc The function to iterate over an object.
+     * @returns {Function} Returns the new each function.
+     */
+    function createForOwn(objectFunc) {
+      return function(object, iteratee, thisArg) {
+        if (typeof iteratee != 'function' || typeof thisArg != 'undefined') {
+          iteratee = bindCallback(iteratee, thisArg, 3);
+        }
+        return objectFunc(object, iteratee);
+      };
+    }
+
+    /**
+     * Creates a function for `_.padLeft` or `_.padRight`.
+     *
+     * @private
+     * @param {boolean} [fromRight] Specify padding from the right.
+     * @returns {Function} Returns the new pad function.
+     */
+    function createPadDir(fromRight) {
+      return function(string, length, chars) {
+        string = baseToString(string);
+        return string && ((fromRight ? string : '') + createPadding(string, length, chars) + (fromRight ? '' : string));
+      };
+    }
+
+    /**
+     * Creates a `_.partial` or `_.partialRight` function.
+     *
+     * @private
+     * @param {boolean} flag The partial bit flag.
+     * @returns {Function} Returns the new partial function.
+     */
+    function createPartial(flag) {
+      var partialFunc = restParam(function(func, partials) {
+        var holders = replaceHolders(partials, partialFunc.placeholder);
+        return createWrapper(func, flag, null, partials, holders);
+      });
+      return partialFunc;
+    }
+
+    /**
+     * Creates a function for `_.reduce` or `_.reduceRight`.
+     *
+     * @private
+     * @param {Function} arrayFunc The function to iterate over an array.
+     * @param {Function} eachFunc The function to iterate over a collection.
+     * @returns {Function} Returns the new each function.
+     */
+    function createReduce(arrayFunc, eachFunc) {
+      return function(collection, iteratee, accumulator, thisArg) {
+        var initFromArray = arguments.length < 3;
+        return (typeof iteratee == 'function' && typeof thisArg == 'undefined' && isArray(collection))
+          ? arrayFunc(collection, iteratee, accumulator, initFromArray)
+          : baseReduce(collection, getCallback(iteratee, thisArg, 4), accumulator, initFromArray, eachFunc);
       };
     }
 
@@ -3385,7 +3774,12 @@ process.chdir = function (dir) {
             if (!isCurryBound) {
               bitmask &= ~(BIND_FLAG | BIND_KEY_FLAG);
             }
-            var result = createHybridWrapper(func, bitmask, thisArg, newPartials, newsHolders, newPartialsRight, newHoldersRight, newArgPos, ary, newArity);
+            var newData = [func, bitmask, thisArg, newPartials, newsHolders, newPartialsRight, newHoldersRight, newArgPos, ary, newArity],
+                result = createHybridWrapper.apply(undefined, newData);
+
+            if (isLaziable(func)) {
+              setData(result, newData);
+            }
             result.placeholder = placeholder;
             return result;
           }
@@ -3400,15 +3794,15 @@ process.chdir = function (dir) {
         if (isAry && ary < args.length) {
           args.length = ary;
         }
-        return (this instanceof wrapper ? (Ctor || createCtorWrapper(func)) : func).apply(thisBinding, args);
+        var fn = (this && this !== root && this instanceof wrapper) ? (Ctor || createCtorWrapper(func)) : func;
+        return fn.apply(thisBinding, args);
       }
       return wrapper;
     }
 
     /**
-     * Creates the pad required for `string` based on the given padding length.
-     * The `chars` string may be truncated if the number of padding characters
-     * exceeds the padding length.
+     * Creates the padding required for `string` based on the given `length`.
+     * The `chars` string is truncated if the number of characters exceeds `length`.
      *
      * @private
      * @param {string} string The string to create padding for.
@@ -3416,7 +3810,7 @@ process.chdir = function (dir) {
      * @param {string} [chars=' '] The string used as padding.
      * @returns {string} Returns the pad for `string`.
      */
-    function createPad(string, length, chars) {
+    function createPadding(string, length, chars) {
       var strLength = string.length;
       length = +length;
 
@@ -3459,9 +3853,26 @@ process.chdir = function (dir) {
         while (argsLength--) {
           args[leftIndex++] = arguments[++argsIndex];
         }
-        return (this instanceof wrapper ? Ctor : func).apply(isBind ? thisArg : this, args);
+        var fn = (this && this !== root && this instanceof wrapper) ? Ctor : func;
+        return fn.apply(isBind ? thisArg : this, args);
       }
       return wrapper;
+    }
+
+    /**
+     * Creates a `_.sortedIndex` or `_.sortedLastIndex` function.
+     *
+     * @private
+     * @param {boolean} [retHighest] Specify returning the highest qualified index.
+     * @returns {Function} Returns the new index function.
+     */
+    function createSortedIndex(retHighest) {
+      return function(array, value, iteratee, thisArg) {
+        var func = getCallback(iteratee);
+        return (func === baseCallback && iteratee == null)
+          ? binaryIndex(array, value, retHighest)
+          : binaryIndexBy(array, value, func(iteratee, thisArg, 1), retHighest);
+      };
     }
 
     /**
@@ -3491,7 +3902,7 @@ process.chdir = function (dir) {
      */
     function createWrapper(func, bitmask, thisArg, partials, holders, argPos, ary, arity) {
       var isBindKey = bitmask & BIND_KEY_FLAG;
-      if (!isBindKey && !isFunction(func)) {
+      if (!isBindKey && typeof func != 'function') {
         throw new TypeError(FUNC_ERROR_TEXT);
       }
       var length = partials ? partials.length : 0;
@@ -3506,10 +3917,10 @@ process.chdir = function (dir) {
 
         partials = holders = null;
       }
-      var data = !isBindKey && getData(func),
+      var data = isBindKey ? null : getData(func),
           newData = [func, bitmask, thisArg, partials, holders, partialsRight, holdersRight, argPos, ary, arity];
 
-      if (data && data !== true) {
+      if (data) {
         mergeData(newData, data);
         bitmask = newData[1];
         arity = newData[9];
@@ -3521,9 +3932,9 @@ process.chdir = function (dir) {
       if (bitmask == BIND_FLAG) {
         var result = createBindWrapper(newData[0], newData[2]);
       } else if ((bitmask == PARTIAL_FLAG || bitmask == (BIND_FLAG | PARTIAL_FLAG)) && !newData[4].length) {
-        result = createPartialWrapper.apply(null, newData);
+        result = createPartialWrapper.apply(undefined, newData);
       } else {
-        result = createHybridWrapper.apply(null, newData);
+        result = createHybridWrapper.apply(undefined, newData);
       }
       var setter = data ? baseSetData : setData;
       return setter(result, newData);
@@ -3538,18 +3949,18 @@ process.chdir = function (dir) {
      * @param {Array} other The other array to compare.
      * @param {Function} equalFunc The function to determine equivalents of values.
      * @param {Function} [customizer] The function to customize comparing arrays.
-     * @param {boolean} [isWhere] Specify performing partial comparisons.
+     * @param {boolean} [isLoose] Specify performing partial comparisons.
      * @param {Array} [stackA] Tracks traversed `value` objects.
      * @param {Array} [stackB] Tracks traversed `other` objects.
      * @returns {boolean} Returns `true` if the arrays are equivalent, else `false`.
      */
-    function equalArrays(array, other, equalFunc, customizer, isWhere, stackA, stackB) {
+    function equalArrays(array, other, equalFunc, customizer, isLoose, stackA, stackB) {
       var index = -1,
           arrLength = array.length,
           othLength = other.length,
           result = true;
 
-      if (arrLength != othLength && !(isWhere && othLength > arrLength)) {
+      if (arrLength != othLength && !(isLoose && othLength > arrLength)) {
         return false;
       }
       // Deep compare the contents, ignoring non-numeric properties.
@@ -3559,23 +3970,23 @@ process.chdir = function (dir) {
 
         result = undefined;
         if (customizer) {
-          result = isWhere
+          result = isLoose
             ? customizer(othValue, arrValue, index)
             : customizer(arrValue, othValue, index);
         }
         if (typeof result == 'undefined') {
           // Recursively compare arrays (susceptible to call stack limits).
-          if (isWhere) {
+          if (isLoose) {
             var othIndex = othLength;
             while (othIndex--) {
               othValue = other[othIndex];
-              result = (arrValue && arrValue === othValue) || equalFunc(arrValue, othValue, customizer, isWhere, stackA, stackB);
+              result = (arrValue && arrValue === othValue) || equalFunc(arrValue, othValue, customizer, isLoose, stackA, stackB);
               if (result) {
                 break;
               }
             }
           } else {
-            result = (arrValue && arrValue === othValue) || equalFunc(arrValue, othValue, customizer, isWhere, stackA, stackB);
+            result = (arrValue && arrValue === othValue) || equalFunc(arrValue, othValue, customizer, isLoose, stackA, stackB);
           }
         }
       }
@@ -3631,26 +4042,26 @@ process.chdir = function (dir) {
      * @param {Object} other The other object to compare.
      * @param {Function} equalFunc The function to determine equivalents of values.
      * @param {Function} [customizer] The function to customize comparing values.
-     * @param {boolean} [isWhere] Specify performing partial comparisons.
+     * @param {boolean} [isLoose] Specify performing partial comparisons.
      * @param {Array} [stackA] Tracks traversed `value` objects.
      * @param {Array} [stackB] Tracks traversed `other` objects.
      * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
      */
-    function equalObjects(object, other, equalFunc, customizer, isWhere, stackA, stackB) {
+    function equalObjects(object, other, equalFunc, customizer, isLoose, stackA, stackB) {
       var objProps = keys(object),
           objLength = objProps.length,
           othProps = keys(other),
           othLength = othProps.length;
 
-      if (objLength != othLength && !isWhere) {
+      if (objLength != othLength && !isLoose) {
         return false;
       }
-      var hasCtor,
+      var skipCtor = isLoose,
           index = -1;
 
       while (++index < objLength) {
         var key = objProps[index],
-            result = hasOwnProperty.call(other, key);
+            result = isLoose ? key in other : hasOwnProperty.call(other, key);
 
         if (result) {
           var objValue = object[key],
@@ -3658,27 +4069,29 @@ process.chdir = function (dir) {
 
           result = undefined;
           if (customizer) {
-            result = isWhere
+            result = isLoose
               ? customizer(othValue, objValue, key)
               : customizer(objValue, othValue, key);
           }
           if (typeof result == 'undefined') {
             // Recursively compare objects (susceptible to call stack limits).
-            result = (objValue && objValue === othValue) || equalFunc(objValue, othValue, customizer, isWhere, stackA, stackB);
+            result = (objValue && objValue === othValue) || equalFunc(objValue, othValue, customizer, isLoose, stackA, stackB);
           }
         }
         if (!result) {
           return false;
         }
-        hasCtor || (hasCtor = key == 'constructor');
+        skipCtor || (skipCtor = key == 'constructor');
       }
-      if (!hasCtor) {
+      if (!skipCtor) {
         var objCtor = object.constructor,
             othCtor = other.constructor;
 
         // Non `Object` object instances with different constructors are not equal.
-        if (objCtor != othCtor && ('constructor' in object && 'constructor' in other) &&
-            !(typeof objCtor == 'function' && objCtor instanceof objCtor && typeof othCtor == 'function' && othCtor instanceof othCtor)) {
+        if (objCtor != othCtor &&
+            ('constructor' in object && 'constructor' in other) &&
+            !(typeof objCtor == 'function' && objCtor instanceof objCtor &&
+              typeof othCtor == 'function' && othCtor instanceof othCtor)) {
           return false;
         }
       }
@@ -3688,7 +4101,7 @@ process.chdir = function (dir) {
     /**
      * Gets the extremum value of `collection` invoking `iteratee` for each value
      * in `collection` to generate the criterion by which the value is ranked.
-     * The `iteratee` is invoked with three arguments; (value, index, collection).
+     * The `iteratee` is invoked with three arguments: (value, index, collection).
      *
      * @private
      * @param {Array|Object|string} collection The collection to iterate over.
@@ -3704,7 +4117,8 @@ process.chdir = function (dir) {
 
       baseEach(collection, function(value, index, collection) {
         var current = iteratee(value, index, collection);
-        if ((isMin ? current < computed : current > computed) || (current === exValue && current === result)) {
+        if ((isMin ? (current < computed) : (current > computed)) ||
+            (current === exValue && current === result)) {
           computed = current;
           result = value;
         }
@@ -3737,6 +4151,37 @@ process.chdir = function (dir) {
     var getData = !metaMap ? noop : function(func) {
       return metaMap.get(func);
     };
+
+    /**
+     * Gets the name of `func`.
+     *
+     * @private
+     * @param {Function} func The function to query.
+     * @returns {string} Returns the function name.
+     */
+    var getFuncName = (function() {
+      if (!support.funcNames) {
+        return constant('');
+      }
+      if (constant.name == 'constant') {
+        return baseProperty('name');
+      }
+      return function(func) {
+        var result = func.name,
+            array = realNames[result],
+            length = array ? array.length : 0;
+
+        while (length--) {
+          var data = array[length],
+              otherFunc = data.func;
+
+          if (otherFunc == null || otherFunc == func) {
+            return data.name;
+          }
+        }
+        return result;
+      };
+    }());
 
     /**
      * Gets the appropriate "indexOf" function. If the `_.indexOf` method is
@@ -3856,31 +4301,6 @@ process.chdir = function (dir) {
     }
 
     /**
-     * Checks if `func` is eligible for `this` binding.
-     *
-     * @private
-     * @param {Function} func The function to check.
-     * @returns {boolean} Returns `true` if `func` is eligible, else `false`.
-     */
-    function isBindable(func) {
-      var support = lodash.support,
-          result = !(support.funcNames ? func.name : support.funcDecomp);
-
-      if (!result) {
-        var source = fnToString.call(func);
-        if (!support.funcNames) {
-          result = !reFuncName.test(source);
-        }
-        if (!result) {
-          // Check if `func` references the `this` keyword and store the result.
-          result = reThis.test(source) || isNative(func);
-          baseSetData(func, result);
-        }
-      }
-      return result;
-    }
-
-    /**
      * Checks if `value` is a valid array-like index.
      *
      * @private
@@ -3914,15 +4334,29 @@ process.chdir = function (dir) {
       } else {
         prereq = type == 'string' && index in object;
       }
-      return prereq && object[index] === value;
+      if (prereq) {
+        var other = object[index];
+        return value === value ? (value === other) : (other !== other);
+      }
+      return false;
+    }
+
+    /**
+     * Checks if `func` has a lazy counterpart.
+     *
+     * @private
+     * @param {Function} func The function to check.
+     * @returns {boolean} Returns `true` if `func` has a lazy counterpart, else `false`.
+     */
+    function isLaziable(func) {
+      var funcName = getFuncName(func);
+      return !!funcName && func === lodash[funcName] && funcName in LazyWrapper.prototype;
     }
 
     /**
      * Checks if `value` is a valid array-like length.
      *
-     * **Note:** This function is based on ES `ToLength`. See the
-     * [ES spec](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-tolength)
-     * for more details.
+     * **Note:** This function is based on [`ToLength`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-tolength).
      *
      * @private
      * @param {*} value The value to check.
@@ -3962,22 +4396,13 @@ process.chdir = function (dir) {
     function mergeData(data, source) {
       var bitmask = data[1],
           srcBitmask = source[1],
-          newBitmask = bitmask | srcBitmask;
+          newBitmask = bitmask | srcBitmask,
+          isCommon = newBitmask < ARY_FLAG;
 
-      var arityFlags = ARY_FLAG | REARG_FLAG,
-          bindFlags = BIND_FLAG | BIND_KEY_FLAG,
-          comboFlags = arityFlags | bindFlags | CURRY_BOUND_FLAG | CURRY_RIGHT_FLAG;
-
-      var isAry = bitmask & ARY_FLAG && !(srcBitmask & ARY_FLAG),
-          isRearg = bitmask & REARG_FLAG && !(srcBitmask & REARG_FLAG),
-          argPos = (isRearg ? data : source)[7],
-          ary = (isAry ? data : source)[8];
-
-      var isCommon = !(bitmask >= REARG_FLAG && srcBitmask > bindFlags) &&
-        !(bitmask > bindFlags && srcBitmask >= REARG_FLAG);
-
-      var isCombo = (newBitmask >= arityFlags && newBitmask <= comboFlags) &&
-        (bitmask < REARG_FLAG || ((isRearg || isAry) && argPos.length <= ary));
+      var isCombo =
+        (srcBitmask == ARY_FLAG && bitmask == CURRY_FLAG) ||
+        (srcBitmask == ARY_FLAG && bitmask == REARG_FLAG && data[7].length <= source[8]) ||
+        (srcBitmask == (ARY_FLAG | REARG_FLAG) && bitmask == CURRY_FLAG);
 
       // Exit early if metadata can't be merged.
       if (!(isCommon || isCombo)) {
@@ -4211,6 +4636,19 @@ process.chdir = function (dir) {
       return isObject(value) ? value : Object(value);
     }
 
+    /**
+     * Creates a clone of `wrapper`.
+     *
+     * @private
+     * @param {Object} wrapper The wrapper to clone.
+     * @returns {Object} Returns the cloned wrapper.
+     */
+    function wrapperClone(wrapper) {
+      return wrapper instanceof LazyWrapper
+        ? wrapper.clone()
+        : new LodashWrapper(wrapper.__wrapped__, wrapper.__chain__, arrayCopy(wrapper.__actions__));
+    }
+
     /*------------------------------------------------------------------------*/
 
     /**
@@ -4222,7 +4660,7 @@ process.chdir = function (dir) {
      * @memberOf _
      * @category Array
      * @param {Array} array The array to process.
-     * @param {numer} [size=1] The length of each chunk.
+     * @param {number} [size=1] The length of each chunk.
      * @param- {Object} [guard] Enables use as a callback for functions like `_.map`.
      * @returns {Array} Returns the new array containing chunks.
      * @example
@@ -4283,10 +4721,9 @@ process.chdir = function (dir) {
      * Creates an array excluding all values of the provided arrays using
      * `SameValueZero` for equality comparisons.
      *
-     * **Note:** `SameValueZero` comparisons are like strict equality comparisons,
-     * e.g. `===`, except that `NaN` matches `NaN`. See the
-     * [ES spec](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
-     * for more details.
+     * **Note:** [`SameValueZero`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
+     * comparisons are like strict equality comparisons, e.g. `===`, except that
+     * `NaN` matches `NaN`.
      *
      * @static
      * @memberOf _
@@ -4296,28 +4733,20 @@ process.chdir = function (dir) {
      * @returns {Array} Returns the new array of filtered values.
      * @example
      *
-     * _.difference([1, 2, 3], [5, 2, 10]);
+     * _.difference([1, 2, 3], [4, 2]);
      * // => [1, 3]
      */
-    function difference() {
-      var index = -1,
-          length = arguments.length;
-
-      while (++index < length) {
-        var value = arguments[index];
-        if (isArray(value) || isArguments(value)) {
-          break;
-        }
-      }
-      return baseDifference(value, baseFlatten(arguments, false, true, ++index));
-    }
+    var difference = restParam(function(array, values) {
+      return (isArray(array) || isArguments(array))
+        ? baseDifference(array, baseFlatten(values, false, true))
+        : [];
+    });
 
     /**
      * Creates a slice of `array` with `n` elements dropped from the beginning.
      *
      * @static
      * @memberOf _
-     * @type Function
      * @category Array
      * @param {Array} array The array to query.
      * @param {number} [n=1] The number of elements to drop.
@@ -4353,7 +4782,6 @@ process.chdir = function (dir) {
      *
      * @static
      * @memberOf _
-     * @type Function
      * @category Array
      * @param {Array} array The array to query.
      * @param {number} [n=1] The number of elements to drop.
@@ -4388,112 +4816,165 @@ process.chdir = function (dir) {
     /**
      * Creates a slice of `array` excluding elements dropped from the end.
      * Elements are dropped until `predicate` returns falsey. The predicate is
-     * bound to `thisArg` and invoked with three arguments; (value, index, array).
+     * bound to `thisArg` and invoked with three arguments: (value, index, array).
      *
-     * If a property name is provided for `predicate` the created "_.property"
+     * If a property name is provided for `predicate` the created `_.property`
      * style callback returns the property value of the given element.
      *
-     * If an object is provided for `predicate` the created "_.matches" style
-     * callback returns `true` for elements that have the properties of the given
+     * If a value is also provided for `thisArg` the created `_.matchesProperty`
+     * style callback returns `true` for elements that have a matching property
+     * value, else `false`.
+     *
+     * If an object is provided for `predicate` the created `_.matches` style
+     * callback returns `true` for elements that match the properties of the given
      * object, else `false`.
      *
      * @static
      * @memberOf _
-     * @type Function
      * @category Array
      * @param {Array} array The array to query.
      * @param {Function|Object|string} [predicate=_.identity] The function invoked
-     *  per element.
+     *  per iteration.
      * @param {*} [thisArg] The `this` binding of `predicate`.
      * @returns {Array} Returns the slice of `array`.
      * @example
      *
-     * _.dropRightWhile([1, 2, 3], function(n) { return n > 1; });
+     * _.dropRightWhile([1, 2, 3], function(n) {
+     *   return n > 1;
+     * });
      * // => [1]
      *
      * var users = [
-     *   { 'user': 'barney',  'status': 'busy', 'active': false },
-     *   { 'user': 'fred',    'status': 'busy', 'active': true },
-     *   { 'user': 'pebbles', 'status': 'away', 'active': true }
+     *   { 'user': 'barney',  'active': true },
+     *   { 'user': 'fred',    'active': false },
+     *   { 'user': 'pebbles', 'active': false }
      * ];
      *
-     * // using the "_.property" callback shorthand
-     * _.pluck(_.dropRightWhile(users, 'active'), 'user');
+     * // using the `_.matches` callback shorthand
+     * _.pluck(_.dropRightWhile(users, { 'user': 'pebbles', 'active': false }), 'user');
+     * // => ['barney', 'fred']
+     *
+     * // using the `_.matchesProperty` callback shorthand
+     * _.pluck(_.dropRightWhile(users, 'active', false), 'user');
      * // => ['barney']
      *
-     * // using the "_.matches" callback shorthand
-     * _.pluck(_.dropRightWhile(users, { 'status': 'away' }), 'user');
-     * // => ['barney', 'fred']
+     * // using the `_.property` callback shorthand
+     * _.pluck(_.dropRightWhile(users, 'active'), 'user');
+     * // => ['barney', 'fred', 'pebbles']
      */
     function dropRightWhile(array, predicate, thisArg) {
-      var length = array ? array.length : 0;
-      if (!length) {
-        return [];
-      }
-      predicate = getCallback(predicate, thisArg, 3);
-      while (length-- && predicate(array[length], length, array)) {}
-      return baseSlice(array, 0, length + 1);
+      return (array && array.length)
+        ? baseWhile(array, getCallback(predicate, thisArg, 3), true, true)
+        : [];
     }
 
     /**
      * Creates a slice of `array` excluding elements dropped from the beginning.
      * Elements are dropped until `predicate` returns falsey. The predicate is
-     * bound to `thisArg` and invoked with three arguments; (value, index, array).
+     * bound to `thisArg` and invoked with three arguments: (value, index, array).
      *
-     * If a property name is provided for `predicate` the created "_.property"
+     * If a property name is provided for `predicate` the created `_.property`
      * style callback returns the property value of the given element.
      *
-     * If an object is provided for `predicate` the created "_.matches" style
+     * If a value is also provided for `thisArg` the created `_.matchesProperty`
+     * style callback returns `true` for elements that have a matching property
+     * value, else `false`.
+     *
+     * If an object is provided for `predicate` the created `_.matches` style
      * callback returns `true` for elements that have the properties of the given
      * object, else `false`.
      *
      * @static
      * @memberOf _
-     * @type Function
      * @category Array
      * @param {Array} array The array to query.
      * @param {Function|Object|string} [predicate=_.identity] The function invoked
-     *  per element.
+     *  per iteration.
      * @param {*} [thisArg] The `this` binding of `predicate`.
      * @returns {Array} Returns the slice of `array`.
      * @example
      *
-     * _.dropWhile([1, 2, 3], function(n) { return n < 3; });
+     * _.dropWhile([1, 2, 3], function(n) {
+     *   return n < 3;
+     * });
      * // => [3]
      *
      * var users = [
-     *   { 'user': 'barney',  'status': 'busy', 'active': true },
-     *   { 'user': 'fred',    'status': 'busy', 'active': false },
-     *   { 'user': 'pebbles', 'status': 'away', 'active': true }
+     *   { 'user': 'barney',  'active': false },
+     *   { 'user': 'fred',    'active': false },
+     *   { 'user': 'pebbles', 'active': true }
      * ];
      *
-     * // using the "_.property" callback shorthand
-     * _.pluck(_.dropWhile(users, 'active'), 'user');
+     * // using the `_.matches` callback shorthand
+     * _.pluck(_.dropWhile(users, { 'user': 'barney', 'active': false }), 'user');
      * // => ['fred', 'pebbles']
      *
-     * // using the "_.matches" callback shorthand
-     * _.pluck(_.dropWhile(users, { 'status': 'busy' }), 'user');
+     * // using the `_.matchesProperty` callback shorthand
+     * _.pluck(_.dropWhile(users, 'active', false), 'user');
      * // => ['pebbles']
+     *
+     * // using the `_.property` callback shorthand
+     * _.pluck(_.dropWhile(users, 'active'), 'user');
+     * // => ['barney', 'fred', 'pebbles']
      */
     function dropWhile(array, predicate, thisArg) {
+      return (array && array.length)
+        ? baseWhile(array, getCallback(predicate, thisArg, 3), true)
+        : [];
+    }
+
+    /**
+     * Fills elements of `array` with `value` from `start` up to, but not
+     * including, `end`.
+     *
+     * **Note:** This method mutates `array`.
+     *
+     * @static
+     * @memberOf _
+     * @category Array
+     * @param {Array} array The array to fill.
+     * @param {*} value The value to fill `array` with.
+     * @param {number} [start=0] The start position.
+     * @param {number} [end=array.length] The end position.
+     * @returns {Array} Returns `array`.
+     * @example
+     *
+     * var array = [1, 2, 3];
+     *
+     * _.fill(array, 'a');
+     * console.log(array);
+     * // => ['a', 'a', 'a']
+     *
+     * _.fill(Array(3), 2);
+     * // => [2, 2, 2]
+     *
+     * _.fill([4, 6, 8], '*', 1, 2);
+     * // => [4, '*', 8]
+     */
+    function fill(array, value, start, end) {
       var length = array ? array.length : 0;
       if (!length) {
         return [];
       }
-      var index = -1;
-      predicate = getCallback(predicate, thisArg, 3);
-      while (++index < length && predicate(array[index], index, array)) {}
-      return baseSlice(array, index);
+      if (start && typeof start != 'number' && isIterateeCall(array, value, start)) {
+        start = 0;
+        end = length;
+      }
+      return baseFill(array, value, start, end);
     }
 
     /**
      * This method is like `_.find` except that it returns the index of the first
-     * element `predicate` returns truthy for, instead of the element itself.
+     * element `predicate` returns truthy for instead of the element itself.
      *
-     * If a property name is provided for `predicate` the created "_.property"
+     * If a property name is provided for `predicate` the created `_.property`
      * style callback returns the property value of the given element.
      *
-     * If an object is provided for `predicate` the created "_.matches" style
+     * If a value is also provided for `thisArg` the created `_.matchesProperty`
+     * style callback returns `true` for elements that have a matching property
+     * value, else `false`.
+     *
+     * If an object is provided for `predicate` the created `_.matches` style
      * callback returns `true` for elements that have the properties of the given
      * object, else `false`.
      *
@@ -4502,50 +4983,48 @@ process.chdir = function (dir) {
      * @category Array
      * @param {Array} array The array to search.
      * @param {Function|Object|string} [predicate=_.identity] The function invoked
-     *  per iteration. If a property name or object is provided it is used to
-     *  create a "_.property" or "_.matches" style callback respectively.
+     *  per iteration.
      * @param {*} [thisArg] The `this` binding of `predicate`.
      * @returns {number} Returns the index of the found element, else `-1`.
      * @example
      *
      * var users = [
-     *   { 'user': 'barney',  'age': 36, 'active': false },
-     *   { 'user': 'fred',    'age': 40, 'active': true },
-     *   { 'user': 'pebbles', 'age': 1,  'active': false }
+     *   { 'user': 'barney',  'active': false },
+     *   { 'user': 'fred',    'active': false },
+     *   { 'user': 'pebbles', 'active': true }
      * ];
      *
-     * _.findIndex(users, function(chr) { return chr.age < 40; });
+     * _.findIndex(users, function(chr) {
+     *   return chr.user == 'barney';
+     * });
      * // => 0
      *
-     * // using the "_.matches" callback shorthand
-     * _.findIndex(users, { 'age': 1 });
-     * // => 2
-     *
-     * // using the "_.property" callback shorthand
-     * _.findIndex(users, 'active');
+     * // using the `_.matches` callback shorthand
+     * _.findIndex(users, { 'user': 'fred', 'active': false });
      * // => 1
+     *
+     * // using the `_.matchesProperty` callback shorthand
+     * _.findIndex(users, 'active', false);
+     * // => 0
+     *
+     * // using the `_.property` callback shorthand
+     * _.findIndex(users, 'active');
+     * // => 2
      */
-    function findIndex(array, predicate, thisArg) {
-      var index = -1,
-          length = array ? array.length : 0;
-
-      predicate = getCallback(predicate, thisArg, 3);
-      while (++index < length) {
-        if (predicate(array[index], index, array)) {
-          return index;
-        }
-      }
-      return -1;
-    }
+    var findIndex = createFindIndex();
 
     /**
      * This method is like `_.findIndex` except that it iterates over elements
      * of `collection` from right to left.
      *
-     * If a property name is provided for `predicate` the created "_.property"
+     * If a property name is provided for `predicate` the created `_.property`
      * style callback returns the property value of the given element.
      *
-     * If an object is provided for `predicate` the created "_.matches" style
+     * If a value is also provided for `thisArg` the created `_.matchesProperty`
+     * style callback returns `true` for elements that have a matching property
+     * value, else `false`.
+     *
+     * If an object is provided for `predicate` the created `_.matches` style
      * callback returns `true` for elements that have the properties of the given
      * object, else `false`.
      *
@@ -4554,39 +5033,35 @@ process.chdir = function (dir) {
      * @category Array
      * @param {Array} array The array to search.
      * @param {Function|Object|string} [predicate=_.identity] The function invoked
-     *  per iteration. If a property name or object is provided it is used to
-     *  create a "_.property" or "_.matches" style callback respectively.
+     *  per iteration.
      * @param {*} [thisArg] The `this` binding of `predicate`.
      * @returns {number} Returns the index of the found element, else `-1`.
      * @example
      *
      * var users = [
-     *   { 'user': 'barney',  'age': 36, 'active': true },
-     *   { 'user': 'fred',    'age': 40, 'active': false },
-     *   { 'user': 'pebbles', 'age': 1,  'active': false }
+     *   { 'user': 'barney',  'active': true },
+     *   { 'user': 'fred',    'active': false },
+     *   { 'user': 'pebbles', 'active': false }
      * ];
      *
-     * _.findLastIndex(users, function(chr) { return chr.age < 40; });
+     * _.findLastIndex(users, function(chr) {
+     *   return chr.user == 'pebbles';
+     * });
      * // => 2
      *
-     * // using the "_.matches" callback shorthand
-     * _.findLastIndex(users, { 'age': 40 });
-     * // => 1
+     * // using the `_.matches` callback shorthand
+     * _.findLastIndex(users, { 'user': 'barney', 'active': true });
+     * // => 0
      *
-     * // using the "_.property" callback shorthand
+     * // using the `_.matchesProperty` callback shorthand
+     * _.findLastIndex(users, 'active', false);
+     * // => 2
+     *
+     * // using the `_.property` callback shorthand
      * _.findLastIndex(users, 'active');
      * // => 0
      */
-    function findLastIndex(array, predicate, thisArg) {
-      var length = array ? array.length : 0;
-      predicate = getCallback(predicate, thisArg, 3);
-      while (length--) {
-        if (predicate(array[length], length, array)) {
-          return length;
-        }
-      }
-      return -1;
-    }
+    var findLastIndex = createFindIndex(true);
 
     /**
      * Gets the first element of `array`.
@@ -4622,12 +5097,12 @@ process.chdir = function (dir) {
      * @returns {Array} Returns the new flattened array.
      * @example
      *
-     * _.flatten([1, [2], [3, [[4]]]]);
-     * // => [1, 2, 3, [[4]]];
+     * _.flatten([1, [2, 3, [4]]]);
+     * // => [1, 2, 3, [4]]
      *
      * // using `isDeep`
-     * _.flatten([1, [2], [3, [[4]]]], true);
-     * // => [1, 2, 3, 4];
+     * _.flatten([1, [2, 3, [4]]], true);
+     * // => [1, 2, 3, 4]
      */
     function flatten(array, isDeep, guard) {
       var length = array ? array.length : 0;
@@ -4647,8 +5122,8 @@ process.chdir = function (dir) {
      * @returns {Array} Returns the new flattened array.
      * @example
      *
-     * _.flattenDeep([1, [2], [3, [[4]]]]);
-     * // => [1, 2, 3, 4];
+     * _.flattenDeep([1, [2, 3, [4]]]);
+     * // => [1, 2, 3, 4]
      */
     function flattenDeep(array) {
       var length = array ? array.length : 0;
@@ -4661,10 +5136,9 @@ process.chdir = function (dir) {
      * it is used as the offset from the end of `array`. If `array` is sorted
      * providing `true` for `fromIndex` performs a faster binary search.
      *
-     * **Note:** `SameValueZero` comparisons are like strict equality comparisons,
-     * e.g. `===`, except that `NaN` matches `NaN`. See the
-     * [ES spec](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
-     * for more details.
+     * **Note:** [`SameValueZero`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
+     * comparisons are like strict equality comparisons, e.g. `===`, except that
+     * `NaN` matches `NaN`.
      *
      * @static
      * @memberOf _
@@ -4676,15 +5150,15 @@ process.chdir = function (dir) {
      * @returns {number} Returns the index of the matched value, else `-1`.
      * @example
      *
-     * _.indexOf([1, 2, 3, 1, 2, 3], 2);
+     * _.indexOf([1, 2, 1, 2], 2);
      * // => 1
      *
      * // using `fromIndex`
-     * _.indexOf([1, 2, 3, 1, 2, 3], 2, 3);
-     * // => 4
+     * _.indexOf([1, 2, 1, 2], 2, 2);
+     * // => 3
      *
      * // performing a binary search
-     * _.indexOf([4, 4, 5, 5, 6, 6], 5, true);
+     * _.indexOf([1, 1, 2, 2], 2, true);
      * // => 2
      */
     function indexOf(array, value, fromIndex) {
@@ -4693,14 +5167,17 @@ process.chdir = function (dir) {
         return -1;
       }
       if (typeof fromIndex == 'number') {
-        fromIndex = fromIndex < 0 ? nativeMax(length + fromIndex, 0) : (fromIndex || 0);
+        fromIndex = fromIndex < 0 ? nativeMax(length + fromIndex, 0) : fromIndex;
       } else if (fromIndex) {
         var index = binaryIndex(array, value),
             other = array[index];
 
-        return (value === value ? value === other : other !== other) ? index : -1;
+        if (value === value ? (value === other) : (other !== other)) {
+          return index;
+        }
+        return -1;
       }
-      return baseIndexOf(array, value, fromIndex);
+      return baseIndexOf(array, value, fromIndex || 0);
     }
 
     /**
@@ -4724,10 +5201,9 @@ process.chdir = function (dir) {
      * Creates an array of unique values in all provided arrays using `SameValueZero`
      * for equality comparisons.
      *
-     * **Note:** `SameValueZero` comparisons are like strict equality comparisons,
-     * e.g. `===`, except that `NaN` matches `NaN`. See the
-     * [ES spec](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
-     * for more details.
+     * **Note:** [`SameValueZero`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
+     * comparisons are like strict equality comparisons, e.g. `===`, except that
+     * `NaN` matches `NaN`.
      *
      * @static
      * @memberOf _
@@ -4735,9 +5211,8 @@ process.chdir = function (dir) {
      * @param {...Array} [arrays] The arrays to inspect.
      * @returns {Array} Returns the new array of shared values.
      * @example
-     *
-     * _.intersection([1, 2, 3], [5, 2, 1, 4], [2, 1]);
-     * // => [1, 2]
+     * _.intersection([1, 2], [4, 2], [2, 1]);
+     * // => [2]
      */
     function intersection() {
       var args = [],
@@ -4751,7 +5226,7 @@ process.chdir = function (dir) {
         var value = arguments[argsIndex];
         if (isArray(value) || isArguments(value)) {
           args.push(value);
-          caches.push(isCommon && value.length >= 120 && createCache(argsIndex && value));
+          caches.push((isCommon && value.length >= 120) ? createCache(argsIndex && value) : null);
         }
       }
       argsLength = args.length;
@@ -4764,11 +5239,11 @@ process.chdir = function (dir) {
       outer:
       while (++index < length) {
         value = array[index];
-        if ((seen ? cacheIndexOf(seen, value) : indexOf(result, value)) < 0) {
+        if ((seen ? cacheIndexOf(seen, value) : indexOf(result, value, 0)) < 0) {
           argsIndex = argsLength;
           while (--argsIndex) {
             var cache = caches[argsIndex];
-            if ((cache ? cacheIndexOf(cache, value) : indexOf(args[argsIndex], value)) < 0) {
+            if ((cache ? cacheIndexOf(cache, value) : indexOf(args[argsIndex], value, 0)) < 0) {
               continue outer;
             }
           }
@@ -4813,15 +5288,15 @@ process.chdir = function (dir) {
      * @returns {number} Returns the index of the matched value, else `-1`.
      * @example
      *
-     * _.lastIndexOf([1, 2, 3, 1, 2, 3], 2);
-     * // => 4
+     * _.lastIndexOf([1, 2, 1, 2], 2);
+     * // => 3
      *
      * // using `fromIndex`
-     * _.lastIndexOf([1, 2, 3, 1, 2, 3], 2, 3);
+     * _.lastIndexOf([1, 2, 1, 2], 2, 2);
      * // => 1
      *
      * // performing a binary search
-     * _.lastIndexOf([4, 4, 5, 5, 6, 6], 5, true);
+     * _.lastIndexOf([1, 1, 2, 2], 2, true);
      * // => 3
      */
     function lastIndexOf(array, value, fromIndex) {
@@ -4835,7 +5310,10 @@ process.chdir = function (dir) {
       } else if (fromIndex) {
         index = binaryIndex(array, value, true) - 1;
         var other = array[index];
-        return (value === value ? value === other : other !== other) ? index : -1;
+        if (value === value ? (value === other) : (other !== other)) {
+          return index;
+        }
+        return -1;
       }
       if (value !== value) {
         return indexOfNaN(array, index, true);
@@ -4853,10 +5331,10 @@ process.chdir = function (dir) {
      * comparisons.
      *
      * **Notes:**
-     *  - Unlike `_.without`, this method mutates `array`.
-     *  - `SameValueZero` comparisons are like strict equality comparisons, e.g. `===`,
-     *    except that `NaN` matches `NaN`. See the [ES spec](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
-     *    for more details.
+     *  - Unlike `_.without`, this method mutates `array`
+     *  - [`SameValueZero`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
+     *    comparisons are like strict equality comparisons, e.g. `===`, except
+     *    that `NaN` matches `NaN`
      *
      * @static
      * @memberOf _
@@ -4867,22 +5345,25 @@ process.chdir = function (dir) {
      * @example
      *
      * var array = [1, 2, 3, 1, 2, 3];
+     *
      * _.pull(array, 2, 3);
      * console.log(array);
      * // => [1, 1]
      */
     function pull() {
-      var array = arguments[0];
+      var args = arguments,
+          array = args[0];
+
       if (!(array && array.length)) {
         return array;
       }
       var index = 0,
           indexOf = getIndexOf(),
-          length = arguments.length;
+          length = args.length;
 
       while (++index < length) {
         var fromIndex = 0,
-            value = arguments[index];
+            value = args[index];
 
         while ((fromIndex = indexOf(array, value, fromIndex)) > -1) {
           splice.call(array, fromIndex, 1);
@@ -4908,7 +5389,7 @@ process.chdir = function (dir) {
      * @example
      *
      * var array = [5, 10, 15, 20];
-     * var evens = _.pullAt(array, [1, 3]);
+     * var evens = _.pullAt(array, 1, 3);
      *
      * console.log(array);
      * // => [5, 15]
@@ -4916,19 +5397,37 @@ process.chdir = function (dir) {
      * console.log(evens);
      * // => [10, 20]
      */
-    function pullAt(array) {
-      return basePullAt(array || [], baseFlatten(arguments, false, false, 1));
-    }
+    var pullAt = restParam(function(array, indexes) {
+      array || (array = []);
+      indexes = baseFlatten(indexes);
+
+      var length = indexes.length,
+          result = baseAt(array, indexes);
+
+      indexes.sort(baseCompareAscending);
+      while (length--) {
+        var index = parseFloat(indexes[length]);
+        if (index != previous && isIndex(index)) {
+          var previous = index;
+          splice.call(array, index, 1);
+        }
+      }
+      return result;
+    });
 
     /**
      * Removes all elements from `array` that `predicate` returns truthy for
      * and returns an array of the removed elements. The predicate is bound to
-     * `thisArg` and invoked with three arguments; (value, index, array).
+     * `thisArg` and invoked with three arguments: (value, index, array).
      *
-     * If a property name is provided for `predicate` the created "_.property"
+     * If a property name is provided for `predicate` the created `_.property`
      * style callback returns the property value of the given element.
      *
-     * If an object is provided for `predicate` the created "_.matches" style
+     * If a value is also provided for `thisArg` the created `_.matchesProperty`
+     * style callback returns `true` for elements that have a matching property
+     * value, else `false`.
+     *
+     * If an object is provided for `predicate` the created `_.matches` style
      * callback returns `true` for elements that have the properties of the given
      * object, else `false`.
      *
@@ -4939,14 +5438,15 @@ process.chdir = function (dir) {
      * @category Array
      * @param {Array} array The array to modify.
      * @param {Function|Object|string} [predicate=_.identity] The function invoked
-     *  per iteration. If a property name or object is provided it is used to
-     *  create a "_.property" or "_.matches" style callback respectively.
+     *  per iteration.
      * @param {*} [thisArg] The `this` binding of `predicate`.
      * @returns {Array} Returns the new array of removed elements.
      * @example
      *
      * var array = [1, 2, 3, 4];
-     * var evens = _.remove(array, function(n) { return n % 2 == 0; });
+     * var evens = _.remove(array, function(n) {
+     *   return n % 2 == 0;
+     * });
      *
      * console.log(array);
      * // => [1, 3]
@@ -5022,10 +5522,14 @@ process.chdir = function (dir) {
      * to compute their sort ranking. The iteratee is bound to `thisArg` and
      * invoked with one argument; (value).
      *
-     * If a property name is provided for `predicate` the created "_.property"
+     * If a property name is provided for `iteratee` the created `_.property`
      * style callback returns the property value of the given element.
      *
-     * If an object is provided for `predicate` the created "_.matches" style
+     * If a value is also provided for `thisArg` the created `_.matchesProperty`
+     * style callback returns `true` for elements that have a matching property
+     * value, else `false`.
+     *
+     * If an object is provided for `iteratee` the created `_.matches` style
      * callback returns `true` for elements that have the properties of the given
      * object, else `false`.
      *
@@ -5035,8 +5539,7 @@ process.chdir = function (dir) {
      * @param {Array} array The sorted array to inspect.
      * @param {*} value The value to evaluate.
      * @param {Function|Object|string} [iteratee=_.identity] The function invoked
-     *  per iteration. If a property name or object is provided it is used to
-     *  create a "_.property" or "_.matches" style callback respectively.
+     *  per iteration.
      * @param {*} [thisArg] The `this` binding of `iteratee`.
      * @returns {number} Returns the index at which `value` should be inserted
      *  into `array`.
@@ -5045,7 +5548,7 @@ process.chdir = function (dir) {
      * _.sortedIndex([30, 50], 40);
      * // => 1
      *
-     * _.sortedIndex([4, 4, 5, 5, 6, 6], 5);
+     * _.sortedIndex([4, 4, 5, 5], 5);
      * // => 2
      *
      * var dict = { 'data': { 'thirty': 30, 'forty': 40, 'fifty': 50 } };
@@ -5056,16 +5559,11 @@ process.chdir = function (dir) {
      * }, dict);
      * // => 1
      *
-     * // using the "_.property" callback shorthand
+     * // using the `_.property` callback shorthand
      * _.sortedIndex([{ 'x': 30 }, { 'x': 50 }], { 'x': 40 }, 'x');
      * // => 1
      */
-    function sortedIndex(array, value, iteratee, thisArg) {
-      var func = getCallback(iteratee);
-      return (func === baseCallback && iteratee == null)
-        ? binaryIndex(array, value)
-        : binaryIndexBy(array, value, func(iteratee, thisArg, 1));
-    }
+    var sortedIndex = createSortedIndex();
 
     /**
      * This method is like `_.sortedIndex` except that it returns the highest
@@ -5078,29 +5576,22 @@ process.chdir = function (dir) {
      * @param {Array} array The sorted array to inspect.
      * @param {*} value The value to evaluate.
      * @param {Function|Object|string} [iteratee=_.identity] The function invoked
-     *  per iteration. If a property name or object is provided it is used to
-     *  create a "_.property" or "_.matches" style callback respectively.
+     *  per iteration.
      * @param {*} [thisArg] The `this` binding of `iteratee`.
      * @returns {number} Returns the index at which `value` should be inserted
      *  into `array`.
      * @example
      *
-     * _.sortedLastIndex([4, 4, 5, 5, 6, 6], 5);
+     * _.sortedLastIndex([4, 4, 5, 5], 5);
      * // => 4
      */
-    function sortedLastIndex(array, value, iteratee, thisArg) {
-      var func = getCallback(iteratee);
-      return (func === baseCallback && iteratee == null)
-        ? binaryIndex(array, value, true)
-        : binaryIndexBy(array, value, func(iteratee, thisArg, 1), true);
-    }
+    var sortedLastIndex = createSortedIndex(true);
 
     /**
      * Creates a slice of `array` with `n` elements taken from the beginning.
      *
      * @static
      * @memberOf _
-     * @type Function
      * @category Array
      * @param {Array} array The array to query.
      * @param {number} [n=1] The number of elements to take.
@@ -5136,7 +5627,6 @@ process.chdir = function (dir) {
      *
      * @static
      * @memberOf _
-     * @type Function
      * @category Array
      * @param {Array} array The array to query.
      * @param {number} [n=1] The number of elements to take.
@@ -5171,112 +5661,120 @@ process.chdir = function (dir) {
     /**
      * Creates a slice of `array` with elements taken from the end. Elements are
      * taken until `predicate` returns falsey. The predicate is bound to `thisArg`
-     * and invoked with three arguments; (value, index, array).
+     * and invoked with three arguments: (value, index, array).
      *
-     * If a property name is provided for `predicate` the created "_.property"
+     * If a property name is provided for `predicate` the created `_.property`
      * style callback returns the property value of the given element.
      *
-     * If an object is provided for `predicate` the created "_.matches" style
+     * If a value is also provided for `thisArg` the created `_.matchesProperty`
+     * style callback returns `true` for elements that have a matching property
+     * value, else `false`.
+     *
+     * If an object is provided for `predicate` the created `_.matches` style
      * callback returns `true` for elements that have the properties of the given
      * object, else `false`.
      *
      * @static
      * @memberOf _
-     * @type Function
      * @category Array
      * @param {Array} array The array to query.
      * @param {Function|Object|string} [predicate=_.identity] The function invoked
-     *  per element.
+     *  per iteration.
      * @param {*} [thisArg] The `this` binding of `predicate`.
      * @returns {Array} Returns the slice of `array`.
      * @example
      *
-     * _.takeRightWhile([1, 2, 3], function(n) { return n > 1; });
+     * _.takeRightWhile([1, 2, 3], function(n) {
+     *   return n > 1;
+     * });
      * // => [2, 3]
      *
      * var users = [
-     *   { 'user': 'barney',  'status': 'busy', 'active': false },
-     *   { 'user': 'fred',    'status': 'busy', 'active': true },
-     *   { 'user': 'pebbles', 'status': 'away', 'active': true }
+     *   { 'user': 'barney',  'active': true },
+     *   { 'user': 'fred',    'active': false },
+     *   { 'user': 'pebbles', 'active': false }
      * ];
      *
-     * // using the "_.property" callback shorthand
-     * _.pluck(_.takeRightWhile(users, 'active'), 'user');
+     * // using the `_.matches` callback shorthand
+     * _.pluck(_.takeRightWhile(users, { 'user': 'pebbles', 'active': false }), 'user');
+     * // => ['pebbles']
+     *
+     * // using the `_.matchesProperty` callback shorthand
+     * _.pluck(_.takeRightWhile(users, 'active', false), 'user');
      * // => ['fred', 'pebbles']
      *
-     * // using the "_.matches" callback shorthand
-     * _.pluck(_.takeRightWhile(users, { 'status': 'away' }), 'user');
-     * // => ['pebbles']
+     * // using the `_.property` callback shorthand
+     * _.pluck(_.takeRightWhile(users, 'active'), 'user');
+     * // => []
      */
     function takeRightWhile(array, predicate, thisArg) {
-      var length = array ? array.length : 0;
-      if (!length) {
-        return [];
-      }
-      predicate = getCallback(predicate, thisArg, 3);
-      while (length-- && predicate(array[length], length, array)) {}
-      return baseSlice(array, length + 1);
+      return (array && array.length)
+        ? baseWhile(array, getCallback(predicate, thisArg, 3), false, true)
+        : [];
     }
 
     /**
      * Creates a slice of `array` with elements taken from the beginning. Elements
      * are taken until `predicate` returns falsey. The predicate is bound to
-     * `thisArg` and invoked with three arguments; (value, index, array).
+     * `thisArg` and invoked with three arguments: (value, index, array).
      *
-     * If a property name is provided for `predicate` the created "_.property"
+     * If a property name is provided for `predicate` the created `_.property`
      * style callback returns the property value of the given element.
      *
-     * If an object is provided for `predicate` the created "_.matches" style
+     * If a value is also provided for `thisArg` the created `_.matchesProperty`
+     * style callback returns `true` for elements that have a matching property
+     * value, else `false`.
+     *
+     * If an object is provided for `predicate` the created `_.matches` style
      * callback returns `true` for elements that have the properties of the given
      * object, else `false`.
      *
      * @static
      * @memberOf _
-     * @type Function
      * @category Array
      * @param {Array} array The array to query.
      * @param {Function|Object|string} [predicate=_.identity] The function invoked
-     *  per element.
+     *  per iteration.
      * @param {*} [thisArg] The `this` binding of `predicate`.
      * @returns {Array} Returns the slice of `array`.
      * @example
      *
-     * _.takeWhile([1, 2, 3], function(n) { return n < 3; });
+     * _.takeWhile([1, 2, 3], function(n) {
+     *   return n < 3;
+     * });
      * // => [1, 2]
      *
      * var users = [
-     *   { 'user': 'barney',  'status': 'busy', 'active': true },
-     *   { 'user': 'fred',    'status': 'busy', 'active': false },
-     *   { 'user': 'pebbles', 'status': 'away', 'active': true }
+     *   { 'user': 'barney',  'active': false },
+     *   { 'user': 'fred',    'active': false},
+     *   { 'user': 'pebbles', 'active': true }
      * ];
      *
-     * // using the "_.property" callback shorthand
-     * _.pluck(_.takeWhile(users, 'active'), 'user');
+     * // using the `_.matches` callback shorthand
+     * _.pluck(_.takeWhile(users, { 'user': 'barney', 'active': false }), 'user');
      * // => ['barney']
      *
-     * // using the "_.matches" callback shorthand
-     * _.pluck(_.takeWhile(users, { 'status': 'busy' }), 'user');
+     * // using the `_.matchesProperty` callback shorthand
+     * _.pluck(_.takeWhile(users, 'active', false), 'user');
      * // => ['barney', 'fred']
+     *
+     * // using the `_.property` callback shorthand
+     * _.pluck(_.takeWhile(users, 'active'), 'user');
+     * // => []
      */
     function takeWhile(array, predicate, thisArg) {
-      var length = array ? array.length : 0;
-      if (!length) {
-        return [];
-      }
-      var index = -1;
-      predicate = getCallback(predicate, thisArg, 3);
-      while (++index < length && predicate(array[index], index, array)) {}
-      return baseSlice(array, 0, index);
+      return (array && array.length)
+        ? baseWhile(array, getCallback(predicate, thisArg, 3))
+        : [];
     }
 
     /**
      * Creates an array of unique values, in order, of the provided arrays using
      * `SameValueZero` for equality comparisons.
      *
-     * **Note:** `SameValueZero` comparisons are like strict equality comparisons,
-     * e.g. `===`, except that `NaN` matches `NaN`. See the
-     * [ES spec](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
-     * for more details.
+     * **Note:** [`SameValueZero`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
+     * comparisons are like strict equality comparisons, e.g. `===`, except that
+     * `NaN` matches `NaN`.
      *
      * @static
      * @memberOf _
@@ -5285,12 +5783,12 @@ process.chdir = function (dir) {
      * @returns {Array} Returns the new array of combined values.
      * @example
      *
-     * _.union([1, 2, 3], [5, 2, 1, 4], [2, 1]);
-     * // => [1, 2, 3, 5, 4]
+     * _.union([1, 2], [4, 2], [2, 1]);
+     * // => [1, 2, 4]
      */
-    function union() {
-      return baseUniq(baseFlatten(arguments, false, true));
-    }
+    var union = restParam(function(arrays) {
+      return baseUniq(baseFlatten(arrays, false, true));
+    });
 
     /**
      * Creates a duplicate-value-free version of an array using `SameValueZero`
@@ -5298,19 +5796,22 @@ process.chdir = function (dir) {
      * search algorithm for sorted arrays. If an iteratee function is provided it
      * is invoked for each value in the array to generate the criterion by which
      * uniqueness is computed. The `iteratee` is bound to `thisArg` and invoked
-     * with three arguments; (value, index, array).
+     * with three arguments: (value, index, array).
      *
-     * If a property name is provided for `predicate` the created "_.property"
+     * If a property name is provided for `iteratee` the created `_.property`
      * style callback returns the property value of the given element.
      *
-     * If an object is provided for `predicate` the created "_.matches" style
+     * If a value is also provided for `thisArg` the created `_.matchesProperty`
+     * style callback returns `true` for elements that have a matching property
+     * value, else `false`.
+     *
+     * If an object is provided for `iteratee` the created `_.matches` style
      * callback returns `true` for elements that have the properties of the given
      * object, else `false`.
      *
-     * **Note:** `SameValueZero` comparisons are like strict equality comparisons,
-     * e.g. `===`, except that `NaN` matches `NaN`. See the
-     * [ES spec](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
-     * for more details.
+     * **Note:** [`SameValueZero`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
+     * comparisons are like strict equality comparisons, e.g. `===`, except that
+     * `NaN` matches `NaN`.
      *
      * @static
      * @memberOf _
@@ -5319,8 +5820,6 @@ process.chdir = function (dir) {
      * @param {Array} array The array to inspect.
      * @param {boolean} [isSorted] Specify the array is sorted.
      * @param {Function|Object|string} [iteratee] The function invoked per iteration.
-     *  If a property name or object is provided it is used to create a "_.property"
-     *  or "_.matches" style callback respectively.
      * @param {*} [thisArg] The `this` binding of `iteratee`.
      * @returns {Array} Returns the new duplicate-value-free array.
      * @example
@@ -5333,10 +5832,12 @@ process.chdir = function (dir) {
      * // => [1, 2]
      *
      * // using an iteratee function
-     * _.uniq([1, 2.5, 1.5, 2], function(n) { return this.floor(n); }, Math);
+     * _.uniq([1, 2.5, 1.5, 2], function(n) {
+     *   return this.floor(n);
+     * }, Math);
      * // => [1, 2.5]
      *
-     * // using the "_.property" callback shorthand
+     * // using the `_.property` callback shorthand
      * _.uniq([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }], 'x');
      * // => [{ 'x': 1 }, { 'x': 2 }]
      */
@@ -5345,8 +5846,7 @@ process.chdir = function (dir) {
       if (!length) {
         return [];
       }
-      // Juggle arguments.
-      if (typeof isSorted != 'boolean' && isSorted != null) {
+      if (isSorted != null && typeof isSorted != 'boolean') {
         thisArg = iteratee;
         iteratee = isIterateeCall(array, isSorted, thisArg) ? null : isSorted;
         isSorted = false;
@@ -5393,10 +5893,9 @@ process.chdir = function (dir) {
      * Creates an array excluding all provided values using `SameValueZero` for
      * equality comparisons.
      *
-     * **Note:** `SameValueZero` comparisons are like strict equality comparisons,
-     * e.g. `===`, except that `NaN` matches `NaN`. See the
-     * [ES spec](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
-     * for more details.
+     * **Note:** [`SameValueZero`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
+     * comparisons are like strict equality comparisons, e.g. `===`, except that
+     * `NaN` matches `NaN`.
      *
      * @static
      * @memberOf _
@@ -5406,17 +5905,18 @@ process.chdir = function (dir) {
      * @returns {Array} Returns the new array of filtered values.
      * @example
      *
-     * _.without([1, 2, 1, 0, 3, 1, 4], 0, 1);
-     * // => [2, 3, 4]
+     * _.without([1, 2, 1, 3], 1, 2);
+     * // => [3]
      */
-    function without(array) {
-      return baseDifference(array, baseSlice(arguments, 1));
-    }
+    var without = restParam(function(array, values) {
+      return (isArray(array) || isArguments(array))
+        ? baseDifference(array, values)
+        : [];
+    });
 
     /**
-     * Creates an array that is the symmetric difference of the provided arrays.
-     * See [Wikipedia](https://en.wikipedia.org/wiki/Symmetric_difference) for
-     * more details.
+     * Creates an array that is the [symmetric difference](https://en.wikipedia.org/wiki/Symmetric_difference)
+     * of the provided arrays.
      *
      * @static
      * @memberOf _
@@ -5425,11 +5925,8 @@ process.chdir = function (dir) {
      * @returns {Array} Returns the new array of values.
      * @example
      *
-     * _.xor([1, 2, 3], [5, 2, 1, 4]);
-     * // => [3, 5, 4]
-     *
-     * _.xor([1, 2, 5], [2, 3, 5], [3, 4, 5]);
-     * // => [1, 4, 5]
+     * _.xor([1, 2], [4, 2]);
+     * // => [1, 4]
      */
     function xor() {
       var index = -1,
@@ -5461,20 +5958,13 @@ process.chdir = function (dir) {
      * _.zip(['fred', 'barney'], [30, 40], [true, false]);
      * // => [['fred', 30, true], ['barney', 40, false]]
      */
-    function zip() {
-      var length = arguments.length,
-          array = Array(length);
-
-      while (length--) {
-        array[length] = arguments[length];
-      }
-      return unzip(array);
-    }
+    var zip = restParam(unzip);
 
     /**
-     * Creates an object composed from arrays of property names and values. Provide
-     * either a single two dimensional array, e.g. `[[key1, value1], [key2, value2]]`
-     * or two arrays, one of property names and one of corresponding values.
+     * The inverse of `_.pairs`; this method returns an object composed from arrays
+     * of property names and values. Provide either a single two dimensional array,
+     * e.g. `[[key1, value1], [key2, value2]]` or two arrays, one of property names
+     * and one of corresponding values.
      *
      * @static
      * @memberOf _
@@ -5484,6 +5974,9 @@ process.chdir = function (dir) {
      * @param {Array} [values=[]] The property values.
      * @returns {Object} Returns the new object.
      * @example
+     *
+     * _.zipObject([['fred', 30], ['barney', 40]]);
+     * // => { 'fred': 30, 'barney': 40 }
      *
      * _.zipObject(['fred', 'barney'], [30, 40]);
      * // => { 'fred': 30, 'barney': 40 }
@@ -5517,7 +6010,7 @@ process.chdir = function (dir) {
      * @memberOf _
      * @category Chain
      * @param {*} value The value to wrap.
-     * @returns {Object} Returns the new `lodash` object.
+     * @returns {Object} Returns the new `lodash` wrapper instance.
      * @example
      *
      * var users = [
@@ -5528,7 +6021,9 @@ process.chdir = function (dir) {
      *
      * var youngest = _.chain(users)
      *   .sortBy('age')
-     *   .map(function(chr) { return chr.user + ' is ' + chr.age; })
+     *   .map(function(chr) {
+     *     return chr.user + ' is ' + chr.age;
+     *   })
      *   .first()
      *   .value();
      * // => 'pebbles is 1'
@@ -5555,7 +6050,9 @@ process.chdir = function (dir) {
      * @example
      *
      * _([1, 2, 3])
-     *  .tap(function(array) { array.pop(); })
+     *  .tap(function(array) {
+     *    array.pop();
+     *  })
      *  .reverse()
      *  .value();
      * // => [2, 1]
@@ -5577,11 +6074,14 @@ process.chdir = function (dir) {
      * @returns {*} Returns the result of `interceptor`.
      * @example
      *
-     * _([1, 2, 3])
-     *  .last()
-     *  .thru(function(value) { return [value]; })
+     * _('  abc  ')
+     *  .chain()
+     *  .trim()
+     *  .thru(function(value) {
+     *    return [value];
+     *  })
      *  .value();
-     * // => [3]
+     * // => ['abc']
      */
     function thru(value, interceptor, thisArg) {
       return interceptor.call(thisArg, value);
@@ -5593,7 +6093,7 @@ process.chdir = function (dir) {
      * @name chain
      * @memberOf _
      * @category Chain
-     * @returns {*} Returns the `lodash` object.
+     * @returns {Object} Returns the new `lodash` wrapper instance.
      * @example
      *
      * var users = [
@@ -5617,6 +6117,76 @@ process.chdir = function (dir) {
     }
 
     /**
+     * Executes the chained sequence and returns the wrapped result.
+     *
+     * @name commit
+     * @memberOf _
+     * @category Chain
+     * @returns {Object} Returns the new `lodash` wrapper instance.
+     * @example
+     *
+     * var array = [1, 2];
+     * var wrapper = _(array).push(3);
+     *
+     * console.log(array);
+     * // => [1, 2]
+     *
+     * wrapper = wrapper.commit();
+     * console.log(array);
+     * // => [1, 2, 3]
+     *
+     * wrapper.last();
+     * // => 3
+     *
+     * console.log(array);
+     * // => [1, 2, 3]
+     */
+    function wrapperCommit() {
+      return new LodashWrapper(this.value(), this.__chain__);
+    }
+
+    /**
+     * Creates a clone of the chained sequence planting `value` as the wrapped value.
+     *
+     * @name plant
+     * @memberOf _
+     * @category Chain
+     * @returns {Object} Returns the new `lodash` wrapper instance.
+     * @example
+     *
+     * var array = [1, 2];
+     * var wrapper = _(array).map(function(value) {
+     *   return Math.pow(value, 2);
+     * });
+     *
+     * var other = [3, 4];
+     * var otherWrapper = wrapper.plant(other);
+     *
+     * otherWrapper.value();
+     * // => [9, 16]
+     *
+     * wrapper.value();
+     * // => [1, 4]
+     */
+    function wrapperPlant(value) {
+      var result,
+          parent = this;
+
+      while (parent instanceof baseLodash) {
+        var clone = wrapperClone(parent);
+        if (result) {
+          previous.__wrapped__ = clone;
+        } else {
+          result = clone;
+        }
+        var previous = clone;
+        parent = parent.__wrapped__;
+      }
+      previous.__wrapped__ = value;
+      return result;
+    }
+
+    /**
      * Reverses the wrapped array so the first element becomes the last, the
      * second element becomes the second to last, and so on.
      *
@@ -5625,7 +6195,7 @@ process.chdir = function (dir) {
      * @name reverse
      * @memberOf _
      * @category Chain
-     * @returns {Object} Returns the new reversed `lodash` object.
+     * @returns {Object} Returns the new reversed `lodash` wrapper instance.
      * @example
      *
      * var array = [1, 2, 3];
@@ -5642,7 +6212,7 @@ process.chdir = function (dir) {
         if (this.__actions__.length) {
           value = new LazyWrapper(this);
         }
-        return new LodashWrapper(value.reverse());
+        return new LodashWrapper(value.reverse(), this.__chain__);
       }
       return this.thru(function(value) {
         return value.reverse();
@@ -5670,7 +6240,7 @@ process.chdir = function (dir) {
      *
      * @name value
      * @memberOf _
-     * @alias toJSON, valueOf
+     * @alias run, toJSON, valueOf
      * @category Chain
      * @returns {*} Returns the resolved unwrapped value.
      * @example
@@ -5698,82 +6268,35 @@ process.chdir = function (dir) {
      * @returns {Array} Returns the new array of picked elements.
      * @example
      *
-     * _.at(['a', 'b', 'c', 'd', 'e'], [0, 2, 4]);
-     * // => ['a', 'c', 'e']
+     * _.at(['a', 'b', 'c'], [0, 2]);
+     * // => ['a', 'c']
      *
-     * _.at(['fred', 'barney', 'pebbles'], 0, 2);
-     * // => ['fred', 'pebbles']
+     * _.at(['barney', 'fred', 'pebbles'], 0, 2);
+     * // => ['barney', 'pebbles']
      */
-    function at(collection) {
+    var at = restParam(function(collection, props) {
       var length = collection ? collection.length : 0;
       if (isLength(length)) {
         collection = toIterable(collection);
       }
-      return baseAt(collection, baseFlatten(arguments, false, false, 1));
-    }
-
-    /**
-     * Checks if `value` is in `collection` using `SameValueZero` for equality
-     * comparisons. If `fromIndex` is negative, it is used as the offset from
-     * the end of `collection`.
-     *
-     * **Note:** `SameValueZero` comparisons are like strict equality comparisons,
-     * e.g. `===`, except that `NaN` matches `NaN`. See the
-     * [ES spec](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
-     * for more details.
-     *
-     * @static
-     * @memberOf _
-     * @alias contains, include
-     * @category Collection
-     * @param {Array|Object|string} collection The collection to search.
-     * @param {*} target The value to search for.
-     * @param {number} [fromIndex=0] The index to search from.
-     * @returns {boolean} Returns `true` if a matching element is found, else `false`.
-     * @example
-     *
-     * _.includes([1, 2, 3], 1);
-     * // => true
-     *
-     * _.includes([1, 2, 3], 1, 2);
-     * // => false
-     *
-     * _.includes({ 'user': 'fred', 'age': 40 }, 'fred');
-     * // => true
-     *
-     * _.includes('pebbles', 'eb');
-     * // => true
-     */
-    function includes(collection, target, fromIndex) {
-      var length = collection ? collection.length : 0;
-      if (!isLength(length)) {
-        collection = values(collection);
-        length = collection.length;
-      }
-      if (!length) {
-        return false;
-      }
-      if (typeof fromIndex == 'number') {
-        fromIndex = fromIndex < 0 ? nativeMax(length + fromIndex, 0) : (fromIndex || 0);
-      } else {
-        fromIndex = 0;
-      }
-      return (typeof collection == 'string' || !isArray(collection) && isString(collection))
-        ? (fromIndex < length && collection.indexOf(target, fromIndex) > -1)
-        : (getIndexOf(collection, target, fromIndex) > -1);
-    }
+      return baseAt(collection, baseFlatten(props));
+    });
 
     /**
      * Creates an object composed of keys generated from the results of running
      * each element of `collection` through `iteratee`. The corresponding value
      * of each key is the number of times the key was returned by `iteratee`.
-     * The `iteratee` is bound to `thisArg` and invoked with three arguments;
+     * The `iteratee` is bound to `thisArg` and invoked with three arguments:
      * (value, index|key, collection).
      *
-     * If a property name is provided for `predicate` the created "_.property"
+     * If a property name is provided for `iteratee` the created `_.property`
      * style callback returns the property value of the given element.
      *
-     * If an object is provided for `predicate` the created "_.matches" style
+     * If a value is also provided for `thisArg` the created `_.matchesProperty`
+     * style callback returns `true` for elements that have a matching property
+     * value, else `false`.
+     *
+     * If an object is provided for `iteratee` the created `_.matches` style
      * callback returns `true` for elements that have the properties of the given
      * object, else `false`.
      *
@@ -5782,16 +6305,19 @@ process.chdir = function (dir) {
      * @category Collection
      * @param {Array|Object|string} collection The collection to iterate over.
      * @param {Function|Object|string} [iteratee=_.identity] The function invoked
-     *  per iteration. If a property name or object is provided it is used to
-     *  create a "_.property" or "_.matches" style callback respectively.
+     *  per iteration.
      * @param {*} [thisArg] The `this` binding of `iteratee`.
      * @returns {Object} Returns the composed aggregate object.
      * @example
      *
-     * _.countBy([4.3, 6.1, 6.4], function(n) { return Math.floor(n); });
+     * _.countBy([4.3, 6.1, 6.4], function(n) {
+     *   return Math.floor(n);
+     * });
      * // => { '4': 1, '6': 2 }
      *
-     * _.countBy([4.3, 6.1, 6.4], function(n) { return this.floor(n); }, Math);
+     * _.countBy([4.3, 6.1, 6.4], function(n) {
+     *   return this.floor(n);
+     * }, Math);
      * // => { '4': 1, '6': 2 }
      *
      * _.countBy(['one', 'two', 'three'], 'length');
@@ -5803,13 +6329,17 @@ process.chdir = function (dir) {
 
     /**
      * Checks if `predicate` returns truthy for **all** elements of `collection`.
-     * The predicate is bound to `thisArg` and invoked with three arguments;
+     * The predicate is bound to `thisArg` and invoked with three arguments:
      * (value, index|key, collection).
      *
-     * If a property name is provided for `predicate` the created "_.property"
+     * If a property name is provided for `predicate` the created `_.property`
      * style callback returns the property value of the given element.
      *
-     * If an object is provided for `predicate` the created "_.matches" style
+     * If a value is also provided for `thisArg` the created `_.matchesProperty`
+     * style callback returns `true` for elements that have a matching property
+     * value, else `false`.
+     *
+     * If an object is provided for `predicate` the created `_.matches` style
      * callback returns `true` for elements that have the properties of the given
      * object, else `false`.
      *
@@ -5819,31 +6349,37 @@ process.chdir = function (dir) {
      * @category Collection
      * @param {Array|Object|string} collection The collection to iterate over.
      * @param {Function|Object|string} [predicate=_.identity] The function invoked
-     *  per iteration. If a property name or object is provided it is used to
-     *  create a "_.property" or "_.matches" style callback respectively.
+     *  per iteration.
      * @param {*} [thisArg] The `this` binding of `predicate`.
      * @returns {boolean} Returns `true` if all elements pass the predicate check,
      *  else `false`.
      * @example
      *
-     * _.every([true, 1, null, 'yes']);
+     * _.every([true, 1, null, 'yes'], Boolean);
      * // => false
      *
      * var users = [
-     *   { 'user': 'barney', 'age': 36 },
-     *   { 'user': 'fred',   'age': 40 }
+     *   { 'user': 'barney', 'active': false },
+     *   { 'user': 'fred',   'active': false }
      * ];
      *
-     * // using the "_.property" callback shorthand
-     * _.every(users, 'age');
+     * // using the `_.matches` callback shorthand
+     * _.every(users, { 'user': 'barney', 'active': false });
+     * // => false
+     *
+     * // using the `_.matchesProperty` callback shorthand
+     * _.every(users, 'active', false);
      * // => true
      *
-     * // using the "_.matches" callback shorthand
-     * _.every(users, { 'age': 36 });
+     * // using the `_.property` callback shorthand
+     * _.every(users, 'active');
      * // => false
      */
     function every(collection, predicate, thisArg) {
       var func = isArray(collection) ? arrayEvery : baseEvery;
+      if (thisArg && isIterateeCall(collection, predicate, thisArg)) {
+        predicate = null;
+      }
       if (typeof predicate != 'function' || typeof thisArg != 'undefined') {
         predicate = getCallback(predicate, thisArg, 3);
       }
@@ -5853,12 +6389,16 @@ process.chdir = function (dir) {
     /**
      * Iterates over elements of `collection`, returning an array of all elements
      * `predicate` returns truthy for. The predicate is bound to `thisArg` and
-     * invoked with three arguments; (value, index|key, collection).
+     * invoked with three arguments: (value, index|key, collection).
      *
-     * If a property name is provided for `predicate` the created "_.property"
+     * If a property name is provided for `predicate` the created `_.property`
      * style callback returns the property value of the given element.
      *
-     * If an object is provided for `predicate` the created "_.matches" style
+     * If a value is also provided for `thisArg` the created `_.matchesProperty`
+     * style callback returns `true` for elements that have a matching property
+     * value, else `false`.
+     *
+     * If an object is provided for `predicate` the created `_.matches` style
      * callback returns `true` for elements that have the properties of the given
      * object, else `false`.
      *
@@ -5868,26 +6408,31 @@ process.chdir = function (dir) {
      * @category Collection
      * @param {Array|Object|string} collection The collection to iterate over.
      * @param {Function|Object|string} [predicate=_.identity] The function invoked
-     *  per iteration. If a property name or object is provided it is used to
-     *  create a "_.property" or "_.matches" style callback respectively.
+     *  per iteration.
      * @param {*} [thisArg] The `this` binding of `predicate`.
      * @returns {Array} Returns the new filtered array.
      * @example
      *
-     * var evens = _.filter([1, 2, 3, 4], function(n) { return n % 2 == 0; });
-     * // => [2, 4]
+     * _.filter([4, 5, 6], function(n) {
+     *   return n % 2 == 0;
+     * });
+     * // => [4, 6]
      *
      * var users = [
-     *   { 'user': 'barney', 'age': 36, 'active': false },
-     *   { 'user': 'fred',   'age': 40, 'active': true }
+     *   { 'user': 'barney', 'age': 36, 'active': true },
+     *   { 'user': 'fred',   'age': 40, 'active': false }
      * ];
      *
-     * // using the "_.property" callback shorthand
-     * _.pluck(_.filter(users, 'active'), 'user');
+     * // using the `_.matches` callback shorthand
+     * _.pluck(_.filter(users, { 'age': 36, 'active': true }), 'user');
+     * // => ['barney']
+     *
+     * // using the `_.matchesProperty` callback shorthand
+     * _.pluck(_.filter(users, 'active', false), 'user');
      * // => ['fred']
      *
-     * // using the "_.matches" callback shorthand
-     * _.pluck(_.filter(users, { 'age': 36 }), 'user');
+     * // using the `_.property` callback shorthand
+     * _.pluck(_.filter(users, 'active'), 'user');
      * // => ['barney']
      */
     function filter(collection, predicate, thisArg) {
@@ -5899,12 +6444,16 @@ process.chdir = function (dir) {
     /**
      * Iterates over elements of `collection`, returning the first element
      * `predicate` returns truthy for. The predicate is bound to `thisArg` and
-     * invoked with three arguments; (value, index|key, collection).
+     * invoked with three arguments: (value, index|key, collection).
      *
-     * If a property name is provided for `predicate` the created "_.property"
+     * If a property name is provided for `predicate` the created `_.property`
      * style callback returns the property value of the given element.
      *
-     * If an object is provided for `predicate` the created "_.matches" style
+     * If a value is also provided for `thisArg` the created `_.matchesProperty`
+     * style callback returns `true` for elements that have a matching property
+     * value, else `false`.
+     *
+     * If an object is provided for `predicate` the created `_.matches` style
      * callback returns `true` for elements that have the properties of the given
      * object, else `false`.
      *
@@ -5914,37 +6463,35 @@ process.chdir = function (dir) {
      * @category Collection
      * @param {Array|Object|string} collection The collection to search.
      * @param {Function|Object|string} [predicate=_.identity] The function invoked
-     *  per iteration. If a property name or object is provided it is used to
-     *  create a "_.property" or "_.matches" style callback respectively.
+     *  per iteration.
      * @param {*} [thisArg] The `this` binding of `predicate`.
      * @returns {*} Returns the matched element, else `undefined`.
      * @example
      *
      * var users = [
-     *   { 'user': 'barney',  'age': 36, 'active': false },
-     *   { 'user': 'fred',    'age': 40, 'active': true },
-     *   { 'user': 'pebbles', 'age': 1,  'active': false }
+     *   { 'user': 'barney',  'age': 36, 'active': true },
+     *   { 'user': 'fred',    'age': 40, 'active': false },
+     *   { 'user': 'pebbles', 'age': 1,  'active': true }
      * ];
      *
-     * _.result(_.find(users, function(chr) { return chr.age < 40; }), 'user');
+     * _.result(_.find(users, function(chr) {
+     *   return chr.age < 40;
+     * }), 'user');
      * // => 'barney'
      *
-     * // using the "_.matches" callback shorthand
-     * _.result(_.find(users, { 'age': 1 }), 'user');
+     * // using the `_.matches` callback shorthand
+     * _.result(_.find(users, { 'age': 1, 'active': true }), 'user');
      * // => 'pebbles'
      *
-     * // using the "_.property" callback shorthand
-     * _.result(_.find(users, 'active'), 'user');
+     * // using the `_.matchesProperty` callback shorthand
+     * _.result(_.find(users, 'active', false), 'user');
      * // => 'fred'
+     *
+     * // using the `_.property` callback shorthand
+     * _.result(_.find(users, 'active'), 'user');
+     * // => 'barney'
      */
-    function find(collection, predicate, thisArg) {
-      if (isArray(collection)) {
-        var index = findIndex(collection, predicate, thisArg);
-        return index > -1 ? collection[index] : undefined;
-      }
-      predicate = getCallback(predicate, thisArg, 3);
-      return baseFind(collection, predicate, baseEach);
-    }
+    var find = createFind(baseEach);
 
     /**
      * This method is like `_.find` except that it iterates over elements of
@@ -5955,24 +6502,27 @@ process.chdir = function (dir) {
      * @category Collection
      * @param {Array|Object|string} collection The collection to search.
      * @param {Function|Object|string} [predicate=_.identity] The function invoked
-     *  per iteration. If a property name or object is provided it is used to
-     *  create a "_.property" or "_.matches" style callback respectively.
+     *  per iteration.
      * @param {*} [thisArg] The `this` binding of `predicate`.
      * @returns {*} Returns the matched element, else `undefined`.
      * @example
      *
-     * _.findLast([1, 2, 3, 4], function(n) { return n % 2 == 1; });
+     * _.findLast([1, 2, 3, 4], function(n) {
+     *   return n % 2 == 1;
+     * });
      * // => 3
      */
-    function findLast(collection, predicate, thisArg) {
-      predicate = getCallback(predicate, thisArg, 3);
-      return baseFind(collection, predicate, baseEachRight);
-    }
+    var findLast = createFind(baseEachRight, true);
 
     /**
      * Performs a deep comparison between each element in `collection` and the
      * source object, returning the first element that has equivalent property
      * values.
+     *
+     * **Note:** This method supports comparing arrays, booleans, `Date` objects,
+     * numbers, `Object` objects, regexes, and strings. Objects are compared by
+     * their own, not inherited, enumerable properties. For comparing a single
+     * own or inherited property value see `_.matchesProperty`.
      *
      * @static
      * @memberOf _
@@ -5983,14 +6533,14 @@ process.chdir = function (dir) {
      * @example
      *
      * var users = [
-     *   { 'user': 'barney', 'age': 36, 'status': 'busy' },
-     *   { 'user': 'fred',   'age': 40, 'status': 'busy' }
+     *   { 'user': 'barney', 'age': 36, 'active': true },
+     *   { 'user': 'fred',   'age': 40, 'active': false }
      * ];
      *
-     * _.result(_.findWhere(users, { 'status': 'busy' }), 'user');
+     * _.result(_.findWhere(users, { 'age': 36, 'active': true }), 'user');
      * // => 'barney'
      *
-     * _.result(_.findWhere(users, { 'age': 40 }), 'user');
+     * _.result(_.findWhere(users, { 'age': 40, 'active': false }), 'user');
      * // => 'fred'
      */
     function findWhere(collection, source) {
@@ -5999,7 +6549,7 @@ process.chdir = function (dir) {
 
     /**
      * Iterates over elements of `collection` invoking `iteratee` for each element.
-     * The `iteratee` is bound to `thisArg` and invoked with three arguments;
+     * The `iteratee` is bound to `thisArg` and invoked with three arguments:
      * (value, index|key, collection). Iterator functions may exit iteration early
      * by explicitly returning `false`.
      *
@@ -6017,17 +6567,17 @@ process.chdir = function (dir) {
      * @returns {Array|Object|string} Returns `collection`.
      * @example
      *
-     * _([1, 2, 3]).forEach(function(n) { console.log(n); }).value();
+     * _([1, 2]).forEach(function(n) {
+     *   console.log(n);
+     * }).value();
      * // => logs each value from left to right and returns the array
      *
-     * _.forEach({ 'one': 1, 'two': 2, 'three': 3 }, function(n, key) { console.log(n, key); });
+     * _.forEach({ 'a': 1, 'b': 2 }, function(n, key) {
+     *   console.log(n, key);
+     * });
      * // => logs each value-key pair and returns the object (iteration order is not guaranteed)
      */
-    function forEach(collection, iteratee, thisArg) {
-      return (typeof iteratee == 'function' && typeof thisArg == 'undefined' && isArray(collection))
-        ? arrayEach(collection, iteratee)
-        : baseEach(collection, bindCallback(iteratee, thisArg, 3));
-    }
+    var forEach = createForEach(arrayEach, baseEach);
 
     /**
      * This method is like `_.forEach` except that it iterates over elements of
@@ -6043,26 +6593,28 @@ process.chdir = function (dir) {
      * @returns {Array|Object|string} Returns `collection`.
      * @example
      *
-     * _([1, 2, 3]).forEachRight(function(n) { console.log(n); }).join(',');
+     * _([1, 2]).forEachRight(function(n) {
+     *   console.log(n);
+     * }).value();
      * // => logs each value from right to left and returns the array
      */
-    function forEachRight(collection, iteratee, thisArg) {
-      return (typeof iteratee == 'function' && typeof thisArg == 'undefined' && isArray(collection))
-        ? arrayEachRight(collection, iteratee)
-        : baseEachRight(collection, bindCallback(iteratee, thisArg, 3));
-    }
+    var forEachRight = createForEach(arrayEachRight, baseEachRight);
 
     /**
      * Creates an object composed of keys generated from the results of running
      * each element of `collection` through `iteratee`. The corresponding value
      * of each key is an array of the elements responsible for generating the key.
-     * The `iteratee` is bound to `thisArg` and invoked with three arguments;
+     * The `iteratee` is bound to `thisArg` and invoked with three arguments:
      * (value, index|key, collection).
      *
-     * If a property name is provided for `predicate` the created "_.property"
+     * If a property name is provided for `iteratee` the created `_.property`
      * style callback returns the property value of the given element.
      *
-     * If an object is provided for `predicate` the created "_.matches" style
+     * If a value is also provided for `thisArg` the created `_.matchesProperty`
+     * style callback returns `true` for elements that have a matching property
+     * value, else `false`.
+     *
+     * If an object is provided for `iteratee` the created `_.matches` style
      * callback returns `true` for elements that have the properties of the given
      * object, else `false`.
      *
@@ -6071,19 +6623,22 @@ process.chdir = function (dir) {
      * @category Collection
      * @param {Array|Object|string} collection The collection to iterate over.
      * @param {Function|Object|string} [iteratee=_.identity] The function invoked
-     *  per iteration. If a property name or object is provided it is used to
-     *  create a "_.property" or "_.matches" style callback respectively.
+     *  per iteration.
      * @param {*} [thisArg] The `this` binding of `iteratee`.
      * @returns {Object} Returns the composed aggregate object.
      * @example
      *
-     * _.groupBy([4.2, 6.1, 6.4], function(n) { return Math.floor(n); });
+     * _.groupBy([4.2, 6.1, 6.4], function(n) {
+     *   return Math.floor(n);
+     * });
      * // => { '4': [4.2], '6': [6.1, 6.4] }
      *
-     * _.groupBy([4.2, 6.1, 6.4], function(n) { return this.floor(n); }, Math);
+     * _.groupBy([4.2, 6.1, 6.4], function(n) {
+     *   return this.floor(n);
+     * }, Math);
      * // => { '4': [4.2], '6': [6.1, 6.4] }
      *
-     * // using the "_.property" callback shorthand
+     * // using the `_.property` callback shorthand
      * _.groupBy(['one', 'two', 'three'], 'length');
      * // => { '3': ['one', 'two'], '5': ['three'] }
      */
@@ -6096,16 +6651,71 @@ process.chdir = function (dir) {
     });
 
     /**
+     * Checks if `value` is in `collection` using `SameValueZero` for equality
+     * comparisons. If `fromIndex` is negative, it is used as the offset from
+     * the end of `collection`.
+     *
+     * **Note:** [`SameValueZero`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-samevaluezero)
+     * comparisons are like strict equality comparisons, e.g. `===`, except that
+     * `NaN` matches `NaN`.
+     *
+     * @static
+     * @memberOf _
+     * @alias contains, include
+     * @category Collection
+     * @param {Array|Object|string} collection The collection to search.
+     * @param {*} target The value to search for.
+     * @param {number} [fromIndex=0] The index to search from.
+     * @param- {Object} [guard] Enables use as a callback for functions like `_.reduce`.
+     * @returns {boolean} Returns `true` if a matching element is found, else `false`.
+     * @example
+     *
+     * _.includes([1, 2, 3], 1);
+     * // => true
+     *
+     * _.includes([1, 2, 3], 1, 2);
+     * // => false
+     *
+     * _.includes({ 'user': 'fred', 'age': 40 }, 'fred');
+     * // => true
+     *
+     * _.includes('pebbles', 'eb');
+     * // => true
+     */
+    function includes(collection, target, fromIndex, guard) {
+      var length = collection ? collection.length : 0;
+      if (!isLength(length)) {
+        collection = values(collection);
+        length = collection.length;
+      }
+      if (!length) {
+        return false;
+      }
+      if (typeof fromIndex != 'number' || (guard && isIterateeCall(target, fromIndex, guard))) {
+        fromIndex = 0;
+      } else {
+        fromIndex = fromIndex < 0 ? nativeMax(length + fromIndex, 0) : (fromIndex || 0);
+      }
+      return (typeof collection == 'string' || !isArray(collection) && isString(collection))
+        ? (fromIndex < length && collection.indexOf(target, fromIndex) > -1)
+        : (getIndexOf(collection, target, fromIndex) > -1);
+    }
+
+    /**
      * Creates an object composed of keys generated from the results of running
      * each element of `collection` through `iteratee`. The corresponding value
      * of each key is the last element responsible for generating the key. The
-     * iteratee function is bound to `thisArg` and invoked with three arguments;
+     * iteratee function is bound to `thisArg` and invoked with three arguments:
      * (value, index|key, collection).
      *
-     * If a property name is provided for `predicate` the created "_.property"
+     * If a property name is provided for `iteratee` the created `_.property`
      * style callback returns the property value of the given element.
      *
-     * If an object is provided for `predicate` the created "_.matches" style
+     * If a value is also provided for `thisArg` the created `_.matchesProperty`
+     * style callback returns `true` for elements that have a matching property
+     * value, else `false`.
+     *
+     * If an object is provided for `iteratee` the created `_.matches` style
      * callback returns `true` for elements that have the properties of the given
      * object, else `false`.
      *
@@ -6114,8 +6724,7 @@ process.chdir = function (dir) {
      * @category Collection
      * @param {Array|Object|string} collection The collection to iterate over.
      * @param {Function|Object|string} [iteratee=_.identity] The function invoked
-     *  per iteration. If a property name or object is provided it is used to
-     *  create a "_.property" or "_.matches" style callback respectively.
+     *  per iteration.
      * @param {*} [thisArg] The `this` binding of `iteratee`.
      * @returns {Object} Returns the composed aggregate object.
      * @example
@@ -6128,10 +6737,14 @@ process.chdir = function (dir) {
      * _.indexBy(keyData, 'dir');
      * // => { 'left': { 'dir': 'left', 'code': 97 }, 'right': { 'dir': 'right', 'code': 100 } }
      *
-     * _.indexBy(keyData, function(object) { return String.fromCharCode(object.code); });
+     * _.indexBy(keyData, function(object) {
+     *   return String.fromCharCode(object.code);
+     * });
      * // => { 'a': { 'dir': 'left', 'code': 97 }, 'd': { 'dir': 'right', 'code': 100 } }
      *
-     * _.indexBy(keyData, function(object) { return this.fromCharCode(object.code); }, String);
+     * _.indexBy(keyData, function(object) {
+     *   return this.fromCharCode(object.code);
+     * }, String);
      * // => { 'a': { 'dir': 'left', 'code': 97 }, 'd': { 'dir': 'right', 'code': 100 } }
      */
     var indexBy = createAggregator(function(result, value, key) {
@@ -6160,21 +6773,43 @@ process.chdir = function (dir) {
      * _.invoke([123, 456], String.prototype.split, '');
      * // => [['1', '2', '3'], ['4', '5', '6']]
      */
-    function invoke(collection, methodName) {
-      return baseInvoke(collection, methodName, baseSlice(arguments, 2));
-    }
+    var invoke = restParam(function(collection, methodName, args) {
+      var index = -1,
+          isFunc = typeof methodName == 'function',
+          length = collection ? collection.length : 0,
+          result = isLength(length) ? Array(length) : [];
+
+      baseEach(collection, function(value) {
+        var func = isFunc ? methodName : (value != null && value[methodName]);
+        result[++index] = func ? func.apply(value, args) : undefined;
+      });
+      return result;
+    });
 
     /**
      * Creates an array of values by running each element in `collection` through
      * `iteratee`. The `iteratee` is bound to `thisArg` and invoked with three
-     * arguments; (value, index|key, collection).
+     * arguments: (value, index|key, collection).
      *
-     * If a property name is provided for `predicate` the created "_.property"
+     * If a property name is provided for `iteratee` the created `_.property`
      * style callback returns the property value of the given element.
      *
-     * If an object is provided for `predicate` the created "_.matches" style
+     * If a value is also provided for `thisArg` the created `_.matchesProperty`
+     * style callback returns `true` for elements that have a matching property
+     * value, else `false`.
+     *
+     * If an object is provided for `iteratee` the created `_.matches` style
      * callback returns `true` for elements that have the properties of the given
      * object, else `false`.
+     *
+     * Many lodash methods are guarded to work as interatees for methods like
+     * `_.every`, `_.filter`, `_.map`, `_.mapValues`, `_.reject`, and `_.some`.
+     *
+     * The guarded methods are:
+     * `ary`, `callback`, `chunk`, `clone`, `create`, `curry`, `curryRight`, `drop`,
+     * `dropRight`, `every`, `fill`, `flatten`, `invert`, `max`, `min`, `parseInt`,
+     * `slice`, `sortBy`, `take`, `takeRight`, `template`, `trim`, `trimLeft`,
+     * `trimRight`, `trunc`, `random`, `range`, `sample`, `some`, `uniq`, and `words`
      *
      * @static
      * @memberOf _
@@ -6182,24 +6817,28 @@ process.chdir = function (dir) {
      * @category Collection
      * @param {Array|Object|string} collection The collection to iterate over.
      * @param {Function|Object|string} [iteratee=_.identity] The function invoked
-     *  per iteration. If a property name or object is provided it is used to
-     *  create a "_.property" or "_.matches" style callback respectively.
+     *  per iteration.
+     *  create a `_.property` or `_.matches` style callback respectively.
      * @param {*} [thisArg] The `this` binding of `iteratee`.
      * @returns {Array} Returns the new mapped array.
      * @example
      *
-     * _.map([1, 2, 3], function(n) { return n * 3; });
-     * // => [3, 6, 9]
+     * function timesThree(n) {
+     *   return n * 3;
+     * }
      *
-     * _.map({ 'one': 1, 'two': 2, 'three': 3 }, function(n) { return n * 3; });
-     * // => [3, 6, 9] (iteration order is not guaranteed)
+     * _.map([1, 2], timesThree);
+     * // => [3, 6]
+     *
+     * _.map({ 'a': 1, 'b': 2 }, timesThree);
+     * // => [3, 6] (iteration order is not guaranteed)
      *
      * var users = [
      *   { 'user': 'barney' },
      *   { 'user': 'fred' }
      * ];
      *
-     * // using the "_.property" callback shorthand
+     * // using the `_.property` callback shorthand
      * _.map(users, 'user');
      * // => ['barney', 'fred']
      */
@@ -6210,105 +6849,19 @@ process.chdir = function (dir) {
     }
 
     /**
-     * Gets the maximum value of `collection`. If `collection` is empty or falsey
-     * `-Infinity` is returned. If an iteratee function is provided it is invoked
-     * for each value in `collection` to generate the criterion by which the value
-     * is ranked. The `iteratee` is bound to `thisArg` and invoked with three
-     * arguments; (value, index, collection).
-     *
-     * If a property name is provided for `predicate` the created "_.property"
-     * style callback returns the property value of the given element.
-     *
-     * If an object is provided for `predicate` the created "_.matches" style
-     * callback returns `true` for elements that have the properties of the given
-     * object, else `false`.
-     *
-     * @static
-     * @memberOf _
-     * @category Collection
-     * @param {Array|Object|string} collection The collection to iterate over.
-     * @param {Function|Object|string} [iteratee] The function invoked per iteration.
-     *  If a property name or object is provided it is used to create a "_.property"
-     *  or "_.matches" style callback respectively.
-     * @param {*} [thisArg] The `this` binding of `iteratee`.
-     * @returns {*} Returns the maximum value.
-     * @example
-     *
-     * _.max([4, 2, 8, 6]);
-     * // => 8
-     *
-     * _.max([]);
-     * // => -Infinity
-     *
-     * var users = [
-     *   { 'user': 'barney', 'age': 36 },
-     *   { 'user': 'fred',   'age': 40 }
-     * ];
-     *
-     * _.max(users, function(chr) { return chr.age; });
-     * // => { 'user': 'fred', 'age': 40 };
-     *
-     * // using the "_.property" callback shorthand
-     * _.max(users, 'age');
-     * // => { 'user': 'fred', 'age': 40 };
-     */
-    var max = createExtremum(arrayMax);
-
-    /**
-     * Gets the minimum value of `collection`. If `collection` is empty or falsey
-     * `Infinity` is returned. If an iteratee function is provided it is invoked
-     * for each value in `collection` to generate the criterion by which the value
-     * is ranked. The `iteratee` is bound to `thisArg` and invoked with three
-     * arguments; (value, index, collection).
-     *
-     * If a property name is provided for `predicate` the created "_.property"
-     * style callback returns the property value of the given element.
-     *
-     * If an object is provided for `predicate` the created "_.matches" style
-     * callback returns `true` for elements that have the properties of the given
-     * object, else `false`.
-     *
-     * @static
-     * @memberOf _
-     * @category Collection
-     * @param {Array|Object|string} collection The collection to iterate over.
-     * @param {Function|Object|string} [iteratee] The function invoked per iteration.
-     *  If a property name or object is provided it is used to create a "_.property"
-     *  or "_.matches" style callback respectively.
-     * @param {*} [thisArg] The `this` binding of `iteratee`.
-     * @returns {*} Returns the minimum value.
-     * @example
-     *
-     * _.min([4, 2, 8, 6]);
-     * // => 2
-     *
-     * _.min([]);
-     * // => Infinity
-     *
-     * var users = [
-     *   { 'user': 'barney', 'age': 36 },
-     *   { 'user': 'fred',   'age': 40 }
-     * ];
-     *
-     * _.min(users, function(chr) { return chr.age; });
-     * // => { 'user': 'barney', 'age': 36 };
-     *
-     * // using the "_.property" callback shorthand
-     * _.min(users, 'age');
-     * // => { 'user': 'barney', 'age': 36 };
-     */
-    var min = createExtremum(arrayMin, true);
-
-    /**
      * Creates an array of elements split into two groups, the first of which
      * contains elements `predicate` returns truthy for, while the second of which
      * contains elements `predicate` returns falsey for. The predicate is bound
-     * to `thisArg` and invoked with three arguments; (value, index|key, collection).
+     * to `thisArg` and invoked with three arguments: (value, index|key, collection).
      *
-     * If a property name is provided for `predicate` the created "_.property"
+     * If a property name is provided for `predicate` the created `_.property`
      * style callback returns the property value of the given element.
      *
-     * If an object is provided for `predicate` the created "_.matches" style
+     * If a value is also provided for `thisArg` the created `_.matchesProperty`
+     * style callback returns `true` for elements that have a matching property
+     * value, else `false`.
+     *
+     * If an object is provided for `predicate` the created `_.matches` style
      * callback returns `true` for elements that have the properties of the given
      * object, else `false`.
      *
@@ -6317,17 +6870,20 @@ process.chdir = function (dir) {
      * @category Collection
      * @param {Array|Object|string} collection The collection to iterate over.
      * @param {Function|Object|string} [predicate=_.identity] The function invoked
-     *  per iteration. If a property name or object is provided it is used to
-     *  create a "_.property" or "_.matches" style callback respectively.
+     *  per iteration.
      * @param {*} [thisArg] The `this` binding of `predicate`.
      * @returns {Array} Returns the array of grouped elements.
      * @example
      *
-     * _.partition([1, 2, 3], function(n) { return n % 2; });
+     * _.partition([1, 2, 3], function(n) {
+     *   return n % 2;
+     * });
      * // => [[1, 3], [2]]
      *
-     * _.partition([1.2, 2.3, 3.4], function(n) { return this.floor(n) % 2; }, Math);
-     * // => [[1, 3], [2]]
+     * _.partition([1.2, 2.3, 3.4], function(n) {
+     *   return this.floor(n) % 2;
+     * }, Math);
+     * // => [[1.2, 3.4], [2.3]]
      *
      * var users = [
      *   { 'user': 'barney',  'age': 36, 'active': false },
@@ -6335,12 +6891,20 @@ process.chdir = function (dir) {
      *   { 'user': 'pebbles', 'age': 1,  'active': false }
      * ];
      *
-     * // using the "_.matches" callback shorthand
-     * _.map(_.partition(users, { 'age': 1 }), function(array) { return _.pluck(array, 'user'); });
+     * var mapper = function(array) {
+     *   return _.pluck(array, 'user');
+     * };
+     *
+     * // using the `_.matches` callback shorthand
+     * _.map(_.partition(users, { 'age': 1, 'active': false }), mapper);
      * // => [['pebbles'], ['barney', 'fred']]
      *
-     * // using the "_.property" callback shorthand
-     * _.map(_.partition(users, 'active'), function(array) { return _.pluck(array, 'user'); });
+     * // using the `_.matchesProperty` callback shorthand
+     * _.map(_.partition(users, 'active', false), mapper);
+     * // => [['barney', 'pebbles'], ['fred']]
+     *
+     * // using the `_.property` callback shorthand
+     * _.map(_.partition(users, 'active'), mapper);
      * // => [['fred'], ['barney', 'pebbles']]
      */
     var partition = createAggregator(function(result, value, key) {
@@ -6371,7 +6935,7 @@ process.chdir = function (dir) {
      * // => [36, 40] (iteration order is not guaranteed)
      */
     function pluck(collection, key) {
-      return map(collection, baseProperty(key + ''));
+      return map(collection, baseProperty(key));
     }
 
     /**
@@ -6379,8 +6943,14 @@ process.chdir = function (dir) {
      * each element in `collection` through `iteratee`, where each successive
      * invocation is supplied the return value of the previous. If `accumulator`
      * is not provided the first element of `collection` is used as the initial
-     * value. The `iteratee` is bound to `thisArg`and invoked with four arguments;
+     * value. The `iteratee` is bound to `thisArg` and invoked with four arguments:
      * (accumulator, value, index|key, collection).
+     *
+     * Many lodash methods are guarded to work as interatees for methods like
+     * `_.reduce`, `_.reduceRight`, and `_.transform`.
+     *
+     * The guarded methods are:
+     * `assign`, `defaults`, `includes`, `merge`, `sortByAll`, and `sortByOrder`
      *
      * @static
      * @memberOf _
@@ -6393,19 +6963,18 @@ process.chdir = function (dir) {
      * @returns {*} Returns the accumulated value.
      * @example
      *
-     * var sum = _.reduce([1, 2, 3], function(sum, n) { return sum + n; });
-     * // => 6
+     * _.reduce([1, 2], function(sum, n) {
+     *   return sum + n;
+     * });
+     * // => 3
      *
-     * var mapped = _.reduce({ 'a': 1, 'b': 2, 'c': 3 }, function(result, n, key) {
+     * _.reduce({ 'a': 1, 'b': 2 }, function(result, n, key) {
      *   result[key] = n * 3;
      *   return result;
      * }, {});
-     * // => { 'a': 3, 'b': 6, 'c': 9 } (iteration order is not guaranteed)
+     * // => { 'a': 3, 'b': 6 } (iteration order is not guaranteed)
      */
-    function reduce(collection, iteratee, accumulator, thisArg) {
-      var func = isArray(collection) ? arrayReduce : baseReduce;
-      return func(collection, getCallback(iteratee, thisArg, 4), accumulator, arguments.length < 3, baseEach);
-    }
+    var reduce = createReduce(arrayReduce, baseEach);
 
     /**
      * This method is like `_.reduce` except that it iterates over elements of
@@ -6423,22 +6992,26 @@ process.chdir = function (dir) {
      * @example
      *
      * var array = [[0, 1], [2, 3], [4, 5]];
-     * _.reduceRight(array, function(flattened, other) { return flattened.concat(other); }, []);
+     *
+     * _.reduceRight(array, function(flattened, other) {
+     *   return flattened.concat(other);
+     * }, []);
      * // => [4, 5, 2, 3, 0, 1]
      */
-    function reduceRight(collection, iteratee, accumulator, thisArg) {
-      var func = isArray(collection) ? arrayReduceRight : baseReduce;
-      return func(collection, getCallback(iteratee, thisArg, 4), accumulator, arguments.length < 3, baseEachRight);
-    }
+    var reduceRight =  createReduce(arrayReduceRight, baseEachRight);
 
     /**
      * The opposite of `_.filter`; this method returns the elements of `collection`
      * that `predicate` does **not** return truthy for.
      *
-     * If a property name is provided for `predicate` the created "_.property"
+     * If a property name is provided for `predicate` the created `_.property`
      * style callback returns the property value of the given element.
      *
-     * If an object is provided for `predicate` the created "_.matches" style
+     * If a value is also provided for `thisArg` the created `_.matchesProperty`
+     * style callback returns `true` for elements that have a matching property
+     * value, else `false`.
+     *
+     * If an object is provided for `predicate` the created `_.matches` style
      * callback returns `true` for elements that have the properties of the given
      * object, else `false`.
      *
@@ -6447,13 +7020,14 @@ process.chdir = function (dir) {
      * @category Collection
      * @param {Array|Object|string} collection The collection to iterate over.
      * @param {Function|Object|string} [predicate=_.identity] The function invoked
-     *  per iteration. If a property name or object is provided it is used to
-     *  create a "_.property" or "_.matches" style callback respectively.
+     *  per iteration.
      * @param {*} [thisArg] The `this` binding of `predicate`.
      * @returns {Array} Returns the new filtered array.
      * @example
      *
-     * var odds = _.reject([1, 2, 3, 4], function(n) { return n % 2 == 0; });
+     * _.reject([1, 2, 3, 4], function(n) {
+     *   return n % 2 == 0;
+     * });
      * // => [1, 3]
      *
      * var users = [
@@ -6461,13 +7035,17 @@ process.chdir = function (dir) {
      *   { 'user': 'fred',   'age': 40, 'active': true }
      * ];
      *
-     * // using the "_.property" callback shorthand
-     * _.pluck(_.reject(users, 'active'), 'user');
+     * // using the `_.matches` callback shorthand
+     * _.pluck(_.reject(users, { 'age': 40, 'active': true }), 'user');
      * // => ['barney']
      *
-     * // using the "_.matches" callback shorthand
-     * _.pluck(_.reject(users, { 'age': 36 }), 'user');
+     * // using the `_.matchesProperty` callback shorthand
+     * _.pluck(_.reject(users, 'active', false), 'user');
      * // => ['fred']
+     *
+     * // using the `_.property` callback shorthand
+     * _.pluck(_.reject(users, 'active'), 'user');
+     * // => ['barney']
      */
     function reject(collection, predicate, thisArg) {
       var func = isArray(collection) ? arrayFilter : baseFilter;
@@ -6507,9 +7085,8 @@ process.chdir = function (dir) {
     }
 
     /**
-     * Creates an array of shuffled values, using a version of the Fisher-Yates
-     * shuffle. See [Wikipedia](https://en.wikipedia.org/wiki/Fisher-Yates_shuffle)
-     * for more details.
+     * Creates an array of shuffled values, using a version of the
+     * [Fisher-Yates shuffle](https://en.wikipedia.org/wiki/Fisher-Yates_shuffle).
      *
      * @static
      * @memberOf _
@@ -6539,8 +7116,8 @@ process.chdir = function (dir) {
     }
 
     /**
-     * Gets the size of `collection` by returning `collection.length` for
-     * array-like values or the number of own enumerable properties for objects.
+     * Gets the size of `collection` by returning its length for array-like
+     * values or the number of own enumerable properties for objects.
      *
      * @static
      * @memberOf _
@@ -6549,11 +7126,11 @@ process.chdir = function (dir) {
      * @returns {number} Returns the size of `collection`.
      * @example
      *
-     * _.size([1, 2]);
-     * // => 2
-     *
-     * _.size({ 'one': 1, 'two': 2, 'three': 3 });
+     * _.size([1, 2, 3]);
      * // => 3
+     *
+     * _.size({ 'a': 1, 'b': 2 });
+     * // => 2
      *
      * _.size('pebbles');
      * // => 7
@@ -6567,12 +7144,16 @@ process.chdir = function (dir) {
      * Checks if `predicate` returns truthy for **any** element of `collection`.
      * The function returns as soon as it finds a passing value and does not iterate
      * over the entire collection. The predicate is bound to `thisArg` and invoked
-     * with three arguments; (value, index|key, collection).
+     * with three arguments: (value, index|key, collection).
      *
-     * If a property name is provided for `predicate` the created "_.property"
+     * If a property name is provided for `predicate` the created `_.property`
      * style callback returns the property value of the given element.
      *
-     * If an object is provided for `predicate` the created "_.matches" style
+     * If a value is also provided for `thisArg` the created `_.matchesProperty`
+     * style callback returns `true` for elements that have a matching property
+     * value, else `false`.
+     *
+     * If an object is provided for `predicate` the created `_.matches` style
      * callback returns `true` for elements that have the properties of the given
      * object, else `false`.
      *
@@ -6582,8 +7163,7 @@ process.chdir = function (dir) {
      * @category Collection
      * @param {Array|Object|string} collection The collection to iterate over.
      * @param {Function|Object|string} [predicate=_.identity] The function invoked
-     *  per iteration. If a property name or object is provided it is used to
-     *  create a "_.property" or "_.matches" style callback respectively.
+     *  per iteration.
      * @param {*} [thisArg] The `this` binding of `predicate`.
      * @returns {boolean} Returns `true` if any element passes the predicate check,
      *  else `false`.
@@ -6593,20 +7173,27 @@ process.chdir = function (dir) {
      * // => true
      *
      * var users = [
-     *   { 'user': 'barney', 'age': 36, 'active': false },
-     *   { 'user': 'fred',   'age': 40, 'active': true }
+     *   { 'user': 'barney', 'active': true },
+     *   { 'user': 'fred',   'active': false }
      * ];
      *
-     * // using the "_.property" callback shorthand
-     * _.some(users, 'active');
+     * // using the `_.matches` callback shorthand
+     * _.some(users, { 'user': 'barney', 'active': false });
+     * // => false
+     *
+     * // using the `_.matchesProperty` callback shorthand
+     * _.some(users, 'active', false);
      * // => true
      *
-     * // using the "_.matches" callback shorthand
-     * _.some(users, { 'age': 1 });
-     * // => false
+     * // using the `_.property` callback shorthand
+     * _.some(users, 'active');
+     * // => true
      */
     function some(collection, predicate, thisArg) {
       var func = isArray(collection) ? arraySome : baseSome;
+      if (thisArg && isIterateeCall(collection, predicate, thisArg)) {
+        predicate = null;
+      }
       if (typeof predicate != 'function' || typeof thisArg != 'undefined') {
         predicate = getCallback(predicate, thisArg, 3);
       }
@@ -6617,13 +7204,17 @@ process.chdir = function (dir) {
      * Creates an array of elements, sorted in ascending order by the results of
      * running each element in a collection through `iteratee`. This method performs
      * a stable sort, that is, it preserves the original sort order of equal elements.
-     * The `iteratee` is bound to `thisArg` and invoked with three arguments;
+     * The `iteratee` is bound to `thisArg` and invoked with three arguments:
      * (value, index|key, collection).
      *
-     * If a property name is provided for `predicate` the created "_.property"
+     * If a property name is provided for `iteratee` the created `_.property`
      * style callback returns the property value of the given element.
      *
-     * If an object is provided for `predicate` the created "_.matches" style
+     * If a value is also provided for `thisArg` the created `_.matchesProperty`
+     * style callback returns `true` for elements that have a matching property
+     * value, else `false`.
+     *
+     * If an object is provided for `iteratee` the created `_.matches` style
      * callback returns `true` for elements that have the properties of the given
      * object, else `false`.
      *
@@ -6633,15 +7224,19 @@ process.chdir = function (dir) {
      * @param {Array|Object|string} collection The collection to iterate over.
      * @param {Array|Function|Object|string} [iteratee=_.identity] The function
      *  invoked per iteration. If a property name or an object is provided it is
-     *  used to create a "_.property" or "_.matches" style callback respectively.
+     *  used to create a `_.property` or `_.matches` style callback respectively.
      * @param {*} [thisArg] The `this` binding of `iteratee`.
      * @returns {Array} Returns the new sorted array.
      * @example
      *
-     * _.sortBy([1, 2, 3], function(n) { return Math.sin(n); });
+     * _.sortBy([1, 2, 3], function(n) {
+     *   return Math.sin(n);
+     * });
      * // => [3, 1, 2]
      *
-     * _.sortBy([1, 2, 3], function(n) { return this.sin(n); }, Math);
+     * _.sortBy([1, 2, 3], function(n) {
+     *   return this.sin(n);
+     * }, Math);
      * // => [3, 1, 2]
      *
      * var users = [
@@ -6650,13 +7245,16 @@ process.chdir = function (dir) {
      *   { 'user': 'barney' }
      * ];
      *
-     * // using the "_.property" callback shorthand
+     * // using the `_.property` callback shorthand
      * _.pluck(_.sortBy(users, 'user'), 'user');
      * // => ['barney', 'fred', 'pebbles']
      */
     function sortBy(collection, iteratee, thisArg) {
+      if (collection == null) {
+        return [];
+      }
       var index = -1,
-          length = collection ? collection.length : 0,
+          length = collection.length,
           result = isLength(length) ? Array(length) : [];
 
       if (thisArg && isIterateeCall(collection, iteratee, thisArg)) {
@@ -6692,32 +7290,78 @@ process.chdir = function (dir) {
      * _.map(_.sortByAll(users, ['user', 'age']), _.values);
      * // => [['barney', 26], ['barney', 36], ['fred', 30], ['fred', 40]]
      */
-    function sortByAll(collection) {
-      var args = arguments;
-      if (args.length > 3 && isIterateeCall(args[1], args[2], args[3])) {
-        args = [collection, args[1]];
+    function sortByAll() {
+      var args = arguments,
+          collection = args[0],
+          guard = args[3],
+          index = 0,
+          length = args.length - 1;
+
+      if (collection == null) {
+        return [];
       }
-      var index = -1,
-          length = collection ? collection.length : 0,
-          props = baseFlatten(args, false, false, 1),
-          result = isLength(length) ? Array(length) : [];
+      var props = Array(length);
+      while (index < length) {
+        props[index] = args[++index];
+      }
+      if (guard && isIterateeCall(args[1], args[2], guard)) {
+        props = args[1];
+      }
+      return baseSortByOrder(collection, baseFlatten(props), []);
+    }
 
-      baseEach(collection, function(value, key, collection) {
-        var length = props.length,
-            criteria = Array(length);
-
-        while (length--) {
-          criteria[length] = value == null ? undefined : value[props[length]];
-        }
-        result[++index] = { 'criteria': criteria, 'index': index, 'value': value };
-      });
-      return baseSortBy(result, compareMultipleAscending);
+    /**
+     * This method is like `_.sortByAll` except that it allows specifying the
+     * sort orders of the property names to sort by. A truthy value in `orders`
+     * will sort the corresponding property name in ascending order while a
+     * falsey value will sort it in descending order.
+     *
+     * @static
+     * @memberOf _
+     * @category Collection
+     * @param {Array|Object|string} collection The collection to iterate over.
+     * @param {string[]} props The property names to sort by.
+     * @param {boolean[]} orders The sort orders of `props`.
+     * @param- {Object} [guard] Enables use as a callback for functions like `_.reduce`.
+     * @returns {Array} Returns the new sorted array.
+     * @example
+     *
+     * var users = [
+     *   { 'user': 'barney', 'age': 26 },
+     *   { 'user': 'fred',   'age': 40 },
+     *   { 'user': 'barney', 'age': 36 },
+     *   { 'user': 'fred',   'age': 30 }
+     * ];
+     *
+     * // sort by `user` in ascending order and by `age` in descending order
+     * _.map(_.sortByOrder(users, ['user', 'age'], [true, false]), _.values);
+     * // => [['barney', 36], ['barney', 26], ['fred', 40], ['fred', 30]]
+     */
+    function sortByOrder(collection, props, orders, guard) {
+      if (collection == null) {
+        return [];
+      }
+      if (guard && isIterateeCall(props, orders, guard)) {
+        orders = null;
+      }
+      if (!isArray(props)) {
+        props = props == null ? [] : [props];
+      }
+      if (!isArray(orders)) {
+        orders = orders == null ? [] : [orders];
+      }
+      return baseSortByOrder(collection, props, orders);
     }
 
     /**
      * Performs a deep comparison between each element in `collection` and the
      * source object, returning an array of all elements that have equivalent
      * property values.
+     *
+     * **Note:** This method supports comparing arrays, booleans, `Date` objects,
+     * numbers, `Object` objects, regexes, and strings. Objects are compared by
+     * their own, not inherited, enumerable properties. For comparing a single
+     * own or inherited property value see `_.matchesProperty`.
      *
      * @static
      * @memberOf _
@@ -6728,18 +7372,15 @@ process.chdir = function (dir) {
      * @example
      *
      * var users = [
-     *   { 'user': 'barney', 'age': 36, 'status': 'busy', 'pets': ['hoppy'] },
-     *   { 'user': 'fred',   'age': 40, 'status': 'busy', 'pets': ['baby puss', 'dino'] }
+     *   { 'user': 'barney', 'age': 36, 'active': false, 'pets': ['hoppy'] },
+     *   { 'user': 'fred',   'age': 40, 'active': true, 'pets': ['baby puss', 'dino'] }
      * ];
      *
-     * _.pluck(_.where(users, { 'age': 36 }), 'user');
+     * _.pluck(_.where(users, { 'age': 36, 'active': false }), 'user');
      * // => ['barney']
      *
      * _.pluck(_.where(users, { 'pets': ['dino'] }), 'user');
      * // => ['fred']
-     *
-     * _.pluck(_.where(users, { 'status': 'busy' }), 'user');
-     * // => ['barney', 'fred']
      */
     function where(collection, source) {
       return filter(collection, baseMatches(source));
@@ -6756,7 +7397,9 @@ process.chdir = function (dir) {
      * @category Date
      * @example
      *
-     * _.defer(function(stamp) { console.log(_.now() - stamp); }, _.now());
+     * _.defer(function(stamp) {
+     *   console.log(_.now() - stamp);
+     * }, _.now());
      * // => logs the number of milliseconds it took for the deferred function to be invoked
      */
     var now = nativeNow || function() {
@@ -6789,8 +7432,8 @@ process.chdir = function (dir) {
      * // => logs 'done saving!' after the two async saves have completed
      */
     function after(n, func) {
-      if (!isFunction(func)) {
-        if (isFunction(n)) {
+      if (typeof func != 'function') {
+        if (typeof n == 'function') {
           var temp = n;
           n = func;
           func = temp;
@@ -6848,8 +7491,8 @@ process.chdir = function (dir) {
      */
     function before(n, func) {
       var result;
-      if (!isFunction(func)) {
-        if (isFunction(n)) {
+      if (typeof func != 'function') {
+        if (typeof n == 'function') {
           var temp = n;
           n = func;
           func = temp;
@@ -6883,7 +7526,7 @@ process.chdir = function (dir) {
      * @category Function
      * @param {Function} func The function to bind.
      * @param {*} thisArg The `this` binding of `func`.
-     * @param {...*} [args] The arguments to be partially applied.
+     * @param {...*} [partials] The arguments to be partially applied.
      * @returns {Function} Returns the new bound function.
      * @example
      *
@@ -6902,16 +7545,14 @@ process.chdir = function (dir) {
      * bound('hi');
      * // => 'hi fred!'
      */
-    function bind(func, thisArg) {
+    var bind = restParam(function(func, thisArg, partials) {
       var bitmask = BIND_FLAG;
-      if (arguments.length > 2) {
-        var partials = baseSlice(arguments, 2),
-            holders = replaceHolders(partials, bind.placeholder);
-
+      if (partials.length) {
+        var holders = replaceHolders(partials, bind.placeholder);
         bitmask |= PARTIAL_FLAG;
       }
       return createWrapper(func, bitmask, thisArg, partials, holders);
-    }
+    });
 
     /**
      * Binds methods of an object to the object itself, overwriting the existing
@@ -6932,20 +7573,27 @@ process.chdir = function (dir) {
      *
      * var view = {
      *   'label': 'docs',
-     *   'onClick': function() { console.log('clicked ' + this.label); }
+     *   'onClick': function() {
+     *     console.log('clicked ' + this.label);
+     *   }
      * };
      *
      * _.bindAll(view);
      * jQuery('#docs').on('click', view.onClick);
      * // => logs 'clicked docs' when the element is clicked
      */
-    function bindAll(object) {
-      return baseBindAll(object,
-        arguments.length > 1
-          ? baseFlatten(arguments, false, false, 1)
-          : functions(object)
-      );
-    }
+    var bindAll = restParam(function(object, methodNames) {
+      methodNames = methodNames.length ? baseFlatten(methodNames) : functions(object);
+
+      var index = -1,
+          length = methodNames.length;
+
+      while (++index < length) {
+        var key = methodNames[index];
+        object[key] = createWrapper(object[key], BIND_FLAG, object);
+      }
+      return object;
+    });
 
     /**
      * Creates a function that invokes the method at `object[key]` and prepends
@@ -6964,7 +7612,7 @@ process.chdir = function (dir) {
      * @category Function
      * @param {Object} object The object the method belongs to.
      * @param {string} key The key of the method.
-     * @param {...*} [args] The arguments to be partially applied.
+     * @param {...*} [partials] The arguments to be partially applied.
      * @returns {Function} Returns the new bound function.
      * @example
      *
@@ -6991,16 +7639,14 @@ process.chdir = function (dir) {
      * bound('hi');
      * // => 'hiya fred!'
      */
-    function bindKey(object, key) {
+    var bindKey = restParam(function(object, key, partials) {
       var bitmask = BIND_FLAG | BIND_KEY_FLAG;
-      if (arguments.length > 2) {
-        var partials = baseSlice(arguments, 2),
-            holders = replaceHolders(partials, bindKey.placeholder);
-
+      if (partials.length) {
+        var holders = replaceHolders(partials, bindKey.placeholder);
         bitmask |= PARTIAL_FLAG;
       }
       return createWrapper(key, bitmask, object, partials, holders);
-    }
+    });
 
     /**
      * Creates a function that accepts one or more arguments of `func` that when
@@ -7042,14 +7688,7 @@ process.chdir = function (dir) {
      * curried(1)(_, 3)(2);
      * // => [1, 2, 3]
      */
-    function curry(func, arity, guard) {
-      if (guard && isIterateeCall(func, arity, guard)) {
-        arity = null;
-      }
-      var result = createWrapper(func, CURRY_FLAG, null, null, null, null, null, arity);
-      result.placeholder = curry.placeholder;
-      return result;
-    }
+    var curry = createCurry(CURRY_FLAG);
 
     /**
      * This method is like `_.curry` except that arguments are applied to `func`
@@ -7088,14 +7727,7 @@ process.chdir = function (dir) {
      * curried(3)(1, _)(2);
      * // => [1, 2, 3]
      */
-    function curryRight(func, arity, guard) {
-      if (guard && isIterateeCall(func, arity, guard)) {
-        arity = null;
-      }
-      var result = createWrapper(func, CURRY_RIGHT_FLAG, null, null, null, null, null, arity);
-      result.placeholder = curryRight.placeholder;
-      return result;
-    }
+    var curryRight = createCurry(CURRY_RIGHT_FLAG);
 
     /**
      * Creates a function that delays invoking `func` until after `wait` milliseconds
@@ -7116,7 +7748,7 @@ process.chdir = function (dir) {
      * @memberOf _
      * @category Function
      * @param {Function} func The function to debounce.
-     * @param {number} wait The number of milliseconds to delay.
+     * @param {number} [wait=0] The number of milliseconds to delay.
      * @param {Object} [options] The options object.
      * @param {boolean} [options.leading=false] Specify invoking on the leading
      *  edge of the timeout.
@@ -7171,10 +7803,10 @@ process.chdir = function (dir) {
           maxWait = false,
           trailing = true;
 
-      if (!isFunction(func)) {
+      if (typeof func != 'function') {
         throw new TypeError(FUNC_ERROR_TEXT);
       }
-      wait = wait < 0 ? 0 : wait;
+      wait = wait < 0 ? 0 : (+wait || 0);
       if (options === true) {
         var leading = true;
         trailing = false;
@@ -7285,12 +7917,14 @@ process.chdir = function (dir) {
      * @returns {number} Returns the timer id.
      * @example
      *
-     * _.defer(function(text) { console.log(text); }, 'deferred');
+     * _.defer(function(text) {
+     *   console.log(text);
+     * }, 'deferred');
      * // logs 'deferred' after one or more milliseconds
      */
-    function defer(func) {
-      return baseDelay(func, 1, arguments, 1);
-    }
+    var defer = restParam(function(func, args) {
+      return baseDelay(func, 1, args);
+    });
 
     /**
      * Invokes `func` after `wait` milliseconds. Any additional arguments are
@@ -7305,12 +7939,14 @@ process.chdir = function (dir) {
      * @returns {number} Returns the timer id.
      * @example
      *
-     * _.delay(function(text) { console.log(text); }, 1000, 'later');
+     * _.delay(function(text) {
+     *   console.log(text);
+     * }, 1000, 'later');
      * // => logs 'later' after one second
      */
-    function delay(func, wait) {
-      return baseDelay(func, wait, arguments, 2);
-    }
+    var delay = restParam(function(func, wait, args) {
+      return baseDelay(func, wait, args);
+    });
 
     /**
      * Creates a function that returns the result of invoking the provided
@@ -7324,38 +7960,15 @@ process.chdir = function (dir) {
      * @returns {Function} Returns the new function.
      * @example
      *
-     * function add(x, y) {
-     *   return x + y;
-     * }
-     *
      * function square(n) {
      *   return n * n;
      * }
      *
-     * var addSquare = _.flow(add, square);
+     * var addSquare = _.flow(_.add, square);
      * addSquare(1, 2);
      * // => 9
      */
-    function flow() {
-      var funcs = arguments,
-          length = funcs.length;
-
-      if (!length) {
-        return function() {};
-      }
-      if (!arrayEvery(funcs, isFunction)) {
-        throw new TypeError(FUNC_ERROR_TEXT);
-      }
-      return function() {
-        var index = 0,
-            result = funcs[index].apply(this, arguments);
-
-        while (++index < length) {
-          result = funcs[index].call(this, result);
-        }
-        return result;
-      };
-    }
+    var flow = createFlow();
 
     /**
      * This method is like `_.flow` except that it creates a function that
@@ -7369,38 +7982,15 @@ process.chdir = function (dir) {
      * @returns {Function} Returns the new function.
      * @example
      *
-     * function add(x, y) {
-     *   return x + y;
-     * }
-     *
      * function square(n) {
      *   return n * n;
      * }
      *
-     * var addSquare = _.flowRight(square, add);
+     * var addSquare = _.flowRight(square, _.add);
      * addSquare(1, 2);
      * // => 9
      */
-    function flowRight() {
-      var funcs = arguments,
-          fromIndex = funcs.length - 1;
-
-      if (fromIndex < 0) {
-        return function() {};
-      }
-      if (!arrayEvery(funcs, isFunction)) {
-        throw new TypeError(FUNC_ERROR_TEXT);
-      }
-      return function() {
-        var index = fromIndex,
-            result = funcs[index].apply(this, arguments);
-
-        while (index--) {
-          result = funcs[index].call(this, result);
-        }
-        return result;
-      };
-    }
+    var flowRight = createFlow(true);
 
     /**
      * Creates a function that memoizes the result of `func`. If `resolver` is
@@ -7412,10 +8002,8 @@ process.chdir = function (dir) {
      *
      * **Note:** The cache is exposed as the `cache` property on the memoized
      * function. Its creation may be customized by replacing the `_.memoize.Cache`
-     * constructor with one whose instances implement the ES `Map` method interface
-     * of `get`, `has`, and `set`. See the
-     * [ES spec](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-properties-of-the-map-prototype-object)
-     * for more details.
+     * constructor with one whose instances implement the [`Map`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-properties-of-the-map-prototype-object)
+     * method interface of `get`, `has`, and `set`.
      *
      * @static
      * @memberOf _
@@ -7456,17 +8044,18 @@ process.chdir = function (dir) {
      * // => { 'user': 'barney' }
      */
     function memoize(func, resolver) {
-      if (!isFunction(func) || (resolver && !isFunction(resolver))) {
+      if (typeof func != 'function' || (resolver && typeof resolver != 'function')) {
         throw new TypeError(FUNC_ERROR_TEXT);
       }
       var memoized = function() {
-        var cache = memoized.cache,
-            key = resolver ? resolver.apply(this, arguments) : arguments[0];
+        var args = arguments,
+            cache = memoized.cache,
+            key = resolver ? resolver.apply(this, args) : args[0];
 
         if (cache.has(key)) {
           return cache.get(key);
         }
-        var result = func.apply(this, arguments);
+        var result = func.apply(this, args);
         cache.set(key, result);
         return result;
       };
@@ -7494,7 +8083,7 @@ process.chdir = function (dir) {
      * // => [1, 3, 5]
      */
     function negate(predicate) {
-      if (!isFunction(predicate)) {
+      if (typeof predicate != 'function') {
         throw new TypeError(FUNC_ERROR_TEXT);
       }
       return function() {
@@ -7505,11 +8094,10 @@ process.chdir = function (dir) {
     /**
      * Creates a function that is restricted to invoking `func` once. Repeat calls
      * to the function return the value of the first call. The `func` is invoked
-     * with the `this` binding of the created function.
+     * with the `this` binding and arguments of the created function.
      *
      * @static
      * @memberOf _
-     * @type Function
      * @category Function
      * @param {Function} func The function to restrict.
      * @returns {Function} Returns the new restricted function.
@@ -7539,7 +8127,7 @@ process.chdir = function (dir) {
      * @memberOf _
      * @category Function
      * @param {Function} func The function to partially apply arguments to.
-     * @param {...*} [args] The arguments to be partially applied.
+     * @param {...*} [partials] The arguments to be partially applied.
      * @returns {Function} Returns the new partially applied function.
      * @example
      *
@@ -7556,12 +8144,7 @@ process.chdir = function (dir) {
      * greetFred('hi');
      * // => 'hi fred'
      */
-    function partial(func) {
-      var partials = baseSlice(arguments, 1),
-          holders = replaceHolders(partials, partial.placeholder);
-
-      return createWrapper(func, PARTIAL_FLAG, null, partials, holders);
-    }
+    var partial = createPartial(PARTIAL_FLAG);
 
     /**
      * This method is like `_.partial` except that partially applied arguments
@@ -7577,7 +8160,7 @@ process.chdir = function (dir) {
      * @memberOf _
      * @category Function
      * @param {Function} func The function to partially apply arguments to.
-     * @param {...*} [args] The arguments to be partially applied.
+     * @param {...*} [partials] The arguments to be partially applied.
      * @returns {Function} Returns the new partially applied function.
      * @example
      *
@@ -7594,12 +8177,7 @@ process.chdir = function (dir) {
      * sayHelloTo('fred');
      * // => 'hello fred'
      */
-    function partialRight(func) {
-      var partials = baseSlice(arguments, 1),
-          holders = replaceHolders(partials, partialRight.placeholder);
-
-      return createWrapper(func, PARTIAL_RIGHT_FLAG, null, partials, holders);
-    }
+    var partialRight = createPartial(PARTIAL_RIGHT_FLAG);
 
     /**
      * Creates a function that invokes `func` with arguments arranged according
@@ -7624,12 +8202,104 @@ process.chdir = function (dir) {
      * // => ['a', 'b', 'c']
      *
      * var map = _.rearg(_.map, [1, 0]);
-     * map(function(n) { return n * 3; }, [1, 2, 3]);
+     * map(function(n) {
+     *   return n * 3;
+     * }, [1, 2, 3]);
      * // => [3, 6, 9]
      */
-    function rearg(func) {
-      var indexes = baseFlatten(arguments, false, false, 1);
-      return createWrapper(func, REARG_FLAG, null, null, null, indexes);
+    var rearg = restParam(function(func, indexes) {
+      return createWrapper(func, REARG_FLAG, null, null, null, baseFlatten(indexes));
+    });
+
+    /**
+     * Creates a function that invokes `func` with the `this` binding of the
+     * created function and arguments from `start` and beyond provided as an array.
+     *
+     * **Note:** This method is based on the [rest parameter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters).
+     *
+     * @static
+     * @memberOf _
+     * @category Function
+     * @param {Function} func The function to apply a rest parameter to.
+     * @param {number} [start=func.length-1] The start position of the rest parameter.
+     * @returns {Function} Returns the new function.
+     * @example
+     *
+     * var say = _.restParam(function(what, names) {
+     *   return what + ' ' + _.initial(names).join(', ') +
+     *     (_.size(names) > 1 ? ', & ' : '') + _.last(names);
+     * });
+     *
+     * say('hello', 'fred', 'barney', 'pebbles');
+     * // => 'hello fred, barney, & pebbles'
+     */
+    function restParam(func, start) {
+      if (typeof func != 'function') {
+        throw new TypeError(FUNC_ERROR_TEXT);
+      }
+      start = nativeMax(typeof start == 'undefined' ? (func.length - 1) : (+start || 0), 0);
+      return function() {
+        var args = arguments,
+            index = -1,
+            length = nativeMax(args.length - start, 0),
+            rest = Array(length);
+
+        while (++index < length) {
+          rest[index] = args[start + index];
+        }
+        switch (start) {
+          case 0: return func.call(this, rest);
+          case 1: return func.call(this, args[0], rest);
+          case 2: return func.call(this, args[0], args[1], rest);
+        }
+        var otherArgs = Array(start + 1);
+        index = -1;
+        while (++index < start) {
+          otherArgs[index] = args[index];
+        }
+        otherArgs[start] = rest;
+        return func.apply(this, otherArgs);
+      };
+    }
+
+    /**
+     * Creates a function that invokes `func` with the `this` binding of the created
+     * function and an array of arguments much like [`Function#apply`](https://es5.github.io/#x15.3.4.3).
+     *
+     * **Note:** This method is based on the [spread operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator).
+     *
+     * @static
+     * @memberOf _
+     * @category Function
+     * @param {Function} func The function to spread arguments over.
+     * @returns {Function} Returns the new function.
+     * @example
+     *
+     * var say = _.spread(function(who, what) {
+     *   return who + ' says ' + what;
+     * });
+     *
+     * say(['fred', 'hello']);
+     * // => 'fred says hello'
+     *
+     * // with a Promise
+     * var numbers = Promise.all([
+     *   Promise.resolve(40),
+     *   Promise.resolve(36)
+     * ]);
+     *
+     * numbers.then(_.spread(function(x, y) {
+     *   return x + y;
+     * }));
+     * // => a Promise of 76
+     */
+    function spread(func) {
+      if (typeof func != 'function') {
+        throw new TypeError(FUNC_ERROR_TEXT);
+      }
+      return function(array) {
+        return func.apply(this, array);
+      };
     }
 
     /**
@@ -7651,7 +8321,7 @@ process.chdir = function (dir) {
      * @memberOf _
      * @category Function
      * @param {Function} func The function to throttle.
-     * @param {number} wait The number of milliseconds to throttle invocations to.
+     * @param {number} [wait=0] The number of milliseconds to throttle invocations to.
      * @param {Object} [options] The options object.
      * @param {boolean} [options.leading=true] Specify invoking on the leading
      *  edge of the timeout.
@@ -7664,8 +8334,9 @@ process.chdir = function (dir) {
      * jQuery(window).on('scroll', _.throttle(updatePosition, 100));
      *
      * // invoke `renewToken` when the click event is fired, but not more than once every 5 minutes
-     * var throttled =  _.throttle(renewToken, 300000, { 'trailing': false })
-     * jQuery('.interactive').on('click', throttled);
+     * jQuery('.interactive').on('click', _.throttle(renewToken, 300000, {
+     *   'trailing': false
+     * }));
      *
      * // cancel a trailing throttled call
      * jQuery(window).on('popstate', throttled.cancel);
@@ -7674,7 +8345,7 @@ process.chdir = function (dir) {
       var leading = true,
           trailing = true;
 
-      if (!isFunction(func)) {
+      if (typeof func != 'function') {
         throw new TypeError(FUNC_ERROR_TEXT);
       }
       if (options === false) {
@@ -7724,12 +8395,12 @@ process.chdir = function (dir) {
      * cloning is handled by the method instead. The `customizer` is bound to
      * `thisArg` and invoked with two argument; (value [, index|key, object]).
      *
-     * **Note:** This method is loosely based on the structured clone algorithm.
+     * **Note:** This method is loosely based on the
+     * [structured clone algorithm](http://www.w3.org/TR/html5/infrastructure.html#internal-structured-cloning-algorithm).
      * The enumerable properties of `arguments` objects and objects created by
      * constructors other than `Object` are cloned to plain `Object` objects. An
      * empty object is returned for uncloneable values such as functions, DOM nodes,
-     * Maps, Sets, and WeakMaps. See the [HTML5 specification](http://www.w3.org/TR/html5/infrastructure.html#internal-structured-cloning-algorithm)
-     * for more details.
+     * Maps, Sets, and WeakMaps.
      *
      * @static
      * @memberOf _
@@ -7755,22 +8426,26 @@ process.chdir = function (dir) {
      * // => false
      *
      * // using a customizer callback
-     * var body = _.clone(document.body, function(value) {
-     *   return _.isElement(value) ? value.cloneNode(false) : undefined;
+     * var el = _.clone(document.body, function(value) {
+     *   if (_.isElement(value)) {
+     *     return value.cloneNode(false);
+     *   }
      * });
      *
-     * body === document.body
+     * el === document.body
      * // => false
-     * body.nodeName
+     * el.nodeName
      * // => BODY
-     * body.childNodes.length;
+     * el.childNodes.length;
      * // => 0
      */
     function clone(value, isDeep, customizer, thisArg) {
-      // Juggle arguments.
-      if (typeof isDeep != 'boolean' && isDeep != null) {
+      if (isDeep && typeof isDeep != 'boolean' && isIterateeCall(value, isDeep, customizer)) {
+        isDeep = false;
+      }
+      else if (typeof isDeep == 'function') {
         thisArg = customizer;
-        customizer = isIterateeCall(value, isDeep, thisArg) ? null : isDeep;
+        customizer = isDeep;
         isDeep = false;
       }
       customizer = typeof customizer == 'function' && bindCallback(customizer, thisArg, 1);
@@ -7783,12 +8458,12 @@ process.chdir = function (dir) {
      * is handled by the method instead. The `customizer` is bound to `thisArg`
      * and invoked with two argument; (value [, index|key, object]).
      *
-     * **Note:** This method is loosely based on the structured clone algorithm.
+     * **Note:** This method is loosely based on the
+     * [structured clone algorithm](http://www.w3.org/TR/html5/infrastructure.html#internal-structured-cloning-algorithm).
      * The enumerable properties of `arguments` objects and objects created by
      * constructors other than `Object` are cloned to plain `Object` objects. An
      * empty object is returned for uncloneable values such as functions, DOM nodes,
-     * Maps, Sets, and WeakMaps. See the [HTML5 specification](http://www.w3.org/TR/html5/infrastructure.html#internal-structured-cloning-algorithm)
-     * for more details.
+     * Maps, Sets, and WeakMaps.
      *
      * @static
      * @memberOf _
@@ -7810,14 +8485,16 @@ process.chdir = function (dir) {
      *
      * // using a customizer callback
      * var el = _.cloneDeep(document.body, function(value) {
-     *   return _.isElement(value) ? value.cloneNode(true) : undefined;
+     *   if (_.isElement(value)) {
+     *     return value.cloneNode(true);
+     *   }
      * });
      *
-     * body === document.body
+     * el === document.body
      * // => false
-     * body.nodeName
+     * el.nodeName
      * // => BODY
-     * body.childNodes.length;
+     * el.childNodes.length;
      * // => 20
      */
     function cloneDeep(value, customizer, thisArg) {
@@ -7835,7 +8512,7 @@ process.chdir = function (dir) {
      * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
      * @example
      *
-     * (function() { return _.isArguments(arguments); })();
+     * _.isArguments(function() { return arguments; }());
      * // => true
      *
      * _.isArguments([1, 2, 3]);
@@ -7843,7 +8520,7 @@ process.chdir = function (dir) {
      */
     function isArguments(value) {
       var length = isObjectLike(value) ? value.length : undefined;
-      return (isLength(length) && objToString.call(value) == argsTag) || false;
+      return isLength(length) && objToString.call(value) == argsTag;
     }
 
     /**
@@ -7859,11 +8536,11 @@ process.chdir = function (dir) {
      * _.isArray([1, 2, 3]);
      * // => true
      *
-     * (function() { return _.isArray(arguments); })();
+     * _.isArray(function() { return arguments; }());
      * // => false
      */
     var isArray = nativeIsArray || function(value) {
-      return (isObjectLike(value) && isLength(value.length) && objToString.call(value) == arrayTag) || false;
+      return isObjectLike(value) && isLength(value.length) && objToString.call(value) == arrayTag;
     };
 
     /**
@@ -7883,7 +8560,7 @@ process.chdir = function (dir) {
      * // => false
      */
     function isBoolean(value) {
-      return (value === true || value === false || isObjectLike(value) && objToString.call(value) == boolTag) || false;
+      return value === true || value === false || (isObjectLike(value) && objToString.call(value) == boolTag);
     }
 
     /**
@@ -7903,7 +8580,7 @@ process.chdir = function (dir) {
      * // => false
      */
     function isDate(value) {
-      return (isObjectLike(value) && objToString.call(value) == dateTag) || false;
+      return isObjectLike(value) && objToString.call(value) == dateTag;
     }
 
     /**
@@ -7923,18 +8600,18 @@ process.chdir = function (dir) {
      * // => false
      */
     function isElement(value) {
-      return (value && value.nodeType === 1 && isObjectLike(value) &&
-        objToString.call(value).indexOf('Element') > -1) || false;
+      return !!value && value.nodeType === 1 && isObjectLike(value) &&
+        (objToString.call(value).indexOf('Element') > -1);
     }
     // Fallback for environments without DOM support.
     if (!support.dom) {
       isElement = function(value) {
-        return (value && value.nodeType === 1 && isObjectLike(value) && !isPlainObject(value)) || false;
+        return !!value && value.nodeType === 1 && isObjectLike(value) && !isPlainObject(value);
       };
     }
 
     /**
-     * Checks if a value is empty. A value is considered empty unless it is an
+     * Checks if `value` is empty. A value is considered empty unless it is an
      * `arguments` object, array, string, or jQuery-like collection with a length
      * greater than `0` or an object with own enumerable properties.
      *
@@ -7977,10 +8654,11 @@ process.chdir = function (dir) {
      * equivalent. If `customizer` is provided it is invoked to compare values.
      * If `customizer` returns `undefined` comparisons are handled by the method
      * instead. The `customizer` is bound to `thisArg` and invoked with three
-     * arguments; (value, other [, index|key]).
+     * arguments: (value, other [, index|key]).
      *
      * **Note:** This method supports comparing arrays, booleans, `Date` objects,
-     * numbers, `Object` objects, regexes, and strings. Functions and DOM nodes
+     * numbers, `Object` objects, regexes, and strings. Objects are compared by
+     * their own, not inherited, enumerable properties. Functions and DOM nodes
      * are **not** supported. Provide a customizer function to extend support
      * for comparing other values.
      *
@@ -8008,7 +8686,9 @@ process.chdir = function (dir) {
      * var other = ['hi', 'goodbye'];
      *
      * _.isEqual(array, other, function(value, other) {
-     *   return _.every([value, other], RegExp.prototype.test, /^h(?:i|ello)$/) || undefined;
+     *   if (_.every([value, other], RegExp.prototype.test, /^h(?:i|ello)$/)) {
+     *     return true;
+     *   }
      * });
      * // => true
      */
@@ -8039,15 +8719,13 @@ process.chdir = function (dir) {
      * // => false
      */
     function isError(value) {
-      return (isObjectLike(value) && typeof value.message == 'string' && objToString.call(value) == errorTag) || false;
+      return isObjectLike(value) && typeof value.message == 'string' && objToString.call(value) == errorTag;
     }
 
     /**
      * Checks if `value` is a finite primitive number.
      *
-     * **Note:** This method is based on ES `Number.isFinite`. See the
-     * [ES spec](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-number.isfinite)
-     * for more details.
+     * **Note:** This method is based on [`Number.isFinite`](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-number.isfinite).
      *
      * @static
      * @memberOf _
@@ -8091,26 +8769,16 @@ process.chdir = function (dir) {
      * _.isFunction(/abc/);
      * // => false
      */
-    function isFunction(value) {
-      // Avoid a Chakra JIT bug in compatibility modes of IE 11.
-      // See https://github.com/jashkenas/underscore/issues/1621 for more details.
-      return typeof value == 'function' || false;
-    }
-    // Fallback for environments that return incorrect `typeof` operator results.
-    if (isFunction(/x/) || (Uint8Array && !isFunction(Uint8Array))) {
-      isFunction = function(value) {
-        // The use of `Object#toString` avoids issues with the `typeof` operator
-        // in older versions of Chrome and Safari which return 'function' for regexes
-        // and Safari 8 equivalents which return 'object' for typed array constructors.
-        return objToString.call(value) == funcTag;
-      };
-    }
+    var isFunction = !(baseIsFunction(/x/) || (Uint8Array && !baseIsFunction(Uint8Array))) ? baseIsFunction : function(value) {
+      // The use of `Object#toString` avoids issues with the `typeof` operator
+      // in older versions of Chrome and Safari which return 'function' for regexes
+      // and Safari 8 equivalents which return 'object' for typed array constructors.
+      return objToString.call(value) == funcTag;
+    };
 
     /**
-     * Checks if `value` is the language type of `Object`.
+     * Checks if `value` is the [language type](https://es5.github.io/#x8) of `Object`.
      * (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
-     *
-     * **Note:** See the [ES5 spec](https://es5.github.io/#x8) for more details.
      *
      * @static
      * @memberOf _
@@ -8132,7 +8800,7 @@ process.chdir = function (dir) {
       // Avoid a V8 JIT bug in Chrome 19-20.
       // See https://code.google.com/p/v8/issues/detail?id=2291 for more details.
       var type = typeof value;
-      return type == 'function' || (value && type == 'object') || false;
+      return type == 'function' || (!!value && type == 'object');
     }
 
     /**
@@ -8140,7 +8808,7 @@ process.chdir = function (dir) {
      * `object` contains equivalent property values. If `customizer` is provided
      * it is invoked to compare values. If `customizer` returns `undefined`
      * comparisons are handled by the method instead. The `customizer` is bound
-     * to `thisArg` and invoked with three arguments; (value, other, index|key).
+     * to `thisArg` and invoked with three arguments: (value, other, index|key).
      *
      * **Note:** This method supports comparing properties of arrays, booleans,
      * `Date` objects, numbers, `Object` objects, regexes, and strings. Functions
@@ -8150,7 +8818,7 @@ process.chdir = function (dir) {
      * @static
      * @memberOf _
      * @category Lang
-     * @param {Object} source The object to inspect.
+     * @param {Object} object The object to inspect.
      * @param {Object} source The object of property values to match.
      * @param {Function} [customizer] The function to customize comparing values.
      * @param {*} [thisArg] The `this` binding of `customizer`.
@@ -8178,13 +8846,19 @@ process.chdir = function (dir) {
       var props = keys(source),
           length = props.length;
 
+      if (!length) {
+        return true;
+      }
+      if (object == null) {
+        return false;
+      }
       customizer = typeof customizer == 'function' && bindCallback(customizer, thisArg, 3);
       if (!customizer && length == 1) {
         var key = props[0],
             value = source[key];
 
         if (isStrictComparable(value)) {
-          return object != null && value === object[key] && hasOwnProperty.call(object, key);
+          return value === object[key] && (typeof value != 'undefined' || (key in toObject(object)));
         }
       }
       var values = Array(length),
@@ -8194,15 +8868,14 @@ process.chdir = function (dir) {
         value = values[length] = source[props[length]];
         strictCompareFlags[length] = isStrictComparable(value);
       }
-      return baseIsMatch(object, props, values, strictCompareFlags, customizer);
+      return baseIsMatch(toObject(object), props, values, strictCompareFlags, customizer);
     }
 
     /**
      * Checks if `value` is `NaN`.
      *
-     * **Note:** This method is not the same as native `isNaN` which returns `true`
-     * for `undefined` and other non-numeric values. See the [ES5 spec](https://es5.github.io/#x15.1.2.4)
-     * for more details.
+     * **Note:** This method is not the same as [`isNaN`](https://es5.github.io/#x15.1.2.4)
+     * which returns `true` for `undefined` and other non-numeric values.
      *
      * @static
      * @memberOf _
@@ -8252,7 +8925,7 @@ process.chdir = function (dir) {
       if (objToString.call(value) == funcTag) {
         return reNative.test(fnToString.call(value));
       }
-      return (isObjectLike(value) && reHostCtor.test(value)) || false;
+      return isObjectLike(value) && reHostCtor.test(value);
     }
 
     /**
@@ -8298,7 +8971,7 @@ process.chdir = function (dir) {
      * // => false
      */
     function isNumber(value) {
-      return typeof value == 'number' || (isObjectLike(value) && objToString.call(value) == numberTag) || false;
+      return typeof value == 'number' || (isObjectLike(value) && objToString.call(value) == numberTag);
     }
 
     /**
@@ -8380,7 +9053,7 @@ process.chdir = function (dir) {
      * // => false
      */
     function isString(value) {
-      return typeof value == 'string' || (isObjectLike(value) && objToString.call(value) == stringTag) || false;
+      return typeof value == 'string' || (isObjectLike(value) && objToString.call(value) == stringTag);
     }
 
     /**
@@ -8400,7 +9073,7 @@ process.chdir = function (dir) {
      * // => false
      */
     function isTypedArray(value) {
-      return (isObjectLike(value) && isLength(value.length) && typedArrayTags[objToString.call(value)]) || false;
+      return isObjectLike(value) && isLength(value.length) && !!typedArrayTags[objToString.call(value)];
     }
 
     /**
@@ -8433,7 +9106,9 @@ process.chdir = function (dir) {
      * @returns {Array} Returns the converted array.
      * @example
      *
-     * (function() { return _.toArray(arguments).slice(1); })(1, 2, 3);
+     * (function() {
+     *   return _.toArray(arguments).slice(1);
+     * }(1, 2, 3));
      * // => [2, 3]
      */
     function toArray(value) {
@@ -8480,7 +9155,7 @@ process.chdir = function (dir) {
      * Assigns own enumerable properties of source object(s) to the destination
      * object. Subsequent sources overwrite property assignments of previous sources.
      * If `customizer` is provided it is invoked to produce the assigned values.
-     * The `customizer` is bound to `thisArg` and invoked with five arguments;
+     * The `customizer` is bound to `thisArg` and invoked with five arguments:
      * (objectValue, sourceValue, key, object, source).
      *
      * @static
@@ -8530,7 +9205,9 @@ process.chdir = function (dir) {
      *   Shape.call(this);
      * }
      *
-     * Circle.prototype = _.create(Shape.prototype, { 'constructor': Circle });
+     * Circle.prototype = _.create(Shape.prototype, {
+     *   'constructor': Circle
+     * });
      *
      * var circle = new Circle;
      * circle instanceof Circle;
@@ -8550,7 +9227,7 @@ process.chdir = function (dir) {
     /**
      * Assigns own enumerable properties of source object(s) to the destination
      * object for all destination properties that resolve to `undefined`. Once a
-     * property is set, additional defaults of the same property are ignored.
+     * property is set, additional values of the same property are ignored.
      *
      * @static
      * @memberOf _
@@ -8563,23 +9240,27 @@ process.chdir = function (dir) {
      * _.defaults({ 'user': 'barney' }, { 'age': 36 }, { 'user': 'fred' });
      * // => { 'user': 'barney', 'age': 36 }
      */
-    function defaults(object) {
+    var defaults = restParam(function(args) {
+      var object = args[0];
       if (object == null) {
         return object;
       }
-      var args = arrayCopy(arguments);
       args.push(assignDefaults);
       return assign.apply(undefined, args);
-    }
+    });
 
     /**
-     * This method is like `_.findIndex` except that it returns the key of the
-     * first element `predicate` returns truthy for, instead of the element itself.
+     * This method is like `_.find` except that it returns the key of the first
+     * element `predicate` returns truthy for instead of the element itself.
      *
-     * If a property name is provided for `predicate` the created "_.property"
+     * If a property name is provided for `predicate` the created `_.property`
      * style callback returns the property value of the given element.
      *
-     * If an object is provided for `predicate` the created "_.matches" style
+     * If a value is also provided for `thisArg` the created `_.matchesProperty`
+     * style callback returns `true` for elements that have a matching property
+     * value, else `false`.
+     *
+     * If an object is provided for `predicate` the created `_.matches` style
      * callback returns `true` for elements that have the properties of the given
      * object, else `false`.
      *
@@ -8588,8 +9269,7 @@ process.chdir = function (dir) {
      * @category Object
      * @param {Object} object The object to search.
      * @param {Function|Object|string} [predicate=_.identity] The function invoked
-     *  per iteration. If a property name or object is provided it is used to
-     *  create a "_.property" or "_.matches" style callback respectively.
+     *  per iteration.
      * @param {*} [thisArg] The `this` binding of `predicate`.
      * @returns {string|undefined} Returns the key of the matched element, else `undefined`.
      * @example
@@ -8600,30 +9280,37 @@ process.chdir = function (dir) {
      *   'pebbles': { 'age': 1,  'active': true }
      * };
      *
-     * _.findKey(users, function(chr) { return chr.age < 40; });
+     * _.findKey(users, function(chr) {
+     *   return chr.age < 40;
+     * });
      * // => 'barney' (iteration order is not guaranteed)
      *
-     * // using the "_.matches" callback shorthand
-     * _.findKey(users, { 'age': 1 });
+     * // using the `_.matches` callback shorthand
+     * _.findKey(users, { 'age': 1, 'active': true });
      * // => 'pebbles'
      *
-     * // using the "_.property" callback shorthand
+     * // using the `_.matchesProperty` callback shorthand
+     * _.findKey(users, 'active', false);
+     * // => 'fred'
+     *
+     * // using the `_.property` callback shorthand
      * _.findKey(users, 'active');
      * // => 'barney'
      */
-    function findKey(object, predicate, thisArg) {
-      predicate = getCallback(predicate, thisArg, 3);
-      return baseFind(object, predicate, baseForOwn, true);
-    }
+    var findKey = createFindKey(baseForOwn);
 
     /**
      * This method is like `_.findKey` except that it iterates over elements of
      * a collection in the opposite order.
      *
-     * If a property name is provided for `predicate` the created "_.property"
+     * If a property name is provided for `predicate` the created `_.property`
      * style callback returns the property value of the given element.
      *
-     * If an object is provided for `predicate` the created "_.matches" style
+     * If a value is also provided for `thisArg` the created `_.matchesProperty`
+     * style callback returns `true` for elements that have a matching property
+     * value, else `false`.
+     *
+     * If an object is provided for `predicate` the created `_.matches` style
      * callback returns `true` for elements that have the properties of the given
      * object, else `false`.
      *
@@ -8632,8 +9319,7 @@ process.chdir = function (dir) {
      * @category Object
      * @param {Object} object The object to search.
      * @param {Function|Object|string} [predicate=_.identity] The function invoked
-     *  per iteration. If a property name or object is provided it is used to
-     *  create a "_.property" or "_.matches" style callback respectively.
+     *  per iteration.
      * @param {*} [thisArg] The `this` binding of `predicate`.
      * @returns {string|undefined} Returns the key of the matched element, else `undefined`.
      * @example
@@ -8644,26 +9330,29 @@ process.chdir = function (dir) {
      *   'pebbles': { 'age': 1,  'active': true }
      * };
      *
-     * _.findLastKey(users, function(chr) { return chr.age < 40; });
+     * _.findLastKey(users, function(chr) {
+     *   return chr.age < 40;
+     * });
      * // => returns `pebbles` assuming `_.findKey` returns `barney`
      *
-     * // using the "_.matches" callback shorthand
-     * _.findLastKey(users, { 'age': 36 });
+     * // using the `_.matches` callback shorthand
+     * _.findLastKey(users, { 'age': 36, 'active': true });
      * // => 'barney'
      *
-     * // using the "_.property" callback shorthand
+     * // using the `_.matchesProperty` callback shorthand
+     * _.findLastKey(users, 'active', false);
+     * // => 'fred'
+     *
+     * // using the `_.property` callback shorthand
      * _.findLastKey(users, 'active');
      * // => 'pebbles'
      */
-    function findLastKey(object, predicate, thisArg) {
-      predicate = getCallback(predicate, thisArg, 3);
-      return baseFind(object, predicate, baseForOwnRight, true);
-    }
+    var findLastKey = createFindKey(baseForOwnRight);
 
     /**
      * Iterates over own and inherited enumerable properties of an object invoking
      * `iteratee` for each property. The `iteratee` is bound to `thisArg` and invoked
-     * with three arguments; (value, key, object). Iterator functions may exit
+     * with three arguments: (value, key, object). Iterator functions may exit
      * iteration early by explicitly returning `false`.
      *
      * @static
@@ -8687,12 +9376,7 @@ process.chdir = function (dir) {
      * });
      * // => logs 'a', 'b', and 'c' (iteration order is not guaranteed)
      */
-    function forIn(object, iteratee, thisArg) {
-      if (typeof iteratee != 'function' || typeof thisArg != 'undefined') {
-        iteratee = bindCallback(iteratee, thisArg, 3);
-      }
-      return baseFor(object, iteratee, keysIn);
-    }
+    var forIn = createForIn(baseFor);
 
     /**
      * This method is like `_.forIn` except that it iterates over properties of
@@ -8719,15 +9403,12 @@ process.chdir = function (dir) {
      * });
      * // => logs 'c', 'b', and 'a' assuming `_.forIn ` logs 'a', 'b', and 'c'
      */
-    function forInRight(object, iteratee, thisArg) {
-      iteratee = bindCallback(iteratee, thisArg, 3);
-      return baseForRight(object, iteratee, keysIn);
-    }
+    var forInRight = createForIn(baseForRight);
 
     /**
      * Iterates over own enumerable properties of an object invoking `iteratee`
      * for each property. The `iteratee` is bound to `thisArg` and invoked with
-     * three arguments; (value, key, object). Iterator functions may exit iteration
+     * three arguments: (value, key, object). Iterator functions may exit iteration
      * early by explicitly returning `false`.
      *
      * @static
@@ -8739,17 +9420,19 @@ process.chdir = function (dir) {
      * @returns {Object} Returns `object`.
      * @example
      *
-     * _.forOwn({ '0': 'zero', '1': 'one', 'length': 2 }, function(n, key) {
+     * function Foo() {
+     *   this.a = 1;
+     *   this.b = 2;
+     * }
+     *
+     * Foo.prototype.c = 3;
+     *
+     * _.forOwn(new Foo, function(value, key) {
      *   console.log(key);
      * });
-     * // => logs '0', '1', and 'length' (iteration order is not guaranteed)
+     * // => logs 'a' and 'b' (iteration order is not guaranteed)
      */
-    function forOwn(object, iteratee, thisArg) {
-      if (typeof iteratee != 'function' || typeof thisArg != 'undefined') {
-        iteratee = bindCallback(iteratee, thisArg, 3);
-      }
-      return baseForOwn(object, iteratee);
-    }
+    var forOwn = createForOwn(baseForOwn);
 
     /**
      * This method is like `_.forOwn` except that it iterates over properties of
@@ -8764,15 +9447,19 @@ process.chdir = function (dir) {
      * @returns {Object} Returns `object`.
      * @example
      *
-     * _.forOwnRight({ '0': 'zero', '1': 'one', 'length': 2 }, function(n, key) {
+     * function Foo() {
+     *   this.a = 1;
+     *   this.b = 2;
+     * }
+     *
+     * Foo.prototype.c = 3;
+     *
+     * _.forOwnRight(new Foo, function(value, key) {
      *   console.log(key);
      * });
-     * // => logs 'length', '1', and '0' assuming `_.forOwn` logs '0', '1', and 'length'
+     * // => logs 'b' and 'a' assuming `_.forOwn` logs 'a' and 'b'
      */
-    function forOwnRight(object, iteratee, thisArg) {
-      iteratee = bindCallback(iteratee, thisArg, 3);
-      return baseForRight(object, iteratee, keys);
-    }
+    var forOwnRight = createForOwn(baseForOwnRight);
 
     /**
      * Creates an array of function property names from all enumerable properties,
@@ -8787,7 +9474,7 @@ process.chdir = function (dir) {
      * @example
      *
      * _.functions(_);
-     * // => ['all', 'any', 'bind', ...]
+     * // => ['after', 'ary', 'assign', ...]
      */
     function functions(object) {
       return baseFunctions(object, keysIn(object));
@@ -8805,7 +9492,9 @@ process.chdir = function (dir) {
      * @returns {boolean} Returns `true` if `key` is a direct property, else `false`.
      * @example
      *
-     * _.has({ 'a': 1, 'b': 2, 'c': 3 }, 'b');
+     * var object = { 'a': 1, 'b': 2, 'c': 3 };
+     *
+     * _.has(object, 'b');
      * // => true
      */
     function has(object, key) {
@@ -8826,16 +9515,14 @@ process.chdir = function (dir) {
      * @returns {Object} Returns the new inverted object.
      * @example
      *
-     * _.invert({ 'first': 'fred', 'second': 'barney' });
-     * // => { 'fred': 'first', 'barney': 'second' }
+     * var object = { 'a': 1, 'b': 2, 'c': 1 };
      *
-     * // without `multiValue`
-     * _.invert({ 'first': 'fred', 'second': 'barney', 'third': 'fred' });
-     * // => { 'fred': 'third', 'barney': 'second' }
+     * _.invert(object);
+     * // => { '1': 'c', '2': 'b' }
      *
      * // with `multiValue`
-     * _.invert({ 'first': 'fred', 'second': 'barney', 'third': 'fred' }, true);
-     * // => { 'fred': ['first', 'third'], 'barney': ['second'] }
+     * _.invert(object, true);
+     * // => { '1': ['a', 'c'], '2': ['b'] }
      */
     function invert(object, multiValue, guard) {
       if (guard && isIterateeCall(object, multiValue, guard)) {
@@ -8897,7 +9584,7 @@ process.chdir = function (dir) {
             length = object.length;
       }
       if ((typeof Ctor == 'function' && Ctor.prototype === object) ||
-         (typeof object != 'function' && (length && isLength(length)))) {
+          (typeof object != 'function' && (length && isLength(length)))) {
         return shimKeys(object);
       }
       return isObject(object) ? nativeKeys(object) : [];
@@ -8938,7 +9625,7 @@ process.chdir = function (dir) {
 
       var Ctor = object.constructor,
           index = -1,
-          isProto = typeof Ctor == 'function' && Ctor.prototype == object,
+          isProto = typeof Ctor == 'function' && Ctor.prototype === object,
           result = Array(length),
           skipIndexes = length > 0;
 
@@ -8957,13 +9644,17 @@ process.chdir = function (dir) {
     /**
      * Creates an object with the same keys as `object` and values generated by
      * running each own enumerable property of `object` through `iteratee`. The
-     * iteratee function is bound to `thisArg` and invoked with three arguments;
+     * iteratee function is bound to `thisArg` and invoked with three arguments:
      * (value, key, object).
      *
-     * If a property name is provided for `iteratee` the created "_.property"
+     * If a property name is provided for `iteratee` the created `_.property`
      * style callback returns the property value of the given element.
      *
-     * If an object is provided for `iteratee` the created "_.matches" style
+     * If a value is also provided for `thisArg` the created `_.matchesProperty`
+     * style callback returns `true` for elements that have a matching property
+     * value, else `false`.
+     *
+     * If an object is provided for `iteratee` the created `_.matches` style
      * callback returns `true` for elements that have the properties of the given
      * object, else `false`.
      *
@@ -8972,21 +9663,22 @@ process.chdir = function (dir) {
      * @category Object
      * @param {Object} object The object to iterate over.
      * @param {Function|Object|string} [iteratee=_.identity] The function invoked
-     *  per iteration. If a property name or object is provided it is used to
-     *  create a "_.property" or "_.matches" style callback respectively.
+     *  per iteration.
      * @param {*} [thisArg] The `this` binding of `iteratee`.
      * @returns {Object} Returns the new mapped object.
      * @example
      *
-     * _.mapValues({ 'a': 1, 'b': 2, 'c': 3} , function(n) { return n * 3; });
-     * // => { 'a': 3, 'b': 6, 'c': 9 }
+     * _.mapValues({ 'a': 1, 'b': 2 }, function(n) {
+     *   return n * 3;
+     * });
+     * // => { 'a': 3, 'b': 6 }
      *
      * var users = {
      *   'fred':    { 'user': 'fred',    'age': 40 },
      *   'pebbles': { 'user': 'pebbles', 'age': 1 }
      * };
      *
-     * // using the "_.property" callback shorthand
+     * // using the `_.property` callback shorthand
      * _.mapValues(users, 'age');
      * // => { 'fred': 40, 'pebbles': 1 } (iteration order is not guaranteed)
      */
@@ -9007,7 +9699,7 @@ process.chdir = function (dir) {
      * provided it is invoked to produce the merged values of the destination and
      * source properties. If `customizer` returns `undefined` merging is handled
      * by the method instead. The `customizer` is bound to `thisArg` and invoked
-     * with five arguments; (objectValue, sourceValue, key, object, source).
+     * with five arguments: (objectValue, sourceValue, key, object, source).
      *
      * @static
      * @memberOf _
@@ -9042,7 +9734,9 @@ process.chdir = function (dir) {
      * };
      *
      * _.merge(object, other, function(a, b) {
-     *   return _.isArray(a) ? a.concat(b) : undefined;
+     *   if (_.isArray(a)) {
+     *     return a.concat(b);
+     *   }
      * });
      * // => { 'fruits': ['apple', 'banana'], 'vegetables': ['beet', 'carrot'] }
      */
@@ -9054,7 +9748,7 @@ process.chdir = function (dir) {
      * Property names may be specified as individual arguments or as arrays of
      * property names. If `predicate` is provided it is invoked for each property
      * of `object` omitting the properties `predicate` returns truthy for. The
-     * predicate is bound to `thisArg` and invoked with three arguments;
+     * predicate is bound to `thisArg` and invoked with three arguments:
      * (value, key, object).
      *
      * @static
@@ -9076,19 +9770,19 @@ process.chdir = function (dir) {
      * _.omit(object, _.isNumber);
      * // => { 'user': 'fred' }
      */
-    function omit(object, predicate, thisArg) {
+    var omit = restParam(function(object, props) {
       if (object == null) {
         return {};
       }
-      if (typeof predicate != 'function') {
-        var props = arrayMap(baseFlatten(arguments, false, false, 1), String);
+      if (typeof props[0] != 'function') {
+        var props = arrayMap(baseFlatten(props), String);
         return pickByArray(object, baseDifference(keysIn(object), props));
       }
-      predicate = bindCallback(predicate, thisArg, 3);
+      var predicate = bindCallback(props[0], props[1], 3);
       return pickByCallback(object, function(value, key, object) {
         return !predicate(value, key, object);
       });
-    }
+    });
 
     /**
      * Creates a two dimensional array of the key-value pairs for `object`,
@@ -9122,7 +9816,7 @@ process.chdir = function (dir) {
      * names may be specified as individual arguments or as arrays of property
      * names. If `predicate` is provided it is invoked for each property of `object`
      * picking the properties `predicate` returns truthy for. The predicate is
-     * bound to `thisArg` and invoked with three arguments; (value, key, object).
+     * bound to `thisArg` and invoked with three arguments: (value, key, object).
      *
      * @static
      * @memberOf _
@@ -9143,14 +9837,14 @@ process.chdir = function (dir) {
      * _.pick(object, _.isString);
      * // => { 'user': 'fred' }
      */
-    function pick(object, predicate, thisArg) {
+    var pick = restParam(function(object, props) {
       if (object == null) {
         return {};
       }
-      return typeof predicate == 'function'
-        ? pickByCallback(object, bindCallback(predicate, thisArg, 3))
-        : pickByArray(object, baseFlatten(arguments, false, false, 1));
-    }
+      return typeof props[0] == 'function'
+        ? pickByCallback(object, bindCallback(props[0], props[1], 3))
+        : pickByArray(object, baseFlatten(props));
+    });
 
     /**
      * Resolves the value of property `key` on `object`. If the value of `key` is
@@ -9195,7 +9889,7 @@ process.chdir = function (dir) {
      * `accumulator` object which is the result of running each of its own enumerable
      * properties through `iteratee`, with each invocation potentially mutating
      * the `accumulator` object. The `iteratee` is bound to `thisArg` and invoked
-     * with four arguments; (accumulator, value, key, object). Iterator functions
+     * with four arguments: (accumulator, value, key, object). Iterator functions
      * may exit iteration early by explicitly returning `false`.
      *
      * @static
@@ -9208,18 +9902,16 @@ process.chdir = function (dir) {
      * @returns {*} Returns the accumulated value.
      * @example
      *
-     * var squares = _.transform([1, 2, 3, 4, 5, 6], function(result, n) {
-     *   n *= n;
-     *   if (n % 2) {
-     *     return result.push(n) < 3;
-     *   }
+     * _.transform([2, 3, 4], function(result, n) {
+     *   result.push(n *= n);
+     *   return n % 2 == 0;
      * });
-     * // => [1, 9, 25]
+     * // => [4, 9]
      *
-     * var mapped = _.transform({ 'a': 1, 'b': 2, 'c': 3 }, function(result, n, key) {
+     * _.transform({ 'a': 1, 'b': 2 }, function(result, n, key) {
      *   result[key] = n * 3;
      * });
-     * // => { 'a': 3, 'b': 6, 'c': 9 }
+     * // => { 'a': 3, 'b': 6 }
      */
     function transform(object, iteratee, accumulator, thisArg) {
       var isArr = isArray(object) || isTypedArray(object);
@@ -9231,7 +9923,7 @@ process.chdir = function (dir) {
           if (isArr) {
             accumulator = isArray(object) ? new Ctor : [];
           } else {
-            accumulator = baseCreate(typeof Ctor == 'function' && Ctor.prototype);
+            accumulator = baseCreate(isFunction(Ctor) && Ctor.prototype);
           }
         } else {
           accumulator = {};
@@ -9302,6 +9994,48 @@ process.chdir = function (dir) {
     /*------------------------------------------------------------------------*/
 
     /**
+     * Checks if `n` is between `start` and up to but not including, `end`. If
+     * `end` is not specified it is set to `start` with `start` then set to `0`.
+     *
+     * @static
+     * @memberOf _
+     * @category Number
+     * @param {number} n The number to check.
+     * @param {number} [start=0] The start of the range.
+     * @param {number} end The end of the range.
+     * @returns {boolean} Returns `true` if `n` is in the range, else `false`.
+     * @example
+     *
+     * _.inRange(3, 2, 4);
+     * // => true
+     *
+     * _.inRange(4, 8);
+     * // => true
+     *
+     * _.inRange(4, 2);
+     * // => false
+     *
+     * _.inRange(2, 2);
+     * // => false
+     *
+     * _.inRange(1.2, 2);
+     * // => true
+     *
+     * _.inRange(5.2, 4);
+     * // => false
+     */
+    function inRange(value, start, end) {
+      start = +start || 0;
+      if (typeof end === 'undefined') {
+        end = start;
+        start = 0;
+      } else {
+        end = +end || 0;
+      }
+      return value >= start && value < end;
+    }
+
+    /**
      * Produces a random number between `min` and `max` (inclusive). If only one
      * argument is provided a number between `0` and the given number is returned.
      * If `floating` is `true`, or either `min` or `max` are floats, a floating-point
@@ -9366,8 +10100,7 @@ process.chdir = function (dir) {
     /*------------------------------------------------------------------------*/
 
     /**
-     * Converts `string` to camel case.
-     * See [Wikipedia](https://en.wikipedia.org/wiki/CamelCase) for more details.
+     * Converts `string` to [camel case](https://en.wikipedia.org/wiki/CamelCase).
      *
      * @static
      * @memberOf _
@@ -9409,9 +10142,8 @@ process.chdir = function (dir) {
     }
 
     /**
-     * Deburrs `string` by converting latin-1 supplementary letters to basic latin letters.
-     * See [Wikipedia](https://en.wikipedia.org/wiki/Latin-1_Supplement_(Unicode_block)#Character_table)
-     * for more details.
+     * Deburrs `string` by converting [latin-1 supplementary letters](https://en.wikipedia.org/wiki/Latin-1_Supplement_(Unicode_block)#Character_table)
+     * to basic latin letters and removing [combining diacritical marks](https://en.wikipedia.org/wiki/Combining_Diacritical_Marks).
      *
      * @static
      * @memberOf _
@@ -9425,7 +10157,7 @@ process.chdir = function (dir) {
      */
     function deburr(string) {
       string = baseToString(string);
-      return string && string.replace(reLatin1, deburrLetter);
+      return string && string.replace(reLatin1, deburrLetter).replace(reComboMarks, '');
     }
 
     /**
@@ -9454,12 +10186,16 @@ process.chdir = function (dir) {
       target = (target + '');
 
       var length = string.length;
-      position = (typeof position == 'undefined' ? length : nativeMin(position < 0 ? 0 : (+position || 0), length)) - target.length;
+      position = typeof position == 'undefined'
+        ? length
+        : nativeMin(position < 0 ? 0 : (+position || 0), length);
+
+      position -= target.length;
       return position >= 0 && string.indexOf(target, position) == position;
     }
 
     /**
-     * Converts the characters "&", "<", ">", '"', "'", and '`', in `string` to
+     * Converts the characters "&", "<", ">", '"', "'", and "\`", in `string` to
      * their corresponding HTML entities.
      *
      * **Note:** No other characters are escaped. To escape additional characters
@@ -9476,9 +10212,8 @@ process.chdir = function (dir) {
      * [#108](https://html5sec.org/#108), and [#133](https://html5sec.org/#133) of
      * the [HTML5 Security Cheatsheet](https://html5sec.org/) for more details.
      *
-     * When working with HTML you should always quote attribute values to reduce
-     * XSS vectors. See [Ryan Grove's article](http://wonko.com/post/html-escaping)
-     * for more details.
+     * When working with HTML you should always [quote attribute values](http://wonko.com/post/html-escaping)
+     * to reduce XSS vectors.
      *
      * @static
      * @memberOf _
@@ -9499,8 +10234,8 @@ process.chdir = function (dir) {
     }
 
     /**
-     * Escapes the `RegExp` special characters "\", "^", "$", ".", "|", "?", "*",
-     * "+", "(", ")", "[", "]", "{" and "}" in `string`.
+     * Escapes the `RegExp` special characters "\", "/", "^", "$", ".", "|", "?",
+     * "*", "+", "(", ")", "[", "]", "{" and "}" in `string`.
      *
      * @static
      * @memberOf _
@@ -9510,7 +10245,7 @@ process.chdir = function (dir) {
      * @example
      *
      * _.escapeRegExp('[lodash](https://lodash.com/)');
-     * // => '\[lodash\]\(https://lodash\.com/\)'
+     * // => '\[lodash\]\(https:\/\/lodash\.com\/\)'
      */
     function escapeRegExp(string) {
       string = baseToString(string);
@@ -9520,9 +10255,7 @@ process.chdir = function (dir) {
     }
 
     /**
-     * Converts `string` to kebab case (a.k.a. spinal case).
-     * See [Wikipedia](https://en.wikipedia.org/wiki/Letter_case#Special_case_styles) for
-     * more details.
+     * Converts `string` to [kebab case](https://en.wikipedia.org/wiki/Letter_case#Special_case_styles).
      *
      * @static
      * @memberOf _
@@ -9545,9 +10278,8 @@ process.chdir = function (dir) {
     });
 
     /**
-     * Pads `string` on the left and right sides if it is shorter then the given
-     * padding length. The `chars` string may be truncated if the number of padding
-     * characters can't be evenly divided by the padding length.
+     * Pads `string` on the left and right sides if it is shorter than `length`.
+     * Padding characters are truncated if they can't be evenly divided by `length`.
      *
      * @static
      * @memberOf _
@@ -9579,14 +10311,13 @@ process.chdir = function (dir) {
           leftLength = floor(mid),
           rightLength = ceil(mid);
 
-      chars = createPad('', rightLength, chars);
+      chars = createPadding('', rightLength, chars);
       return chars.slice(0, leftLength) + string + chars;
     }
 
     /**
-     * Pads `string` on the left side if it is shorter then the given padding
-     * length. The `chars` string may be truncated if the number of padding
-     * characters exceeds the padding length.
+     * Pads `string` on the left side if it is shorter than `length`. Padding
+     * characters are truncated if they exceed `length`.
      *
      * @static
      * @memberOf _
@@ -9606,15 +10337,11 @@ process.chdir = function (dir) {
      * _.padLeft('abc', 3);
      * // => 'abc'
      */
-    function padLeft(string, length, chars) {
-      string = baseToString(string);
-      return string && (createPad(string, length, chars) + string);
-    }
+    var padLeft = createPadDir();
 
     /**
-     * Pads `string` on the right side if it is shorter then the given padding
-     * length. The `chars` string may be truncated if the number of padding
-     * characters exceeds the padding length.
+     * Pads `string` on the right side if it is shorter than `length`. Padding
+     * characters are truncated if they exceed `length`.
      *
      * @static
      * @memberOf _
@@ -9634,18 +10361,15 @@ process.chdir = function (dir) {
      * _.padRight('abc', 3);
      * // => 'abc'
      */
-    function padRight(string, length, chars) {
-      string = baseToString(string);
-      return string && (string + createPad(string, length, chars));
-    }
+    var padRight = createPadDir(true);
 
     /**
      * Converts `string` to an integer of the specified radix. If `radix` is
      * `undefined` or `0`, a `radix` of `10` is used unless `value` is a hexadecimal,
      * in which case a `radix` of `16` is used.
      *
-     * **Note:** This method aligns with the ES5 implementation of `parseInt`.
-     * See the [ES5 spec](https://es5.github.io/#E) for more details.
+     * **Note:** This method aligns with the [ES5 implementation](https://es5.github.io/#E)
+     * of `parseInt`.
      *
      * @static
      * @memberOf _
@@ -9725,8 +10449,7 @@ process.chdir = function (dir) {
     }
 
     /**
-     * Converts `string` to snake case.
-     * See [Wikipedia](https://en.wikipedia.org/wiki/Snake_case) for more details.
+     * Converts `string` to [snake case](https://en.wikipedia.org/wiki/Snake_case).
      *
      * @static
      * @memberOf _
@@ -9749,9 +10472,7 @@ process.chdir = function (dir) {
     });
 
     /**
-     * Converts `string` to start case.
-     * See [Wikipedia](https://en.wikipedia.org/wiki/Letter_case#Stylistic_or_specialised_usage)
-     * for more details.
+     * Converts `string` to [start case](https://en.wikipedia.org/wiki/Letter_case#Stylistic_or_specialised_usage).
      *
      * @static
      * @memberOf _
@@ -9796,7 +10517,10 @@ process.chdir = function (dir) {
      */
     function startsWith(string, target, position) {
       string = baseToString(string);
-      position = position == null ? 0 : nativeMin(position < 0 ? 0 : (+position || 0), string.length);
+      position = position == null
+        ? 0
+        : nativeMin(position < 0 ? 0 : (+position || 0), string.length);
+
       return string.lastIndexOf(target, position) == position;
     }
 
@@ -9807,9 +10531,9 @@ process.chdir = function (dir) {
      * properties may be accessed as free variables in the template. If a setting
      * object is provided it takes precedence over `_.templateSettings` values.
      *
-     * **Note:** In the development build `_.template` utilizes sourceURLs for easier debugging.
-     * See the [HTML5 Rocks article on sourcemaps](http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/#toc-sourceurl)
-     * for more details.
+     * **Note:** In the development build `_.template` utilizes
+     * [sourceURLs](http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/#toc-sourceurl)
+     * for easier debugging.
      *
      * For more information on precompiling templates see
      * [lodash's custom builds documentation](https://lodash.com/custom-builds).
@@ -9883,10 +10607,10 @@ process.chdir = function (dir) {
      * var compiled = _.template('hi <%= data.user %>!', { 'variable': 'data' });
      * compiled.source;
      * // => function(data) {
-     *   var __t, __p = '';
-     *   __p += 'hi ' + ((__t = ( data.user )) == null ? '' : __t) + '!';
-     *   return __p;
-     * }
+     * //   var __t, __p = '';
+     * //   __p += 'hi ' + ((__t = ( data.user )) == null ? '' : __t) + '!';
+     * //   return __p;
+     * // }
      *
      * // using the `source` property to inline compiled templates for meaningful
      * // line numbers in error messages and a stack trace
@@ -10021,7 +10745,7 @@ process.chdir = function (dir) {
      * // => 'abc'
      *
      * _.map(['  foo  ', '  bar  '], _.trim);
-     * // => ['foo', 'bar]
+     * // => ['foo', 'bar']
      */
     function trim(string, chars, guard) {
       var value = string;
@@ -10061,7 +10785,7 @@ process.chdir = function (dir) {
         return string;
       }
       if (guard ? isIterateeCall(value, chars, guard) : chars == null) {
-        return string.slice(trimmedLeftIndex(string))
+        return string.slice(trimmedLeftIndex(string));
       }
       return string.slice(charsLeftIndex(string, (chars + '')));
     }
@@ -10091,7 +10815,7 @@ process.chdir = function (dir) {
         return string;
       }
       if (guard ? isIterateeCall(value, chars, guard) : chars == null) {
-        return string.slice(0, trimmedRightIndex(string) + 1)
+        return string.slice(0, trimmedRightIndex(string) + 1);
       }
       return string.slice(0, charsRightIndex(string, (chars + '')) + 1);
     }
@@ -10119,13 +10843,21 @@ process.chdir = function (dir) {
      * _.trunc('hi-diddly-ho there, neighborino', 24);
      * // => 'hi-diddly-ho there, n...'
      *
-     * _.trunc('hi-diddly-ho there, neighborino', { 'length': 24, 'separator': ' ' });
+     * _.trunc('hi-diddly-ho there, neighborino', {
+     *   'length': 24,
+     *   'separator': ' '
+     * });
      * // => 'hi-diddly-ho there,...'
      *
-     * _.trunc('hi-diddly-ho there, neighborino', { 'length': 24, 'separator': /,? +/ });
-     * //=> 'hi-diddly-ho there...'
+     * _.trunc('hi-diddly-ho there, neighborino', {
+     *   'length': 24,
+     *   'separator': /,? +/
+     * });
+     * // => 'hi-diddly-ho there...'
      *
-     * _.trunc('hi-diddly-ho there, neighborino', { 'omission': ' [...]' });
+     * _.trunc('hi-diddly-ho there, neighborino', {
+     *   'omission': ' [...]'
+     * });
      * // => 'hi-diddly-ho there, neig [...]'
      */
     function trunc(string, options, guard) {
@@ -10138,7 +10870,7 @@ process.chdir = function (dir) {
       if (options != null) {
         if (isObject(options)) {
           var separator = 'separator' in options ? options.separator : separator;
-          length = 'length' in options ? +options.length || 0 : length;
+          length = 'length' in options ? (+options.length || 0) : length;
           omission = 'omission' in options ? baseToString(options.omission) : omission;
         } else {
           length = +options || 0;
@@ -10234,38 +10966,39 @@ process.chdir = function (dir) {
     /*------------------------------------------------------------------------*/
 
     /**
-     * Attempts to invoke `func`, returning either the result or the caught
-     * error object.
+     * Attempts to invoke `func`, returning either the result or the caught error
+     * object. Any additional arguments are provided to `func` when it is invoked.
      *
      * @static
      * @memberOf _
      * @category Utility
-     * @param {*} func The function to attempt.
+     * @param {Function} func The function to attempt.
      * @returns {*} Returns the `func` result or error object.
      * @example
      *
      * // avoid throwing errors for invalid selectors
-     * var elements = _.attempt(function() {
+     * var elements = _.attempt(function(selector) {
      *   return document.querySelectorAll(selector);
-     * });
+     * }, '>_>');
      *
      * if (_.isError(elements)) {
      *   elements = [];
      * }
      */
-    function attempt(func) {
+    var attempt = restParam(function(func, args) {
       try {
-        return func();
+        return func.apply(undefined, args);
       } catch(e) {
-        return isError(e) ? e : Error(e);
+        return isError(e) ? e : new Error(e);
       }
-    }
+    });
 
     /**
-     * Creates a function bound to an optional `thisArg`. If `func` is a property
-     * name the created callback returns the property value for a given element.
-     * If `func` is an object the created callback returns `true` for elements
-     * that contain the equivalent object properties, otherwise it returns `false`.
+     * Creates a function that invokes `func` with the `this` binding of `thisArg`
+     * and arguments of the created function. If `func` is a property name the
+     * created callback returns the property value for a given element. If `func`
+     * is an object the created callback returns `true` for elements that contain
+     * the equivalent object properties, otherwise it returns `false`.
      *
      * @static
      * @memberOf _
@@ -10289,7 +11022,9 @@ process.chdir = function (dir) {
      *     return callback(func, thisArg);
      *   }
      *   return function(object) {
-     *     return match[2] == 'gt' ? object[match[1]] > match[3] : object[match[1]] < match[3];
+     *     return match[2] == 'gt'
+     *       ? object[match[1]] > match[3]
+     *       : object[match[1]] < match[3];
      *   };
      * });
      *
@@ -10317,6 +11052,7 @@ process.chdir = function (dir) {
      *
      * var object = { 'user': 'fred' };
      * var getter = _.constant(object);
+     *
      * getter() === object;
      * // => true
      */
@@ -10337,6 +11073,7 @@ process.chdir = function (dir) {
      * @example
      *
      * var object = { 'user': 'fred' };
+     *
      * _.identity(object) === object;
      * // => true
      */
@@ -10349,6 +11086,11 @@ process.chdir = function (dir) {
      * and `source`, returning `true` if the given object has equivalent property
      * values, else `false`.
      *
+     * **Note:** This method supports comparing arrays, booleans, `Date` objects,
+     * numbers, `Object` objects, regexes, and strings. Objects are compared by
+     * their own, not inherited, enumerable properties. For comparing a single
+     * own or inherited property value see `_.matchesProperty`.
+     *
      * @static
      * @memberOf _
      * @category Utility
@@ -10357,26 +11099,52 @@ process.chdir = function (dir) {
      * @example
      *
      * var users = [
-     *   { 'user': 'fred',   'age': 40 },
-     *   { 'user': 'barney', 'age': 36 }
+     *   { 'user': 'barney', 'age': 36, 'active': true },
+     *   { 'user': 'fred',   'age': 40, 'active': false }
      * ];
      *
-     * var matchesAge = _.matches({ 'age': 36 });
-     *
-     * _.filter(users, matchesAge);
-     * // => [{ 'user': 'barney', 'age': 36 }]
-     *
-     * _.find(users, matchesAge);
-     * // => { 'user': 'barney', 'age': 36 }
+     * _.filter(users, _.matches({ 'age': 40, 'active': false }));
+     * // => [{ 'user': 'fred', 'age': 40, 'active': false }]
      */
     function matches(source) {
       return baseMatches(baseClone(source, true));
     }
 
     /**
+     * Creates a function which compares the property value of `key` on a given
+     * object to `value`.
+     *
+     * **Note:** This method supports comparing arrays, booleans, `Date` objects,
+     * numbers, `Object` objects, regexes, and strings. Objects are compared by
+     * their own, not inherited, enumerable properties.
+     *
+     * @static
+     * @memberOf _
+     * @category Utility
+     * @param {string} key The key of the property to get.
+     * @param {*} value The value to compare.
+     * @returns {Function} Returns the new function.
+     * @example
+     *
+     * var users = [
+     *   { 'user': 'barney' },
+     *   { 'user': 'fred' }
+     * ];
+     *
+     * _.find(users, _.matchesProperty('user', 'fred'));
+     * // => { 'user': 'fred' }
+     */
+    function matchesProperty(key, value) {
+      return baseMatchesProperty(key + '', baseClone(value, true));
+    }
+
+    /**
      * Adds all own enumerable function properties of a source object to the
      * destination object. If `object` is a function then methods are added to
      * its prototype as well.
+     *
+     * **Note:** Use `_.runInContext` to create a pristine `lodash` function
+     * for mixins to avoid conflicts caused by modifying the original.
      *
      * @static
      * @memberOf _
@@ -10394,6 +11162,9 @@ process.chdir = function (dir) {
      *     return /[aeiou]/i.test(v);
      *   });
      * }
+     *
+     * // use `_.runInContext` to avoid conflicts (esp. in Node.js)
+     * var _ = require('lodash').runInContext();
      *
      * _.mixin({ 'vowels': vowels });
      * _.vowels('fred');
@@ -10442,8 +11213,10 @@ process.chdir = function (dir) {
             return function() {
               var chainAll = this.__chain__;
               if (chain || chainAll) {
-                var result = object(this.__wrapped__);
-                (result.__actions__ = arrayCopy(this.__actions__)).push({ 'func': func, 'args': arguments, 'thisArg': object });
+                var result = object(this.__wrapped__),
+                    actions = result.__actions__ = arrayCopy(this.__actions__);
+
+                actions.push({ 'func': func, 'args': arguments, 'thisArg': object });
                 result.__chain__ = chainAll;
                 return result;
               }
@@ -10475,7 +11248,8 @@ process.chdir = function (dir) {
     }
 
     /**
-     * A no-operation function.
+     * A no-operation function which returns `undefined` regardless of the
+     * arguments it receives.
      *
      * @static
      * @memberOf _
@@ -10483,6 +11257,7 @@ process.chdir = function (dir) {
      * @example
      *
      * var object = { 'user': 'fred' };
+     *
      * _.noop(object) === undefined;
      * // => true
      */
@@ -10508,7 +11283,7 @@ process.chdir = function (dir) {
      * var getName = _.property('user');
      *
      * _.map(users, getName);
-     * // => ['fred', barney']
+     * // => ['fred', 'barney']
      *
      * _.pluck(_.sortBy(users, getName), 'user');
      * // => ['barney', 'fred']
@@ -10518,7 +11293,7 @@ process.chdir = function (dir) {
     }
 
     /**
-     * The inverse of `_.property`; this method creates a function which returns
+     * The opposite of `_.property`; this method creates a function which returns
      * the property value of a given key on `object`.
      *
      * @static
@@ -10528,11 +11303,11 @@ process.chdir = function (dir) {
      * @returns {Function} Returns the new function.
      * @example
      *
-     * var object = { 'user': 'fred', 'age': 40, 'active': true };
-     * _.map(['active', 'user'], _.propertyOf(object));
-     * // => [true, 'fred']
-     *
      * var object = { 'a': 3, 'b': 1, 'c': 2 };
+     *
+     * _.map(['a', 'c'], _.propertyOf(object));
+     * // => [3, 2]
+     *
      * _.sortBy(['a', 'b', 'c'], _.propertyOf(object));
      * // => ['b', 'c', 'a']
      */
@@ -10544,8 +11319,9 @@ process.chdir = function (dir) {
 
     /**
      * Creates an array of numbers (positive and/or negative) progressing from
-     * `start` up to, but not including, `end`. If `start` is less than `end` a
-     * zero-length range is created unless a negative `step` is specified.
+     * `start` up to, but not including, `end`. If `end` is not specified it is
+     * set to `start` with `start` then set to `0`. If `start` is less than `end`
+     * a zero-length range is created unless a negative `step` is specified.
      *
      * @static
      * @memberOf _
@@ -10617,10 +11393,14 @@ process.chdir = function (dir) {
      * var diceRolls = _.times(3, _.partial(_.random, 1, 6, false));
      * // => [3, 6, 4]
      *
-     * _.times(3, function(n) { mage.castSpell(n); });
+     * _.times(3, function(n) {
+     *   mage.castSpell(n);
+     * });
      * // => invokes `mage.castSpell(n)` three times with `n` of `0`, `1`, and `2` respectively
      *
-     * _.times(3, function(n) { this.cast(n); }, mage);
+     * _.times(3, function(n) {
+     *   this.cast(n);
+     * }, mage);
      * // => also invokes `mage.castSpell(n)` three times
      */
     function times(n, iteratee, thisArg) {
@@ -10668,8 +11448,180 @@ process.chdir = function (dir) {
 
     /*------------------------------------------------------------------------*/
 
-    // Ensure `new LodashWrapper` is an instance of `lodash`.
-    LodashWrapper.prototype = lodash.prototype;
+    /**
+     * Adds two numbers.
+     *
+     * @static
+     * @memberOf _
+     * @category Math
+     * @param {number} augend The first number to add.
+     * @param {number} addend The second number to add.
+     * @returns {number} Returns the sum.
+     * @example
+     *
+     * _.add(6, 4);
+     * // => 10
+     */
+    function add(augend, addend) {
+      return augend + addend;
+    }
+
+    /**
+     * Gets the maximum value of `collection`. If `collection` is empty or falsey
+     * `-Infinity` is returned. If an iteratee function is provided it is invoked
+     * for each value in `collection` to generate the criterion by which the value
+     * is ranked. The `iteratee` is bound to `thisArg` and invoked with three
+     * arguments: (value, index, collection).
+     *
+     * If a property name is provided for `iteratee` the created `_.property`
+     * style callback returns the property value of the given element.
+     *
+     * If a value is also provided for `thisArg` the created `_.matchesProperty`
+     * style callback returns `true` for elements that have a matching property
+     * value, else `false`.
+     *
+     * If an object is provided for `iteratee` the created `_.matches` style
+     * callback returns `true` for elements that have the properties of the given
+     * object, else `false`.
+     *
+     * @static
+     * @memberOf _
+     * @category Math
+     * @param {Array|Object|string} collection The collection to iterate over.
+     * @param {Function|Object|string} [iteratee] The function invoked per iteration.
+     * @param {*} [thisArg] The `this` binding of `iteratee`.
+     * @returns {*} Returns the maximum value.
+     * @example
+     *
+     * _.max([4, 2, 8, 6]);
+     * // => 8
+     *
+     * _.max([]);
+     * // => -Infinity
+     *
+     * var users = [
+     *   { 'user': 'barney', 'age': 36 },
+     *   { 'user': 'fred',   'age': 40 }
+     * ];
+     *
+     * _.max(users, function(chr) {
+     *   return chr.age;
+     * });
+     * // => { 'user': 'fred', 'age': 40 }
+     *
+     * // using the `_.property` callback shorthand
+     * _.max(users, 'age');
+     * // => { 'user': 'fred', 'age': 40 }
+     */
+    var max = createExtremum(arrayMax);
+
+    /**
+     * Gets the minimum value of `collection`. If `collection` is empty or falsey
+     * `Infinity` is returned. If an iteratee function is provided it is invoked
+     * for each value in `collection` to generate the criterion by which the value
+     * is ranked. The `iteratee` is bound to `thisArg` and invoked with three
+     * arguments: (value, index, collection).
+     *
+     * If a property name is provided for `iteratee` the created `_.property`
+     * style callback returns the property value of the given element.
+     *
+     * If a value is also provided for `thisArg` the created `_.matchesProperty`
+     * style callback returns `true` for elements that have a matching property
+     * value, else `false`.
+     *
+     * If an object is provided for `iteratee` the created `_.matches` style
+     * callback returns `true` for elements that have the properties of the given
+     * object, else `false`.
+     *
+     * @static
+     * @memberOf _
+     * @category Math
+     * @param {Array|Object|string} collection The collection to iterate over.
+     * @param {Function|Object|string} [iteratee] The function invoked per iteration.
+     * @param {*} [thisArg] The `this` binding of `iteratee`.
+     * @returns {*} Returns the minimum value.
+     * @example
+     *
+     * _.min([4, 2, 8, 6]);
+     * // => 2
+     *
+     * _.min([]);
+     * // => Infinity
+     *
+     * var users = [
+     *   { 'user': 'barney', 'age': 36 },
+     *   { 'user': 'fred',   'age': 40 }
+     * ];
+     *
+     * _.min(users, function(chr) {
+     *   return chr.age;
+     * });
+     * // => { 'user': 'barney', 'age': 36 }
+     *
+     * // using the `_.property` callback shorthand
+     * _.min(users, 'age');
+     * // => { 'user': 'barney', 'age': 36 }
+     */
+    var min = createExtremum(arrayMin, true);
+
+    /**
+     * Gets the sum of the values in `collection`.
+     *
+     * @static
+     * @memberOf _
+     * @category Math
+     * @param {Array|Object|string} collection The collection to iterate over.
+     * @param {Function|Object|string} [iteratee] The function invoked per iteration.
+     * @param {*} [thisArg] The `this` binding of `iteratee`.
+     * @returns {number} Returns the sum.
+     * @example
+     *
+     * _.sum([4, 6]);
+     * // => 10
+     *
+     * _.sum({ 'a': 4, 'b': 6 });
+     * // => 10
+     *
+     * var objects = [
+     *   { 'n': 4 },
+     *   { 'n': 6 }
+     * ];
+     *
+     * _.sum(objects, function(object) {
+     *   return object.n;
+     * });
+     * // => 10
+     *
+     * // using the `_.property` callback shorthand
+     * _.sum(objects, 'n');
+     * // => 10
+     */
+    function sum(collection, iteratee, thisArg) {
+      if (thisArg && isIterateeCall(collection, iteratee, thisArg)) {
+        iteratee = null;
+      }
+      var func = getCallback(),
+          noIteratee = iteratee == null;
+
+      if (!(func === baseCallback && noIteratee)) {
+        noIteratee = false;
+        iteratee = func(iteratee, thisArg, 3);
+      }
+      return noIteratee
+        ? arraySum(isArray(collection) ? collection : toIterable(collection))
+        : baseSum(collection, iteratee);
+    }
+
+    /*------------------------------------------------------------------------*/
+
+    // Ensure wrappers are instances of `baseLodash`.
+    lodash.prototype = baseLodash.prototype;
+
+    LodashWrapper.prototype = baseCreate(baseLodash.prototype);
+    LodashWrapper.prototype.constructor = LodashWrapper;
+
+    LazyWrapper.prototype = baseCreate(baseLodash.prototype);
+    LazyWrapper.prototype.constructor = LazyWrapper;
 
     // Add functions to the `Map` cache.
     MapCache.prototype['delete'] = mapDelete;
@@ -10710,6 +11662,7 @@ process.chdir = function (dir) {
     lodash.dropRight = dropRight;
     lodash.dropRightWhile = dropRightWhile;
     lodash.dropWhile = dropWhile;
+    lodash.fill = fill;
     lodash.filter = filter;
     lodash.flatten = flatten;
     lodash.flattenDeep = flattenDeep;
@@ -10733,6 +11686,7 @@ process.chdir = function (dir) {
     lodash.map = map;
     lodash.mapValues = mapValues;
     lodash.matches = matches;
+    lodash.matchesProperty = matchesProperty;
     lodash.memoize = memoize;
     lodash.merge = merge;
     lodash.mixin = mixin;
@@ -10754,10 +11708,13 @@ process.chdir = function (dir) {
     lodash.reject = reject;
     lodash.remove = remove;
     lodash.rest = rest;
+    lodash.restParam = restParam;
     lodash.shuffle = shuffle;
     lodash.slice = slice;
     lodash.sortBy = sortBy;
     lodash.sortByAll = sortByAll;
+    lodash.sortByOrder = sortByOrder;
+    lodash.spread = spread;
     lodash.take = take;
     lodash.takeRight = takeRight;
     lodash.takeRightWhile = takeRightWhile;
@@ -10801,6 +11758,7 @@ process.chdir = function (dir) {
     /*------------------------------------------------------------------------*/
 
     // Add functions that return unwrapped values when chaining.
+    lodash.add = add;
     lodash.attempt = attempt;
     lodash.camelCase = camelCase;
     lodash.capitalize = capitalize;
@@ -10823,6 +11781,7 @@ process.chdir = function (dir) {
     lodash.identity = identity;
     lodash.includes = includes;
     lodash.indexOf = indexOf;
+    lodash.inRange = inRange;
     lodash.isArguments = isArguments;
     lodash.isArray = isArray;
     lodash.isBoolean = isBoolean;
@@ -10869,6 +11828,7 @@ process.chdir = function (dir) {
     lodash.sortedLastIndex = sortedLastIndex;
     lodash.startCase = startCase;
     lodash.startsWith = startsWith;
+    lodash.sum = sum;
     lodash.template = template;
     lodash.trim = trim;
     lodash.trimLeft = trimLeft;
@@ -10930,35 +11890,47 @@ process.chdir = function (dir) {
     });
 
     // Add `LazyWrapper` methods that accept an `iteratee` value.
-    arrayEach(['filter', 'map', 'takeWhile'], function(methodName, index) {
-      var isFilter = index == LAZY_FILTER_FLAG;
+    arrayEach(['dropWhile', 'filter', 'map', 'takeWhile'], function(methodName, type) {
+      var isFilter = type != LAZY_MAP_FLAG,
+          isDropWhile = type == LAZY_DROP_WHILE_FLAG;
 
       LazyWrapper.prototype[methodName] = function(iteratee, thisArg) {
-        var result = this.clone(),
-            filtered = result.filtered,
-            iteratees = result.iteratees || (result.iteratees = []);
+        var filtered = this.__filtered__,
+            result = (filtered && isDropWhile) ? new LazyWrapper(this) : this.clone(),
+            iteratees = result.__iteratees__ || (result.__iteratees__ = []);
 
-        result.filtered = filtered || isFilter || (index == LAZY_WHILE_FLAG && result.dir < 0);
-        iteratees.push({ 'iteratee': getCallback(iteratee, thisArg, 3), 'type': index });
+        iteratees.push({
+          'done': false,
+          'count': 0,
+          'index': 0,
+          'iteratee': getCallback(iteratee, thisArg, 1),
+          'limit': -1,
+          'type': type
+        });
+
+        result.__filtered__ = filtered || isFilter;
         return result;
       };
     });
 
     // Add `LazyWrapper` methods for `_.drop` and `_.take` variants.
     arrayEach(['drop', 'take'], function(methodName, index) {
-      var countName = methodName + 'Count',
-          whileName = methodName + 'While';
+      var whileName = methodName + 'While';
 
       LazyWrapper.prototype[methodName] = function(n) {
-        n = n == null ? 1 : nativeMax(+n || 0, 0);
+        var filtered = this.__filtered__,
+            result = (filtered && !index) ? this.dropWhile() : this.clone();
 
-        var result = this.clone();
-        if (result.filtered) {
-          var value = result[countName];
-          result[countName] = index ? nativeMin(value, n) : (value + n);
+        n = n == null ? 1 : nativeMax(floor(n) || 0, 0);
+        if (filtered) {
+          if (index) {
+            result.__takeCount__ = nativeMin(result.__takeCount__, n);
+          } else {
+            last(result.__iteratees__).limit = n;
+          }
         } else {
-          var views = result.views || (result.views = []);
-          views.push({ 'size': n, 'type': methodName + (result.dir < 0 ? 'Right' : '') });
+          var views = result.__views__ || (result.__views__ = []);
+          views.push({ 'size': n, 'type': methodName + (result.__dir__ < 0 ? 'Right' : '') });
         }
         return result;
       };
@@ -10974,7 +11946,7 @@ process.chdir = function (dir) {
 
     // Add `LazyWrapper` methods for `_.first` and `_.last`.
     arrayEach(['first', 'last'], function(methodName, index) {
-      var takeName = 'take' + (index ? 'Right': '');
+      var takeName = 'take' + (index ? 'Right' : '');
 
       LazyWrapper.prototype[methodName] = function() {
         return this[takeName](1).value()[0];
@@ -10996,27 +11968,18 @@ process.chdir = function (dir) {
           createCallback = index ? baseMatches : baseProperty;
 
       LazyWrapper.prototype[methodName] = function(value) {
-        return this[operationName](createCallback(index ? value : (value + '')));
+        return this[operationName](createCallback(value));
       };
     });
 
-    LazyWrapper.prototype.dropWhile = function(iteratee, thisArg) {
-      var done,
-          lastIndex,
-          isRight = this.dir < 0;
-
-      iteratee = getCallback(iteratee, thisArg, 3);
-      return this.filter(function(value, index, array) {
-        done = done && (isRight ? index < lastIndex : index > lastIndex);
-        lastIndex = index;
-        return done || (done = !iteratee(value, index, array));
-      });
+    LazyWrapper.prototype.compact = function() {
+      return this.filter(identity);
     };
 
-    LazyWrapper.prototype.reject = function(iteratee, thisArg) {
-      iteratee = getCallback(iteratee, thisArg, 3);
-      return this.filter(function(value, index, array) {
-        return !iteratee(value, index, array);
+    LazyWrapper.prototype.reject = function(predicate, thisArg) {
+      predicate = getCallback(predicate, thisArg, 1);
+      return this.filter(function(value) {
+        return !predicate(value);
       });
     };
 
@@ -11031,19 +11994,34 @@ process.chdir = function (dir) {
       return result;
     };
 
+    LazyWrapper.prototype.toArray = function() {
+      return this.drop(0);
+    };
+
     // Add `LazyWrapper` methods to `lodash.prototype`.
     baseForOwn(LazyWrapper.prototype, function(func, methodName) {
-      var lodashFunc = lodash[methodName],
+      var lodashFunc = lodash[methodName];
+      if (!lodashFunc) {
+        return;
+      }
+      var checkIteratee = /^(?:filter|map|reject)|While$/.test(methodName),
           retUnwrapped = /^(?:first|last)$/.test(methodName);
 
       lodash.prototype[methodName] = function() {
-        var value = this.__wrapped__,
-            args = arguments,
+        var args = arguments,
+            length = args.length,
             chainAll = this.__chain__,
+            value = this.__wrapped__,
             isHybrid = !!this.__actions__.length,
             isLazy = value instanceof LazyWrapper,
-            onlyLazy = isLazy && !isHybrid;
+            iteratee = args[0],
+            useLazy = isLazy || isArray(value);
 
+        if (useLazy && checkIteratee && typeof iteratee == 'function' && iteratee.length != 1) {
+          // avoid lazy use if the iteratee has a `length` other than `1`
+          isLazy = useLazy = false;
+        }
+        var onlyLazy = isLazy && !isHybrid;
         if (retUnwrapped && !chainAll) {
           return onlyLazy
             ? func.call(value)
@@ -11054,12 +12032,12 @@ process.chdir = function (dir) {
           push.apply(otherArgs, args);
           return lodashFunc.apply(lodash, otherArgs);
         };
-        if (isLazy || isArray(value)) {
+        if (useLazy) {
           var wrapper = onlyLazy ? value : new LazyWrapper(this),
               result = func.apply(wrapper, args);
 
-          if (!retUnwrapped && (isHybrid || result.actions)) {
-            var actions = result.actions || (result.actions = []);
+          if (!retUnwrapped && (isHybrid || result.__actions__)) {
+            var actions = result.__actions__ || (result.__actions__ = []);
             actions.push({ 'func': thru, 'args': [interceptor], 'thisArg': lodash });
           }
           return new LodashWrapper(result, chainAll);
@@ -11068,11 +12046,11 @@ process.chdir = function (dir) {
       };
     });
 
-    // Add `Array.prototype` functions to `lodash.prototype`.
-    arrayEach(['concat', 'join', 'pop', 'push', 'shift', 'sort', 'splice', 'unshift'], function(methodName) {
-      var func = arrayProto[methodName],
+    // Add `Array` and `String` methods to `lodash.prototype`.
+    arrayEach(['concat', 'join', 'pop', 'push', 'replace', 'shift', 'sort', 'splice', 'split', 'unshift'], function(methodName) {
+      var func = (/^(?:replace|split)$/.test(methodName) ? stringProto : arrayProto)[methodName],
           chainName = /^(?:push|sort|unshift)$/.test(methodName) ? 'tap' : 'thru',
-          retUnwrapped = /^(?:join|pop|shift)$/.test(methodName);
+          retUnwrapped = /^(?:join|pop|replace|shift)$/.test(methodName);
 
       lodash.prototype[methodName] = function() {
         var args = arguments;
@@ -11085,18 +12063,33 @@ process.chdir = function (dir) {
       };
     });
 
+    // Map minified function names to their real names.
+    baseForOwn(LazyWrapper.prototype, function(func, methodName) {
+      var lodashFunc = lodash[methodName];
+      if (lodashFunc) {
+        var key = lodashFunc.name,
+            names = realNames[key] || (realNames[key] = []);
+
+        names.push({ 'name': methodName, 'func': lodashFunc });
+      }
+    });
+
+    realNames[createHybridWrapper(null, BIND_KEY_FLAG).name] = [{ 'name': 'wrapper', 'func': null }];
+
     // Add functions to the lazy wrapper.
     LazyWrapper.prototype.clone = lazyClone;
     LazyWrapper.prototype.reverse = lazyReverse;
     LazyWrapper.prototype.value = lazyValue;
 
-    // Add chaining functions to the lodash wrapper.
+    // Add chaining functions to the `lodash` wrapper.
     lodash.prototype.chain = wrapperChain;
+    lodash.prototype.commit = wrapperCommit;
+    lodash.prototype.plant = wrapperPlant;
     lodash.prototype.reverse = wrapperReverse;
     lodash.prototype.toString = wrapperToString;
-    lodash.prototype.toJSON = lodash.prototype.valueOf = lodash.prototype.value = wrapperValue;
+    lodash.prototype.run = lodash.prototype.toJSON = lodash.prototype.valueOf = lodash.prototype.value = wrapperValue;
 
-    // Add function aliases to the lodash wrapper.
+    // Add function aliases to the `lodash` wrapper.
     lodash.prototype.collect = lodash.prototype.map;
     lodash.prototype.head = lodash.prototype.first;
     lodash.prototype.select = lodash.prototype.filter;
@@ -11141,7 +12134,6 @@ process.chdir = function (dir) {
   }
 }.call(this));
 
-
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],4:[function(require,module,exports){
 /**
@@ -11169,7 +12161,6 @@ var AutoFocusMixin = {
 };
 
 module.exports = AutoFocusMixin;
-
 
 },{"./focusNode":114}],5:[function(require,module,exports){
 /**
@@ -11393,7 +12384,6 @@ var BeforeInputEventPlugin = {
 
 module.exports = BeforeInputEventPlugin;
 
-
 },{"./EventConstants":18,"./EventPropagators":23,"./ExecutionEnvironment":24,"./SyntheticInputEvent":92,"./keyOf":136}],6:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -11512,7 +12502,6 @@ var CSSProperty = {
 };
 
 module.exports = CSSProperty;
-
 
 },{}],7:[function(require,module,exports){
 (function (process){
@@ -11648,9 +12637,8 @@ var CSSPropertyOperations = {
 
 module.exports = CSSPropertyOperations;
 
-
-}).call(this,require("VCmEsw"))
-},{"./CSSProperty":6,"./ExecutionEnvironment":24,"./camelizeStyleName":103,"./dangerousStyleValue":108,"./hyphenateStyleName":127,"./memoizeStringOnly":138,"./warning":148,"VCmEsw":2}],8:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./CSSProperty":6,"./ExecutionEnvironment":24,"./camelizeStyleName":103,"./dangerousStyleValue":108,"./hyphenateStyleName":127,"./memoizeStringOnly":138,"./warning":148,"1YiZ5S":2}],8:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -11749,9 +12737,8 @@ PooledClass.addPoolingTo(CallbackQueue);
 
 module.exports = CallbackQueue;
 
-
-}).call(this,require("VCmEsw"))
-},{"./Object.assign":29,"./PooledClass":30,"./invariant":129,"VCmEsw":2}],9:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./Object.assign":29,"./PooledClass":30,"./invariant":129,"1YiZ5S":2}],9:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -12133,7 +13120,6 @@ var ChangeEventPlugin = {
 
 module.exports = ChangeEventPlugin;
 
-
 },{"./EventConstants":18,"./EventPluginHub":20,"./EventPropagators":23,"./ExecutionEnvironment":24,"./ReactUpdates":82,"./SyntheticEvent":90,"./isEventSupported":130,"./isTextInputElement":132,"./keyOf":136}],10:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -12158,7 +13144,6 @@ var ClientReactRootIndex = {
 };
 
 module.exports = ClientReactRootIndex;
-
 
 },{}],11:[function(require,module,exports){
 /**
@@ -12419,7 +13404,6 @@ var CompositionEventPlugin = {
 
 module.exports = CompositionEventPlugin;
 
-
 },{"./EventConstants":18,"./EventPropagators":23,"./ExecutionEnvironment":24,"./ReactInputSelection":62,"./SyntheticCompositionEvent":88,"./getTextContentAccessor":124,"./keyOf":136}],12:[function(require,module,exports){
 (function (process){
 /**
@@ -12594,9 +13578,8 @@ var DOMChildrenOperations = {
 
 module.exports = DOMChildrenOperations;
 
-
-}).call(this,require("VCmEsw"))
-},{"./Danger":15,"./ReactMultiChildUpdateTypes":68,"./getTextContentAccessor":124,"./invariant":129,"VCmEsw":2}],13:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./Danger":15,"./ReactMultiChildUpdateTypes":68,"./getTextContentAccessor":124,"./invariant":129,"1YiZ5S":2}],13:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -12894,9 +13877,8 @@ var DOMProperty = {
 
 module.exports = DOMProperty;
 
-
-}).call(this,require("VCmEsw"))
-},{"./invariant":129,"VCmEsw":2}],14:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./invariant":129,"1YiZ5S":2}],14:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -13092,9 +14074,8 @@ var DOMPropertyOperations = {
 
 module.exports = DOMPropertyOperations;
 
-
-}).call(this,require("VCmEsw"))
-},{"./DOMProperty":13,"./escapeTextForBrowser":112,"./memoizeStringOnly":138,"./warning":148,"VCmEsw":2}],15:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./DOMProperty":13,"./escapeTextForBrowser":112,"./memoizeStringOnly":138,"./warning":148,"1YiZ5S":2}],15:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -13279,9 +14260,8 @@ var Danger = {
 
 module.exports = Danger;
 
-
-}).call(this,require("VCmEsw"))
-},{"./ExecutionEnvironment":24,"./createNodesFromMarkup":107,"./emptyFunction":110,"./getMarkupWrap":121,"./invariant":129,"VCmEsw":2}],16:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./ExecutionEnvironment":24,"./createNodesFromMarkup":107,"./emptyFunction":110,"./getMarkupWrap":121,"./invariant":129,"1YiZ5S":2}],16:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -13320,7 +14300,6 @@ var DefaultEventPluginOrder = [
 ];
 
 module.exports = DefaultEventPluginOrder;
-
 
 },{"./keyOf":136}],17:[function(require,module,exports){
 /**
@@ -13462,7 +14441,6 @@ var EnterLeaveEventPlugin = {
 
 module.exports = EnterLeaveEventPlugin;
 
-
 },{"./EventConstants":18,"./EventPropagators":23,"./ReactMount":66,"./SyntheticMouseEvent":94,"./keyOf":136}],18:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -13534,7 +14512,6 @@ var EventConstants = {
 };
 
 module.exports = EventConstants;
-
 
 },{"./keyMirror":135}],19:[function(require,module,exports){
 (function (process){
@@ -13625,9 +14602,8 @@ var EventListener = {
 
 module.exports = EventListener;
 
-
-}).call(this,require("VCmEsw"))
-},{"./emptyFunction":110,"VCmEsw":2}],20:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./emptyFunction":110,"1YiZ5S":2}],20:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -13902,9 +14878,8 @@ var EventPluginHub = {
 
 module.exports = EventPluginHub;
 
-
-}).call(this,require("VCmEsw"))
-},{"./EventPluginRegistry":21,"./EventPluginUtils":22,"./accumulateInto":100,"./forEachAccumulated":115,"./invariant":129,"VCmEsw":2}],21:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./EventPluginRegistry":21,"./EventPluginUtils":22,"./accumulateInto":100,"./forEachAccumulated":115,"./invariant":129,"1YiZ5S":2}],21:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -14183,9 +15158,8 @@ var EventPluginRegistry = {
 
 module.exports = EventPluginRegistry;
 
-
-}).call(this,require("VCmEsw"))
-},{"./invariant":129,"VCmEsw":2}],22:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./invariant":129,"1YiZ5S":2}],22:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -14405,9 +15379,8 @@ var EventPluginUtils = {
 
 module.exports = EventPluginUtils;
 
-
-}).call(this,require("VCmEsw"))
-},{"./EventConstants":18,"./invariant":129,"VCmEsw":2}],23:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./EventConstants":18,"./invariant":129,"1YiZ5S":2}],23:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -14548,9 +15521,8 @@ var EventPropagators = {
 
 module.exports = EventPropagators;
 
-
-}).call(this,require("VCmEsw"))
-},{"./EventConstants":18,"./EventPluginHub":20,"./accumulateInto":100,"./forEachAccumulated":115,"VCmEsw":2}],24:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./EventConstants":18,"./EventPluginHub":20,"./accumulateInto":100,"./forEachAccumulated":115,"1YiZ5S":2}],24:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -14594,7 +15566,6 @@ var ExecutionEnvironment = {
 };
 
 module.exports = ExecutionEnvironment;
-
 
 },{}],25:[function(require,module,exports){
 /**
@@ -14788,7 +15759,6 @@ var HTMLDOMPropertyConfig = {
 
 module.exports = HTMLDOMPropertyConfig;
 
-
 },{"./DOMProperty":13,"./ExecutionEnvironment":24}],26:[function(require,module,exports){
 (function (process){
 /**
@@ -14944,9 +15914,8 @@ var LinkedValueUtils = {
 
 module.exports = LinkedValueUtils;
 
-
-}).call(this,require("VCmEsw"))
-},{"./ReactPropTypes":75,"./invariant":129,"VCmEsw":2}],27:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./ReactPropTypes":75,"./invariant":129,"1YiZ5S":2}],27:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2014, Facebook, Inc.
@@ -14995,9 +15964,8 @@ var LocalEventTrapMixin = {
 
 module.exports = LocalEventTrapMixin;
 
-
-}).call(this,require("VCmEsw"))
-},{"./ReactBrowserEventEmitter":33,"./accumulateInto":100,"./forEachAccumulated":115,"./invariant":129,"VCmEsw":2}],28:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./ReactBrowserEventEmitter":33,"./accumulateInto":100,"./forEachAccumulated":115,"./invariant":129,"1YiZ5S":2}],28:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -15055,7 +16023,6 @@ var MobileSafariClickEventPlugin = {
 
 module.exports = MobileSafariClickEventPlugin;
 
-
 },{"./EventConstants":18,"./emptyFunction":110}],29:[function(require,module,exports){
 /**
  * Copyright 2014, Facebook, Inc.
@@ -15102,7 +16069,6 @@ function assign(target, sources) {
 };
 
 module.exports = assign;
-
 
 },{}],30:[function(require,module,exports){
 (function (process){
@@ -15219,9 +16185,8 @@ var PooledClass = {
 
 module.exports = PooledClass;
 
-
-}).call(this,require("VCmEsw"))
-},{"./invariant":129,"VCmEsw":2}],31:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./invariant":129,"1YiZ5S":2}],31:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -15408,9 +16373,8 @@ React.version = '0.12.2';
 
 module.exports = React;
 
-
-}).call(this,require("VCmEsw"))
-},{"./DOMPropertyOperations":14,"./EventPluginUtils":22,"./ExecutionEnvironment":24,"./Object.assign":29,"./ReactChildren":34,"./ReactComponent":35,"./ReactCompositeComponent":37,"./ReactContext":38,"./ReactCurrentOwner":39,"./ReactDOM":40,"./ReactDOMComponent":42,"./ReactDefaultInjection":52,"./ReactElement":55,"./ReactElementValidator":56,"./ReactInstanceHandles":63,"./ReactLegacyElement":64,"./ReactMount":66,"./ReactMultiChild":67,"./ReactPerf":71,"./ReactPropTypes":75,"./ReactServerRendering":79,"./ReactTextComponent":81,"./deprecated":109,"./onlyChild":140,"VCmEsw":2}],32:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./DOMPropertyOperations":14,"./EventPluginUtils":22,"./ExecutionEnvironment":24,"./Object.assign":29,"./ReactChildren":34,"./ReactComponent":35,"./ReactCompositeComponent":37,"./ReactContext":38,"./ReactCurrentOwner":39,"./ReactDOM":40,"./ReactDOMComponent":42,"./ReactDefaultInjection":52,"./ReactElement":55,"./ReactElementValidator":56,"./ReactInstanceHandles":63,"./ReactLegacyElement":64,"./ReactMount":66,"./ReactMultiChild":67,"./ReactPerf":71,"./ReactPropTypes":75,"./ReactServerRendering":79,"./ReactTextComponent":81,"./deprecated":109,"./onlyChild":140,"1YiZ5S":2}],32:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -15452,9 +16416,8 @@ var ReactBrowserComponentMixin = {
 
 module.exports = ReactBrowserComponentMixin;
 
-
-}).call(this,require("VCmEsw"))
-},{"./ReactEmptyComponent":57,"./ReactMount":66,"./invariant":129,"VCmEsw":2}],33:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./ReactEmptyComponent":57,"./ReactMount":66,"./invariant":129,"1YiZ5S":2}],33:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -15809,7 +16772,6 @@ var ReactBrowserEventEmitter = assign({}, ReactEventEmitterMixin, {
 
 module.exports = ReactBrowserEventEmitter;
 
-
 },{"./EventConstants":18,"./EventPluginHub":20,"./EventPluginRegistry":21,"./Object.assign":29,"./ReactEventEmitterMixin":59,"./ViewportMetrics":99,"./isEventSupported":130}],34:[function(require,module,exports){
 (function (process){
 /**
@@ -15959,9 +16921,8 @@ var ReactChildren = {
 
 module.exports = ReactChildren;
 
-
-}).call(this,require("VCmEsw"))
-},{"./PooledClass":30,"./traverseAllChildren":147,"./warning":148,"VCmEsw":2}],35:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./PooledClass":30,"./traverseAllChildren":147,"./warning":148,"1YiZ5S":2}],35:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -16403,9 +17364,8 @@ var ReactComponent = {
 
 module.exports = ReactComponent;
 
-
-}).call(this,require("VCmEsw"))
-},{"./Object.assign":29,"./ReactElement":55,"./ReactOwner":70,"./ReactUpdates":82,"./invariant":129,"./keyMirror":135,"VCmEsw":2}],36:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./Object.assign":29,"./ReactElement":55,"./ReactOwner":70,"./ReactUpdates":82,"./invariant":129,"./keyMirror":135,"1YiZ5S":2}],36:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -16526,9 +17486,8 @@ var ReactComponentBrowserEnvironment = {
 
 module.exports = ReactComponentBrowserEnvironment;
 
-
-}).call(this,require("VCmEsw"))
-},{"./ReactDOMIDOperations":44,"./ReactMarkupChecksum":65,"./ReactMount":66,"./ReactPerf":71,"./ReactReconcileTransaction":77,"./getReactRootElementInContainer":123,"./invariant":129,"./setInnerHTML":143,"VCmEsw":2}],37:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./ReactDOMIDOperations":44,"./ReactMarkupChecksum":65,"./ReactMount":66,"./ReactPerf":71,"./ReactReconcileTransaction":77,"./getReactRootElementInContainer":123,"./invariant":129,"./setInnerHTML":143,"1YiZ5S":2}],37:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -17967,9 +18926,8 @@ var ReactCompositeComponent = {
 
 module.exports = ReactCompositeComponent;
 
-
-}).call(this,require("VCmEsw"))
-},{"./Object.assign":29,"./ReactComponent":35,"./ReactContext":38,"./ReactCurrentOwner":39,"./ReactElement":55,"./ReactElementValidator":56,"./ReactEmptyComponent":57,"./ReactErrorUtils":58,"./ReactLegacyElement":64,"./ReactOwner":70,"./ReactPerf":71,"./ReactPropTransferer":72,"./ReactPropTypeLocationNames":73,"./ReactPropTypeLocations":74,"./ReactUpdates":82,"./instantiateReactComponent":128,"./invariant":129,"./keyMirror":135,"./keyOf":136,"./mapObject":137,"./monitorCodeUse":139,"./shouldUpdateReactComponent":145,"./warning":148,"VCmEsw":2}],38:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./Object.assign":29,"./ReactComponent":35,"./ReactContext":38,"./ReactCurrentOwner":39,"./ReactElement":55,"./ReactElementValidator":56,"./ReactEmptyComponent":57,"./ReactErrorUtils":58,"./ReactLegacyElement":64,"./ReactOwner":70,"./ReactPerf":71,"./ReactPropTransferer":72,"./ReactPropTypeLocationNames":73,"./ReactPropTypeLocations":74,"./ReactUpdates":82,"./instantiateReactComponent":128,"./invariant":129,"./keyMirror":135,"./keyOf":136,"./mapObject":137,"./monitorCodeUse":139,"./shouldUpdateReactComponent":145,"./warning":148,"1YiZ5S":2}],38:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -18031,7 +18989,6 @@ var ReactContext = {
 
 module.exports = ReactContext;
 
-
 },{"./Object.assign":29}],39:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -18065,7 +19022,6 @@ var ReactCurrentOwner = {
 };
 
 module.exports = ReactCurrentOwner;
-
 
 },{}],40:[function(require,module,exports){
 (function (process){
@@ -18249,9 +19205,8 @@ var ReactDOM = mapObject({
 
 module.exports = ReactDOM;
 
-
-}).call(this,require("VCmEsw"))
-},{"./ReactElement":55,"./ReactElementValidator":56,"./ReactLegacyElement":64,"./mapObject":137,"VCmEsw":2}],41:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./ReactElement":55,"./ReactElementValidator":56,"./ReactLegacyElement":64,"./mapObject":137,"1YiZ5S":2}],41:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -18315,7 +19270,6 @@ var ReactDOMButton = ReactCompositeComponent.createClass({
 });
 
 module.exports = ReactDOMButton;
-
 
 },{"./AutoFocusMixin":4,"./ReactBrowserComponentMixin":32,"./ReactCompositeComponent":37,"./ReactDOM":40,"./ReactElement":55,"./keyMirror":135}],42:[function(require,module,exports){
 (function (process){
@@ -18803,9 +19757,8 @@ assign(
 
 module.exports = ReactDOMComponent;
 
-
-}).call(this,require("VCmEsw"))
-},{"./CSSPropertyOperations":7,"./DOMProperty":13,"./DOMPropertyOperations":14,"./Object.assign":29,"./ReactBrowserComponentMixin":32,"./ReactBrowserEventEmitter":33,"./ReactComponent":35,"./ReactMount":66,"./ReactMultiChild":67,"./ReactPerf":71,"./escapeTextForBrowser":112,"./invariant":129,"./isEventSupported":130,"./keyOf":136,"./monitorCodeUse":139,"VCmEsw":2}],43:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./CSSPropertyOperations":7,"./DOMProperty":13,"./DOMPropertyOperations":14,"./Object.assign":29,"./ReactBrowserComponentMixin":32,"./ReactBrowserEventEmitter":33,"./ReactComponent":35,"./ReactMount":66,"./ReactMultiChild":67,"./ReactPerf":71,"./escapeTextForBrowser":112,"./invariant":129,"./isEventSupported":130,"./keyOf":136,"./monitorCodeUse":139,"1YiZ5S":2}],43:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -18854,7 +19807,6 @@ var ReactDOMForm = ReactCompositeComponent.createClass({
 });
 
 module.exports = ReactDOMForm;
-
 
 },{"./EventConstants":18,"./LocalEventTrapMixin":27,"./ReactBrowserComponentMixin":32,"./ReactCompositeComponent":37,"./ReactDOM":40,"./ReactElement":55}],44:[function(require,module,exports){
 (function (process){
@@ -19041,9 +19993,8 @@ var ReactDOMIDOperations = {
 
 module.exports = ReactDOMIDOperations;
 
-
-}).call(this,require("VCmEsw"))
-},{"./CSSPropertyOperations":7,"./DOMChildrenOperations":12,"./DOMPropertyOperations":14,"./ReactMount":66,"./ReactPerf":71,"./invariant":129,"./setInnerHTML":143,"VCmEsw":2}],45:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./CSSPropertyOperations":7,"./DOMChildrenOperations":12,"./DOMPropertyOperations":14,"./ReactMount":66,"./ReactPerf":71,"./invariant":129,"./setInnerHTML":143,"1YiZ5S":2}],45:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -19090,7 +20041,6 @@ var ReactDOMImg = ReactCompositeComponent.createClass({
 });
 
 module.exports = ReactDOMImg;
-
 
 },{"./EventConstants":18,"./LocalEventTrapMixin":27,"./ReactBrowserComponentMixin":32,"./ReactCompositeComponent":37,"./ReactDOM":40,"./ReactElement":55}],46:[function(require,module,exports){
 (function (process){
@@ -19269,9 +20219,8 @@ var ReactDOMInput = ReactCompositeComponent.createClass({
 
 module.exports = ReactDOMInput;
 
-
-}).call(this,require("VCmEsw"))
-},{"./AutoFocusMixin":4,"./DOMPropertyOperations":14,"./LinkedValueUtils":26,"./Object.assign":29,"./ReactBrowserComponentMixin":32,"./ReactCompositeComponent":37,"./ReactDOM":40,"./ReactElement":55,"./ReactMount":66,"./ReactUpdates":82,"./invariant":129,"VCmEsw":2}],47:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./AutoFocusMixin":4,"./DOMPropertyOperations":14,"./LinkedValueUtils":26,"./Object.assign":29,"./ReactBrowserComponentMixin":32,"./ReactCompositeComponent":37,"./ReactDOM":40,"./ReactElement":55,"./ReactMount":66,"./ReactUpdates":82,"./invariant":129,"1YiZ5S":2}],47:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -19323,9 +20272,8 @@ var ReactDOMOption = ReactCompositeComponent.createClass({
 
 module.exports = ReactDOMOption;
 
-
-}).call(this,require("VCmEsw"))
-},{"./ReactBrowserComponentMixin":32,"./ReactCompositeComponent":37,"./ReactDOM":40,"./ReactElement":55,"./warning":148,"VCmEsw":2}],48:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./ReactBrowserComponentMixin":32,"./ReactCompositeComponent":37,"./ReactDOM":40,"./ReactElement":55,"./warning":148,"1YiZ5S":2}],48:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -19508,7 +20456,6 @@ var ReactDOMSelect = ReactCompositeComponent.createClass({
 });
 
 module.exports = ReactDOMSelect;
-
 
 },{"./AutoFocusMixin":4,"./LinkedValueUtils":26,"./Object.assign":29,"./ReactBrowserComponentMixin":32,"./ReactCompositeComponent":37,"./ReactDOM":40,"./ReactElement":55,"./ReactUpdates":82}],49:[function(require,module,exports){
 /**
@@ -19719,7 +20666,6 @@ var ReactDOMSelection = {
 
 module.exports = ReactDOMSelection;
 
-
 },{"./ExecutionEnvironment":24,"./getNodeForCharacterOffset":122,"./getTextContentAccessor":124}],50:[function(require,module,exports){
 (function (process){
 /**
@@ -19860,9 +20806,8 @@ var ReactDOMTextarea = ReactCompositeComponent.createClass({
 
 module.exports = ReactDOMTextarea;
 
-
-}).call(this,require("VCmEsw"))
-},{"./AutoFocusMixin":4,"./DOMPropertyOperations":14,"./LinkedValueUtils":26,"./Object.assign":29,"./ReactBrowserComponentMixin":32,"./ReactCompositeComponent":37,"./ReactDOM":40,"./ReactElement":55,"./ReactUpdates":82,"./invariant":129,"./warning":148,"VCmEsw":2}],51:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./AutoFocusMixin":4,"./DOMPropertyOperations":14,"./LinkedValueUtils":26,"./Object.assign":29,"./ReactBrowserComponentMixin":32,"./ReactCompositeComponent":37,"./ReactDOM":40,"./ReactElement":55,"./ReactUpdates":82,"./invariant":129,"./warning":148,"1YiZ5S":2}],51:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -19934,7 +20879,6 @@ var ReactDefaultBatchingStrategy = {
 };
 
 module.exports = ReactDefaultBatchingStrategy;
-
 
 },{"./Object.assign":29,"./ReactUpdates":82,"./Transaction":98,"./emptyFunction":110}],52:[function(require,module,exports){
 (function (process){
@@ -20064,9 +21008,8 @@ module.exports = {
   inject: inject
 };
 
-
-}).call(this,require("VCmEsw"))
-},{"./BeforeInputEventPlugin":5,"./ChangeEventPlugin":9,"./ClientReactRootIndex":10,"./CompositionEventPlugin":11,"./DefaultEventPluginOrder":16,"./EnterLeaveEventPlugin":17,"./ExecutionEnvironment":24,"./HTMLDOMPropertyConfig":25,"./MobileSafariClickEventPlugin":28,"./ReactBrowserComponentMixin":32,"./ReactComponentBrowserEnvironment":36,"./ReactDOMButton":41,"./ReactDOMComponent":42,"./ReactDOMForm":43,"./ReactDOMImg":45,"./ReactDOMInput":46,"./ReactDOMOption":47,"./ReactDOMSelect":48,"./ReactDOMTextarea":50,"./ReactDefaultBatchingStrategy":51,"./ReactDefaultPerf":53,"./ReactEventListener":60,"./ReactInjection":61,"./ReactInstanceHandles":63,"./ReactMount":66,"./SVGDOMPropertyConfig":83,"./SelectEventPlugin":84,"./ServerReactRootIndex":85,"./SimpleEventPlugin":86,"./createFullPageComponent":106,"VCmEsw":2}],53:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./BeforeInputEventPlugin":5,"./ChangeEventPlugin":9,"./ClientReactRootIndex":10,"./CompositionEventPlugin":11,"./DefaultEventPluginOrder":16,"./EnterLeaveEventPlugin":17,"./ExecutionEnvironment":24,"./HTMLDOMPropertyConfig":25,"./MobileSafariClickEventPlugin":28,"./ReactBrowserComponentMixin":32,"./ReactComponentBrowserEnvironment":36,"./ReactDOMButton":41,"./ReactDOMComponent":42,"./ReactDOMForm":43,"./ReactDOMImg":45,"./ReactDOMInput":46,"./ReactDOMOption":47,"./ReactDOMSelect":48,"./ReactDOMTextarea":50,"./ReactDefaultBatchingStrategy":51,"./ReactDefaultPerf":53,"./ReactEventListener":60,"./ReactInjection":61,"./ReactInstanceHandles":63,"./ReactMount":66,"./SVGDOMPropertyConfig":83,"./SelectEventPlugin":84,"./ServerReactRootIndex":85,"./SimpleEventPlugin":86,"./createFullPageComponent":106,"1YiZ5S":2}],53:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -20326,7 +21269,6 @@ var ReactDefaultPerf = {
 
 module.exports = ReactDefaultPerf;
 
-
 },{"./DOMProperty":13,"./ReactDefaultPerfAnalysis":54,"./ReactMount":66,"./ReactPerf":71,"./performanceNow":142}],54:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -20532,7 +21474,6 @@ var ReactDefaultPerfAnalysis = {
 };
 
 module.exports = ReactDefaultPerfAnalysis;
-
 
 },{"./Object.assign":29}],55:[function(require,module,exports){
 (function (process){
@@ -20779,9 +21720,8 @@ ReactElement.isValidElement = function(object) {
 
 module.exports = ReactElement;
 
-
-}).call(this,require("VCmEsw"))
-},{"./ReactContext":38,"./ReactCurrentOwner":39,"./warning":148,"VCmEsw":2}],56:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./ReactContext":38,"./ReactCurrentOwner":39,"./warning":148,"1YiZ5S":2}],56:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2014, Facebook, Inc.
@@ -21062,9 +22002,8 @@ var ReactElementValidator = {
 
 module.exports = ReactElementValidator;
 
-
-}).call(this,require("VCmEsw"))
-},{"./ReactCurrentOwner":39,"./ReactElement":55,"./ReactPropTypeLocations":74,"./monitorCodeUse":139,"./warning":148,"VCmEsw":2}],57:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./ReactCurrentOwner":39,"./ReactElement":55,"./ReactPropTypeLocations":74,"./monitorCodeUse":139,"./warning":148,"1YiZ5S":2}],57:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2014, Facebook, Inc.
@@ -21140,9 +22079,8 @@ var ReactEmptyComponent = {
 
 module.exports = ReactEmptyComponent;
 
-
-}).call(this,require("VCmEsw"))
-},{"./ReactElement":55,"./invariant":129,"VCmEsw":2}],58:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./ReactElement":55,"./invariant":129,"1YiZ5S":2}],58:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -21173,7 +22111,6 @@ var ReactErrorUtils = {
 };
 
 module.exports = ReactErrorUtils;
-
 
 },{}],59:[function(require,module,exports){
 /**
@@ -21224,7 +22161,6 @@ var ReactEventEmitterMixin = {
 };
 
 module.exports = ReactEventEmitterMixin;
-
 
 },{"./EventPluginHub":20}],60:[function(require,module,exports){
 /**
@@ -21410,7 +22346,6 @@ var ReactEventListener = {
 
 module.exports = ReactEventListener;
 
-
 },{"./EventListener":19,"./ExecutionEnvironment":24,"./Object.assign":29,"./PooledClass":30,"./ReactInstanceHandles":63,"./ReactMount":66,"./ReactUpdates":82,"./getEventTarget":120,"./getUnboundedScrollPosition":125}],61:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -21450,7 +22385,6 @@ var ReactInjection = {
 };
 
 module.exports = ReactInjection;
-
 
 },{"./DOMProperty":13,"./EventPluginHub":20,"./ReactBrowserEventEmitter":33,"./ReactComponent":35,"./ReactCompositeComponent":37,"./ReactEmptyComponent":57,"./ReactNativeComponent":69,"./ReactPerf":71,"./ReactRootIndex":78,"./ReactUpdates":82}],62:[function(require,module,exports){
 /**
@@ -21587,7 +22521,6 @@ var ReactInputSelection = {
 };
 
 module.exports = ReactInputSelection;
-
 
 },{"./ReactDOMSelection":49,"./containsNode":104,"./focusNode":114,"./getActiveElement":116}],63:[function(require,module,exports){
 (function (process){
@@ -21923,9 +22856,8 @@ var ReactInstanceHandles = {
 
 module.exports = ReactInstanceHandles;
 
-
-}).call(this,require("VCmEsw"))
-},{"./ReactRootIndex":78,"./invariant":129,"VCmEsw":2}],64:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./ReactRootIndex":78,"./invariant":129,"1YiZ5S":2}],64:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2014, Facebook, Inc.
@@ -22171,9 +23103,8 @@ ReactLegacyElementFactory._isLegacyCallWarningEnabled = true;
 
 module.exports = ReactLegacyElementFactory;
 
-
-}).call(this,require("VCmEsw"))
-},{"./ReactCurrentOwner":39,"./invariant":129,"./monitorCodeUse":139,"./warning":148,"VCmEsw":2}],65:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./ReactCurrentOwner":39,"./invariant":129,"./monitorCodeUse":139,"./warning":148,"1YiZ5S":2}],65:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -22220,7 +23151,6 @@ var ReactMarkupChecksum = {
 };
 
 module.exports = ReactMarkupChecksum;
-
 
 },{"./adler32":101}],66:[function(require,module,exports){
 (function (process){
@@ -22919,9 +23849,8 @@ ReactMount.renderComponent = deprecated(
 
 module.exports = ReactMount;
 
-
-}).call(this,require("VCmEsw"))
-},{"./DOMProperty":13,"./ReactBrowserEventEmitter":33,"./ReactCurrentOwner":39,"./ReactElement":55,"./ReactInstanceHandles":63,"./ReactLegacyElement":64,"./ReactPerf":71,"./containsNode":104,"./deprecated":109,"./getReactRootElementInContainer":123,"./instantiateReactComponent":128,"./invariant":129,"./shouldUpdateReactComponent":145,"./warning":148,"VCmEsw":2}],67:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./DOMProperty":13,"./ReactBrowserEventEmitter":33,"./ReactCurrentOwner":39,"./ReactElement":55,"./ReactInstanceHandles":63,"./ReactLegacyElement":64,"./ReactPerf":71,"./containsNode":104,"./deprecated":109,"./getReactRootElementInContainer":123,"./instantiateReactComponent":128,"./invariant":129,"./shouldUpdateReactComponent":145,"./warning":148,"1YiZ5S":2}],67:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -23349,7 +24278,6 @@ var ReactMultiChild = {
 
 module.exports = ReactMultiChild;
 
-
 },{"./ReactComponent":35,"./ReactMultiChildUpdateTypes":68,"./flattenChildren":113,"./instantiateReactComponent":128,"./shouldUpdateReactComponent":145}],68:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -23382,7 +24310,6 @@ var ReactMultiChildUpdateTypes = keyMirror({
 });
 
 module.exports = ReactMultiChildUpdateTypes;
-
 
 },{"./keyMirror":135}],69:[function(require,module,exports){
 (function (process){
@@ -23456,9 +24383,8 @@ var ReactNativeComponent = {
 
 module.exports = ReactNativeComponent;
 
-
-}).call(this,require("VCmEsw"))
-},{"./Object.assign":29,"./invariant":129,"VCmEsw":2}],70:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./Object.assign":29,"./invariant":129,"1YiZ5S":2}],70:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -23613,9 +24539,8 @@ var ReactOwner = {
 
 module.exports = ReactOwner;
 
-
-}).call(this,require("VCmEsw"))
-},{"./emptyObject":111,"./invariant":129,"VCmEsw":2}],71:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./emptyObject":111,"./invariant":129,"1YiZ5S":2}],71:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -23698,9 +24623,8 @@ function _noMeasure(objName, fnName, func) {
 
 module.exports = ReactPerf;
 
-
-}).call(this,require("VCmEsw"))
-},{"VCmEsw":2}],72:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"1YiZ5S":2}],72:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -23866,9 +24790,8 @@ var ReactPropTransferer = {
 
 module.exports = ReactPropTransferer;
 
-
-}).call(this,require("VCmEsw"))
-},{"./Object.assign":29,"./emptyFunction":110,"./invariant":129,"./joinClasses":134,"./warning":148,"VCmEsw":2}],73:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./Object.assign":29,"./emptyFunction":110,"./invariant":129,"./joinClasses":134,"./warning":148,"1YiZ5S":2}],73:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -23895,9 +24818,8 @@ if ("production" !== process.env.NODE_ENV) {
 
 module.exports = ReactPropTypeLocationNames;
 
-
-}).call(this,require("VCmEsw"))
-},{"VCmEsw":2}],74:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"1YiZ5S":2}],74:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -23920,7 +24842,6 @@ var ReactPropTypeLocations = keyMirror({
 });
 
 module.exports = ReactPropTypeLocations;
-
 
 },{"./keyMirror":135}],75:[function(require,module,exports){
 /**
@@ -24276,7 +25197,6 @@ function getPreciseType(propValue) {
 
 module.exports = ReactPropTypes;
 
-
 },{"./ReactElement":55,"./ReactPropTypeLocationNames":73,"./deprecated":109,"./emptyFunction":110}],76:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -24332,7 +25252,6 @@ assign(ReactPutListenerQueue.prototype, {
 PooledClass.addPoolingTo(ReactPutListenerQueue);
 
 module.exports = ReactPutListenerQueue;
-
 
 },{"./Object.assign":29,"./PooledClass":30,"./ReactBrowserEventEmitter":33}],77:[function(require,module,exports){
 /**
@@ -24510,7 +25429,6 @@ PooledClass.addPoolingTo(ReactReconcileTransaction);
 
 module.exports = ReactReconcileTransaction;
 
-
 },{"./CallbackQueue":8,"./Object.assign":29,"./PooledClass":30,"./ReactBrowserEventEmitter":33,"./ReactInputSelection":62,"./ReactPutListenerQueue":76,"./Transaction":98}],78:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -24541,7 +25459,6 @@ var ReactRootIndex = {
 };
 
 module.exports = ReactRootIndex;
-
 
 },{}],79:[function(require,module,exports){
 (function (process){
@@ -24622,9 +25539,8 @@ module.exports = {
   renderToStaticMarkup: renderToStaticMarkup
 };
 
-
-}).call(this,require("VCmEsw"))
-},{"./ReactElement":55,"./ReactInstanceHandles":63,"./ReactMarkupChecksum":65,"./ReactServerRenderingTransaction":80,"./instantiateReactComponent":128,"./invariant":129,"VCmEsw":2}],80:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./ReactElement":55,"./ReactInstanceHandles":63,"./ReactMarkupChecksum":65,"./ReactServerRenderingTransaction":80,"./instantiateReactComponent":128,"./invariant":129,"1YiZ5S":2}],80:[function(require,module,exports){
 /**
  * Copyright 2014, Facebook, Inc.
  * All rights reserved.
@@ -24737,7 +25653,6 @@ PooledClass.addPoolingTo(ReactServerRenderingTransaction);
 
 module.exports = ReactServerRenderingTransaction;
 
-
 },{"./CallbackQueue":8,"./Object.assign":29,"./PooledClass":30,"./ReactPutListenerQueue":76,"./Transaction":98,"./emptyFunction":110}],81:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -24843,7 +25758,6 @@ var ReactTextComponentFactory = function(text) {
 ReactTextComponentFactory.type = ReactTextComponent;
 
 module.exports = ReactTextComponentFactory;
-
 
 },{"./DOMPropertyOperations":14,"./Object.assign":29,"./ReactComponent":35,"./ReactElement":55,"./escapeTextForBrowser":112}],82:[function(require,module,exports){
 (function (process){
@@ -25134,9 +26048,8 @@ var ReactUpdates = {
 
 module.exports = ReactUpdates;
 
-
-}).call(this,require("VCmEsw"))
-},{"./CallbackQueue":8,"./Object.assign":29,"./PooledClass":30,"./ReactCurrentOwner":39,"./ReactPerf":71,"./Transaction":98,"./invariant":129,"./warning":148,"VCmEsw":2}],83:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./CallbackQueue":8,"./Object.assign":29,"./PooledClass":30,"./ReactCurrentOwner":39,"./ReactPerf":71,"./Transaction":98,"./invariant":129,"./warning":148,"1YiZ5S":2}],83:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -25227,7 +26140,6 @@ var SVGDOMPropertyConfig = {
 };
 
 module.exports = SVGDOMPropertyConfig;
-
 
 },{"./DOMProperty":13}],84:[function(require,module,exports){
 /**
@@ -25424,7 +26336,6 @@ var SelectEventPlugin = {
 
 module.exports = SelectEventPlugin;
 
-
 },{"./EventConstants":18,"./EventPropagators":23,"./ReactInputSelection":62,"./SyntheticEvent":90,"./getActiveElement":116,"./isTextInputElement":132,"./keyOf":136,"./shallowEqual":144}],85:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -25455,7 +26366,6 @@ var ServerReactRootIndex = {
 };
 
 module.exports = ServerReactRootIndex;
-
 
 },{}],86:[function(require,module,exports){
 (function (process){
@@ -25884,9 +26794,8 @@ var SimpleEventPlugin = {
 
 module.exports = SimpleEventPlugin;
 
-
-}).call(this,require("VCmEsw"))
-},{"./EventConstants":18,"./EventPluginUtils":22,"./EventPropagators":23,"./SyntheticClipboardEvent":87,"./SyntheticDragEvent":89,"./SyntheticEvent":90,"./SyntheticFocusEvent":91,"./SyntheticKeyboardEvent":93,"./SyntheticMouseEvent":94,"./SyntheticTouchEvent":95,"./SyntheticUIEvent":96,"./SyntheticWheelEvent":97,"./getEventCharCode":117,"./invariant":129,"./keyOf":136,"./warning":148,"VCmEsw":2}],87:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./EventConstants":18,"./EventPluginUtils":22,"./EventPropagators":23,"./SyntheticClipboardEvent":87,"./SyntheticDragEvent":89,"./SyntheticEvent":90,"./SyntheticFocusEvent":91,"./SyntheticKeyboardEvent":93,"./SyntheticMouseEvent":94,"./SyntheticTouchEvent":95,"./SyntheticUIEvent":96,"./SyntheticWheelEvent":97,"./getEventCharCode":117,"./invariant":129,"./keyOf":136,"./warning":148,"1YiZ5S":2}],87:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -25930,7 +26839,6 @@ function SyntheticClipboardEvent(dispatchConfig, dispatchMarker, nativeEvent) {
 SyntheticEvent.augmentClass(SyntheticClipboardEvent, ClipboardEventInterface);
 
 module.exports = SyntheticClipboardEvent;
-
 
 
 },{"./SyntheticEvent":90}],88:[function(require,module,exports){
@@ -25979,7 +26887,6 @@ SyntheticEvent.augmentClass(
 module.exports = SyntheticCompositionEvent;
 
 
-
 },{"./SyntheticEvent":90}],89:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -26018,7 +26925,6 @@ function SyntheticDragEvent(dispatchConfig, dispatchMarker, nativeEvent) {
 SyntheticMouseEvent.augmentClass(SyntheticDragEvent, DragEventInterface);
 
 module.exports = SyntheticDragEvent;
-
 
 },{"./SyntheticMouseEvent":94}],90:[function(require,module,exports){
 /**
@@ -26178,7 +27084,6 @@ PooledClass.addPoolingTo(SyntheticEvent, PooledClass.threeArgumentPooler);
 
 module.exports = SyntheticEvent;
 
-
 },{"./Object.assign":29,"./PooledClass":30,"./emptyFunction":110,"./getEventTarget":120}],91:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -26217,7 +27122,6 @@ function SyntheticFocusEvent(dispatchConfig, dispatchMarker, nativeEvent) {
 SyntheticUIEvent.augmentClass(SyntheticFocusEvent, FocusEventInterface);
 
 module.exports = SyntheticFocusEvent;
-
 
 },{"./SyntheticUIEvent":96}],92:[function(require,module,exports){
 /**
@@ -26264,7 +27168,6 @@ SyntheticEvent.augmentClass(
 );
 
 module.exports = SyntheticInputEvent;
-
 
 
 },{"./SyntheticEvent":90}],93:[function(require,module,exports){
@@ -26354,7 +27257,6 @@ SyntheticUIEvent.augmentClass(SyntheticKeyboardEvent, KeyboardEventInterface);
 
 module.exports = SyntheticKeyboardEvent;
 
-
 },{"./SyntheticUIEvent":96,"./getEventCharCode":117,"./getEventKey":118,"./getEventModifierState":119}],94:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -26438,7 +27340,6 @@ SyntheticUIEvent.augmentClass(SyntheticMouseEvent, MouseEventInterface);
 
 module.exports = SyntheticMouseEvent;
 
-
 },{"./SyntheticUIEvent":96,"./ViewportMetrics":99,"./getEventModifierState":119}],95:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -26486,7 +27387,6 @@ function SyntheticTouchEvent(dispatchConfig, dispatchMarker, nativeEvent) {
 SyntheticUIEvent.augmentClass(SyntheticTouchEvent, TouchEventInterface);
 
 module.exports = SyntheticTouchEvent;
-
 
 },{"./SyntheticUIEvent":96,"./getEventModifierState":119}],96:[function(require,module,exports){
 /**
@@ -26550,7 +27450,6 @@ SyntheticEvent.augmentClass(SyntheticUIEvent, UIEventInterface);
 
 module.exports = SyntheticUIEvent;
 
-
 },{"./SyntheticEvent":90,"./getEventTarget":120}],97:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -26611,7 +27510,6 @@ function SyntheticWheelEvent(dispatchConfig, dispatchMarker, nativeEvent) {
 SyntheticMouseEvent.augmentClass(SyntheticWheelEvent, WheelEventInterface);
 
 module.exports = SyntheticWheelEvent;
-
 
 },{"./SyntheticMouseEvent":94}],98:[function(require,module,exports){
 (function (process){
@@ -26853,9 +27751,8 @@ var Transaction = {
 
 module.exports = Transaction;
 
-
-}).call(this,require("VCmEsw"))
-},{"./invariant":129,"VCmEsw":2}],99:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./invariant":129,"1YiZ5S":2}],99:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -26886,7 +27783,6 @@ var ViewportMetrics = {
 };
 
 module.exports = ViewportMetrics;
-
 
 },{"./getUnboundedScrollPosition":125}],100:[function(require,module,exports){
 (function (process){
@@ -26953,9 +27849,8 @@ function accumulateInto(current, next) {
 
 module.exports = accumulateInto;
 
-
-}).call(this,require("VCmEsw"))
-},{"./invariant":129,"VCmEsw":2}],101:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./invariant":129,"1YiZ5S":2}],101:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -26989,7 +27884,6 @@ function adler32(data) {
 
 module.exports = adler32;
 
-
 },{}],102:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -27021,7 +27915,6 @@ function camelize(string) {
 }
 
 module.exports = camelize;
-
 
 },{}],103:[function(require,module,exports){
 /**
@@ -27064,7 +27957,6 @@ function camelizeStyleName(string) {
 }
 
 module.exports = camelizeStyleName;
-
 
 },{"./camelize":102}],104:[function(require,module,exports){
 /**
@@ -27109,7 +28001,6 @@ function containsNode(outerNode, innerNode) {
 }
 
 module.exports = containsNode;
-
 
 },{"./isTextNode":133}],105:[function(require,module,exports){
 /**
@@ -27197,7 +28088,6 @@ function createArrayFrom(obj) {
 
 module.exports = createArrayFrom;
 
-
 },{"./toArray":146}],106:[function(require,module,exports){
 (function (process){
 /**
@@ -27258,9 +28148,8 @@ function createFullPageComponent(tag) {
 
 module.exports = createFullPageComponent;
 
-
-}).call(this,require("VCmEsw"))
-},{"./ReactCompositeComponent":37,"./ReactElement":55,"./invariant":129,"VCmEsw":2}],107:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./ReactCompositeComponent":37,"./ReactElement":55,"./invariant":129,"1YiZ5S":2}],107:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -27349,9 +28238,8 @@ function createNodesFromMarkup(markup, handleScript) {
 
 module.exports = createNodesFromMarkup;
 
-
-}).call(this,require("VCmEsw"))
-},{"./ExecutionEnvironment":24,"./createArrayFrom":105,"./getMarkupWrap":121,"./invariant":129,"VCmEsw":2}],108:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./ExecutionEnvironment":24,"./createArrayFrom":105,"./getMarkupWrap":121,"./invariant":129,"1YiZ5S":2}],108:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -27409,7 +28297,6 @@ function dangerousStyleValue(name, value) {
 
 module.exports = dangerousStyleValue;
 
-
 },{"./CSSProperty":6}],109:[function(require,module,exports){
 (function (process){
 /**
@@ -27460,9 +28347,8 @@ function deprecated(namespace, oldName, newName, ctx, fn) {
 
 module.exports = deprecated;
 
-
-}).call(this,require("VCmEsw"))
-},{"./Object.assign":29,"./warning":148,"VCmEsw":2}],110:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./Object.assign":29,"./warning":148,"1YiZ5S":2}],110:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -27496,7 +28382,6 @@ emptyFunction.thatReturnsArgument = function(arg) { return arg; };
 
 module.exports = emptyFunction;
 
-
 },{}],111:[function(require,module,exports){
 (function (process){
 /**
@@ -27520,9 +28405,8 @@ if ("production" !== process.env.NODE_ENV) {
 
 module.exports = emptyObject;
 
-
-}).call(this,require("VCmEsw"))
-},{"VCmEsw":2}],112:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"1YiZ5S":2}],112:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -27562,7 +28446,6 @@ function escapeTextForBrowser(text) {
 }
 
 module.exports = escapeTextForBrowser;
-
 
 },{}],113:[function(require,module,exports){
 (function (process){
@@ -27632,9 +28515,8 @@ function flattenChildren(children) {
 
 module.exports = flattenChildren;
 
-
-}).call(this,require("VCmEsw"))
-},{"./ReactTextComponent":81,"./traverseAllChildren":147,"./warning":148,"VCmEsw":2}],114:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./ReactTextComponent":81,"./traverseAllChildren":147,"./warning":148,"1YiZ5S":2}],114:[function(require,module,exports){
 /**
  * Copyright 2014, Facebook, Inc.
  * All rights reserved.
@@ -27662,7 +28544,6 @@ function focusNode(node) {
 }
 
 module.exports = focusNode;
-
 
 },{}],115:[function(require,module,exports){
 /**
@@ -27695,7 +28576,6 @@ var forEachAccumulated = function(arr, cb, scope) {
 
 module.exports = forEachAccumulated;
 
-
 },{}],116:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -27724,7 +28604,6 @@ function getActiveElement() /*?DOMElement*/ {
 }
 
 module.exports = getActiveElement;
-
 
 },{}],117:[function(require,module,exports){
 /**
@@ -27777,7 +28656,6 @@ function getEventCharCode(nativeEvent) {
 }
 
 module.exports = getEventCharCode;
-
 
 },{}],118:[function(require,module,exports){
 /**
@@ -27884,7 +28762,6 @@ function getEventKey(nativeEvent) {
 
 module.exports = getEventKey;
 
-
 },{"./getEventCharCode":117}],119:[function(require,module,exports){
 /**
  * Copyright 2013 Facebook, Inc.
@@ -27932,7 +28809,6 @@ function getEventModifierState(nativeEvent) {
 
 module.exports = getEventModifierState;
 
-
 },{}],120:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -27963,7 +28839,6 @@ function getEventTarget(nativeEvent) {
 }
 
 module.exports = getEventTarget;
-
 
 },{}],121:[function(require,module,exports){
 (function (process){
@@ -28081,9 +28956,8 @@ function getMarkupWrap(nodeName) {
 
 module.exports = getMarkupWrap;
 
-
-}).call(this,require("VCmEsw"))
-},{"./ExecutionEnvironment":24,"./invariant":129,"VCmEsw":2}],122:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./ExecutionEnvironment":24,"./invariant":129,"1YiZ5S":2}],122:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -28158,7 +29032,6 @@ function getNodeForCharacterOffset(root, offset) {
 
 module.exports = getNodeForCharacterOffset;
 
-
 },{}],123:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -28193,7 +29066,6 @@ function getReactRootElementInContainer(container) {
 }
 
 module.exports = getReactRootElementInContainer;
-
 
 },{}],124:[function(require,module,exports){
 /**
@@ -28231,7 +29103,6 @@ function getTextContentAccessor() {
 }
 
 module.exports = getTextContentAccessor;
-
 
 },{"./ExecutionEnvironment":24}],125:[function(require,module,exports){
 /**
@@ -28273,7 +29144,6 @@ function getUnboundedScrollPosition(scrollable) {
 
 module.exports = getUnboundedScrollPosition;
 
-
 },{}],126:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -28306,7 +29176,6 @@ function hyphenate(string) {
 }
 
 module.exports = hyphenate;
-
 
 },{}],127:[function(require,module,exports){
 /**
@@ -28348,7 +29217,6 @@ function hyphenateStyleName(string) {
 }
 
 module.exports = hyphenateStyleName;
-
 
 },{"./hyphenate":126}],128:[function(require,module,exports){
 (function (process){
@@ -28463,9 +29331,8 @@ function instantiateReactComponent(element, parentCompositeType) {
 
 module.exports = instantiateReactComponent;
 
-
-}).call(this,require("VCmEsw"))
-},{"./ReactElement":55,"./ReactEmptyComponent":57,"./ReactLegacyElement":64,"./ReactNativeComponent":69,"./warning":148,"VCmEsw":2}],129:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./ReactElement":55,"./ReactEmptyComponent":57,"./ReactLegacyElement":64,"./ReactNativeComponent":69,"./warning":148,"1YiZ5S":2}],129:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -28521,9 +29388,8 @@ var invariant = function(condition, format, a, b, c, d, e, f) {
 
 module.exports = invariant;
 
-
-}).call(this,require("VCmEsw"))
-},{"VCmEsw":2}],130:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"1YiZ5S":2}],130:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -28588,7 +29454,6 @@ function isEventSupported(eventNameSuffix, capture) {
 
 module.exports = isEventSupported;
 
-
 },{"./ExecutionEnvironment":24}],131:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -28616,7 +29481,6 @@ function isNode(object) {
 }
 
 module.exports = isNode;
-
 
 },{}],132:[function(require,module,exports){
 /**
@@ -28662,7 +29526,6 @@ function isTextInputElement(elem) {
 
 module.exports = isTextInputElement;
 
-
 },{}],133:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -28687,7 +29550,6 @@ function isTextNode(object) {
 }
 
 module.exports = isTextNode;
-
 
 },{"./isNode":131}],134:[function(require,module,exports){
 /**
@@ -28729,7 +29591,6 @@ function joinClasses(className/*, ... */) {
 }
 
 module.exports = joinClasses;
-
 
 },{}],135:[function(require,module,exports){
 (function (process){
@@ -28785,9 +29646,8 @@ var keyMirror = function(obj) {
 
 module.exports = keyMirror;
 
-
-}).call(this,require("VCmEsw"))
-},{"./invariant":129,"VCmEsw":2}],136:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./invariant":129,"1YiZ5S":2}],136:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -28822,7 +29682,6 @@ var keyOf = function(oneKeyObj) {
 
 
 module.exports = keyOf;
-
 
 },{}],137:[function(require,module,exports){
 /**
@@ -28877,7 +29736,6 @@ function mapObject(object, callback, context) {
 
 module.exports = mapObject;
 
-
 },{}],138:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -28912,7 +29770,6 @@ function memoizeStringOnly(callback) {
 
 module.exports = memoizeStringOnly;
 
-
 },{}],139:[function(require,module,exports){
 (function (process){
 /**
@@ -28946,9 +29803,8 @@ function monitorCodeUse(eventName, data) {
 
 module.exports = monitorCodeUse;
 
-
-}).call(this,require("VCmEsw"))
-},{"./invariant":129,"VCmEsw":2}],140:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./invariant":129,"1YiZ5S":2}],140:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -28987,9 +29843,8 @@ function onlyChild(children) {
 
 module.exports = onlyChild;
 
-
-}).call(this,require("VCmEsw"))
-},{"./ReactElement":55,"./invariant":129,"VCmEsw":2}],141:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./ReactElement":55,"./invariant":129,"1YiZ5S":2}],141:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
  * All rights reserved.
@@ -29016,7 +29871,6 @@ if (ExecutionEnvironment.canUseDOM) {
 }
 
 module.exports = performance || {};
-
 
 },{"./ExecutionEnvironment":24}],142:[function(require,module,exports){
 /**
@@ -29045,7 +29899,6 @@ if (!performance || !performance.now) {
 var performanceNow = performance.now.bind(performance);
 
 module.exports = performanceNow;
-
 
 },{"./performance":141}],143:[function(require,module,exports){
 /**
@@ -29125,7 +29978,6 @@ if (ExecutionEnvironment.canUseDOM) {
 
 module.exports = setInnerHTML;
 
-
 },{"./ExecutionEnvironment":24}],144:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -29170,7 +30022,6 @@ function shallowEqual(objA, objB) {
 
 module.exports = shallowEqual;
 
-
 },{}],145:[function(require,module,exports){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -29208,7 +30059,6 @@ function shouldUpdateReactComponent(prevElement, nextElement) {
 }
 
 module.exports = shouldUpdateReactComponent;
-
 
 },{}],146:[function(require,module,exports){
 (function (process){
@@ -29281,9 +30131,8 @@ function toArray(obj) {
 
 module.exports = toArray;
 
-
-}).call(this,require("VCmEsw"))
-},{"./invariant":129,"VCmEsw":2}],147:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./invariant":129,"1YiZ5S":2}],147:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2014, Facebook, Inc.
@@ -29465,9 +30314,8 @@ function traverseAllChildren(children, callback, traverseContext) {
 
 module.exports = traverseAllChildren;
 
-
-}).call(this,require("VCmEsw"))
-},{"./ReactElement":55,"./ReactInstanceHandles":63,"./invariant":129,"VCmEsw":2}],148:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./ReactElement":55,"./ReactInstanceHandles":63,"./invariant":129,"1YiZ5S":2}],148:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2014, Facebook, Inc.
@@ -29511,11 +30359,9 @@ if ("production" !== process.env.NODE_ENV) {
 
 module.exports = warning;
 
-
-}).call(this,require("VCmEsw"))
-},{"./emptyFunction":110,"VCmEsw":2}],149:[function(require,module,exports){
+}).call(this,require("1YiZ5S"))
+},{"./emptyFunction":110,"1YiZ5S":2}],149:[function(require,module,exports){
 module.exports = require('./lib/React');
-
 
 },{"./lib/React":31}],150:[function(require,module,exports){
 /**
@@ -29633,9 +30479,38 @@ var App = React.createClass({
             (React.createElement(Dialog, {onClose: this.removeDialog, style: {width: 300, height: 200}}, 
                 React.createElement("p", null, "Ange hur många produkter det ska vara"), 
                 React.createElement("input", {type: "number", min: "0", onChange: function (event) {
-                    amount = event.target.value;
-                    console.log(amount);
+                    amount = +event.target.value;
                 }, defaultValue: productLine.amount}), 
+                React.createElement("div", {className: "dialog-footer"}, 
+                    React.createElement("button", {onClick: this.removeDialog, className: "dialog-button-cancel"}, "Avbryt"), 
+                    React.createElement("button", {onClick: confirmAction, className: "dialog-button-confirm"}, "Klar")
+                )
+            )),
+            this.dialogDiv()
+        );
+    },
+
+    addDiscount: function () {
+        var amount = 0;
+
+        var confirmAction = function () {
+            if (amount <= 0) {
+                this.removeLineFromReceipt(productLine.product);
+            } else {
+                //TODO: Add the discount
+                this.addProduct({name: "Rabatt", price: -amount});
+                //productLine.amount = amount;
+                this.updateFirebase();
+            }
+            this.removeDialog();
+        }.bind(this);
+
+        React.render(
+            (React.createElement(Dialog, {onClose: this.removeDialog, style: {width: 300, height: 200}}, 
+                React.createElement("p", null, "Ange mängden rabatt du vill lägga till på kvittot:"), 
+                React.createElement("input", {type: "number", min: "0", onChange: function (event) {
+                    amount = +event.target.value;
+                }, defaultValue: amount}), 
                 React.createElement("div", {className: "dialog-footer"}, 
                     React.createElement("button", {onClick: this.removeDialog, className: "dialog-button-cancel"}, "Avbryt"), 
                     React.createElement("button", {onClick: confirmAction, className: "dialog-button-confirm"}, "Klar")
@@ -29818,11 +30693,11 @@ var App = React.createClass({
                 ), 
                 React.createElement("div", {className: "summary"}, 
                     React.createElement("div", {className: "sum_amount"}, this.getTotalProducts() + "st"), 
-                    React.createElement("div", {className: "sum_price"}, this.getTotalProducts() + "kr")
+                    React.createElement("div", {className: "sum_price"}, this.getTotalPrice() + "kr")
                 ), 
                 React.createElement("div", {className: "purchase_buttons"}, 
                     React.createElement("div", {className: "fill_width float_left"}, 
-                        React.createElement("div", {className: "purchase_buttons_discount"}, "Rabatt"), 
+                        React.createElement("div", {className: "purchase_buttons_discount", onClick: this.addDiscount}, "Rabatt"), 
                         finishedOrList
                     ), 
                     React.createElement("a", {href: "#", className: "purchase_buttons_cancel float_left", onClick: this.cancelDialog}, "Avbryt"), 

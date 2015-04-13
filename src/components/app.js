@@ -113,9 +113,38 @@ var App = React.createClass({
             (<Dialog onClose={this.removeDialog} style={{width: 300, height: 200}}>
                 <p>Ange hur många produkter det ska vara</p>
                 <input type="number" min="0" onChange={function (event) {
-                    amount = event.target.value;
-                    console.log(amount);
+                    amount = +event.target.value;
                 }} defaultValue={productLine.amount} />
+                <div className="dialog-footer">
+                    <button onClick={this.removeDialog} className="dialog-button-cancel">Avbryt</button>
+                    <button onClick={confirmAction} className="dialog-button-confirm">Klar</button>
+                </div>
+            </Dialog>),
+            this.dialogDiv()
+        );
+    },
+
+    addDiscount: function () {
+        var amount = 0;
+
+        var confirmAction = function () {
+            if (amount <= 0) {
+                this.removeLineFromReceipt(productLine.product);
+            } else {
+                //TODO: Add the discount
+                this.addProduct({name: "Rabatt", price: -amount});
+                //productLine.amount = amount;
+                this.updateFirebase();
+            }
+            this.removeDialog();
+        }.bind(this);
+
+        React.render(
+            (<Dialog onClose={this.removeDialog} style={{width: 300, height: 200}}>
+                <p>Ange mängden rabatt du vill lägga till på kvittot:</p>
+                <input type="number" min="0" onChange={function (event) {
+                    amount = +event.target.value;
+                }} defaultValue={amount} />
                 <div className="dialog-footer">
                     <button onClick={this.removeDialog} className="dialog-button-cancel">Avbryt</button>
                     <button onClick={confirmAction} className="dialog-button-confirm">Klar</button>
@@ -298,11 +327,11 @@ var App = React.createClass({
                 </div>
                 <div className="summary">
                     <div className="sum_amount">{this.getTotalProducts() + "st"}</div>
-                    <div className="sum_price">{this.getTotalProducts() + "kr"}</div>
+                    <div className="sum_price">{this.getTotalPrice() + "kr"}</div>
                 </div>
                 <div className="purchase_buttons">
                     <div className="fill_width float_left">
-                        <div className="purchase_buttons_discount">Rabatt</div>
+                        <div className="purchase_buttons_discount" onClick={this.addDiscount}>Rabatt</div>
                         {finishedOrList}
                     </div>
                     <a href="#" className="purchase_buttons_cancel float_left" onClick={this.cancelDialog}>Avbryt</a>
