@@ -128,15 +128,13 @@ var App = React.createClass({
         var amount = 0;
 
         var confirmAction = function () {
-            if (amount <= 0) {
-                this.removeLineFromReceipt(productLine.product);
-            } else {
+            if (amount > 0) {
                 //TODO: Add the discount
                 this.addProduct({name: "Rabatt", price: -amount});
                 //productLine.amount = amount;
                 this.updateFirebase();
+                this.removeDialog();
             }
-            this.removeDialog();
         }.bind(this);
 
         React.render(
