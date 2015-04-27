@@ -1,3 +1,245 @@
 * {
-  font-family: 'Trebuchet', 'Trebuchet', 'Trebuchet';
+  font-family: sans-serif;
+  font-size: 12px;
+}
+
+body {
+  margin: 0;
+}
+
+@dark_color: #38382a;
+@light_color: #f9fddd;
+
+.background_dark {
+  background-color: @dark_color;
+}
+
+.background_light {
+  background-color: @light_color;
+}
+
+.box-shadow(@style, @c) when (iscolor(@c)) {
+  -webkit-box-shadow: @style @c;
+  box-shadow: @style @c;
+}
+
+.box-shadow(@style: 0 0 15px, @alpha: 100%) when (isnumber(@alpha)) {
+  .box-shadow(@style, rgba(0, 0, 0, @alpha));
+}
+
+.border-radius-top-left(@radius: 15px) {
+  -webkit-border-top-left-radius: @radius;
+  -moz-border-radius-topleft: @radius;
+  border-top-left-radius: @radius;
+}
+
+.border-radius-top-right(@radius: 15px) {
+  -webkit-border-top-right-radius: @radius;
+  -moz-border-radius-topright: @radius;
+  border-top-right-radius: @radius;
+}
+
+.border-radius-bottom-right(@radius: 15px) {
+  -webkit-border-bottom-right-radius: @radius;
+  -moz-border-radius-bottomright: @radius;
+  border-bottom-right-radius: @radius;
+}
+
+.border-radius-bottom-left(@radius: 15px) {
+  -webkit-border-bottom-left-radius: @radius;
+  -moz-border-radius-bottomleft: @radius;
+  border-bottom-left-radius: @radius;
+}
+
+.border-radius(@radius: 15px) {
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  border-radius: @radius;
+}
+
+.container {
+  position: absolute;
+  .background_dark;
+  height: 100%;
+  width: 100%;
+}
+
+/*Specials*/
+.float_left {
+  float: left;
+}
+
+.float_right {
+  float: right;
+}
+
+.fill_width {
+  width: 100%;
+}
+
+/*Purchase part*/
+.purchase_part {
+  position: relative;
+  width: 50%;
+  height: 100%;
+  float: left;
+}
+
+@distance_from_bottom: 200px;
+@margin: 15px;
+
+.receipt {
+  position: absolute;
+  top: @margin;
+  left: @margin;
+  right: @margin;
+  bottom: @distance_from_bottom;
+  overflow-y: auto;
+  overflow-x: hidden;
+  .background_light;
+  .border-radius-top-left;
+  .box-shadow;
+}
+
+@recipe_line_height: 50px;
+
+.receipt_product {
+  width: 100%;
+  height: @recipe_line_height;
+  border-bottom: solid 1px black;
+}
+
+.receipt_product:hover {
+  background-color: orange;
+  cursor: pointer;
+}
+
+.product_amount, .product_name, .product_price, .product_remove {
+  height: 100%;
+  line-height: @recipe_line_height;
+}
+
+.product_amount, .product_name, {
+  .float_left;
+}
+
+.product_amount {
+  margin: 0 @margin;
+}
+
+.product_price {
+  margin-right: @margin;
+  .float_right;
+}
+
+@remove_button_width: 20px;
+.product_remove {
+  float: right;
+  width: @remove_button_width;
+  font-size: 15px;
+  margin-right: -@remove_button_width;
+  cursor: pointer;
+}
+
+.receipt_product:hover .product_remove {
+  margin-right: 0;
+}
+
+.product_remove:hover {
+  color: #f00;
+}
+
+.summary {
+  position: absolute;
+  top: auto;
+  bottom: @distance_from_bottom - @margin;
+  left: @margin;
+  right: @margin;
+  height: @margin;
+  color: @light_color;
+}
+
+.sum_amount {
+  float: left;
+}
+
+.sum_price {
+  float: right;
+}
+
+.purchase_buttons {
+  position: absolute;
+  top: auto;
+  height: @distance_from_bottom - (@margin * 3);
+  bottom: @margin;
+  left: @margin;
+  right: @margin;
+}
+
+@purchase_button_width: 150px;
+@purchase_button_height: 65px;
+@purchase_button_font_size: 25px;
+
+.purchase_buttons_discount, .purchase_buttons_finished, .purchase_buttons_cancel {
+  width: @purchase_button_width;
+  height: @purchase_button_height;
+  line-height: @purchase_button_height;
+  font-size: @purchase_button_font_size;
+  text-align: center;
+  .background_light;
+  .box-shadow;
+}
+
+.purchase_buttons_discount {
+  .float_left;
+}
+
+.purchase_buttons_finished {
+  .float_right;
+}
+
+.purchase_buttons_cancel {
+  margin-top: 25px;
+}
+
+/*Product part*/
+.product_part {
+  width: 50%;
+  height: 100%;
+  float: left;
+}
+
+@product_button_size: 75px;
+@product_button_text_height: 12px;
+
+.product_part_product {
+  width: @product_button_size;
+  .background_light;
+  .float_left;
+  margin: @margin;
+  .box-shadow;
+}
+
+.product_part_product img {
+  width: @product_button_size;
+  height: @product_button_size;
+  .float_left;
+}
+
+.product_part_product span {
+  .float_left;
+  font-size: @product_button_text_height;
+}
+
+.purchase_buttons a {
+  color: black;
+  text-decoration: none;
+}
+
+.right {
+  float: right;
+}
+
+.left {
+  float: left;
 }

@@ -1,0 +1,72 @@
+@import "style";
+
+.dialog-fill-screen {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .6);
+  z-index: 199;
+}
+
+.dialog {
+  position: fixed;
+  padding: 10px;
+  border: 1px solid #CCC;
+  .box-shadow;
+  z-index: 200;
+  margin: auto auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: #fff;
+
+  width: 200px;
+  height: 200px;
+  .border-radius(10px);
+}
+
+.dialog p {
+  font-size: 1.7em;
+}
+
+.dialog button {
+  border: none;
+  margin: 10px;
+  padding: 10px 15px;
+  .border-radius(5px);
+  font-size: 1.5em;
+}
+
+.dialog-button-cancel {
+  background-color: #ab2117;
+}
+
+.dialog-button-confirm {
+  background-color: #57bc2e;
+}
+
+.dialog-footer {
+  position: absolute;
+  bottom: 0;
+}
+
+.dialog-close {
+  cursor: pointer;
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  font-size: 1.3em;
+}
+
+.dialog input[type="number"] {
+  height: 35px;
+}
+
+.dialog-receipt-list {
+  margin: 0;
+  width: auto;
+  height: auto;
+  height: 190px;
+  overflow-y: auto;
+}

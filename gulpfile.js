@@ -8,12 +8,15 @@ var react = require('gulp-react'),
     stylish = require('jshint-stylish'),
     less = require('gulp-less'),
     plumber = require("gulp-plumber");
+var uglify = require('gulp-uglify');
 
-var jest = require('gulp-jest');
+//var jest = require('gulp-jest');
 var docco = require('gulp-docco'),
     folderToc = require("folder-toc");
 
-gulp.task('test', function () {
+var browserSync = require("browser-sync");
+
+/*gulp.task('test', function () {
     return gulp.src('__tests__').pipe(jest({
         testDirectoryName: "spec",
         scriptPreprocessor: './support/preprocessor.js',
@@ -23,7 +26,7 @@ gulp.task('test', function () {
             "./support"
         ]
     }));
-});
+});*/
 
 gulp.task('builddocs', function () {
     gulp.src(['src/*/*.js', 'src/*.js'])
@@ -42,15 +45,16 @@ gulp.task('docsindex', function () {
 
 
 gulp.task('browserify', function () {
-    gulp.src('src/main.js')
+    return gulp.src('src/main.js')
         .pipe(plumber())
         .pipe(browserify({transform: "reactify"}))
         .pipe(concat('main.js'))
+        //.pipe(uglify())
         .pipe(gulp.dest('dist/js'));
 });
 
 gulp.task('copyindex', function () {
-    gulp.src('src/index.html')
+    return gulp.src('src/index.html')
         .pipe(gulp.dest('dist'));
 });
 
@@ -63,25 +67,29 @@ gulp.task('lint', function () {
     //.pipe(jshint.reporter('fail'));
 });
 
-/*// Compile Our less
-gulp.task('sass', function () {
-    return gulp.src('sass/*.scss')
-        .pipe(sass())
-        .pipe(gulp.dest('css'));
-});*/
-
 gulp.task('less', function () {
-    gulp.src('src/less/*.less')
+    return gulp.src('src/less/*.less')
+        .pipe(plumber())
         .pipe(less())
         .pipe(gulp.dest('dist/css'));
 });
 
 gulp.task('watch', function () {
-    gulp.watch('src/less/*.less', ['less']);
-    gulp.watch('src/index.html', ['copyindex']);
-    gulp.watch(['src/*/*.js', 'src/*.js'], ['lint', 'browserify']);
+    gulp.watch('src/less/*.less', ['less', browserSync.reload]);
+    gulp.watch('src/index.html', ['copyindex', browserSync.reload]);
+    gulp.watch(['src/*/*.js', 'src/*.js'], ['lint', 'browserify', browserSync.reload]);
+});
+
+// start sync server
+gulp.task('browser-sync', function () {
+    browserSync({
+        server: {
+
+            baseDir: "./dist"
+        }
+    });
 });
 
 gulp.task('default', ['lint', 'less', 'browserify', 'copyindex']);
-gulp.task('watch_task', ['default', 'watch']);
+gulp.task('watch_task', ['browser-sync', 'default', 'watch']);
 gulp.task('docs', ['builddocs', 'docsindex']);
