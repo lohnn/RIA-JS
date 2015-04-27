@@ -33,6 +33,30 @@ body {
   border-top-left-radius: @radius;
 }
 
+.border-radius-top-right(@radius: 15px) {
+  -webkit-border-top-right-radius: @radius;
+  -moz-border-radius-topright: @radius;
+  border-top-right-radius: @radius;
+}
+
+.border-radius-bottom-right(@radius: 15px) {
+  -webkit-border-bottom-right-radius: @radius;
+  -moz-border-radius-bottomright: @radius;
+  border-bottom-right-radius: @radius;
+}
+
+.border-radius-bottom-left(@radius: 15px) {
+  -webkit-border-bottom-left-radius: @radius;
+  -moz-border-radius-bottomleft: @radius;
+  border-bottom-left-radius: @radius;
+}
+
+.border-radius(@radius: 15px) {
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  border-radius: @radius;
+}
+
 .container {
   position: absolute;
   .background_dark;
@@ -85,6 +109,11 @@ body {
   border-bottom: solid 1px black;
 }
 
+.receipt_product:hover {
+  background-color: orange;
+  cursor: pointer;
+}
+
 .product_amount, .product_name, .product_price, .product_remove {
   height: 100%;
   line-height: @recipe_line_height;
@@ -112,7 +141,7 @@ body {
   cursor: pointer;
 }
 
-.receipt_product:hover .product_remove{
+.receipt_product:hover .product_remove {
   margin-right: 0;
 }
 
@@ -205,4 +234,12 @@ body {
 .purchase_buttons a {
   color: black;
   text-decoration: none;
+}
+
+.right {
+  float: right;
+}
+
+.left {
+  float: left;
 }
