@@ -30845,6 +30845,7 @@ var App = React.createClass({
                 React.createElement("input", {type: "number", min: "0", onChange: function (event) {
                     amount = +event.target.value;
                 }, defaultValue: productLine.amount}), 
+
                 React.createElement("div", {className: "dialog-footer"}, 
                     React.createElement("button", {onClick: this.removeDialog, className: "dialog-button-cancel"}, "Avbryt"), 
                     React.createElement("button", {onClick: confirmAction, className: "dialog-button-confirm"}, "Klar")
@@ -30859,7 +30860,6 @@ var App = React.createClass({
 
         var confirmAction = function () {
             if (amount > 0) {
-                //TODO: Add the discount
                 this.addProduct({name: "Rabatt", price: -amount});
                 //productLine.amount = amount;
                 this.updateFirebase();
@@ -30873,6 +30873,7 @@ var App = React.createClass({
                 React.createElement("input", {type: "number", min: "0", onChange: function (event) {
                     amount = +event.target.value;
                 }, defaultValue: amount}), 
+
                 React.createElement("div", {className: "dialog-footer"}, 
                     React.createElement("button", {onClick: this.removeDialog, className: "dialog-button-cancel"}, "Avbryt"), 
                     React.createElement("button", {onClick: confirmAction, className: "dialog-button-confirm"}, "Klar")
@@ -30920,6 +30921,7 @@ var App = React.createClass({
         React.render(
             (React.createElement(Dialog, {onClose: this.removeDialog, style: {width: 320, height: 200}}, 
                 React.createElement("p", null, "Vill du avbryta eller lägga kvittot på hyllan för framtida ändringar?"), 
+
                 React.createElement("div", {className: "dialog-footer"}, 
                     React.createElement("button", {className: "dialog-button-cancel", onClick: cancelReceipt}, "Avbryt kvitto"), 
                     React.createElement("button", {onClick: putOnShelf}, "Lägg på hyllan")
@@ -30941,26 +30943,27 @@ var App = React.createClass({
             React.render(
                 (React.createElement(Dialog, {onClose: this.removeDialog, style: {width: 400, height: 300}}, 
                     React.createElement("p", null, "Din kvittohylla:"), 
-                    React.createElement("div", {className: "dialog-receipt-list"}, 
-                    _.map(dataSnapshot.val(), function (receipt, rid) {
-                        var totalPrice = 0;
-                        var totalAmount = 0;
-                        _.map(receipt.products, function (productLine) {
-                            totalAmount += productLine.amount;
-                            totalPrice += productLine.amount * productLine.product.price;
-                        });
 
-                        var loadOldReceipt = function () {
-                            this.removeDialog();
-                            if (shelved === true)
-                                this.openReceiptFromID(rid);
-                            else
-                                this.showOldReceipt(receipt);
-                        }.bind(this);
-                        return React.createElement("div", {key: rid, onClick: loadOldReceipt, className: "receipt_product"}, 
-                            FormatTime(receipt.receiptInfo.time), " ", totalAmount, "st | ", totalPrice, "kr"
-                        );
-                    }, this)
+                    React.createElement("div", {className: "dialog-receipt-list"}, 
+                        _.map(dataSnapshot.val(), function (receipt, rid) {
+                            var totalPrice = 0;
+                            var totalAmount = 0;
+                            _.map(receipt.products, function (productLine) {
+                                totalAmount += productLine.amount;
+                                totalPrice += productLine.amount * productLine.product.price;
+                            });
+
+                            var loadOldReceipt = function () {
+                                this.removeDialog();
+                                if (shelved === true)
+                                    this.openReceiptFromID(rid);
+                                else
+                                    this.showOldReceipt(receipt);
+                            }.bind(this);
+                            return React.createElement("div", {key: rid, onClick: loadOldReceipt, className: "receipt_product"}, 
+                                FormatTime(receipt.receiptInfo.time), " ", totalAmount, "st | ", totalPrice, "kr"
+                            );
+                        }, this)
                     ), 
 
                     React.createElement("div", {className: "dialog-footer"}, 
@@ -30986,11 +30989,13 @@ var App = React.createClass({
             (React.createElement(Dialog, {onClose: this.removeDialog, style: {width: 400, height: 300}}, 
                 FormatTime(receipt.receiptInfo.time), 
                 React.createElement("p", null, "Ditt kvitto:"), 
+
                 React.createElement("div", {className: "dialog-receipt-list"}, 
                     _.map(receipt.products, function (productLine, rid) {
                         console.log(productLine);
                         return React.createElement("div", {key: rid, className: "receipt_product"}, 
-                            productLine.product.name, " ", productLine.amount, "st | ", productLine.product.price * productLine.amount, "kr"
+                            productLine.product.name, " ", productLine.amount, "st" + ' ' +
+                            "| ", productLine.product.price * productLine.amount, "kr"
                         );
                     }, this)
                 ), 
@@ -31025,6 +31030,7 @@ var App = React.createClass({
         React.render(
             (React.createElement(Dialog, {onClose: this.removeDialog, style: {width: 300, height: 200}}, 
                 React.createElement("p", null, "Är du säker på att du är klar med beställningen?"), 
+
                 React.createElement("div", {className: "dialog-footer"}, 
                     React.createElement("button", {className: "dialog-button-cancel", onClick: this.removeDialog}, "Fortsätt beställning"), 
                     React.createElement("button", {className: "dialog-button-confirm", onClick: receiptDone}, "Klar")
@@ -31063,7 +31069,7 @@ var App = React.createClass({
                         finishedOrList
                     ), 
                     React.createElement("a", {href: "#", className: "purchase_buttons_cancel float_left", onClick: this.cancelDialog}, "Avbryt"), 
-                                            shelvedButton
+                    shelvedButton
                 )
             ), 
             React.createElement("div", {className: "product_part"}, 
@@ -31076,7 +31082,7 @@ var App = React.createClass({
 module.exports = App;
 
 
-},{"./dialog":151,"./productRelated":152,"./renderProducts":153,"./renderReceipt":154,"firebase":1,"lodash":3,"react":149}],151:[function(require,module,exports){
+},{"./dialog":151,"./productRelated":153,"./renderProducts":154,"./renderReceipt":155,"firebase":1,"lodash":3,"react":149}],151:[function(require,module,exports){
 /**
  * Created by lohnn on 2015-02-09.
  */
@@ -31100,6 +31106,42 @@ var Dialog = React.createClass({displayName: "Dialog",
 module.exports = Dialog;
 
 },{"react":149}],152:[function(require,module,exports){
+/**
+ * Created by lohnn on 2015-05-01.
+ */
+
+var React = require('react');
+var RenderProducts = require("./renderProducts");
+var Firebase = require("firebase");
+
+
+var productEditPage = React.createClass({displayName: "productEditPage",
+    getInitialState: function () {
+        return {
+            products: {}
+        };
+    },
+    componentWillMount: function () {
+        this.firebaseProductsRef = new Firebase("https://lohnn-riajs.firebaseio.com/products");
+        this.firebaseProductsRef.on("value", function (dataSnapshot) {
+            this.setState({products: dataSnapshot.val()});
+        }.bind(this));
+    },
+    editProduct: function (product) {
+        console.log(product);
+    },
+    render: function () {
+        return React.createElement("div", null, 
+            RenderProducts({
+                items: this.state.products, functionToRun: this.editProduct
+            })
+        );
+    }
+});
+
+module.exports = productEditPage;
+
+},{"./renderProducts":154,"firebase":1,"react":149}],153:[function(require,module,exports){
 /**
  * Created by jl222xa on 2014-12-04.
  */
@@ -31173,7 +31215,7 @@ var Receipt = {
 
 module.exports = Receipt;
 
-},{"lodash":3}],153:[function(require,module,exports){
+},{"lodash":3}],154:[function(require,module,exports){
 /**
  * Created by jl222xa on 2014-12-11.
  */
@@ -31197,7 +31239,7 @@ var RenderProducts = React.createClass({displayName: "RenderProducts",
 
 module.exports = RenderProducts;
 
-},{"lodash":3,"react":149}],154:[function(require,module,exports){
+},{"lodash":3,"react":149}],155:[function(require,module,exports){
 /**
  * Created by jl222xa on 2014-12-11.
  */
@@ -31228,19 +31270,33 @@ var RenderReceipt = React.createClass({displayName: "RenderReceipt",
 module.exports = RenderReceipt;
 
 
-},{"lodash":3,"react":149}],155:[function(require,module,exports){
+},{"lodash":3,"react":149}],156:[function(require,module,exports){
 /**
  * Created by lohnn on 2014-11-24.
  */
 
 var App = require('./components/app');
-//var App = require('./components/dialog');
+var ProductEdit = require('./components/productEditPage');
 var React = require('react');
 
-React.render(
-    App(),
-    document.body
-);
+var command = window.location.hash.substring(1);
+
+switch (command) {
+    case "productlist":
+        React.
+            render(
+            ProductEdit(),
+            document.body
+        );
+        break;
+    default:
+        React.
+            render(
+            App(),
+            document.body
+        );
+        break;
+}
 
 
-},{"./components/app":150,"react":149}]},{},[155])
+},{"./components/app":150,"./components/productEditPage":152,"react":149}]},{},[156])
