@@ -91,12 +91,10 @@ var productEditPage = React.createClass({
         );
     },
     render: function () {
-        var tempList = this.state.products;
-        tempList["ADDING"] = {image: "images/add.png", name: "Lägg till", command: "ADD"};
         return <div>
             <div id="dialog-div"/>
             {RenderProducts({
-                items: tempList, functionToRun: this.editProduct
+                items: this.state.products, functionToRun: this.editProduct, command: "ADD"
             })}
         </div>;
     }

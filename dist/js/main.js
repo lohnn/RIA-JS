@@ -31199,12 +31199,10 @@ var productEditPage = React.createClass({displayName: "productEditPage",
         );
     },
     render: function () {
-        var tempList = this.state.products;
-        tempList["ADDING"] = {image: "images/add.png", name: "Lägg till", command: "ADD"};
         return React.createElement("div", null, 
             React.createElement("div", {id: "dialog-div"}), 
             RenderProducts({
-                items: tempList, functionToRun: this.editProduct
+                items: this.state.products, functionToRun: this.editProduct, command: "ADD"
             })
         );
     }
@@ -31300,11 +31298,16 @@ var RenderProducts = React.createClass({displayName: "RenderProducts",
             React.createElement("img", {alt: product.name, src: product.image, onClick: function () {
                 this.props.functionToRun(product);
             }.bind(this)}), 
-        product.name
+            product.name
         );
     },
     render: function () {
-        return React.createElement("div", null, _.map(this.props.items, this.addProduct, this));
+        var toAdd = (this.props.command === "ADD") ?
+            this.addProduct({image: "images/add.png", name: "Lägg till", command: "ADD"}) : {};
+        return React.createElement("div", null, 
+            _.map(this.props.items, this.addProduct, this), 
+            toAdd
+        );
     }
 });
 
