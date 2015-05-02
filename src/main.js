@@ -3,10 +3,24 @@
  */
 
 var App = require('./components/app');
-//var App = require('./components/dialog');
+var ProductEdit = require('./components/productEditPage');
 var React = require('react');
 
-React.render(
-    App(),
-    document.body
-);
+var command = window.location.hash.substring(1);
+
+switch (command) {
+    case "productlist":
+        React.
+            render(
+            ProductEdit(),
+            document.body
+        );
+        break;
+    default:
+        React.
+            render(
+            App(),
+            document.body
+        );
+        break;
+}
