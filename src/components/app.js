@@ -114,7 +114,8 @@ var App = React.createClass({
                 <p>Ange hur många produkter det ska vara</p>
                 <input type="number" min="0" onChange={function (event) {
                     amount = +event.target.value;
-                }} defaultValue={productLine.amount} />
+                }} defaultValue={productLine.amount}/>
+
                 <div className="dialog-footer">
                     <button onClick={this.removeDialog} className="dialog-button-cancel">Avbryt</button>
                     <button onClick={confirmAction} className="dialog-button-confirm">Klar</button>
@@ -129,7 +130,6 @@ var App = React.createClass({
 
         var confirmAction = function () {
             if (amount > 0) {
-                //TODO: Add the discount
                 this.addProduct({name: "Rabatt", price: -amount});
                 //productLine.amount = amount;
                 this.updateFirebase();
@@ -142,7 +142,33 @@ var App = React.createClass({
                 <p>Ange mängden rabatt du vill lägga till på kvittot:</p>
                 <input type="number" min="0" onChange={function (event) {
                     amount = +event.target.value;
-                }} defaultValue={amount} />
+                }} defaultValue={amount}/>
+
+                <div className="dialog-footer">
+                    <button onClick={this.removeDialog} className="dialog-button-cancel">Avbryt</button>
+                    <button onClick={confirmAction} className="dialog-button-confirm">Klar</button>
+                </div>
+            </Dialog>),
+            this.dialogDiv()
+        );
+    },
+
+    setPercentDiscountDialog: function () {
+        var amount = this.getPercentDiscount();
+
+        var confirmAction = function () {
+            this.setPercentDiscount(amount);
+            this.updateFirebase();
+            this.removeDialog();
+        }.bind(this);
+
+        React.render(
+            (<Dialog onClose={this.removeDialog} style={{width: 300, height: 200}}>
+                <p>Ange rabatten du vill ha i procent:</p>
+                <input type="number" min="0" onChange={function (event) {
+                    amount = +event.target.value;
+                }} defaultValue={amount}/>
+
                 <div className="dialog-footer">
                     <button onClick={this.removeDialog} className="dialog-button-cancel">Avbryt</button>
                     <button onClick={confirmAction} className="dialog-button-confirm">Klar</button>
@@ -190,6 +216,7 @@ var App = React.createClass({
         React.render(
             (<Dialog onClose={this.removeDialog} style={{width: 320, height: 200}}>
                 <p>Vill du avbryta eller lägga kvittot på hyllan för framtida ändringar?</p>
+
                 <div className="dialog-footer">
                     <button className="dialog-button-cancel" onClick={cancelReceipt}>Avbryt kvitto</button>
                     <button onClick={putOnShelf}>Lägg på hyllan</button>
@@ -211,26 +238,27 @@ var App = React.createClass({
             React.render(
                 (<Dialog onClose={this.removeDialog} style={{width: 400, height: 300}}>
                     <p>Din kvittohylla:</p>
-                    <div className="dialog-receipt-list">
-                    {_.map(dataSnapshot.val(), function (receipt, rid) {
-                        var totalPrice = 0;
-                        var totalAmount = 0;
-                        _.map(receipt.products, function (productLine) {
-                            totalAmount += productLine.amount;
-                            totalPrice += productLine.amount * productLine.product.price;
-                        });
 
-                        var loadOldReceipt = function () {
-                            this.removeDialog();
-                            if (shelved === true)
-                                this.openReceiptFromID(rid);
-                            else
-                                this.showOldReceipt(receipt);
-                        }.bind(this);
-                        return <div key={rid} onClick={loadOldReceipt} className="receipt_product">
-                            {FormatTime(receipt.receiptInfo.time)} {totalAmount}st | {totalPrice}kr
-                        </div>;
-                    }, this)}
+                    <div className="dialog-receipt-list">
+                        {_.map(dataSnapshot.val(), function (receipt, rid) {
+                            var totalPrice = 0;
+                            var totalAmount = 0;
+                            _.map(receipt.products, function (productLine) {
+                                totalAmount += productLine.amount;
+                                totalPrice += productLine.amount * productLine.product.price;
+                            });
+
+                            var loadOldReceipt = function () {
+                                this.removeDialog();
+                                if (shelved === true)
+                                    this.openReceiptFromID(rid);
+                                else
+                                    this.showOldReceipt(receipt);
+                            }.bind(this);
+                            return <div key={rid} onClick={loadOldReceipt} className="receipt_product">
+                                {FormatTime(receipt.receiptInfo.time)} {totalAmount}st | {totalPrice}kr
+                            </div>;
+                        }, this)}
                     </div>
 
                     <div className="dialog-footer">
@@ -256,11 +284,13 @@ var App = React.createClass({
             (<Dialog onClose={this.removeDialog} style={{width: 400, height: 300}}>
                 {FormatTime(receipt.receiptInfo.time)}
                 <p>Ditt kvitto:</p>
+
                 <div className="dialog-receipt-list">
                     {_.map(receipt.products, function (productLine, rid) {
                         console.log(productLine);
                         return <div key={rid} className="receipt_product">
-                            {productLine.product.name} {productLine.amount}st | {productLine.product.price * productLine.amount}kr
+                            {productLine.product.name} {productLine.amount}st
+                            | {productLine.product.price * productLine.amount}kr
                         </div>;
                     }, this)}
                 </div>
@@ -295,6 +325,7 @@ var App = React.createClass({
         React.render(
             (<Dialog onClose={this.removeDialog} style={{width: 300, height: 200}}>
                 <p>Är du säker på att du är klar med beställningen?</p>
+
                 <div className="dialog-footer">
                     <button className="dialog-button-cancel" onClick={this.removeDialog}>Fortsätt beställning</button>
                     <button className="dialog-button-confirm" onClick={receiptDone}>Klar</button>
@@ -314,7 +345,7 @@ var App = React.createClass({
             }.bind(this)}>Kvittohylla</div> :
         {};
         return <div id="main" className="container">
-            <div id="dialog-div" />
+            <div id="dialog-div"/>
             <div className="purchase_part">
                 <div className="receipt">
                     {RenderReceipt({
@@ -325,6 +356,9 @@ var App = React.createClass({
                 </div>
                 <div className="summary">
                     <div className="sum_amount">{this.getTotalProducts() + "st"}</div>
+                    <div className="discount_percent" onClick={this.setPercentDiscountDialog}>
+                        {"Rabatt: " + this.getPercentDiscount() + "%"}
+                    </div>
                     <div className="sum_price">{this.getTotalPrice() + "kr"}</div>
                 </div>
                 <div className="purchase_buttons">
@@ -333,7 +367,7 @@ var App = React.createClass({
                         {finishedOrList}
                     </div>
                     <a href="#" className="purchase_buttons_cancel float_left" onClick={this.cancelDialog}>Avbryt</a>
-                                            {shelvedButton}
+                    {shelvedButton}
                 </div>
             </div>
             <div className="product_part">

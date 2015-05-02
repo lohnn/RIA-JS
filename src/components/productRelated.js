@@ -21,8 +21,19 @@ var Product_line = function (product, amount) {
 };
 
 var Receipt = {
-    setInfo: function(info){
+    setInfo: function (info) {
         this.state.receipt.receiptInfo = info;
+    },
+
+    setPercentDiscount: function (percentage) {
+        if (this.state.receipt.receiptInfo === undefined)
+            this.state.receipt.receiptInfo = {};
+        this.state.receipt.receiptInfo.discount = percentage;
+    },
+
+    getPercentDiscount: function () {
+        return (this.state.receipt.receiptInfo === undefined || this.state.receipt.receiptInfo.discount === undefined) ?
+            0 : this.state.receipt.receiptInfo.discount;
     },
 
     setProducts: function (products) {
@@ -36,7 +47,7 @@ var Receipt = {
     },
 
     addProduct: function (product, amount) {
-        amount = typeof amount !== 'undefined' ? amount : 1;
+        amount = (typeof amount !== 'undefined') ? amount : 1;
         if (product.name in this.state.receipt.products) {
             this.state.receipt.products[product.name].amount += amount;
         } else {
@@ -61,6 +72,7 @@ var Receipt = {
         _.map(this.state.receipt.products, function (element) {
             temp += element.getTotalPrice();
         });
+        temp *= (1-(this.getPercentDiscount() / 100));
         return temp;
     },
 

@@ -4,11 +4,6 @@
       <env name="DEBUG" value="RIA-JS" />
     </envs>
     <browser with-js-debugger="true" url="http://localhost:3000/" />
-    <profiling>
-      <option name="gnuplotExecutable" value="" />
-      <option name="tickPackage" value="" />
-      <option name="v8ProfilerPackage" value="" />
-    </profiling>
     <RunnerSettings RunnerId="Basic" />
     <ConfigurationWrapper RunnerId="Basic" />
     <method />

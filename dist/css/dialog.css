@@ -101,6 +101,12 @@ body {
 .sum_amount {
   float: left;
 }
+.discount_percent {
+  float: left;
+  left: 50%;
+  position: relative;
+  cursor: pointer;
+}
 .sum_price {
   float: right;
 }
@@ -230,4 +236,16 @@ body {
   height: auto;
   height: 190px;
   overflow-y: auto;
+}
+.width75 {
+  width: 75px;
+}
+.dialog p span {
+  font-size: inherit;
+}
+.red {
+  color: #f00;
+}
+.pointer {
+  cursor: pointer;
 }
