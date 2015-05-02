@@ -6,6 +6,7 @@ var React = require('react');
 var RenderProducts = require("./renderProducts");
 var Firebase = require("firebase");
 var Dialog = require('./dialog');
+var _ = require("lodash");
 
 var productEditPage = React.createClass({
     getInitialState: function () {
@@ -47,9 +48,20 @@ var productEditPage = React.createClass({
             this.removeDialog();
         }.bind(this);
 
+        var removeProduct = function () {
+            if (confirm("Vill du verkligen ta bort produkten?")) {
+                delete this.state.products[_.findKey(this.state.products, product)];
+                this.setState({products: this.state.products});
+                this.firebaseProductsRef.set(this.state.products);
+                this.removeDialog();
+            }
+        }.bind(this);
+
+        var removeProductSpan = (product.command !== "ADD") ?
+            <span className="red pointer" onClick={removeProduct}>[TA BORT]</span> : {};
         React.render(
             (<Dialog onClose={this.removeDialog} style={{width: 300, height: 200}}>
-                <p>Produktens uppgifter</p>
+                <p>Produktens uppgifter {removeProductSpan}</p>
 
                 <div>
                     <label className="left width75" htmlFor="image">Produktbild: </label>

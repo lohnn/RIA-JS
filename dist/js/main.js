@@ -31114,6 +31114,7 @@ var React = require('react');
 var RenderProducts = require("./renderProducts");
 var Firebase = require("firebase");
 var Dialog = require('./dialog');
+var _ = require("lodash");
 
 var productEditPage = React.createClass({displayName: "productEditPage",
     getInitialState: function () {
@@ -31155,9 +31156,20 @@ var productEditPage = React.createClass({displayName: "productEditPage",
             this.removeDialog();
         }.bind(this);
 
+        var removeProduct = function () {
+            if (confirm("Vill du verkligen ta bort produkten?")) {
+                delete this.state.products[_.findKey(this.state.products, product)];
+                this.setState({products: this.state.products});
+                this.firebaseProductsRef.set(this.state.products);
+                this.removeDialog();
+            }
+        }.bind(this);
+
+        var removeProductSpan = (product.command !== "ADD") ?
+            React.createElement("span", {className: "red pointer", onClick: removeProduct}, "[TA BORT]") : {};
         React.render(
             (React.createElement(Dialog, {onClose: this.removeDialog, style: {width: 300, height: 200}}, 
-                React.createElement("p", null, "Produktens uppgifter"), 
+                React.createElement("p", null, "Produktens uppgifter ", removeProductSpan), 
 
                 React.createElement("div", null, 
                     React.createElement("label", {className: "left width75", htmlFor: "image"}, "Produktbild: "), 
@@ -31200,7 +31212,7 @@ var productEditPage = React.createClass({displayName: "productEditPage",
 
 module.exports = productEditPage;
 
-},{"./dialog":151,"./renderProducts":154,"firebase":1,"react":149}],153:[function(require,module,exports){
+},{"./dialog":151,"./renderProducts":154,"firebase":1,"lodash":3,"react":149}],153:[function(require,module,exports){
 /**
  * Created by jl222xa on 2014-12-04.
  */

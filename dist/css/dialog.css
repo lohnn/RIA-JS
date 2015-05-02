@@ -234,3 +234,12 @@ body {
 .width75 {
   width: 75px;
 }
+.dialog p span {
+  font-size: inherit;
+}
+.red {
+  color: #f00;
+}
+.pointer {
+  cursor: pointer;
+}
