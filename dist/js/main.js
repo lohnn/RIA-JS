@@ -30883,6 +30883,31 @@ var App = React.createClass({
         );
     },
 
+    setPercentDiscountDialog: function () {
+        var amount = this.getPercentDiscount();
+
+        var confirmAction = function () {
+            this.setPercentDiscount(amount);
+            this.updateFirebase();
+            this.removeDialog();
+        }.bind(this);
+
+        React.render(
+            (React.createElement(Dialog, {onClose: this.removeDialog, style: {width: 300, height: 200}}, 
+                React.createElement("p", null, "Ange rabatten du vill ha i procent:"), 
+                React.createElement("input", {type: "number", min: "0", onChange: function (event) {
+                    amount = +event.target.value;
+                }, defaultValue: amount}), 
+
+                React.createElement("div", {className: "dialog-footer"}, 
+                    React.createElement("button", {onClick: this.removeDialog, className: "dialog-button-cancel"}, "Avbryt"), 
+                    React.createElement("button", {onClick: confirmAction, className: "dialog-button-confirm"}, "Klar")
+                )
+            )),
+            this.dialogDiv()
+        );
+    },
+
     cancelAction: function () {
         this.clearProducts();
         this.setInfo(null);
@@ -31061,6 +31086,9 @@ var App = React.createClass({
                 ), 
                 React.createElement("div", {className: "summary"}, 
                     React.createElement("div", {className: "sum_amount"}, this.getTotalProducts() + "st"), 
+                    React.createElement("div", {className: "discount_percent", onClick: this.setPercentDiscountDialog}, 
+                        "Rabatt: " + this.getPercentDiscount() + "%"
+                    ), 
                     React.createElement("div", {className: "sum_price"}, this.getTotalPrice() + "kr")
                 ), 
                 React.createElement("div", {className: "purchase_buttons"}, 
@@ -31157,7 +31185,7 @@ var productEditPage = React.createClass({displayName: "productEditPage",
         }.bind(this);
 
         var removeProduct = function () {
-            if (confirm("Vill du verkligen ta bort produkten?")) {
+            if (window.confirm("Vill du verkligen ta bort produkten?")) {
                 delete this.state.products[_.findKey(this.state.products, product)];
                 this.setState({products: this.state.products});
                 this.firebaseProductsRef.set(this.state.products);
@@ -31234,8 +31262,19 @@ var Product_line = function (product, amount) {
 };
 
 var Receipt = {
-    setInfo: function(info){
+    setInfo: function (info) {
         this.state.receipt.receiptInfo = info;
+    },
+
+    setPercentDiscount: function (percentage) {
+        if (this.state.receipt.receiptInfo === undefined)
+            this.state.receipt.receiptInfo = {};
+        this.state.receipt.receiptInfo.discount = percentage;
+    },
+
+    getPercentDiscount: function () {
+        return (this.state.receipt.receiptInfo === undefined || this.state.receipt.receiptInfo.discount === undefined) ?
+            0 : this.state.receipt.receiptInfo.discount;
     },
 
     setProducts: function (products) {
@@ -31249,7 +31288,7 @@ var Receipt = {
     },
 
     addProduct: function (product, amount) {
-        amount = typeof amount !== 'undefined' ? amount : 1;
+        amount = (typeof amount !== 'undefined') ? amount : 1;
         if (product.name in this.state.receipt.products) {
             this.state.receipt.products[product.name].amount += amount;
         } else {
@@ -31274,6 +31313,7 @@ var Receipt = {
         _.map(this.state.receipt.products, function (element) {
             temp += element.getTotalPrice();
         });
+        temp *= (1-(this.getPercentDiscount() / 100));
         return temp;
     },
 

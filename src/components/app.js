@@ -153,6 +153,31 @@ var App = React.createClass({
         );
     },
 
+    setPercentDiscountDialog: function () {
+        var amount = this.getPercentDiscount();
+
+        var confirmAction = function () {
+            this.setPercentDiscount(amount);
+            this.updateFirebase();
+            this.removeDialog();
+        }.bind(this);
+
+        React.render(
+            (<Dialog onClose={this.removeDialog} style={{width: 300, height: 200}}>
+                <p>Ange rabatten du vill ha i procent:</p>
+                <input type="number" min="0" onChange={function (event) {
+                    amount = +event.target.value;
+                }} defaultValue={amount}/>
+
+                <div className="dialog-footer">
+                    <button onClick={this.removeDialog} className="dialog-button-cancel">Avbryt</button>
+                    <button onClick={confirmAction} className="dialog-button-confirm">Klar</button>
+                </div>
+            </Dialog>),
+            this.dialogDiv()
+        );
+    },
+
     cancelAction: function () {
         this.clearProducts();
         this.setInfo(null);
@@ -331,6 +356,9 @@ var App = React.createClass({
                 </div>
                 <div className="summary">
                     <div className="sum_amount">{this.getTotalProducts() + "st"}</div>
+                    <div className="discount_percent" onClick={this.setPercentDiscountDialog}>
+                        {"Rabatt: " + this.getPercentDiscount() + "%"}
+                    </div>
                     <div className="sum_price">{this.getTotalPrice() + "kr"}</div>
                 </div>
                 <div className="purchase_buttons">

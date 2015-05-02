@@ -49,7 +49,7 @@ var productEditPage = React.createClass({
         }.bind(this);
 
         var removeProduct = function () {
-            if (confirm("Vill du verkligen ta bort produkten?")) {
+            if (window.confirm("Vill du verkligen ta bort produkten?")) {
                 delete this.state.products[_.findKey(this.state.products, product)];
                 this.setState({products: this.state.products});
                 this.firebaseProductsRef.set(this.state.products);
