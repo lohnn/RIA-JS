@@ -31114,8 +31114,6 @@ var React = require('react');
 var RenderProducts = require("./renderProducts");
 var Firebase = require("firebase");
 var Dialog = require('./dialog');
-var _ = require("lodash");
-
 
 var productEditPage = React.createClass({displayName: "productEditPage",
     getInitialState: function () {
@@ -31136,11 +31134,22 @@ var productEditPage = React.createClass({displayName: "productEditPage",
         return document.getElementById("dialog-div");
     },
     editProduct: function (product) {
-        var image = product.image, name = product.name, price = product.price;
+        var image = "", name = "", price = 0;
+        if (product.command !== "ADD") {
+            image = product.image;
+            name = product.name;
+            price = product.price;
+        }
+
         var confirmAction = function () {
-            product.image = image;
-            product.name = name;
-            product.price = price;
+            if (product.command !== "ADD") {
+                product.image = image;
+                product.name = name;
+                product.price = price;
+            } else {
+                var productID = this.firebaseProductsRef.push().key();
+                this.state.products[productID] = {image: image, name: name, price: price};
+            }
             this.setState({products: this.state.products});
             this.firebaseProductsRef.set(this.state.products);
             this.removeDialog();
@@ -31178,10 +31187,12 @@ var productEditPage = React.createClass({displayName: "productEditPage",
         );
     },
     render: function () {
+        var tempList = this.state.products;
+        tempList["ADDING"] = {image: "images/add.png", name: "Lägg till", command: "ADD"};
         return React.createElement("div", null, 
             React.createElement("div", {id: "dialog-div"}), 
             RenderProducts({
-                items: this.state.products, functionToRun: this.editProduct
+                items: tempList, functionToRun: this.editProduct
             })
         );
     }
@@ -31189,7 +31200,7 @@ var productEditPage = React.createClass({displayName: "productEditPage",
 
 module.exports = productEditPage;
 
-},{"./dialog":151,"./renderProducts":154,"firebase":1,"lodash":3,"react":149}],153:[function(require,module,exports){
+},{"./dialog":151,"./renderProducts":154,"firebase":1,"react":149}],153:[function(require,module,exports){
 /**
  * Created by jl222xa on 2014-12-04.
  */
@@ -31274,7 +31285,7 @@ var _ = require('lodash');
 var RenderProducts = React.createClass({displayName: "RenderProducts",
     addProduct: function (product, pid) {
         return React.createElement("div", {key: pid, className: "product_part_product"}, 
-            React.createElement("img", {alt: product.name, img: product.image, onClick: function () {
+            React.createElement("img", {alt: product.name, src: product.image, onClick: function () {
                 this.props.functionToRun(product);
             }.bind(this)}), 
         product.name

@@ -17,16 +17,16 @@ var docco = require('gulp-docco'),
 var browserSync = require("browser-sync");
 
 /*gulp.task('test', function () {
-    return gulp.src('__tests__').pipe(jest({
-        testDirectoryName: "spec",
-        scriptPreprocessor: './support/preprocessor.js',
-        unmockedModulePathPatterns: ['node_modules/react'],
-        testPathIgnorePatterns: [
-            "node_modules",
-            "./support"
-        ]
-    }));
-});*/
+ return gulp.src('__tests__').pipe(jest({
+ testDirectoryName: "spec",
+ scriptPreprocessor: './support/preprocessor.js',
+ unmockedModulePathPatterns: ['node_modules/react'],
+ testPathIgnorePatterns: [
+ "node_modules",
+ "./support"
+ ]
+ }));
+ });*/
 
 gulp.task('builddocs', function () {
     gulp.src(['src/*/*.js', 'src/*.js'])
@@ -74,7 +74,13 @@ gulp.task('less', function () {
         .pipe(gulp.dest('dist/css'));
 });
 
+gulp.task('images', function () {
+    return gulp.src('src/images/*')
+        .pipe(gulp.dest('dist/images'));
+});
+
 gulp.task('watch', function () {
+    gulp.watch('src/images/*', ['images', browserSync.reload]);
     gulp.watch('src/less/*.less', ['less', browserSync.reload]);
     gulp.watch('src/index.html', ['copyindex', browserSync.reload]);
     gulp.watch(['src/*/*.js', 'src/*.js'], ['lint', 'browserify', browserSync.reload]);

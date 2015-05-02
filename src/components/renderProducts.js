@@ -8,7 +8,7 @@ var _ = require('lodash');
 var RenderProducts = React.createClass({
     addProduct: function (product, pid) {
         return <div key={pid} className="product_part_product">
-            <img alt={product.name} img={product.image} onClick={function () {
+            <img alt={product.name} src={product.image} onClick={function () {
                 this.props.functionToRun(product);
             }.bind(this)} />
         {product.name}

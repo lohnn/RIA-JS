@@ -6,8 +6,6 @@ var React = require('react');
 var RenderProducts = require("./renderProducts");
 var Firebase = require("firebase");
 var Dialog = require('./dialog');
-var _ = require("lodash");
-
 
 var productEditPage = React.createClass({
     getInitialState: function () {
@@ -28,11 +26,22 @@ var productEditPage = React.createClass({
         return document.getElementById("dialog-div");
     },
     editProduct: function (product) {
-        var image = product.image, name = product.name, price = product.price;
+        var image = "", name = "", price = 0;
+        if (product.command !== "ADD") {
+            image = product.image;
+            name = product.name;
+            price = product.price;
+        }
+
         var confirmAction = function () {
-            product.image = image;
-            product.name = name;
-            product.price = price;
+            if (product.command !== "ADD") {
+                product.image = image;
+                product.name = name;
+                product.price = price;
+            } else {
+                var productID = this.firebaseProductsRef.push().key();
+                this.state.products[productID] = {image: image, name: name, price: price};
+            }
             this.setState({products: this.state.products});
             this.firebaseProductsRef.set(this.state.products);
             this.removeDialog();
@@ -70,10 +79,12 @@ var productEditPage = React.createClass({
         );
     },
     render: function () {
+        var tempList = this.state.products;
+        tempList["ADDING"] = {image: "images/add.png", name: "Lägg till", command: "ADD"};
         return <div>
             <div id="dialog-div"/>
             {RenderProducts({
-                items: this.state.products, functionToRun: this.editProduct
+                items: tempList, functionToRun: this.editProduct
             })}
         </div>;
     }
