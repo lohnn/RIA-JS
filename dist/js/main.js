@@ -31113,6 +31113,8 @@ module.exports = Dialog;
 var React = require('react');
 var RenderProducts = require("./renderProducts");
 var Firebase = require("firebase");
+var Dialog = require('./dialog');
+var _ = require("lodash");
 
 
 var productEditPage = React.createClass({displayName: "productEditPage",
@@ -31127,11 +31129,57 @@ var productEditPage = React.createClass({displayName: "productEditPage",
             this.setState({products: dataSnapshot.val()});
         }.bind(this));
     },
+    removeDialog: function () {
+        React.unmountComponentAtNode(this.dialogDiv());
+    },
+    dialogDiv: function () {
+        return document.getElementById("dialog-div");
+    },
     editProduct: function (product) {
-        console.log(product);
+        var image = product.image, name = product.name, price = product.price;
+        var confirmAction = function () {
+            product.image = image;
+            product.name = name;
+            product.price = price;
+            this.setState({products: this.state.products});
+            this.firebaseProductsRef.set(this.state.products);
+            this.removeDialog();
+        }.bind(this);
+
+        React.render(
+            (React.createElement(Dialog, {onClose: this.removeDialog, style: {width: 300, height: 200}}, 
+                React.createElement("p", null, "Produktens uppgifter"), 
+
+                React.createElement("div", null, 
+                    React.createElement("label", {className: "left width75", htmlFor: "image"}, "Produktbild: "), 
+                    React.createElement("input", {type: "text", id: "image", defaultValue: image, onChange: function (event) {
+                        image = event.target.value;
+                    }})
+                ), 
+                React.createElement("div", null, 
+                    React.createElement("label", {className: "left width75", htmlFor: "name"}, "Namn: "), 
+                    React.createElement("input", {type: "text", id: "name", defaultValue: name, onChange: function (event) {
+                        name = event.target.value;
+                    }})
+                ), 
+                React.createElement("div", null, 
+                    React.createElement("label", {className: "left width75", htmlFor: "price"}, "Pris (kr): "), 
+                    React.createElement("input", {type: "number", id: "price", min: "0", onChange: function (event) {
+                        price = +event.target.value;
+                    }, defaultValue: price})
+                ), 
+
+                React.createElement("div", {className: "dialog-footer"}, 
+                    React.createElement("button", {onClick: this.removeDialog, className: "dialog-button-cancel"}, "Avbryt"), 
+                    React.createElement("button", {onClick: confirmAction, className: "dialog-button-confirm"}, "Klar")
+                )
+            )),
+            this.dialogDiv()
+        );
     },
     render: function () {
         return React.createElement("div", null, 
+            React.createElement("div", {id: "dialog-div"}), 
             RenderProducts({
                 items: this.state.products, functionToRun: this.editProduct
             })
@@ -31141,7 +31189,7 @@ var productEditPage = React.createClass({displayName: "productEditPage",
 
 module.exports = productEditPage;
 
-},{"./renderProducts":154,"firebase":1,"react":149}],153:[function(require,module,exports){
+},{"./dialog":151,"./renderProducts":154,"firebase":1,"lodash":3,"react":149}],153:[function(require,module,exports){
 /**
  * Created by jl222xa on 2014-12-04.
  */

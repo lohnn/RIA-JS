@@ -231,3 +231,6 @@ body {
   height: 190px;
   overflow-y: auto;
 }
+.width75 {
+  width: 75px;
+}
