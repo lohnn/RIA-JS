@@ -70,6 +70,8 @@ var App = React.createClass({
             this.setProducts(receipt.products);
             if (!receipt.receiptInfo) {
                 this.setInfo({time: Firebase.ServerValue.TIMESTAMP});
+            }else {
+                this.setInfo(receipt.receiptInfo);
             }
         }
         this.setState({receipt: this.state.receipt});
