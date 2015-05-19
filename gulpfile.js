@@ -90,7 +90,6 @@ gulp.task('watch', function () {
 gulp.task('browser-sync', function () {
     browserSync({
         server: {
-
             baseDir: "./dist"
         }
     });
