@@ -30912,6 +30912,8 @@ var App = React.createClass({
         this.clearProducts();
         this.setInfo(null);
         this.updateFirebase();
+
+        this.receiptID = this.firebaseReceiptRef.push().key();
     },
 
     dialogDiv: function () {
@@ -31273,7 +31275,7 @@ var Receipt = {
     },
 
     getPercentDiscount: function () {
-        return (this.state.receipt.receiptInfo === undefined || this.state.receipt.receiptInfo.discount === undefined) ?
+        return (!this.state.receipt.receiptInfo || !this.state.receipt.receiptInfo.discount) ?
             0 : this.state.receipt.receiptInfo.discount;
     },
 
