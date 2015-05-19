@@ -182,6 +182,8 @@ var App = React.createClass({
         this.clearProducts();
         this.setInfo(null);
         this.updateFirebase();
+
+        this.receiptID = this.firebaseReceiptRef.push().key();
     },
 
     dialogDiv: function () {
