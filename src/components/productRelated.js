@@ -26,7 +26,7 @@ var Receipt = {
     },
 
     setPercentDiscount: function (percentage) {
-        if (this.state.receipt.receiptInfo === undefined)
+        if (!this.state.receipt.receiptInfo)
             this.state.receipt.receiptInfo = {};
         this.state.receipt.receiptInfo.discount = percentage;
     },
