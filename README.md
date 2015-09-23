@@ -7,6 +7,4 @@ gh-pages branch: [![Build Status](https://img.shields.io/travis/lohnn/RIA-JS/gh-
 
 CachRegister branch: [![Build Status](https://img.shields.io/travis/lohnn/RIA-JS/CashRegister.svg)](https://travis-ci.org/lohnn/RIA-JS)
 
-
-Detta är mitt repo för RIA-kursen.
-Readme-filen kommer att uppdateras lite grann under kursens gång, men än så länge räcker det nog med att säga att bloggen ligger under knappen "Wiki" till höger.
+You can find link to page [here](http://lohnn.github.io/RIA-JS/dist/).
